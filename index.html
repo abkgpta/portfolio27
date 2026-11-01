@@ -60,6 +60,7 @@ nav a:hover{opacity:1;color:var(--pink)}
 /* avatar stage */
 .stage{background:var(--ink);color:var(--cream);position:relative;min-height:560px;display:flex;flex-direction:column}
 .stage canvas{flex:1;width:100%;min-height:380px;display:block}
+.stage canvas[hidden]{display:none}
 .stage-top,.stage-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(247,242,239,.6)}
 .stage-top{border-bottom:1px solid rgba(255,0,106,.35)}
 .stage-bottom{border-top:1px solid rgba(255,0,106,.35);flex-wrap:wrap;text-transform:none;letter-spacing:0;font-size:13px;color:var(--cream)}
@@ -212,6 +213,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
   <div class="stage" aria-label="Talking avatar">
     <div class="stage-top"><span><span class="dot" id="agentDot"></span><span id="agentStatus">Avatar idle</span></span><span id="ptCount"></span></div>
     <canvas id="head" aria-hidden="true"></canvas>
+    <canvas id="head3d" aria-hidden="true" hidden></canvas>
 
     <!-- =====================================================================
          VOICE AGENT MOUNT
@@ -230,7 +232,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
         <button class="cta" id="talkBtn">Talk to me</button>
         <button class="cta alt" id="introBtn">Hear my intro</button>
       </div>
-      <span class="caption" id="stageNote">Point-cloud stand-in until my head scan is ready.</span>
+      <span class="caption" id="stageNote">Early 3D head. A sharper one from a full scan is on the way.</span>
     </div>
   </div>
 </div>
@@ -409,6 +411,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 
 <footer><span>Abhik Gupta · Industrial design · 2026</span><span>portfolio.27</span></footer>
 
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script>
 /* ---------- per-studio greeting: abhikgupta.github.io/#pentagram ---------- */
 (function(){
@@ -449,6 +452,7 @@ let mx=0,my=0;
 cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;});
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function frame(){
+  if(cv.hidden)return;
   t+=reduce?0:.01;
   const target=speaking?(.35+.65*Math.abs(Math.sin(t*9)*Math.sin(t*3.7))):0;
   mouth+=(target-mouth)*.35;
@@ -473,6 +477,7 @@ function frame(){
 frame();
 function setSpeaking(on){
   speaking=!!on;
+  if(window.avatar3d)window.avatar3d.setSpeaking(speaking);
   document.getElementById('agentDot').classList.toggle('live',speaking);
   document.getElementById('agentStatus').textContent=speaking?'Speaking':(AGENT_READY?'Agent ready':'Avatar idle');
 }
@@ -484,6 +489,11 @@ const INTRO="Hi, I'm Abhik, an industrial design student at U I D Gandhinagar. T
 document.getElementById('introBtn').onclick=()=>{
   if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
   speechSynthesis.cancel();
+  if(window.avatar3d){
+    setSpeaking(true);
+    window.avatar3d.speakScript(INTRO).catch(()=>{}).finally(()=>setSpeaking(false));
+    return;
+  }
   const u=new SpeechSynthesisUtterance(INTRO);u.rate=1.02;
   u.onstart=()=>setSpeaking(true);u.onend=u.onerror=()=>setSpeaking(false);
   speechSynthesis.speak(u);
@@ -533,6 +543,21 @@ function drawTrace(){
   tc.stroke();tt+=reduce?0:.08;requestAnimationFrame(drawTrace);
 }
 drawTrace();
+</script>
+<script type="module">
+/* 3D head: loads over the point-cloud stand-in; if anything fails the point cloud stays */
+try{
+  await import('./avatar/head-avatar.js');
+  const c=document.getElementById('head3d');
+  c.hidden=false;
+  const a=await window.AbhikHead.mount(c,{src:'avatar/abhik_head.glb',orbit:false});
+  window.avatar3d=a;
+  document.getElementById('head').hidden=true;
+  document.getElementById('ptCount').textContent='';
+}catch(e){
+  console.warn('3D head unavailable, keeping point cloud',e);
+  document.getElementById('head3d').hidden=true;
+}
 </script>
 </body>
 </html>
