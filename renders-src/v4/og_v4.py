@@ -13,6 +13,12 @@ ap.add_argument('--save', default=''); ap.add_argument('--list', action='store_t
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
 random.seed(7)
 CMF = json.load(open(A.cmf))['slots']
+# final CMF (round 2): per-part slots override the legacy shared ones
+for _k, _v in {'pom': 'pom_frame_connector', 'cap': 'pom_end_cap', 'clamp': 'pom_universal_clamp', 'alu': 'alu_floor_foot',
+               'alu_pf': 'alu_power_in_foot', 'att_grow': 'att_grow_light', 'att_spot': 'att_spotlight', 'att_hub': 'att_power_hub',
+               'att_pen': 'att_pen_stand', 'att_clock': 'att_clock_puck', 'att_speaker': 'att_speaker_puck'}.items():
+    if _v in CMF: CMF[_k] = CMF[_v]
+CMF.setdefault('alu_pf', CMF['alu'])
 
 # ---------------------------------------------------------------- basics
 def lin(h):
@@ -124,6 +130,7 @@ def build_materials(night=False):
     else:
         MAT['frame'] = mk_powder('frame', S['frame']['hex'], S['frame']['roughness'])
         MAT['alu'] = mk_cast('alu', S['alu']['hex'], S['alu']['roughness'], S['alu']['metallic'])
+        MAT['alu_pf'] = mk_cast('alu_pf', S['alu_pf']['hex'], S['alu_pf']['roughness'], S['alu_pf'].get('metallic', 0))
         MAT['pom'] = mk_pom('pom', S['pom']['hex'], S['pom']['roughness'])
         MAT['clamp'] = mk_pom('clamp', S['clamp']['hex'], S['clamp']['roughness'])
         MAT['clip'] = mk_pom('clip', S['clip']['hex'], S['clip']['roughness'])
@@ -136,6 +143,9 @@ def build_materials(night=False):
         for k in ('att_grow', 'att_spot', 'att_hub', 'att_pen', 'att_clock', 'att_speaker'):
             MAT[k] = mk_stipple(k, S[k]['hex'], S[k]['roughness'])
         MAT['hi'] = mk_stipple('hi', S['hi']['hex'], 0.45); MAT['muted'] = mk_pom('muted', S['muted']['hex'], 0.6)
+        for k, m in MAT.items():       # 'satin metal' finishes: metallic from the CMF slot
+            mt = S.get(k, {}).get('metallic', 0)
+            if mt and 'Principled BSDF' in m.node_tree.nodes: m.node_tree.nodes['Principled BSDF'].inputs['Metallic'].default_value = mt
     MAT['led'] = mk_emit('led', '#FFE2B8', 60 if night else 6)          # grow light / spot emitters
     MAT['led_grow'] = mk_emit('led_grow', '#FF9FD6', 40 if night else 4)
     MAT['screen'] = mk_emit('screen', '#F4F0E8', 2.5)
@@ -265,7 +275,7 @@ def column(x, y, n, rotz=0, feet=True, power_foot=False, cap=True, conn=False):
         for z in za: put('connector', P(0, z), (0, 0, rotz), mat='pom')
         for z in zb_: put('connector', P(G, z), (0, 0, rotz), mat='pom')
     if feet:
-        put('pfoot' if power_foot else 'foot', P(0, 0), (0, 0, rotz), mat='alu'); put('foot', P(G, 0), (0, 0, rotz), mat='alu')
+        put('pfoot' if power_foot else 'foot', P(0, 0), (0, 0, rotz), mat='alu_pf' if power_foot else 'alu'); put('foot', P(G, 0), (0, 0, rotz), mat='alu')
     tA, tB = P(0, tops[0]), P(G, tops[1])
     POSTS[(round(tA.x), round(tA.y))] = tA.z; POSTS[(round(tB.x), round(tB.y))] = tB.z
     return tA, tB
@@ -451,7 +461,9 @@ def sweep(key_hex, target, az, dist, grid=False, dark=False):
     o = bpy.data.objects.new('sweep', me); o.scale = (MM,) * 3
     o.location = (target[0] * MM, target[1] * MM, -FOOT * MM); o.rotation_euler[2] = math.radians(az)
     m = bpy.data.materials.new('sweep'); m.use_nodes = True; n, l = nodes(m); b = n['Principled BSDF']; b.inputs['Roughness'].default_value = 0.85
-    k = lin(key_hex); base = lin('#2B2C2E') if dark else (lin('#E9E3DA') if grid else mix(k, [1, 1, 1], 0.5))
+    k = lin(key_hex)
+    if sum(k[:3]) / 3 > 0.75: k = lin('#B9B4AD')          # white parts need a toned sweep to read
+    base = lin('#2B2C2E') if dark else (lin('#E9E3DA') if grid else mix(k, [1, 1, 1], 0.5))
     if grid:
         gc = lin('#55575A') if dark else lin('#8E9093')
         oc = n.new('ShaderNodeTexCoord'); sep = n.new('ShaderNodeSeparateXYZ'); l.new(oc.outputs['Object'], sep.inputs[0])
@@ -755,7 +767,7 @@ def s01(night):
 @shot('02', 'exploded-system', 'grad', key='frame')
 def s02(night):
     z0 = 300
-    put('pfoot', (0, 0, 0), mat='alu'); put('foot', (G, 0, 0), mat='alu'); put('frame', (0, 0, z0))
+    put('pfoot', (0, 0, 0), mat='alu_pf'); put('foot', (G, 0, 0), mat='alu'); put('frame', (0, 0, z0))
     put('connector', (0, 0, z0 + H + 150), mat='pom'); put('cap', (G, 0, z0 + HS + 150), mat='cap')
     att('spot', (0, 0, z0 + H + 150 + 230))
     put('clamp', (G + 330, 0, z0 + 200), (0, 0, -30), mat='clamp'); put('clamp', (G + 330, 0, z0 + 420), (0, 0, -30), mat='clamp')
@@ -803,7 +815,7 @@ def s06(night):
     camera((150, 350, 520), -24, 18, 2.3, 70, dof=5.6); return (150, 350, 520)
 @shot('07', 'macro-power-in-foot', 'grid', key='alu')
 def s07(night):
-    put('frame', (0, 0, 0)); put('pfoot', (0, 0, 0), mat='alu')
+    put('frame', (0, 0, 0)); put('pfoot', (0, 0, 0), mat='alu_pf')
     cable = [(-30, -400, -FOOT + 4), (-30, -250, -FOOT + 4), (-20, -150, -FOOT + 6), (-10, -120, -10)]
     cu = bpy.data.curves.new('cable', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 3 * MM; sp = cu.splines.new('NURBS'); sp.points.add(len(cable) - 1)
     for p, q in zip(sp.points, cable): p.co = (q[0] * MM, q[1] * MM, q[2] * MM, 1)
