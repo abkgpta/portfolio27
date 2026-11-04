@@ -515,8 +515,8 @@ def lattice(variant='hero'):
 
 # ---------------------------------------------------------------- shots
 SHOTS = {}
-def shot(sid, name, bg, key='frame', versions=('day',)):
-    def deco(fn): SHOTS[sid] = dict(name=name, bg=bg, key=key, fn=fn, versions=versions); return fn
+def shot(sid, name, bg, key='frame', versions=('day',), exposure=0.0):
+    def deco(fn): SHOTS[sid] = dict(name=name, bg=bg, key=key, fn=fn, versions=versions, exposure=exposure); return fn
     return deco
 
 def top_attach(tops, keys):
@@ -546,8 +546,8 @@ def s02(night):
     put('frame', (0, 0, 380)); put('connector', (0, 0, 380 + H + 140), mat='pom'); put('cap', (G, 0, 380 + HS + 160), mat='cap')
     put('foot', (G, 0, 0), mat='alu'); put('pfoot', (0, 0, 0), mat='alu')
     put('clamp', (G, 0, 380 + 120 + 0), (0, 0, 90), mat='clamp'); att('spot', (0, 0, 380 + H + 140 + 260))
-    camera((G / 2, 0, 700), -28, 12, 3.6, 50)
-    return (G / 2, 0, 700)
+    camera((G / 2, 0, 860), -28, 10, 4.7, 50)
+    return (G / 2, 0, 860)
 
 @shot('03', 'growth', 'grid', versions=('day',))
 def s03(night):
@@ -562,7 +562,7 @@ def s03(night):
     st(lambda x: (column(x, 0, 3), column(x, G, 2), column(x + 2 * G, 0, 2), column(x + 2 * G, G, 1), shelf_on(x + G / 2, G / 2, 250),
                   planter_on(x + G / 2, G / 2, H + 120), att('grow', (x + G, G, H + HS)), att('spot', (x, 0, H + HS + H)),
                   panel_between(x + 2 * G, x + 3 * G, 0, 120, 'pegboard'), climb((x, G, 0), 30, 900, 2.4)))
-    camera((off / 2 - 1.5 * G, 300, 600), -6, 10, 13.0, 55)
+    camera((off / 2 - 1.5 * G, 300, 550), -6, 9, 10.2, 55)
     return (off / 2, 300, 600)
 
 def macro(key, mats, loc_cam, lens=100, f=2.8, rot=(0, 0, 0)):
@@ -579,7 +579,7 @@ def s04(night):
 @shot('05', 'macro-clamp', 'grad', key='clamp')
 def s05(night):
     column(0, 0, 2); panel_between(0, G, 0, 300, 'softboard')
-    camera((0, -60, 300), -38, 14, 0.55, 100, dof=4); return (0, -60, 300)
+    camera((0, -60, 300), -38, 14, 0.8, 100, dof=5.6); return (0, -60, 300)
 @shot('06', 'macro-grow-light-planter', 'grad', key='att_grow', versions=('day', 'night'))
 def s06(night):
     column(0, 0, 1, feet=False); column(0, G, 1, feet=False); planter_on(G / 2, G / 2, 180); tuft(G / 2, G / 2, 280, 30, 160)
@@ -638,9 +638,11 @@ def s14(night):
     column(0, 0, 1); att('spot', (0, 0, H)); put('cap', (G, 0, HS), mat='cap')
     l = bpy.data.lights.new('beam', 'SPOT'); l.energy = 120; l.spot_size = math.radians(38); l.spot_blend = 0.6; l.color = (1, 0.86, 0.7)
     o = bpy.data.objects.new('beam', l); o.location = (0, -0.06, (H + 195) * MM); o.rotation_euler = (math.radians(55), 0, 0); coll(CUR[0]).objects.link(o)
+    area('rim_night', (0.9, 1.2, 1.4), 25, 1.2, (0.6, 0.7, 1.0), target=(0.26, 0, 0.4))
+    area('fill_night', (-1.5, -1.8, 0.9), 6, 2.0, (0.8, 0.85, 1.0), target=(0.26, 0, 0.4))
     camera((260, 0, 420), -30, 6, 2.6, 50, dof=4); return (260, 0, 420)
 
-@shot('15', 'combinations', 'grid', key='frame')
+@shot('15', 'combinations', 'grid', key='frame', exposure=-1.3)
 def s15(night):
     layouts = [[(0, 0, 1)], [(0, 0, 2), (0, G, 1)], [(0, 0, 1), (2 * G, 0, 1)], [(0, 0, 3), (0, G, 2), (2 * G, 0, 1)], [(0, 0, 2), (2 * G, 0, 2), (0, G, 2), (2 * G, G, 2)],
                [(0, 0, 1), (0, G, 1), (0, 2 * G, 1)]]
@@ -704,7 +706,7 @@ def s17(night):
     column(0, 0, 1, power_foot=True); att('spot', (0, 0, H)); put('cap', (G, 0, HS), mat='cap')
     column(2000, 0, 2); column(2000, G, 2); shelf_on(2000 + G / 2, G / 2, 720); att('clock', (2000, 0, H + HS)); att('hub', (2000 + G, G, H + HS))
     column(4000, 0, 2); column(4000, G, 1); planter_on(4000 + G / 2, G / 2, 240); att('grow', (4000, G, H)); tuft(4000 + G / 2, G / 2, 340, 24)
-    camera((2300, 300, 600), -12, 12, 8.5, 40, dof=8); return (2300, 300, 600)
+    camera((2300, 300, 520), -12, 10, 6.6, 40, dof=8); return (2300, 300, 600)
 
 # ---------------------------------------------------------------- run
 def setup_bg(bg, key, night, target):
@@ -723,6 +725,7 @@ def render(sid, version):
     POSTS.clear(); CLAMPS.clear(); WARN.clear()
     night = version == 'night'; build_materials(night)
     S = SHOTS[sid]; CUR[0] = 's' + sid; t = S['fn'](night); setup_bg(S['bg'], S['key'], night, t)
+    sc.view_settings.exposure = S['exposure']
     r = sc.render; r.resolution_x = A.res; r.resolution_y = A.res if A.square else round(A.res / 1.41421)
     os.makedirs(A.out, exist_ok=True)
     tag = ('_clay' if A.clay else '') + ('_night' if night else '')
