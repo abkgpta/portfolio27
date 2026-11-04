@@ -225,6 +225,7 @@ def coll(name):
     return SHOTCOL[name]
 CUR = ['main']
 def put(key, loc=(0, 0, 0), rot=(0, 0, 0), mat='frame', mats=None, name=None):
+    if key == 'cap': USED.add((round(loc[0]), round(loc[1])))
     me = mesh(key); o = bpy.data.objects.new(name or key, me)
     o.location = Vector(loc) * MM; o.rotation_euler = Euler([math.radians(a) for a in rot]); o.scale = (MM,) * 3
     ml = mats or [mat, 'led']
@@ -234,6 +235,7 @@ def put(key, loc=(0, 0, 0), rot=(0, 0, 0), mat='frame', mats=None, name=None):
     coll(CUR[0]).objects.link(o); return o
 ATT = {'grow': 'att_grow', 'spot': 'att_spot', 'hub': 'att_hub', 'pen': 'att_pen', 'clock': 'att_clock', 'speaker': 'att_speaker'}
 def att(key, top, face=0):
+    USED.add((round(top[0]), round(top[1])))
     m2 = {'grow': 'led_grow', 'spot': 'led', 'clock': 'screen'}.get(key, 'led')
     return put(key, top, (0, 0, face), mats=[ATT[key], m2])
 
@@ -268,7 +270,7 @@ def column(x, y, n, rotz=0, feet=True, power_foot=False, cap=True, conn=False):
     POSTS[(round(tA.x), round(tA.y))] = tA.z; POSTS[(round(tB.x), round(tB.y))] = tB.z
     return tA, tB
 
-POSTS = {}; CLAMPS = {}; WARN = []
+POSTS = {}; CLAMPS = {}; WARN = []; USED = set()
 def clamp(post, z, rotz=0):
     k = (round(post[0]), round(post[1]), round(z / 5))
     for (a, b, c), r in CLAMPS.items():
@@ -295,9 +297,10 @@ def panel_between(xa, xb, y, z, fin='pegboard', rotz=0):
 
 # ---------------------------------------------------------------- props: plants, soil, books, printer
 def soil(cx, cy, z, size):
-    bpy.ops.mesh.primitive_plane_add(size=size * MM * 0.96, location=(cx * MM, cy * MM, z * MM))
-    o = bpy.context.object; d = o.modifiers.new('d', 'DISPLACE'); tx = bpy.data.textures.new('soil', 'CLOUDS'); tx.noise_scale = 0.02
-    d.texture = tx; d.strength = 0.008; o.modifiers.new('s', 'SUBSURF').levels = 4; o.modifiers.move(1, 0)
+    bpy.ops.mesh.primitive_grid_add(x_subdivisions=80, y_subdivisions=80, size=size * MM * 0.97, location=(cx * MM, cy * MM, z * MM))
+    o = bpy.context.object; d = o.modifiers.new('d', 'DISPLACE'); tx = bpy.data.textures.new('soil', 'CLOUDS'); tx.noise_scale = 0.015
+    d.texture = tx; d.strength = 0.006; d.mid_level = 0.5
+    for p_ in o.data.polygons: p_.use_smooth = True
     o.data.materials.append(MAT['soil']); relink(o); return o
 def relink(o):
     for c in o.users_collection: c.objects.unlink(o)
@@ -434,6 +437,42 @@ def world_studio(key_hex='#F3EEE6', strength=0.35, gradient=True, dark=False):
     l.new(light_bg.outputs[0], ms.inputs[1]); l.new(cam_bg.outputs[0], ms.inputs[2]); l.new(ms.outputs[0], out.inputs['Surface'])
     if not gradient:
         l.new(light_bg.outputs[0], out.inputs['Surface'])
+def sweep(key_hex, target, az, dist, grid=False, dark=False):
+    """real curved cyclorama behind the subject, tinted to the subject colour; optional 1 ft grid on the floor part"""
+    W = max(9000, dist * 1000 * 2.2); R = 1400; back = max(1500, dist * 1000 * 0.55); Hh = max(5000, dist * 1000 * 1.2)
+    prof = [(-W, 0)]
+    for i in range(17):
+        a = math.pi / 2 * i / 16; prof.append((back - R + R * math.sin(a), R - R * math.cos(a)))
+    prof.append((back, Hh))
+    bm = bmesh.new(); L = [bm.verts.new((-W, y, z)) for y, z in prof]; Rr = [bm.verts.new((W, y, z)) for y, z in prof]
+    for i in range(len(prof) - 1): bm.faces.new((L[i], Rr[i], Rr[i + 1], L[i + 1]))
+    me = bpy.data.meshes.new('sweep'); bm.to_mesh(me); bm.free()
+    for p_ in me.polygons: p_.use_smooth = True
+    o = bpy.data.objects.new('sweep', me); o.scale = (MM,) * 3
+    o.location = (target[0] * MM, target[1] * MM, -FOOT * MM); o.rotation_euler[2] = math.radians(az)
+    m = bpy.data.materials.new('sweep'); m.use_nodes = True; n, l = nodes(m); b = n['Principled BSDF']; b.inputs['Roughness'].default_value = 0.85
+    k = lin(key_hex); base = lin('#2B2C2E') if dark else (lin('#F3EEE6') if grid else mix(k, [1, 1, 1], 0.62))
+    if grid:
+        gc = lin('#55575A') if dark else lin('#8E9093')
+        oc = n.new('ShaderNodeTexCoord'); sep = n.new('ShaderNodeSeparateXYZ'); l.new(oc.outputs['Object'], sep.inputs[0])
+        def line(axis):
+            md = n.new('ShaderNodeMath'); md.operation = 'PINGPONG'; md.inputs[1].default_value = 152.4
+            l.new(sep.outputs[axis], md.inputs[0]); st = n.new('ShaderNodeMath'); st.operation = 'LESS_THAN'
+            st.inputs[1].default_value = 3.0 if dist < 3 else 6.0; l.new(md.outputs[0], st.inputs[0]); return st
+        mx_ = n.new('ShaderNodeMath'); mx_.operation = 'MAXIMUM'; l.new(line('X').outputs[0], mx_.inputs[0]); l.new(line('Y').outputs[0], mx_.inputs[1])
+        fl_ = n.new('ShaderNodeMath'); fl_.operation = 'LESS_THAN'; fl_.inputs[1].default_value = 1.0; l.new(sep.outputs['Z'], fl_.inputs[0])
+        both = n.new('ShaderNodeMath'); both.operation = 'MULTIPLY'; l.new(mx_.outputs[0], both.inputs[0]); l.new(fl_.outputs[0], both.inputs[1])
+        mc = n.new('ShaderNodeMix'); mc.data_type = 'RGBA'; mc.inputs['A'].default_value = base; mc.inputs['B'].default_value = gc
+        l.new(both.outputs[0], mc.inputs['Factor']); l.new(mc.outputs['Result'], b.inputs['Base Color'])
+    else:
+        b.inputs['Base Color'].default_value = base
+    me.materials.append(m); coll(CUR[0]).objects.link(o); return o
+def world_plain(strength=0.25, dark=False):
+    w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; bg = w.node_tree.nodes['Background']
+    bg.inputs['Color'].default_value = (0.02, 0.022, 0.03, 1) if dark else (1, 0.985, 0.97, 1); bg.inputs['Strength'].default_value = strength
+def softbox(target, scale):
+    t = Vector(target)
+    area('top', t + Vector((0.3, 0.6, 3.2)) * scale, 900 * scale ** 2, 3.0 * scale, target=t)
 def shadow_catcher():
     bpy.ops.mesh.primitive_plane_add(size=60, location=(0, 0, -FOOT * MM)); o = bpy.context.object; o.is_shadow_catcher = True; relink(o); return o
 def area(name, loc, power, size, color=(1, 0.97, 0.93), target=(0, 0, 0.4), spread=180):
@@ -473,6 +512,7 @@ def room(kind, hour):
     box('transom', (60, D * 2, 40), (-W * 0.55, 0, 1800 - FOOT), steel, 2)
     box('glass', (6, D * 2, Hh - 1400), (-W * 0.55, 0, 900 + (Hh - 1400) / 2 - FOOT), glass, 0)
     box('ceiling', (W * 2, D * 2, 40), (0, 0, Hh - FOOT + 20), walls, 0)
+    box('right', (40, D * 2, Hh), (W * 0.55, 0, Hh / 2 - FOOT), walls, 0)
     sun_room(hour)
     if hour != 'night':
         s = bpy.data.lights.new('sun', 'SUN'); s.energy = {'golden': 4.5, 'morning': 3.0, 'day': 5.0}[hour]; s.angle = math.radians(1.2)
@@ -488,9 +528,10 @@ def room(kind, hour):
     l.new(vs.outputs[0], n['Material Output'].inputs['Volume']); hz.data.materials.append(hm); relink(hz)
 
 # ---------------------------------------------------------------- camera
-CAM = None
+CAM = None; CAMINFO = {}
 def camera(target, az, el, dist, lens, dof=None, shift=(0, 0)):
     global CAM
+    CAMINFO.update(az=az, dist=dist)
     if CAM is None:
         CAM = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); sc.collection.objects.link(CAM); sc.camera = CAM
     t = Vector(target) * MM; a, e = math.radians(az), math.radians(el)
@@ -538,16 +579,21 @@ def s01(night):
     panel_between(4 * G, 5 * G, 0, 140, 'softboard')
     tuft(G / 2, 1.5 * G, 330, 30); tuft(4.5 * G, 1.5 * G, 360, 26)
     climb((G, G), 30, 900, 2.6); climb((4 * G, 2 * G), 30, 1300, 3.0, trail=6); climb((2 * G, 2 * G), 30, 700, 2.0)
-    camera((1350, 650, 650), -32, 14, 6.4, 40, dof=5.6)
+    camera((1300, 500, 700), -30, 11, 4.4, 35, dof=5.6)
     return (1350, 650, 650)
 
 @shot('02', 'exploded-system', 'grad', key='frame')
 def s02(night):
-    put('frame', (0, 0, 380)); put('connector', (0, 0, 380 + H + 140), mat='pom'); put('cap', (G, 0, 380 + HS + 160), mat='cap')
-    put('foot', (G, 0, 0), mat='alu'); put('pfoot', (0, 0, 0), mat='alu')
-    put('clamp', (G, 0, 380 + 120 + 0), (0, 0, 90), mat='clamp'); att('spot', (0, 0, 380 + H + 140 + 260))
-    camera((G / 2, 0, 860), -28, 10, 4.7, 50)
-    return (G / 2, 0, 860)
+    z0 = 300
+    put('pfoot', (0, 0, 0), mat='alu'); put('foot', (G, 0, 0), mat='alu'); put('frame', (0, 0, z0))
+    put('connector', (0, 0, z0 + H + 150), mat='pom'); put('cap', (G, 0, z0 + HS + 150), mat='cap')
+    att('spot', (0, 0, z0 + H + 150 + 230))
+    put('clamp', (G + 330, 0, z0 + 200), (0, 0, -30), mat='clamp'); put('clamp', (G + 330, 0, z0 + 420), (0, 0, -30), mat='clamp')
+    put('shelf', (G + 900, 250, z0 + 780), (8, -6, 20), mat='oak')
+    put('pegpanel', (G + 900, -200, z0 + 120), (0, 0, 160), mats=['pegboard', 'pegboard'])
+    put('vclip', (G + 330, 0, z0 + 640), (0, 0, 40), mat='clip')
+    camera((G + 300, 0, 760), -22, 9, 5.2, 50)
+    return (G + 300, 0, 760)
 
 @shot('03', 'growth', 'grid', versions=('day',))
 def s03(night):
@@ -584,7 +630,7 @@ def s05(night):
 def s06(night):
     column(0, 0, 1, feet=False); column(0, G, 1, feet=False); planter_on(G / 2, G / 2, 180); tuft(G / 2, G / 2, 280, 30, 160)
     att('grow', (0, G, H)); put('cap', (G, 0, HS), mat='cap')
-    camera((200, 300, 380), -24, 22, 1.7, 70, dof=4); return (200, 300, 380)
+    camera((150, 350, 520), -24, 18, 2.3, 70, dof=5.6); return (150, 350, 520)
 @shot('07', 'macro-power-in-foot', 'grid', key='alu')
 def s07(night):
     put('frame', (0, 0, 0)); put('pfoot', (0, 0, 0), mat='alu')
@@ -599,21 +645,21 @@ def s11(night):
     chips = ['frame', 'alu', 'pom', 'oak', 'pp', 'whiteboard', 'pegboard', 'softboard', 'cap', 'att_spot', 'att_grow', 'att_speaker']
     for i, k in enumerate(chips):
         x = (i % 6) * 70 - 175; y = (i // 6) * 70
-        bpy.ops.mesh.primitive_cube_add(size=1, location=(x * MM, y * MM, 6 * MM)); o = bpy.context.object; o.scale = (0.06, 0.06, 0.012)
+        bpy.ops.mesh.primitive_cube_add(size=1, location=(x * MM, y * MM, (6 - FOOT) * MM)); o = bpy.context.object; o.scale = (0.06, 0.06, 0.012)
         bpy.ops.object.transform_apply(scale=True); b = o.modifiers.new('b', 'BEVEL'); b.width = 0.004; b.segments = 6
         for p in o.data.polygons: p.use_smooth = True
         o.rotation_euler[2] = math.radians(random.uniform(-6, 6)); o.data.materials.append(MAT[k]); relink(o)
-    shadow_catcher(); camera((0, 35, 0), -20, 38, 0.75, 85, dof=5.6); return (0, 35, 0)
+    camera((0, 35, -16), -20, 38, 0.75, 85, dof=5.6); return (0, 35, -16)
 
 @shot('12', 'attachments', 'grad', key='att_spot')
 def s12(night):
     keys = ['grow', 'spot', 'hub', 'pen', 'clock', 'speaker']
     for i, k in enumerate(keys):
         x = i * 330 - 825
-        bpy.ops.mesh.primitive_cylinder_add(radius=38.1 * MM, depth=0.28, location=(x * MM, 0, 0.14), vertices=128); s = bpy.context.object
+        bpy.ops.mesh.primitive_cylinder_add(radius=38.1 * MM, depth=0.302, location=(x * MM, 0, 0.129), vertices=128); s = bpy.context.object
         for p in s.data.polygons: p.use_smooth = True
         s.data.materials.append(MAT['frame']); relink(s); att(k, (x, 0, 280), face=0)
-    shadow_catcher(); camera((0, 0, 330), 0, 8, 3.3, 60); return (0, 0, 330)
+    camera((0, 0, 300), 0, 8, 2.5, 70); return (0, 0, 300)
 
 @shot('13', 'power-path', 'grad', key='hi')
 def s13(night):
@@ -712,19 +758,21 @@ def s17(night):
 def setup_bg(bg, key, night, target):
     parts = bg.split(':')
     if parts[0] == 'room': room(parts[1], 'night' if night else parts[2])
-    elif parts[0] in ('grid', 'grid-dark'):
-        dark = parts[0] == 'grid-dark' or night
-        floor_grid(dark); world_studio('#2B2C2E' if dark else '#F3EEE6', 0.05 if dark else 0.35, gradient=True, dark=dark)
-        if not dark: studio_lights(1.4, Vector(target) * MM)
     else:
-        shadow_catcher(); world_studio(CMF.get(key, CMF['frame'])['hex'], 0.0 if night else 0.35, dark=night)
-        studio_lights(1.0 if bg == 'grad' else 1.4, Vector(target) * MM)
+        dark = parts[0] == 'grid-dark' or night
+        az, dist = CAMINFO['az'], CAMINFO['dist']; sc_ = max(1.0, dist / 3.0)
+        sweep(CMF.get(key, CMF['frame'])['hex'], target, az, dist, grid=parts[0].startswith('grid'), dark=dark)
+        world_plain(0.02 if dark else 0.22, dark)
+        if not dark: softbox(Vector(target) * MM, sc_); studio_lights(sc_, Vector(target) * MM)
 def render(sid, version):
     global sc, CAM
     sc = reset(); CAM = None; MESH.clear(); SHOTCOL.clear(); LEAF.clear(); random.seed(int(sid) * 13)
-    POSTS.clear(); CLAMPS.clear(); WARN.clear()
+    POSTS.clear(); CLAMPS.clear(); WARN.clear(); USED.clear()
     night = version == 'night'; build_materials(night)
-    S = SHOTS[sid]; CUR[0] = 's' + sid; t = S['fn'](night); setup_bg(S['bg'], S['key'], night, t)
+    S = SHOTS[sid]; CUR[0] = 's' + sid; t = S['fn'](night)
+    for (px, py), top in list(POSTS.items()):
+        if (round(px), round(py)) not in USED: put('cap', (px, py, top), mat='cap')
+    setup_bg(S['bg'], S['key'], night, t)
     sc.view_settings.exposure = S['exposure']
     r = sc.render; r.resolution_x = A.res; r.resolution_y = A.res if A.square else round(A.res / 1.41421)
     os.makedirs(A.out, exist_ok=True)
