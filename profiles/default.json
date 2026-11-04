@@ -1,0 +1,16 @@
+{
+  "name": "Open portfolio",
+  "greeting": "",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "multipliers": {},
+  "projects": {
+    "overgrwth": 1.1,
+    "cortx": 1,
+    "dash": 1,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  }
+}
