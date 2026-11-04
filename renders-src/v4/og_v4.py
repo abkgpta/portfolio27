@@ -835,12 +835,12 @@ def s07(night):
 def s11(night):
     chips = ['frame', 'alu', 'pom', 'oak', 'pp', 'whiteboard', 'pegboard', 'softboard', 'cap', 'att_spot', 'att_grow', 'att_speaker']
     for i, k in enumerate(chips):
-        x = (i % 6) * 70 - 175; y = (i // 6) * 70
+        x = (i % 6) * 82 - 205; y = (i // 6) * 82
         bpy.ops.mesh.primitive_cube_add(size=1, location=(x * MM, y * MM, (6.5 - FOOT) * MM)); o = bpy.context.object; o.scale = (0.06, 0.06, 0.012)
         bpy.ops.object.transform_apply(scale=True); b = o.modifiers.new('b', 'BEVEL'); b.width = 0.004; b.segments = 6
         for p in o.data.polygons: p.use_smooth = True
-        o.rotation_euler[2] = math.radians(random.uniform(-6, 6)); o.data.materials.append(MAT[k]); relink(o)
-    camera((0, 35, -16), -20, 38, 0.75, 85, dof=5.6); return (0, 35, -16)
+        o.rotation_euler[2] = math.radians(random.uniform(-2, 2)); o.data.materials.append(MAT[k]); relink(o)
+    camera((0, 41, -16), -20, 38, 0.92, 85, dof=5.6); return (0, 41, -16)
 
 @shot('12', 'attachments', 'grad', key='att_spot')
 def s12(night):
