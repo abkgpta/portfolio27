@@ -527,7 +527,7 @@ def top_attach(tops, keys):
 @shot('01', 'hero', 'room:studio:golden', versions=('day', 'night'))
 def s01(night):
     tops = []
-    cols = [(0, 0, 3), (2 * G, 0, 2), (4 * G, 0, 4), (0, G, 2), (2 * G, G, 3), (4 * G, G, 2), (0, 2 * G, 1), (2 * G, 2 * G, 2), (4 * G, 2 * G, 3)]
+    cols = [(0, 0, 3), (2 * G, 0, 2), (4 * G, 0, 4), (0, G, 2), (2 * G, G, 3), (4 * G, G, 4), (0, 2 * G, 1), (2 * G, 2 * G, 2), (4 * G, 2 * G, 3)]
     for i, (x, y, n) in enumerate(cols):
         tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
     keys = ['spot', 'cap', 'grow', 'clock', 'speaker', 'cap', 'hub', 'pen', 'grow', 'spot', 'cap', 'clock', 'pen', 'cap', 'grow', 'speaker', 'spot', 'cap']
@@ -557,7 +557,7 @@ def s03(night):
     st(lambda x: column(x, 0, 1))
     st(lambda x: (column(x, 0, 1), column(x, G, 1), shelf_on(x + G / 2, G / 2, 250)))
     st(lambda x: (column(x, 0, 2), column(x, G, 2), shelf_on(x + G / 2, G / 2, 250), att('grow', (x + G, G, H + HS))))
-    st(lambda x: (column(x, 0, 2), column(x, G, 2), column(x + 2 * G, 0, 1), shelf_on(x + G / 2, G / 2, 250), planter_on(x + G / 2, G / 2, H + 120),
+    st(lambda x: (column(x, 0, 2), column(x, G, 2), column(x + 2 * G, 0, 2), shelf_on(x + G / 2, G / 2, 250), planter_on(x + G / 2, G / 2, H + 120),
                   att('grow', (x + G, G, H + HS)), panel_between(x + 2 * G, x + 3 * G, 0, 120, 'pegboard')))
     st(lambda x: (column(x, 0, 3), column(x, G, 2), column(x + 2 * G, 0, 2), column(x + 2 * G, G, 1), shelf_on(x + G / 2, G / 2, 250),
                   planter_on(x + G / 2, G / 2, H + 120), att('grow', (x + G, G, H + HS)), att('spot', (x, 0, H + HS + H)),
@@ -578,8 +578,8 @@ def s04(night):
     camera((0, 0, 70), -30, 34, 0.42, 100, dof=4); return (0, 0, 70)
 @shot('05', 'macro-clamp', 'grad', key='clamp')
 def s05(night):
-    put('frame', (0, 0, -300)); put('frame', (G, 0, -300)); panel_between(0, G, 0, -60, 'softboard')
-    camera((0, -30, 80), -38, 18, 0.55, 100, dof=4); return (0, -30, 80)
+    column(0, 0, 2); panel_between(0, G, 0, 300, 'softboard')
+    camera((0, -60, 300), -38, 14, 0.55, 100, dof=4); return (0, -60, 300)
 @shot('06', 'macro-grow-light-planter', 'grad', key='att_grow', versions=('day', 'night'))
 def s06(night):
     column(0, 0, 1, feet=False); column(0, G, 1, feet=False); planter_on(G / 2, G / 2, 180); tuft(G / 2, G / 2, 280, 30, 160)
@@ -648,7 +648,7 @@ def s15(night):
         ox = (i % 3) * 2400; oy = (i // 3) * 2400; tops = []
         for (x, y, n) in lay: tA, tB = column(ox + x, oy + y, n); tops += [tA, tB]
         top_attach(tops, random.sample(['spot', 'grow', 'clock', 'hub', 'pen', 'speaker', 'cap', 'cap'], k=min(8, len(tops))) + ['cap'] * 8)
-        if len(lay) > 1: shelf_on(ox + G / 2, oy + G / 2, 260)
+        if any(x == 0 and y == G for (x, y, n) in lay): shelf_on(ox + G / 2, oy + G / 2, 260)
     camera((2600, 1500, 400), -30, 32, 11.5, 45); return (2600, 1500, 400)
 
 @shot('16', 'closing-hero', 'room:studio:golden')
@@ -658,8 +658,8 @@ def s16(night):
 @shot('08', 'lifestyle-studio', 'room:studio:golden', versions=('day', 'night'))
 def s08(night):
     tops = []
-    for i, (x, y, n) in enumerate([(0, 0, 2), (2 * G, 0, 2), (0, G, 1), (2 * G, G, 1)]): tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
-    top_attach(tops, ['spot', 'cap', 'clock', 'cap', 'hub', 'cap', 'pen', 'cap'])
+    for i, (x, y, n) in enumerate([(0, 0, 2), (2 * G, 0, 3), (0, G, 2), (2 * G, G, 2)]): tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
+    top_attach(tops, ['spot', 'cap', 'clock', 'spot', 'hub', 'cap', 'pen', 'cap'])
     shelf_on(G / 2, G / 2, 720); shelf_on(2.5 * G, G / 2, 720)
     box('desk', (1600, 800, 30), (G * 1.5, -700, 720), mk_oak('desk', '#C9A27A'), 4)
     for dx in (-760, 760):
@@ -672,7 +672,7 @@ def s08(night):
 @shot('09', 'lifestyle-plant-corner', 'room:rest:morning', versions=('day', 'night'))
 def s09(night):
     tops = []
-    for (x, y, n) in [(0, 0, 3), (0, G, 2), (2 * G, 0, 2)]: tA, tB = column(x, y, n); tops += [tA, tB]
+    for (x, y, n) in [(0, 0, 4), (0, G, 4), (2 * G, 0, 2)]: tA, tB = column(x, y, n); tops += [tA, tB]
     top_attach(tops, ['grow', 'grow', 'clock', 'cap', 'speaker', 'cap'])
     planter_on(G / 2, G / 2, 260); planter_on(G / 2, G / 2, H + 300); shelf_on(G / 2, G / 2, 2 * H + 200)
     tuft(G / 2, G / 2, 360, 30); tuft(G / 2, G / 2, H + 400, 24, 140, 'fern')
@@ -690,7 +690,7 @@ def s10(night):
     for (x, y, n) in [(0, 0, 3), (2 * G, 0, 3), (4 * G, 0, 2)]: tA, tB = column(x, y, n, rotz=0); tops += [tA, tB]
     top_attach(tops, ['spot', 'cap', 'hub', 'cap', 'spot', 'cap'])
     for z in (120, 120 + HS, 120 + 2 * HS): panel_between(0, G, 0, z, 'pegboard'); panel_between(2 * G, 3 * G, 0, z, 'pegboard' if z < 600 else 'whiteboard')
-    shelf_on(4.5 * G, 0, 700)
+    column(4 * G, G, 2); shelf_on(4.5 * G, G / 2, 700)
     box('bench', (2400, 750, 40), (1300, -700, 900), mk_oak('bench', '#B48E62'), 3)
     for dx in (-1150, 1150):
         for dy in (-330, 330): box('bleg', (60, 60, 920), (1300 + dx, -700 + dy, 460 - FOOT), principled('bl', lin('#2A2B2D'), 0.5, 0.6), 3)
@@ -701,7 +701,7 @@ def s10(night):
 @shot('17', 'builder-presets', 'room:studio:golden', versions=('day', 'night'))
 def s17(night):
     # three viewer presets side by side: starter, studio desk, plant corner
-    column(0, 0, 1, power_foot=True); att('spot', (0, 0, H)); put('cap', (G, 0, HS), mat='cap'); shelf_on(G / 2, -G / 2, 200)
+    column(0, 0, 1, power_foot=True); att('spot', (0, 0, H)); put('cap', (G, 0, HS), mat='cap')
     column(2000, 0, 2); column(2000, G, 2); shelf_on(2000 + G / 2, G / 2, 720); att('clock', (2000, 0, H + HS)); att('hub', (2000 + G, G, H + HS))
     column(4000, 0, 2); column(4000, G, 1); planter_on(4000 + G / 2, G / 2, 240); att('grow', (4000, G, H)); tuft(4000 + G / 2, G / 2, 340, 24)
     camera((2300, 300, 600), -12, 12, 8.5, 40, dof=8); return (2300, 300, 600)
