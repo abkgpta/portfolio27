@@ -1,6 +1,6 @@
 # overgrwth v4 render studio (Blender 5.2, Cycles). Units in code are mm; scene is metres.
 # Run: blender -b -P og_v4.py -- --shots 01,02 --res 1400 --samples 128 --out out --device GPU
-import bpy, bmesh, sys, os, math, json, glob, gzip, shutil, argparse, random
+import bpy, bmesh, sys, os, math, json, glob, gzip, shutil, argparse, random, subprocess
 from mathutils import Vector, Matrix, Euler
 HERE = os.path.dirname(os.path.abspath(__file__))
 ap = argparse.ArgumentParser()
@@ -496,36 +496,202 @@ def sun_room(hour='golden', strength=1.0):
         sky.altitude = 200; sky.air_density = 1.4; sky.dust_density = 2.0 if hour == 'golden' else 1.0
     except Exception: pass
     l.new(sky.outputs['Color'], bg.inputs['Color']); bg.inputs['Strength'].default_value = (0.004 if hour == 'night' else 0.18) * strength
-def room(kind, hour):
-    """simple architectural shell: floor, back + side wall with a big steel window, ceiling"""
-    W, D, Hh = 7000, 6000, 3200
-    concrete = mk_cast('concrete', '#BDB7AE', 0.8, 0)
-    walls = principled('wall', lin('#EEEAE3'), 0.9); steel = principled('steel', lin('#1E1F21'), 0.4, 0.7)
-    glass = principled('glass', lin('#FFFFFF'), 0.02, ior=1.45); glass.node_tree.nodes['Principled BSDF'].inputs['Transmission Weight'].default_value = 1
-    floor_mat = concrete if kind != 'rest' else mk_oak('oakfloor', '#8A6A4A')
-    box('floor', (W * 2, D * 2, 20), (0, 0, -FOOT - 10), floor_mat, 0)
-    box('back', (W * 2, 40, Hh), (0, D * 0.55, Hh / 2 - FOOT), walls, 0)
-    # side wall with window opening (window frame bars) on the left
-    box('side_lo', (40, D * 2, 900), (-W * 0.55, 0, 450 - FOOT), walls, 0)
-    box('side_hi', (40, D * 2, 500), (-W * 0.55, 0, Hh - 250 - FOOT), walls, 0)
-    for k in range(7): box('mullion', (60, 40, Hh - 1400), (-W * 0.55, -D + k * 900, 900 + (Hh - 1400) / 2 - FOOT), steel, 2)
-    box('transom', (60, D * 2, 40), (-W * 0.55, 0, 1800 - FOOT), steel, 2)
-    box('glass', (6, D * 2, Hh - 1400), (-W * 0.55, 0, 900 + (Hh - 1400) / 2 - FOOT), glass, 0)
-    box('ceiling', (W * 2, D * 2, 40), (0, 0, Hh - FOOT + 20), walls, 0)
-    box('right', (40, D * 2, Hh), (W * 0.55, 0, Hh / 2 - FOOT), walls, 0)
-    sun_room(hour)
+# ---------------------------------------------------------------- real-world assets (Poly Haven, CC0), cached in ./assets
+PH = os.path.join(HERE, 'assets')
+def _get(url, dst):
+    if os.path.exists(dst) and os.path.getsize(dst) > 0: return True
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    r = subprocess.run(['curl', '-sSfL', '-A', 'og-render/1.0', '-o', dst + '.part', url])
+    if r.returncode == 0: os.replace(dst + '.part', dst); return True
+    WARN.append('download failed ' + url); return False
+def _api(aid, kind):
+    f = os.path.join(PH, kind, aid, 'files.json')
+    if not _get('https://api.polyhaven.com/files/' + aid, f): return None
+    return json.load(open(f))
+def _fix_images(folder):
+    for img in bpy.data.images:
+        if not img.filepath or os.path.exists(bpy.path.abspath(img.filepath)): continue
+        for c in glob.glob(os.path.join(folder, '**', os.path.basename(img.filepath)), recursive=True):
+            img.filepath = c; break
+def ph_model(aid, loc, rotz=0, height=None, scale=1.0, res='2k'):
+    """append a Poly Haven model; loc in mm with z = floor level; returns (root, top_z_mm) or (None, 0)"""
+    try:
+        d = _api(aid, 'models'); bl = d['blend'][res]['blend'] if res in d['blend'] else d['blend']['1k']['blend']
+        mdir = os.path.join(PH, 'models', aid); path = os.path.join(mdir, os.path.basename(bl['url']))
+        ok = _get(bl['url'], path)
+        for rel, inf in bl.get('include', {}).items(): _get(inf['url'], os.path.join(mdir, rel))
+        if not ok: return None, 0
+        with bpy.data.libraries.load(path, link=False) as (src, dst): dst.objects = list(src.objects)
+        objs = [o for o in dst.objects if o is not None]; _fix_images(mdir)
+        root = bpy.data.objects.new(aid, None); coll(CUR[0]).objects.link(root)
+        for o in objs:
+            coll(CUR[0]).objects.link(o)
+            if o.parent is None or o.parent not in objs: o.parent = root
+        bpy.context.view_layer.update()
+        zs = [(o.matrix_world @ Vector(c)).z for o in objs if o.type == 'MESH' for c in o.bound_box]
+        h = (max(zs) - min(zs)) if zs else 1.0
+        k = (height * MM / h) if height else scale
+        root.scale = (k, k, k); root.rotation_euler[2] = math.radians(rotz); root.location = Vector(loc) * MM
+        bpy.context.view_layer.update()
+        top = max((o.matrix_world @ Vector(c)).z for o in objs if o.type == 'MESH' for c in o.bound_box) / MM
+        return root, top
+    except Exception as e:
+        WARN.append('model %s failed: %s' % (aid, e)); return None, 0
+TEXKEYS = {'diff': 'Diffuse', 'rough': 'Rough', 'nor_gl': 'nor_gl', 'ao': 'AO'}
+def ph_tex(aid, scale_m=1.5, tint=None, rough_mul=1.0, rough_add=0.0, normal=1.0):
+    """box-projected PBR material from a Poly Haven texture set; None if unavailable"""
+    folder = os.path.join(PH, 'tex', aid); maps = {}
+    for k, api_k in TEXKEYS.items():
+        f = (glob.glob(os.path.join(folder, '*_%s_2k.jpg' % k)) or glob.glob(os.path.join(folder, '*_%s_*.jpg' % k)) or [None])[0]
+        if f is None:
+            d = _api(aid, 'tex')
+            try:
+                u = d[api_k]['2k']['jpg']['url']; f = os.path.join(folder, os.path.basename(u))
+                if not _get(u, f): f = None
+            except Exception: f = None
+        if f: maps[k] = f
+    if 'diff' not in maps: WARN.append('texture %s missing' % aid); return None
+    m = bpy.data.materials.new('tex_' + aid); m.use_nodes = True; n, l = nodes(m); b = n['Principled BSDF']
+    tc = n.new('ShaderNodeTexCoord'); mp = n.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1 / scale_m,) * 3
+    l.new(tc.outputs['Object'], mp.inputs['Vector'])
+    def img(k, cs):
+        t = n.new('ShaderNodeTexImage'); t.image = bpy.data.images.load(maps[k], check_existing=True)
+        t.image.colorspace_settings.name = cs; t.projection = 'BOX'; t.projection_blend = 0.25
+        l.new(mp.outputs['Vector'], t.inputs['Vector']); return t
+    dif = img('diff', 'sRGB'); col = dif.outputs['Color']
+    if 'ao' in maps:
+        ao = img('ao', 'Non-Color'); mu = n.new('ShaderNodeMix'); mu.data_type = 'RGBA'; mu.blend_type = 'MULTIPLY'
+        mu.inputs['Factor'].default_value = 0.6; l.new(col, mu.inputs['A']); l.new(ao.outputs['Color'], mu.inputs['B']); col = mu.outputs['Result']
+    if tint:
+        tn = n.new('ShaderNodeMix'); tn.data_type = 'RGBA'; tn.blend_type = 'MULTIPLY'; tn.inputs['Factor'].default_value = 1.0
+        l.new(col, tn.inputs['A']); tn.inputs['B'].default_value = lin(tint); col = tn.outputs['Result']
+    l.new(col, b.inputs['Base Color'])
+    if 'rough' in maps:
+        r = img('rough', 'Non-Color'); ma = n.new('ShaderNodeMath'); ma.operation = 'MULTIPLY_ADD'; ma.use_clamp = True
+        ma.inputs[1].default_value = rough_mul; ma.inputs[2].default_value = rough_add
+        l.new(r.outputs['Color'], ma.inputs[0]); l.new(ma.outputs[0], b.inputs['Roughness'])
+    if 'nor_gl' in maps:
+        nm = n.new('ShaderNodeNormalMap'); nm.inputs['Strength'].default_value = normal
+        l.new(img('nor_gl', 'Non-Color').outputs['Color'], nm.inputs['Color']); l.new(nm.outputs['Normal'], b.inputs['Normal'])
+    return m
+def hdri_world(aid, strength, rot=0):
+    f = (glob.glob(os.path.join(PH, 'hdri', aid + '*.exr')) or glob.glob(os.path.join(PH, 'hdri', aid + '*.hdr')) or [None])[0]
+    if f is None:
+        try:
+            u = _api(aid, 'hdri')['hdri']['4k']['exr']['url']; f = os.path.join(PH, 'hdri', os.path.basename(u))
+            if not _get(u, f): return False
+        except Exception: return False
+    w = bpy.data.worlds.new('hdri'); sc.world = w; w.use_nodes = True; n, l = nodes(w); bg = n['Background']
+    tc = n.new('ShaderNodeTexCoord'); mp = n.new('ShaderNodeMapping'); mp.inputs['Rotation'].default_value[2] = math.radians(rot)
+    ev = n.new('ShaderNodeTexEnvironment'); ev.image = bpy.data.images.load(f, check_existing=True)
+    l.new(tc.outputs['Generated'], mp.inputs['Vector']); l.new(mp.outputs['Vector'], ev.inputs['Vector'])
+    l.new(ev.outputs['Color'], bg.inputs['Color']); bg.inputs['Strength'].default_value = strength; return True
+def window_glass():
+    """thin architectural glass: reflective to the camera, invisible to shadow rays (no caustic noise)"""
+    m = bpy.data.materials.new('winglass'); m.use_nodes = True; n, l = nodes(m); n.remove(n['Principled BSDF']); out = n['Material Output']
+    tr = n.new('ShaderNodeBsdfTransparent'); gl = n.new('ShaderNodeBsdfGlossy'); gl.inputs['Roughness'].default_value = 0.01
+    lw = n.new('ShaderNodeLayerWeight'); lw.inputs['Blend'].default_value = 0.12
+    m1 = n.new('ShaderNodeMixShader'); l.new(lw.outputs['Fresnel'], m1.inputs[0]); l.new(tr.outputs[0], m1.inputs[1]); l.new(gl.outputs[0], m1.inputs[2])
+    lp = n.new('ShaderNodeLightPath'); tr2 = n.new('ShaderNodeBsdfTransparent'); m2 = n.new('ShaderNodeMixShader')
+    l.new(lp.outputs['Is Shadow Ray'], m2.inputs[0]); l.new(m1.outputs[0], m2.inputs[1]); l.new(tr2.outputs[0], m2.inputs[2])
+    l.new(m2.outputs[0], out.inputs['Surface']); return m
+def framed_print(x, y, rotz, w, h, paper_hex, block_hex, lean=7):
+    R = Matrix.Rotation(math.radians(rotz), 4, 'Z'); P = lambda a, b, c: Vector((x, y, 0)) + R @ Vector((a, b, c))
+    fr = principled('printframe', lin('#1B1B1C'), 0.45); pa = principled('paper', lin(paper_hex), 0.9); bl = principled('ink', lin(block_hex), 0.8)
+    parts = [box('pf', (w, 30, h), P(0, 0, h / 2 - FOOT), fr, 2, rotz), box('pp', (w - 60, 4, h - 60), P(0, -16, h / 2 - FOOT), pa, 0, rotz),
+             box('pb', (w * 0.45, 3, h * 0.35), P(-w * 0.08, -19, h * 0.55 - FOOT), bl, 0, rotz)]
+    piv = Vector((x, y, -FOOT)) * MM
+    for o in parts:
+        o.matrix_world = Matrix.Translation(piv) @ Matrix.Rotation(math.radians(-lean), 4, R @ Vector((1, 0, 0))) @ Matrix.Translation(-piv) @ o.matrix_world
+ROOMS = {   # floor texture, floor tint, wall tint, world hdri per hour
+    'studio': ('concrete_floor_worn_001', '#E6E1DA', '#F4F0EA'),
+    'rest': ('laminate_floor_02', '#FFFFFF', '#F2ECE3'),
+    'shop': ('concrete_floor_worn_001', '#C9C4BC', '#ECE9E4')}
+HDRI = {'golden': ('kiara_1_dawn', 1.0, 200), 'morning': ('kiara_1_dawn', 0.8, 120), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.35, 0)}
+def room(kind, hour, target=(0, 0, 0)):
+    """studio interior: textured floor + plaster walls, full-height steel window on the right, beams, props by the walls"""
+    xs = [k[0] for k in POSTS] or [target[0]]; ys = [k[1] for k in POSTS] or [target[1]]
+    cx = (min(xs) + max(xs) + G) / 2; cy = (min(ys) + max(ys)) / 2
+    cam = CAM.location / MM if CAM else Vector((cx, cy - 4000, 1500))
+    W = max(4200, abs(cam.x - cx) + 900); Hh = 3400; T = 200
+    back = max(ys) + (450 if kind == 'shop' else 2100); front = min(cam.y - 900, cy - 4000)
+    lx, rx = cx - W, cx + W; D = back - front; my = (back + front) / 2
+    fl_id, fl_tint, wall_tint = ROOMS[kind]
+    floor = ph_tex(fl_id, 1.6 if kind != 'rest' else 2.4, fl_tint, 0.9, 0.0) or mk_cast('concrete', '#BDB7AE', 0.8, 0)
+    walls = ph_tex('painted_plaster_wall', 2.0, wall_tint, 1.0, 0.1, 0.6) or principled('wall', lin('#EEEAE3'), 0.9)
+    ceil_m = principled('ceil', lin('#F1EEE9'), 0.92); steel = mk_cast('steel', '#1C1D1F', 0.38, 0.85)
+    skirt = principled('skirt', lin('#ECE8E1'), 0.35)
+    box('floor', (2 * W + 2 * T, D, 40), (cx, my, -FOOT - 20), floor, 0)
+    box('ceiling', (2 * W + 2 * T, D, 60), (cx, my, Hh - FOOT + 30), ceil_m, 0)
+    box('back', (2 * W, T, Hh), (cx, back + T / 2, Hh / 2 - FOOT), walls, 0)
+    box('left', (T, D, Hh), (lx - T / 2, my, Hh / 2 - FOOT), walls, 0)
+    fw = box('front', (2 * W, T, Hh), (cx, front - T / 2, Hh / 2 - FOOT), walls, 0); fw.visible_camera = False
+    for nm, size, loc in [('sk_back', (2 * W, 14, 110), (cx, back - 7, 55 - FOOT)), ('sk_left', (14, D, 110), (lx + 7, my, 55 - FOOT))]:
+        box(nm, size, loc, skirt, 1)
+    # right wall: full-height steel studio window with sill, head and 200 mm reveals
+    y0, y1 = front + 600, back - 500; z0, z1 = 380, Hh - 320
+    box('r_sill', (T, D, z0), (rx + T / 2, my, z0 / 2 - FOOT), walls, 0)
+    box('r_head', (T, D, Hh - z1), (rx + T / 2, my, (z1 + Hh) / 2 - FOOT), walls, 0)
+    box('r_a', (T, y0 - front, z1 - z0), (rx + T / 2, (front + y0) / 2, (z0 + z1) / 2 - FOOT), walls, 0)
+    box('r_b', (T, back - y1, z1 - z0), (rx + T / 2, (back + y1) / 2, (z0 + z1) / 2 - FOOT), walls, 0)
+    box('sill_board', (T + 60, y1 - y0 + 40, 30), (rx + T / 2 - 30, (y0 + y1) / 2, z0 + 15 - FOOT), principled('sillb', lin('#E9E5DE'), 0.3), 2)
+    bays = max(3, round((y1 - y0) / 1100)); fz = [z0 + 30, z0 + (z1 - z0) * 0.32, z1]
+    for k in range(bays + 1):
+        yy = y0 + (y1 - y0) * k / bays; box('mullion', (100, 50, z1 - z0), (rx + T / 2, yy, (z0 + z1) / 2 - FOOT), steel, 3)
+    for zz in fz: box('transom', (100, y1 - y0 + 50, 45), (rx + T / 2, (y0 + y1) / 2, zz - FOOT), steel, 3)
+    g = box('glass', (6, y1 - y0, z1 - z0), (rx + T / 2, (y0 + y1) / 2, (z0 + z1) / 2 - FOOT), window_glass(), 0)
+    # exposed ceiling beams
+    for k in range(int(D // 1800) + 1):
+        box('beam', (2 * W, 220, 300), (cx, front + 900 + k * 1800, Hh - FOOT - 150), ceil_m, 4)
+    # sky / outside
+    hid, hs, hrot = HDRI[hour]
+    if not hdri_world(hid, hs, hrot): sun_room(hour)
+    # sun through the window (travels toward -x), window light portal, soft bounce
     if hour != 'night':
-        s = bpy.data.lights.new('sun', 'SUN'); s.energy = {'golden': 4.5, 'morning': 3.0, 'day': 5.0}[hour]; s.angle = math.radians(1.2)
-        s.color = {'golden': (1.0, 0.72, 0.45), 'morning': (0.9, 0.95, 1.0), 'day': (1, 0.97, 0.92)}[hour]
-        so = bpy.data.objects.new('sun', s); so.rotation_euler = Euler((math.radians(70 if hour == 'golden' else 55), 0, math.radians(-60))); coll(CUR[0]).objects.link(so)
-        area('window_fill', (-W * 0.5 * MM, 0, 1.6), 900, 4.0, (0.92, 0.95, 1.0), target=(0, 0, 0.8))
+        s = bpy.data.lights.new('sun', 'SUN'); s.energy = {'golden': 5.0, 'morning': 3.2, 'day': 4.5}[hour]; s.angle = math.radians(0.8)
+        s.color = {'golden': (1.0, 0.74, 0.5), 'morning': (0.95, 0.97, 1.0), 'day': (1, 0.97, 0.93)}[hour]
+        so = bpy.data.objects.new('sun', s); coll(CUR[0]).objects.link(so)
+        so.rotation_euler = Euler((math.radians({'golden': 76, 'morning': 62, 'day': 48}[hour]), 0, math.radians(68)))
+        pl = bpy.data.lights.new('portal', 'AREA'); pl.shape = 'RECTANGLE'; pl.size = (z1 - z0) * MM; pl.size_y = (y1 - y0) * MM
+        try: pl.cycles.is_portal = True
+        except Exception:
+            try: pl.is_portal = True
+            except Exception: pass
+        po = bpy.data.objects.new('portal', pl); po.location = ((rx - 30) * MM, (y0 + y1) / 2 * MM, (z0 + z1) / 2 * MM - FOOT * MM)
+        po.rotation_euler = Euler((0, math.radians(90), 0)); coll(CUR[0]).objects.link(po)
+        area('window_fill', ((rx - 400) * MM, (y0 + y1) / 2 * MM, 1.7), 350, 2.5, (0.93, 0.95, 1.0), target=(cx * MM, cy * MM, 0.8))
     else:
-        area('practical', (1.2, -1.0, 2.6), 60, 0.4, (1.0, 0.78, 0.55), target=(0, 0, 0.8))
-    # haze: subtle volume scatter in the room only
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, (Hh / 2 - FOOT) * MM)); hz = bpy.context.object; hz.scale = (W * 1.9 * MM, D * 1.9 * MM, Hh * 0.98 * MM)
+        for k, (px, py) in enumerate([(cx - W * 0.5, cy - 600), (cx + W * 0.3, cy + 400)]):
+            pt = bpy.data.lights.new('pend%d' % k, 'POINT'); pt.energy = 90; pt.color = (1.0, 0.78, 0.55); pt.shadow_soft_size = 0.12
+            po = bpy.data.objects.new('pend', pt); po.location = (px * MM, py * MM, (Hh - 700) * MM); coll(CUR[0]).objects.link(po)
+    # props along the walls only (never inside the build area)
+    bx0, bx1, by0, by1 = min(xs) - 600, max(xs) + G + 600, min(ys) - 600, max(ys) + 600
+    def free(x, y): return not (bx0 < x < bx1 and by0 < y < by1)
+    def prop(aid, x, y, rotz=0, height=None, **k):
+        if free(x, y): return ph_model(aid, (x, y, -FOOT), rotz, height, **k)
+        return None, 0
+    if kind == 'studio':
+        prop('steel_frame_shelves_01', lx + 260, cy - 900, 90, 1900); prop('steel_frame_shelves_01', lx + 260, cy + 100, 90, 1900)
+        prop('potted_plant_02', lx + 650, back - 650, 20, 1250); prop('potted_plant_04', rx - 450, back - 450, 0, 480)
+        prop('pachira_aquatica_01', rx - 700, y0 + 500, 0, 1500)
+        if free(cx - 900, back - 120): framed_print(cx - 900, back - 120, 0, 700, 950, '#EEE8DD', '#C4532E')
+        if free(cx - 300, back - 140): framed_print(cx - 300, back - 140, 4, 500, 700, '#F3EFE7', '#2F3B4A')
+    elif kind == 'rest':
+        prop('potted_plant_02', rx - 600, y0 + 700, 0, 1100); prop('potted_plant_01', lx + 500, back - 500, 0, 900)
+        prop('wooden_display_shelves_01', cx + 900, back - 230, 0, 1100)
+        if free(lx + 900, back - 700):
+            box('rug', (2200, 1500, 8), (lx + 1600, cy - 800, -FOOT + 4), mk_felt('rug', '#CFC4B3'), 3)
+    elif kind == 'shop':
+        prop('steel_frame_shelves_02', lx + 260, cy - 400, 90, 1900); prop('tool_cart', lx + 900, back - 600, 15)
+        prop('metal_stool_01', cx - 300, cy - 1500, 30); prop('potted_plant_04', rx - 500, y0 + 400, 0, 450)
+    # haze, very subtle
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(cx * MM, my * MM, (Hh / 2 - FOOT) * MM)); hz = bpy.context.object
+    hz.scale = (2 * W * MM * 0.98, D * MM * 0.98, Hh * 0.98 * MM)
     hm = bpy.data.materials.new('haze'); hm.use_nodes = True; n, l = nodes(hm); n.remove(n['Principled BSDF'])
-    vs = n.new('ShaderNodeVolumePrincipled'); vs.inputs['Density'].default_value = 0.012 if hour != 'night' else 0.02
+    vs = n.new('ShaderNodeVolumePrincipled'); vs.inputs['Density'].default_value = 0.004 if hour != 'night' else 0.006
     l.new(vs.outputs[0], n['Material Output'].inputs['Volume']); hz.data.materials.append(hm); relink(hz)
+    try: sc.view_settings.look = 'AgX - Base Contrast'
+    except Exception: pass
 
 # ---------------------------------------------------------------- camera
 CAM = None; CAMINFO = {}
@@ -709,13 +875,16 @@ def s08(night):
     for i, (x, y, n) in enumerate([(0, 0, 2), (2 * G, 0, 3), (0, G, 2), (2 * G, G, 2)]): tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
     top_attach(tops, ['spot', 'cap', 'clock', 'spot', 'hub', 'cap', 'pen', 'cap'])
     shelf_on(G / 2, G / 2, 720); shelf_on(2.5 * G, G / 2, 720)
-    box('desk', (1600, 800, 30), (G * 1.5, -700, 720), mk_oak('desk', '#C9A27A'), 4)
-    for dx in (-760, 760):
-        for dy in (-360, 360): box('leg', (40, 40, 735), (G * 1.5 + dx, -700 + dy, 735 / 2 - FOOT), principled('leg', lin('#1E1F21'), 0.4, 0.8), 3)
-    laptop(G * 1.5 - 200, -700, 735); mug(G * 1.5 + 330, -760, 735); sketches(G * 1.5 + 100, -560, 736)
-    printer(-1200, 300, 0, 25); panel_between(2 * G, 3 * G, 0, 760 + 40, 'pegboard')
+    DX, DY = 2 * G + 1350, 150          # desk beside the build, not in front of it
+    d, top = ph_model('metal_office_desk', (DX, DY, -FOOT), 0)
+    if d is None:
+        top = 735; box('desk', (1600, 800, 30), (DX, DY, 720), mk_oak('desk', '#C9A27A'), 4)
+    z = top - 0.5; laptop(DX - 350, DY - 60, z, -8); mug(DX + 80, DY - 200, z); sketches(DX - 50, DY - 120, z + 1)
+    printer(DX + 480, DY + 40, z, -15)
+    ph_model('mid_century_lounge_chair', (DX - 200, DY - 750, -FOOT), 200)
+    panel_between(2 * G, 3 * G, 0, 760 + 40, 'pegboard')
     climb((G, G), 30, HS + 0, 1.2); tuft(G / 2, G / 2, 740, 18, 140)
-    camera((900, -300, 900), -28, 10, 4.2, 32, dof=4); return (900, -300, 900)
+    camera((1500, -100, 850), -24, 9, 4.6, 32, dof=4.5); return (1500, -100, 850)
 
 @shot('09', 'lifestyle-plant-corner', 'room:rest:morning', versions=('day', 'night'))
 def s09(night):
@@ -726,10 +895,10 @@ def s09(night):
     tuft(G / 2, G / 2, 360, 30); tuft(G / 2, G / 2, H + 400, 24, 140, 'fern')
     climb((0, G, 0), 30, 1000, 2.8, trail=8); climb((2 * G, 0, 0), 30, 900, 2.2)
     book_row(G / 2 - 230, G / 2 - 80, 2 * H + 219, 10)
-    box('armchair_seat', (720, 700, 180), (-1100, -500, 380), mk_felt('chair', '#C9B79C'), 30)
-    box('armchair_back', (720, 140, 520), (-1100, -150, 620), mk_felt('chair2', '#C9B79C'), 30)
-    box('side_table', (420, 420, 480), (-500, -900, 240 - FOOT), mk_oak('st', '#8A6A4A'), 6); mug(-480, -900, 480 - FOOT)
-    book_row(-650, -950, 480 - FOOT, 4, 90, 200)
+    ph_model('modern_arm_chair_01', (-1150, -450, -FOOT), 215)
+    st, top = ph_model('side_table_01', (-480, -950, -FOOT), 10, 520)
+    if st is None: top = 480 - FOOT; box('side_table', (420, 420, 480), (-500, -900, 240 - FOOT), mk_oak('st', '#8A6A4A'), 6)
+    mug(-420, -930, top); book_row(-600, -980, top, 4, 90, 200)
     camera((200, 0, 700), -40, 9, 4.0, 30, dof=4); return (200, 0, 700)
 
 @shot('10', 'lifestyle-workshop', 'room:shop:day', versions=('day', 'night'))
@@ -757,7 +926,7 @@ def s17(night):
 # ---------------------------------------------------------------- run
 def setup_bg(bg, key, night, target):
     parts = bg.split(':')
-    if parts[0] == 'room': room(parts[1], 'night' if night else parts[2])
+    if parts[0] == 'room': room(parts[1], 'night' if night else parts[2], target)
     else:
         dark = parts[0] == 'grid-dark' or night
         az, dist = CAMINFO['az'], CAMINFO['dist']; sc_ = max(1.0, dist / 3.0)
