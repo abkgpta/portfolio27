@@ -622,7 +622,7 @@ ROOMS = {   # floor texture, floor tint, wall tint, world hdri per hour
     'studio': ('concrete_floor_worn_001', '#E6E1DA', '#F4F0EA'),
     'rest': ('laminate_floor_02', '#FFFFFF', '#F2ECE3'),
     'shop': ('concrete_floor_worn_001', '#C9C4BC', '#ECE9E4')}
-HDRI = {'golden': ('potsdamer_platz', 0.7, 150), 'morning': ('potsdamer_platz', 0.8, 60), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.2, 0)}
+HDRI = {'golden': ('potsdamer_platz', 0.7, 150), 'morning': ('potsdamer_platz', 0.8, 60), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.08, 0)}
 def room(kind, hour, target=(0, 0, 0)):
     """studio interior: textured floor + plaster walls, full-height steel window on the right, beams, props by the walls"""
     xs = [k[0] for k in POSTS] or [target[0]]; ys = [k[1] for k in POSTS] or [target[1]]
