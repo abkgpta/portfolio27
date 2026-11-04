@@ -796,7 +796,7 @@ def s03(night):
     st(lambda x: (column(x, 0, 3), column(x, G, 2), column(x + 2 * G, 0, 2), column(x + 2 * G, G, 1), shelf_on(x + G / 2, G / 2, 250),
                   planter_on(x + G / 2, G / 2, H + 120), att('grow', (x + G, G, H + HS)), att('spot', (x, 0, H + HS + H)),
                   panel_between(x + 2 * G, x + 3 * G, 0, 120, 'pegboard'), climb((x, G, 0), 30, 900, 2.4)))
-    camera((off / 2 - 1.5 * G, 300, 550), -6, 9, 11.8, 55)
+    camera((off / 2 - 0.5 * G, 300, 550), -6, 9, 12.6, 55)
     return (off / 2, 300, 600)
 
 def macro(key, mats, loc_cam, lens=100, f=2.8, rot=(0, 0, 0)):
