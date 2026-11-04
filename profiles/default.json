@@ -3,6 +3,8 @@
   "greeting": "",
   "threshold": 0.5,
   "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
   "multipliers": {},
   "projects": {
     "overgrwth": 1.1,

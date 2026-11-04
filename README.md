@@ -19,6 +19,25 @@ One page, many versions. The content stays in `index.html`; `js/engine.js` decid
 - **Scoring** is one function, `score()` in `js/engine.js`: base × project multiplier × mean of the slide's skill multipliers. Projects are ordered by their total score, and the nav and gallery follow.
 - **Open a version:** `/#<id>` or `/?profile=<id>`. An unknown `#name` falls back to the open version with "Prepared for Name".
 
+### Preview, overview, full case study
+
+Every project comes in three lengths. Full has every card, overview has the cards that explain the project (visual heavy, some process), and preview is a four-card hook.
+
+- `data-tiers="preview overview full"` on a slide lists the versions it belongs to. A slide without it is in overview and full.
+- `data-card="hero|hook|sketch|logo"` marks the four preview cards: hero visual, written hook, stylised sketch, logo lockup.
+- A profile picks the version with `version` (default for every project, `overview` if unset) and `versions` (per project, e.g. `{"cortx": "preview"}`). `?version=preview` forces one version for the whole page.
+- The version filters first, then the weights cut inside it. Preview cards are never cut by weight.
+- Only previews and overviews are built for now, so the open version shows overviews.
+
+### Square cards
+
+`?format=square` shows only the preview cards, each as a 1080 × 1080 tile, for socials and the intro gallery.
+
+```
+node tools/export-pdf.mjs default --squares            # out/default-squares/<project>-<n>-<card>.png
+node tools/export-pdf.mjs default --version=preview    # out/default-preview.pdf, the A4 preview
+```
+
 ## Printable PDF (A4 landscape)
 
 `css/print.css` turns any version into A4 landscape pages: 10 mm margins, one project per run of pages, and the gallery as a contact sheet. The 3D viewer becomes its still image, the voice agent becomes a printed pointer to the site, and Spotify embeds and animations are dropped.

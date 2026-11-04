@@ -2,10 +2,29 @@
    One page, many versions. Each project is a <section data-project>, each slide inside it
    has data-slide, data-base (base weight), data-skills (comma tags) and optional data-required.
    A profile (profiles/<id>.json) multiplies those weights for one studio.
-   Open a version with  /#<id>  or  /?profile=<id>  (add &print=1 for the A4 layout). */
+   Every project comes in three versions: preview (4 cards: hero, hook, sketch, logo),
+   overview, and full case study. data-tiers on a slide lists the versions it is in
+   (missing = "overview full"); data-card marks the four preview cards.
+   Open a version with  /#<id>  or  /?profile=<id>  (add &print=1 for the A4 layout,
+   &version=preview|overview|full to force one version, &format=square for social squares). */
 (function () {
   const params = new URLSearchParams(location.search);
   const RESERVED = ['top', 'gallery', 'about', 'contact'];
+  const VERSIONS = ['preview', 'overview', 'full'];
+  const CARDS = ['hero', 'hook', 'sketch', 'logo'];
+
+  /* Which version of a project this viewer gets: URL, then the profile's per-project
+     pick, then its default. Full case studies aren't built yet, so default is overview. */
+  function versionFor(pid, profile) {
+    const q = params.get('version');
+    if (VERSIONS.includes(q)) return q;
+    const v = profile.versions && profile.versions[pid];
+    if (VERSIONS.includes(v)) return v;
+    return VERSIONS.includes(profile.version) ? profile.version : 'overview';
+  }
+  function inVersion(slide, v) {
+    return (slide.dataset.tiers || 'overview full').split(/[\s,]+/).includes(v);
+  }
 
   function pickId() {
     if (params.get('profile')) return params.get('profile').toLowerCase();
@@ -39,11 +58,18 @@
     const threshold = profile.threshold != null ? profile.threshold : 0.5;
     const projects = [...document.querySelectorAll('section[data-project]')];
     const totals = {};
+    const square = params.get('format') === 'square';
+    const versions = {};
     projects.forEach(sec => {
       let total = 0, shown = 0;
+      const v = versionFor(sec.dataset.project, profile);
+      sec.dataset.version = v; versions[sec.dataset.project] = v;
       sec.querySelectorAll('[data-slide]').forEach(sl => {
         const s = score(sl, profile);
-        const keep = sl.hasAttribute('data-required') || s >= threshold;
+        // the version is a hard filter; weights then cut inside it (required slides and
+        // the four preview cards always stay)
+        const fits = inVersion(sl, v) && (!square || sl.hasAttribute('data-card'));
+        const keep = fits && (v === 'preview' || sl.hasAttribute('data-required') || s >= threshold);
         sl.dataset.score = s.toFixed(2);
         sl.classList.toggle('is-cut', !keep);
         if (keep) { total += s; shown++; }
@@ -76,7 +102,8 @@
     const prep = document.getElementById('prepared');
     if (prep && profile.greeting) { prep.textContent = profile.greeting; prep.classList.add('on'); }
     document.documentElement.dataset.profile = profile.id;
-    window.PORTFOLIO = { profile, totals, score };
+    if (square) document.documentElement.classList.add('fmt-square');
+    window.PORTFOLIO = { profile, totals, versions, score, CARDS };
   }
 
   async function run() {

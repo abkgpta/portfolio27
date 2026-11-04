@@ -3,6 +3,18 @@
   "greeting": "Prepared for Example Studio",
   "threshold": 0.8,
   "voiceAgent": false,
-  "multipliers": { "cmf": 1.5, "rendering": 1.3, "electronics": 0.8 },
-  "projects": { "overgrwth": 1.2, "cortx": 0.9, "dash": 1 }
+  "version": "overview",
+  "versions": {
+    "cortx": "preview"
+  },
+  "multipliers": {
+    "cmf": 1.5,
+    "rendering": 1.3,
+    "electronics": 0.8
+  },
+  "projects": {
+    "overgrwth": 1.2,
+    "cortx": 0.9,
+    "dash": 1
+  }
 }
