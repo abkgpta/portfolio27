@@ -1,0 +1,74 @@
+name: Archive site version
+
+# After every push to main that changes the site, copy it into archive/vN/
+# and tag the commit vN. Pushes that only touch archive/, README or .github
+# are skipped by snapshot.py, so this never loops.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Work out the release title
+        id: meta
+        run: |
+          subject=$(git log -1 --format=%s)
+          pr=""
+          if [[ $subject =~ ^Merge\ pull\ request\ \#([0-9]+) ]]; then
+            pr=${BASH_REMATCH[1]}
+            subject=$(git log -1 --format=%b | head -n1)
+          elif [[ $subject =~ \(\#([0-9]+)\)$ ]]; then
+            pr=${BASH_REMATCH[1]}
+            subject=${subject% (#*}
+          fi
+          echo "title=$subject" >> "$GITHUB_OUTPUT"
+          echo "pr=$pr" >> "$GITHUB_OUTPUT"
+
+      - name: Snapshot the site
+        env:
+          TITLE: ${{ steps.meta.outputs.title }}
+          PR: ${{ steps.meta.outputs.pr }}
+        run: |
+          if [ -n "$PR" ]; then
+            python3 .github/scripts/snapshot.py add HEAD "$TITLE" --pr "$PR"
+          else
+            python3 .github/scripts/snapshot.py add HEAD "$TITLE"
+          fi
+
+      - name: Commit the snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add archive
+          if git diff --cached --quiet; then exit 0; fi
+          v=$(python3 -c "import json;print(json.load(open('archive/versions.json'))[-1]['v'])")
+          git commit -m "Archive site as v$v"
+          git push origin HEAD:main
+
+      - name: Tag every archived version
+        run: |
+          python3 - <<'PY' > tags.txt
+          import json
+          for e in json.load(open("archive/versions.json")):
+              print(f"v{e['v']} {e['commit']}")
+          PY
+          while read -r tag sha; do
+            if ! git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+              git tag "$tag" "$sha"
+              git push origin "refs/tags/$tag"
+            fi
+          done < tags.txt
