@@ -30,7 +30,7 @@
   #gallery .g-grid { grid-template-columns: repeat(4, 1fr) !important; }
   #gallery .g-grid a:nth-of-type(n+9) { display: none !important; }
   #gallery .g-grid a.wide { grid-column: auto; grid-row: auto; }
-  #gallery .g-line h1 { font-size: 18pt; }
+  #gallery .g-line h1 { display: none !important; }  /* abhik: no headline on the PDF cover */
 
   /* voice agent -> a printed pointer to the live site */
   .stage { display: none !important; }
