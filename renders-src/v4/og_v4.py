@@ -897,7 +897,7 @@ def s08(night):
         top = 735; box('desk', (1600, 800, 30), (DX, DY, 720), mk_oak('desk', '#C9A27A'), 4)
     z = top - 0.5; laptop(DX - 350, DY - 60, z, -8); mug(DX + 80, DY - 200, z); sketches(DX - 50, DY - 120, z + 1)
     printer(DX + 480, DY + 40, z, -15)
-    ph_model('WoodenChair_01', (DX - 150, DY - 650, -FOOT), 190, 850)
+    ph_model('metal_stool_01', (DX - 150, DY - 620, -FOOT), 20, 640)
     panel_between(2 * G, 3 * G, 0, 760 + 40, 'pegboard')
     climb((G, G), 30, HS + 0, 1.2); tuft(G / 2, G / 2, 740, 18, 140)
     camera((1900, -150, 850), -24, 9, 5.0, 32, dof=4.5); return (1900, -150, 850)
