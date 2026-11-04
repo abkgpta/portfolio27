@@ -10,6 +10,7 @@ ap.add_argument('--device', default='CPU'); ap.add_argument('--stl', default=os.
 ap.add_argument('--cmf', default=os.path.join(HERE, 'cmf.json')); ap.add_argument('--clay', action='store_true')
 ap.add_argument('--square', action='store_true'); ap.add_argument('--night', default='auto')
 ap.add_argument('--save', default=''); ap.add_argument('--list', action='store_true'); ap.add_argument('--dry', action='store_true')
+ap.add_argument('--finish', default='metal')   # metal = CMF satin metal; powder = white satin powder coat
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
 random.seed(7)
 CMF = json.load(open(A.cmf))['slots']
@@ -19,6 +20,8 @@ for _k, _v in {'pom': 'pom_frame_connector', 'cap': 'pom_end_cap', 'clamp': 'pom
                'att_pen': 'att_pen_stand', 'att_clock': 'att_clock_puck', 'att_speaker': 'att_speaker_puck'}.items():
     if _v in CMF: CMF[_k] = CMF[_v]
 CMF.setdefault('alu_pf', CMF['alu'])
+if A.finish == 'powder':
+    for _k in ('frame', 'pom', 'cap', 'alu'): CMF[_k] = dict(CMF[_k], hex='#F2F1EC', metallic=0.0, roughness=0.42)
 
 # ---------------------------------------------------------------- basics
 def lin(h):
@@ -462,8 +465,8 @@ def sweep(key_hex, target, az, dist, grid=False, dark=False):
     o.location = (target[0] * MM, target[1] * MM, -FOOT * MM); o.rotation_euler[2] = math.radians(az)
     m = bpy.data.materials.new('sweep'); m.use_nodes = True; n, l = nodes(m); b = n['Principled BSDF']; b.inputs['Roughness'].default_value = 0.85
     k = lin(key_hex)
-    if sum(k[:3]) / 3 > 0.75: k = lin('#B9B4AD')          # white parts need a toned sweep to read
-    base = lin('#2B2C2E') if dark else (lin('#E9E3DA') if grid else mix(k, [1, 1, 1], 0.5))
+    if sum(k[:3]) / 3 > 0.75: k = lin('#8F8A84')          # white parts need a toned sweep to read
+    base = lin('#2B2C2E') if dark else (lin('#D9D2C7') if grid else mix(k, [1, 1, 1], 0.5))
     if grid:
         gc = lin('#55575A') if dark else lin('#8E9093')
         oc = n.new('ShaderNodeTexCoord'); sep = n.new('ShaderNodeSeparateXYZ'); l.new(oc.outputs['Object'], sep.inputs[0])
@@ -619,7 +622,7 @@ ROOMS = {   # floor texture, floor tint, wall tint, world hdri per hour
     'studio': ('concrete_floor_worn_001', '#E6E1DA', '#F4F0EA'),
     'rest': ('laminate_floor_02', '#FFFFFF', '#F2ECE3'),
     'shop': ('concrete_floor_worn_001', '#C9C4BC', '#ECE9E4')}
-HDRI = {'golden': ('potsdamer_platz', 0.7, 150), 'morning': ('potsdamer_platz', 0.8, 60), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.35, 0)}
+HDRI = {'golden': ('potsdamer_platz', 0.7, 150), 'morning': ('potsdamer_platz', 0.8, 60), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.2, 0)}
 def room(kind, hour, target=(0, 0, 0)):
     """studio interior: textured floor + plaster walls, full-height steel window on the right, beams, props by the walls"""
     xs = [k[0] for k in POSTS] or [target[0]]; ys = [k[1] for k in POSTS] or [target[1]]
@@ -694,8 +697,11 @@ def room(kind, hour, target=(0, 0, 0)):
         if free(lx + 900, back - 700):
             box('rug', (2200, 1500, 8), (lx + 1600, cy - 800, -FOOT + 4), mk_felt('rug', '#9C8468'), 3)
     elif kind == 'shop':
+        if hour == 'night':
+            wl = bpy.data.lights.new('worklamp', 'SPOT'); wl.energy = 160; wl.spot_size = math.radians(70); wl.color = (1.0, 0.8, 0.58)
+            wo = bpy.data.objects.new('worklamp', wl); wo.location = ((cx + 300) * MM, (cy - 900) * MM, 1.7); coll(CUR[0]).objects.link(wo)
         for k in range(3):
-            tl = bpy.data.lights.new('tube%d' % k, 'AREA'); tl.shape = 'RECTANGLE'; tl.size = 1.5; tl.size_y = 0.12; tl.energy = 220 if hour != 'night' else 120
+            tl = bpy.data.lights.new('tube%d' % k, 'AREA'); tl.shape = 'RECTANGLE'; tl.size = 1.5; tl.size_y = 0.12; tl.energy = 220 if hour != 'night' else 0
             tl.color = (0.96, 0.98, 1.0); to = bpy.data.objects.new('tube', tl); coll(CUR[0]).objects.link(to)
             to.location = ((cx - W * 0.5 + k * W * 0.5) * MM, (cy - 800) * MM, (Hh - 500) * MM)
         prop('steel_frame_shelves_02', lx + 260, cy - 400, 90, 1900); prop('tool_cart', rx - 1000, back - 700, -20)
@@ -852,7 +858,7 @@ def s13(night):
             for sl in o.material_slots: sl.material = MAT['ghost']
     for t, k in zip(tops, ['spot', 'grow', 'clock', 'cap', 'hub', 'cap']):
         if k == 'cap': put('cap', t, mat='muted')
-        else: put(k, t, mats=['hi', 'hi'])
+        else: att(k, t)
     def wire(pts):
         cu = bpy.data.curves.new('wire', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 6 * MM; sp = cu.splines.new('POLY'); sp.points.add(len(pts) - 1)
         for p, q in zip(sp.points, pts): p.co = (q[0] * MM, q[1] * MM, q[2] * MM, 1)
@@ -870,7 +876,7 @@ def s14(night):
     area('fill_night', (-1.5, -1.8, 0.9), 6, 2.0, (0.8, 0.85, 1.0), target=(0.26, 0, 0.4))
     camera((260, 0, 420), -30, 6, 2.6, 50, dof=4); return (260, 0, 420)
 
-@shot('15', 'combinations', 'grid', key='frame', exposure=-1.3)
+@shot('15', 'combinations', 'grid', key='frame', exposure=-1.8)
 def s15(night):
     layouts = [[(0, 0, 1)], [(0, 0, 2), (0, G, 1)], [(0, 0, 1), (2 * G, 0, 1)], [(0, 0, 3), (0, G, 2), (2 * G, 0, 1)], [(0, 0, 2), (2 * G, 0, 2), (0, G, 2), (2 * G, G, 2)],
                [(0, 0, 1), (0, G, 1), (0, 2 * G, 1)]]
@@ -949,6 +955,9 @@ def setup_bg(bg, key, night, target):
         sweep(CMF.get(key, CMF['frame'])['hex'], target, az, dist, grid=parts[0].startswith('grid'), dark=dark)
         world_plain(0.02 if dark else 0.22, dark)
         if not dark: softbox(Vector(target) * MM, sc_); studio_lights(sc_, Vector(target) * MM)
+        elif night and parts[0] != 'grid-dark':        # night product shot: the product's own lights plus a faint cool rim
+            t = Vector(target) * MM
+            area('rim_night', t + Vector((1.0, 2.2, 1.6)) * sc_, 40 * sc_ ** 2, 1.2 * sc_, (0.75, 0.82, 1.0), target=t)
 def render(sid, version):
     global sc, CAM
     sc = reset(); CAM = None; MESH.clear(); SHOTCOL.clear(); LEAF.clear(); random.seed(int(sid) * 13)
@@ -959,7 +968,7 @@ def render(sid, version):
         if (round(px), round(py)) not in USED: put('cap', (px, py, top), mat='cap')
     setup_bg(S['bg'], S['key'], night, t)
     ev = S['exposure']
-    if not S['bg'].startswith(('room', 'grid-dark')) and ev == 0: ev = -1.8      # sweep + softbox clipped at 0 EV in pass 2
+    if not S['bg'].startswith(('room', 'grid-dark')) and ev == 0 and not night: ev = -1.8      # sweep + softbox clipped at 0 EV in pass 2
     sc.view_settings.exposure = ev
     r = sc.render; r.resolution_x = A.res; r.resolution_y = A.res if A.square else round(A.res / 1.41421)
     os.makedirs(A.out, exist_ok=True)
