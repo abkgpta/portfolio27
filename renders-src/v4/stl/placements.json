@@ -1,0 +1,1452 @@
+{
+ "units": "mm, Z up",
+ "origin_convention": "Each single-part STL in wip/v3od/stl/ is in its own native CAD coordinates. Apply each instance's transform to that STL as-is: world = location @ rotation @ native. Euler is Blender 'XYZ' order (same as Blender object rotation_euler); matrix_4x4 is the exact transform, use it if in doubt. Clamp: origin at post axis, bottom face at z=0, clamp ledge toward +Y. Frame: tall post axis at x=0, short post axis at x=533.4, both bottoms at z=0, frame in the XZ plane. Shelf/planter/extras: centred in XY, underside at z=0. Panels: centred in X, back face y=0, bottom z=0. Connector: centred on the joint, plug runs along Z.",
+ "connector_bbox_mm": [
+  -29.18,
+  -29.18,
+  -49.7,
+  29.18,
+  29.18,
+  49.7
+ ],
+ "stacking_rule": "Correct as you described. Frame 2 = frame 1 rotated 180 deg about Y, then moved so its tall post sits on frame 1's short post (x=533.4) and its short post sits on frame 1's tall post (x=0). Posts butt end to end with zero gap; the connector is an internal plug hidden inside both sockets. Joints at z=304.8 (x=533.4) and z=609.6 (x=0). Both columns top out at 914.4, so the 2-frame period is 914.4 mm and frame 3 is frame 1 moved up 914.4.",
+ "scene_landscape": "Obsolete (v1.1 425 mm panel). Use scene_panels_wall.",
+ "scenes": {
+  "scene_shelf": [
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     0.0,
+     533.4,
+     0.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-MOD-001_shelf_v2.0",
+    "location_mm": [
+     266.7,
+     266.7,
+     260.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      260.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     533.4,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     180.0
+    ],
+    "matrix_4x4": [
+     [
+      -1.0,
+      -0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     533.4,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     180.0
+    ],
+    "matrix_4x4": [
+     [
+      -1.0,
+      -0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   }
+  ],
+  "scene_planter": [
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     0.0,
+     533.4,
+     0.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-MOD-003_planter-tray_v2.0",
+    "location_mm": [
+     266.7,
+     266.7,
+     260.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      260.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-MOD-003_planter-extras_v2.0",
+    "location_mm": [
+     266.7,
+     266.7,
+     260.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      260.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "false floor, fill spout, water window; same origin as the tray"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     533.4,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     180.0
+    ],
+    "matrix_4x4": [
+     [
+      -1.0,
+      -0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     533.4,
+     230.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     180.0
+    ],
+    "matrix_4x4": [
+     [
+      -1.0,
+      -0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      230.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   }
+  ],
+  "scene_panels_wall": [
+   {
+    "part": "OG-MOD-002_panel-blank_v2.0",
+    "location_mm": [
+     266.7,
+     51.85,
+     40.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      51.85
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "panel [0,0]"
+   },
+   {
+    "part": "OG-MOD-002_panel-pegboard_v2.0",
+    "location_mm": [
+     266.7,
+     51.85,
+     344.8
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      266.7
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      51.85
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      344.8
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "panel [0,1]"
+   },
+   {
+    "part": "OG-MOD-002_panel-pegboard_v2.0",
+    "location_mm": [
+     800.1,
+     51.85,
+     40.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      800.1
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      51.85
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "panel [1,0]"
+   },
+   {
+    "part": "OG-MOD-002_panel-blank_v2.0",
+    "location_mm": [
+     800.1,
+     51.85,
+     344.8
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      800.1
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      51.85
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      344.8
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "panel [1,1]"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     25.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=0.0, seam 0"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     329.8
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      329.8
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=0.0, seam 1"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     634.6
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      634.6
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=0.0, seam 2"
+   },
+   {
+    "part": "reference post tube (not a part file)",
+    "location_mm": [
+     0,
+     0,
+     0
+    ],
+    "rotation_euler_xyz_deg": [
+     0,
+     0,
+     0
+    ],
+    "note": "76.2 OD x 3.2 wall x 700 tall, stands in for the H-frame posts; z0=40 is arbitrary"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     25.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=533.4, seam 0"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     329.8
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      329.8
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=533.4, seam 1"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     634.6
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      634.6
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=533.4, seam 2"
+   },
+   {
+    "part": "reference post tube (not a part file)",
+    "location_mm": [
+     533.4,
+     0,
+     0
+    ],
+    "rotation_euler_xyz_deg": [
+     0,
+     0,
+     0
+    ],
+    "note": "76.2 OD x 3.2 wall x 700 tall, stands in for the H-frame posts; z0=40 is arbitrary"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     1066.8,
+     0.0,
+     25.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      1066.8
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=1066.8, seam 0"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     1066.8,
+     0.0,
+     329.8
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      1066.8
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      329.8
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=1066.8, seam 1"
+   },
+   {
+    "part": "OG-CON-005_universal-clamp_v2.0",
+    "location_mm": [
+     1066.8,
+     0.0,
+     634.6
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      1066.8
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      634.6
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "post x=1066.8, seam 2"
+   },
+   {
+    "part": "reference post tube (not a part file)",
+    "location_mm": [
+     1066.8,
+     0,
+     0
+    ],
+    "rotation_euler_xyz_deg": [
+     0,
+     0,
+     0
+    ],
+    "note": "76.2 OD x 3.2 wall x 700 tall, stands in for the H-frame posts; z0=40 is arbitrary"
+   }
+  ],
+  "frame_stack_example": [
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "frame 1, native"
+   },
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     914.4
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     180.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      -1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      -0.0,
+      0.0,
+      -1.0,
+      914.4
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "frame 2, flipped 180 about Y: tall post now at x=533.4 on frame 1's short post, short post at x=0 on frame 1's tall post"
+   },
+   {
+    "part": "OG-CON-001_frame-connector_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     304.8
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      304.8
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "joint: frame 1 short post top / frame 2 tall post bottom"
+   },
+   {
+    "part": "OG-CON-001_frame-connector_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     609.6
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      609.6
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "joint: frame 1 tall post top / frame 2 short post bottom"
+   },
+   {
+    "part": "OG-FRM-001_H-frame_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     914.4
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      914.4
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "frame 3, native again: period 914.4 mm"
+   },
+   {
+    "part": "OG-CON-001_frame-connector_v2.0",
+    "location_mm": [
+     0.0,
+     0.0,
+     914.4
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      914.4
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "joint"
+   },
+   {
+    "part": "OG-CON-001_frame-connector_v2.0",
+    "location_mm": [
+     533.4,
+     0.0,
+     914.4
+    ],
+    "rotation_euler_xyz_deg": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "matrix_4x4": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      533.4
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      914.4
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "note": "joint"
+   }
+  ]
+ }
+}

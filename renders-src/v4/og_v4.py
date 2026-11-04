@@ -1,0 +1,742 @@
+# overgrwth v4 render studio (Blender 5.2, Cycles). Units in code are mm; scene is metres.
+# Run: blender -b -P og_v4.py -- --shots 01,02 --res 1400 --samples 128 --out out --device GPU
+import bpy, bmesh, sys, os, math, json, glob, gzip, shutil, argparse, random
+from mathutils import Vector, Matrix, Euler
+HERE = os.path.dirname(os.path.abspath(__file__))
+ap = argparse.ArgumentParser()
+ap.add_argument('--shots', default='all'); ap.add_argument('--res', type=int, default=1200)
+ap.add_argument('--samples', type=int, default=96); ap.add_argument('--out', default=os.path.join(HERE, 'out'))
+ap.add_argument('--device', default='CPU'); ap.add_argument('--stl', default=os.path.join(HERE, 'stl'))
+ap.add_argument('--cmf', default=os.path.join(HERE, 'cmf.json')); ap.add_argument('--clay', action='store_true')
+ap.add_argument('--square', action='store_true'); ap.add_argument('--night', default='auto')
+ap.add_argument('--save', default=''); ap.add_argument('--list', action='store_true'); ap.add_argument('--dry', action='store_true')
+A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
+random.seed(7)
+CMF = json.load(open(A.cmf))['slots']
+
+# ---------------------------------------------------------------- basics
+def lin(h):
+    h = h.lstrip('#'); c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    return [x / 12.92 if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4 for x in c] + [1]
+def mix(a, b, t): return [a[i] * (1 - t) + b[i] * t for i in range(3)] + [1]
+MM = 0.001
+H, G, HS = 609.6, 533.4, 304.8          # tall post, post pitch, short post
+CB = 152.4                               # crossbar height on the short post
+FOOT = 22.0                              # foot plate below post bottom
+
+def reset():
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    sc = bpy.context.scene
+    sc.render.engine = 'CYCLES'
+    if A.device != 'CPU':
+        pr = bpy.context.preferences.addons['cycles'].preferences
+        pr.compute_device_type = A.device if A.device in ('METAL', 'CUDA', 'OPTIX', 'HIP') else 'METAL'
+        pr.get_devices()
+        for d in pr.devices: d.use = True
+        sc.cycles.device = 'GPU'
+    sc.cycles.samples = A.samples; sc.cycles.use_denoising = True
+    sc.cycles.max_bounces = 12; sc.cycles.glossy_bounces = 6; sc.cycles.transmission_bounces = 8
+    sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = 0.008
+    sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Medium High Contrast'
+    sc.render.film_transparent = False
+    return sc
+sc = reset()
+
+# ---------------------------------------------------------------- materials
+MAT = {}
+def nodes(m): return m.node_tree.nodes, m.node_tree.links
+def principled(name, col, rough=0.5, metal=0.0, coat=0.0, sheen=0.0, sss=0.0, ior=1.5):
+    m = bpy.data.materials.new(name); m.use_nodes = True
+    n, l = nodes(m); b = n['Principled BSDF']
+    b.inputs['Base Color'].default_value = col; b.inputs['Roughness'].default_value = rough
+    b.inputs['Metallic'].default_value = metal; b.inputs['IOR'].default_value = ior
+    if coat: b.inputs['Coat Weight'].default_value = coat; b.inputs['Coat Roughness'].default_value = 0.08
+    if sheen: b.inputs['Sheen Weight'].default_value = sheen; b.inputs['Sheen Roughness'].default_value = 0.4
+    if sss: b.inputs['Subsurface Weight'].default_value = sss; b.inputs['Subsurface Radius'].default_value = (2, 1, 0.6)
+    return m
+def obj_coords(m):
+    n, l = nodes(m); t = n.new('ShaderNodeTexCoord'); return t.outputs['Object']
+def bump(m, height_socket, strength, dist=0.0002):
+    n, l = nodes(m); b = n['Principled BSDF']; bp = n.new('ShaderNodeBump')
+    bp.inputs['Strength'].default_value = strength; bp.inputs['Distance'].default_value = dist
+    l.new(height_socket, bp.inputs['Height']); l.new(bp.outputs['Normal'], b.inputs['Normal']); return bp
+def noise(m, scale, detail=4, rough=0.6, vec=None, w4=False):
+    n, l = nodes(m); t = n.new('ShaderNodeTexNoise'); t.inputs['Scale'].default_value = scale
+    t.inputs['Detail'].default_value = detail; t.inputs['Roughness'].default_value = rough
+    l.new(vec or obj_coords(m), t.inputs['Vector']); return t
+def rough_var(m, base, amp, scale):
+    n, l = nodes(m); b = n['Principled BSDF']; t = noise(m, scale, 3)
+    mr = n.new('ShaderNodeMapRange'); mr.inputs['To Min'].default_value = base - amp; mr.inputs['To Max'].default_value = base + amp
+    l.new(t.outputs['Fac'], mr.inputs['Value']); l.new(mr.outputs['Result'], b.inputs['Roughness'])
+
+def mk_powder(name, hexc, rough):            # powder coat: orange peel + soft roughness breakup
+    m = principled(name, lin(hexc), rough, 0.0, coat=0.15)
+    t = noise(m, 9000, 2, 0.5); bump(m, t.outputs['Fac'], 0.12)
+    rough_var(m, rough, 0.05, 300); return m
+def mk_stipple(name, hexc, rough):           # moulded PC/ABS, fine leather stipple
+    m = principled(name, lin(hexc), rough)
+    n, l = nodes(m); v = n.new('ShaderNodeTexVoronoi'); v.inputs['Scale'].default_value = 5000
+    l.new(obj_coords(m), v.inputs['Vector']); bump(m, v.outputs['Distance'], 0.18)
+    rough_var(m, rough, 0.06, 500); return m
+def mk_pom(name, hexc, rough):               # satin polymer, faint mould texture
+    m = principled(name, lin(hexc), rough, sss=0.03)
+    t = noise(m, 14000, 2); bump(m, t.outputs['Fac'], 0.06); rough_var(m, rough, 0.04, 800); return m
+def mk_cast(name, hexc, rough, metal):       # bead-blasted cast aluminium
+    m = principled(name, lin(hexc), rough, metal)
+    t = noise(m, 20000, 6, 0.8); bump(m, t.outputs['Fac'], 0.25); rough_var(m, rough, 0.08, 900); return m
+def mk_oak(name, hexc):                      # green-lacquered oak, open grain through the lacquer
+    base = lin(hexc); m = principled(name, base, 0.42, coat=0.35)
+    n, l = nodes(m); b = n['Principled BSDF']; oc = obj_coords(m)
+    mp = n.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1, 14, 1); l.new(oc, mp.inputs['Vector'])
+    w = n.new('ShaderNodeTexWave'); w.inputs['Scale'].default_value = 6; w.inputs['Distortion'].default_value = 9
+    w.inputs['Detail'].default_value = 6; w.inputs['Detail Scale'].default_value = 2; l.new(mp.outputs['Vector'], w.inputs['Vector'])
+    pores = noise(m, 1800, 2, 0.6, vec=mp.outputs['Vector'])
+    mx = n.new('ShaderNodeMix'); mx.data_type = 'RGBA'; mx.inputs['A'].default_value = base
+    mx.inputs['B'].default_value = mix(base, [0.02, 0.03, 0.02], 0.45)
+    l.new(w.outputs['Fac'], mx.inputs['Factor']); l.new(mx.outputs['Result'], b.inputs['Base Color'])
+    add = n.new('ShaderNodeMath'); add.operation = 'ADD'; l.new(w.outputs['Fac'], add.inputs[0]); l.new(pores.outputs['Fac'], add.inputs[1])
+    bump(m, add.outputs['Value'], 0.08); return m
+def mk_flecked(name, hexc, rough):           # recycled PP with dark flecks
+    base = lin(hexc); m = principled(name, base, rough)
+    n, l = nodes(m); b = n['Principled BSDF']; v = n.new('ShaderNodeTexVoronoi'); v.inputs['Scale'].default_value = 900
+    l.new(obj_coords(m), v.inputs['Vector']); r = n.new('ShaderNodeValToRGB')
+    r.color_ramp.elements[0].position = 0.05; r.color_ramp.elements[0].color = (0.03, 0.02, 0.02, 1)
+    r.color_ramp.elements[1].position = 0.07; r.color_ramp.elements[1].color = base
+    l.new(v.outputs['Distance'], r.inputs['Fac']); l.new(r.outputs['Color'], b.inputs['Base Color'])
+    t = noise(m, 6000, 2); bump(m, t.outputs['Fac'], 0.1); return m
+def mk_felt(name, hexc):
+    m = principled(name, lin(hexc), 0.95, sheen=0.8)
+    t = noise(m, 6000, 12, 0.75); bump(m, t.outputs['Fac'], 0.6); return m
+def mk_gloss(name, hexc):
+    m = principled(name, lin(hexc), 0.08, coat=0.6); t = noise(m, 3000, 2); bump(m, t.outputs['Fac'], 0.02); return m
+def mk_emit(name, hexc, strength):
+    m = principled(name, lin(hexc), 0.3)
+    b = m.node_tree.nodes['Principled BSDF']; b.inputs['Emission Color'].default_value = lin(hexc)
+    b.inputs['Emission Strength'].default_value = strength; return m
+def mk_clay(name):
+    return principled(name, lin('#E9E6E1'), 0.55)
+
+def build_materials(night=False):
+    MAT.clear(); S = CMF
+    if A.clay:
+        c = mk_clay('clay')
+        for k in S: MAT[k] = c
+    else:
+        MAT['frame'] = mk_powder('frame', S['frame']['hex'], S['frame']['roughness'])
+        MAT['alu'] = mk_cast('alu', S['alu']['hex'], S['alu']['roughness'], S['alu']['metallic'])
+        MAT['pom'] = mk_pom('pom', S['pom']['hex'], S['pom']['roughness'])
+        MAT['clamp'] = mk_pom('clamp', S['clamp']['hex'], S['clamp']['roughness'])
+        MAT['clip'] = mk_pom('clip', S['clip']['hex'], S['clip']['roughness'])
+        MAT['cap'] = mk_stipple('cap', S['cap']['hex'], S['cap']['roughness'])
+        MAT['oak'] = mk_oak('oak', S['oak']['hex'])
+        MAT['pp'] = mk_flecked('pp', S['pp']['hex'], S['pp']['roughness'])
+        MAT['whiteboard'] = mk_gloss('whiteboard', S['whiteboard']['hex'])
+        MAT['pegboard'] = mk_powder('pegboard', S['pegboard']['hex'], S['pegboard']['roughness'])
+        MAT['softboard'] = mk_felt('softboard', S['softboard']['hex'])
+        for k in ('att_grow', 'att_spot', 'att_hub', 'att_pen', 'att_clock', 'att_speaker'):
+            MAT[k] = mk_stipple(k, S[k]['hex'], S[k]['roughness'])
+        MAT['hi'] = mk_stipple('hi', S['hi']['hex'], 0.45); MAT['muted'] = mk_pom('muted', S['muted']['hex'], 0.6)
+    MAT['led'] = mk_emit('led', '#FFE2B8', 60 if night else 6)          # grow light / spot emitters
+    MAT['led_grow'] = mk_emit('led_grow', '#FF9FD6', 40 if night else 4)
+    MAT['screen'] = mk_emit('screen', '#F4F0E8', 2.5)
+    MAT['power'] = mk_emit('power', S['power']['hex'], 8)
+    MAT['ghost'] = principled('ghost', lin('#FFFFFF'), 0.2); gb = MAT['ghost'].node_tree.nodes['Principled BSDF']
+    gb.inputs['Transmission Weight'].default_value = 1.0; gb.inputs['Alpha'].default_value = 0.35
+    MAT['leaf'] = principled('leaf', lin(S['plant']['hex']), 0.45, sss=0.15)
+    lb = MAT['leaf'].node_tree.nodes['Principled BSDF']; t = noise(MAT['leaf'], 40, 3)
+    mx = MAT['leaf'].node_tree.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+    mx.inputs['A'].default_value = lin('#3D7A2E'); mx.inputs['B'].default_value = lin('#7FB04A')
+    MAT['leaf'].node_tree.links.new(t.outputs['Fac'], mx.inputs['Factor']); MAT['leaf'].node_tree.links.new(mx.outputs['Result'], lb.inputs['Base Color'])
+    MAT['stem'] = principled('stem', lin('#5E7A35'), 0.6)
+    MAT['soil'] = mk_cast('soil', '#3A2A1F', 0.95, 0)
+
+# ---------------------------------------------------------------- meshes
+MESH = {}
+STLMAP = {'frame': 'OG-FRM-001', 'connector': 'OG-CON-001', 'cap': 'OG-CON-002', 'foot': 'OG-CON-003',
+          'pfoot': 'OG-CON-004', 'clamp': 'OG-CON-005', 'shelf': 'OG-MOD-001', 'panel': 'OG-MOD-002_panel-blank',
+          'pegpanel': 'OG-MOD-002_panel-pegboard', 'finishes': 'OG-MOD-002_panel-finishes', 'planter': 'OG-MOD-003_planter-tray',
+          'pextras': 'OG-MOD-003_planter-extras', 'grow': 'OG-ATT-001', 'spot': 'OG-ATT-002',
+          'hub': 'OG-ATT-003', 'pen': 'OG-ATT-004', 'clock': 'OG-ATT-005', 'speaker': 'OG-ATT-006', 'vclip': 'OG-ATT-007'}
+def stl_path(key):
+    pre = STLMAP[key]; fs = sorted(glob.glob(os.path.join(A.stl, pre + '*.stl*')))
+    if not fs: raise SystemExit('missing STL for ' + key)
+    f = fs[0]
+    if f.endswith('.gz'):
+        out = os.path.join(A.stl, '_unz', os.path.basename(f)[:-3]); os.makedirs(os.path.dirname(out), exist_ok=True)
+        if not os.path.exists(out):
+            with gzip.open(f) as a, open(out, 'wb') as b: shutil.copyfileobj(a, b)
+        f = out
+    return f
+def islands(bm):
+    seen = set(); out = []
+    for f in bm.faces:
+        if f in seen: continue
+        isl = []; st = [f]; seen.add(f)
+        while st:
+            g = st.pop(); isl.append(g)
+            for e in g.edges:
+                for h in e.link_faces:
+                    if h not in seen: seen.add(h); st.append(h)
+        out.append(isl)
+    return out
+def mesh(key):
+    if key in MESH: return MESH[key]
+    bpy.ops.wm.stl_import(filepath=stl_path(key)); o = bpy.context.selected_objects[0]
+    me = o.data; me.name = key
+    bm = bmesh.new(); bm.from_mesh(me)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.0005)          # weld the STL so normals can smooth
+    bm.faces.ensure_lookup_table()
+    # material index tagging: 0 = body, 1 = emitter / secondary
+    if key in ('grow',):
+        for f in bm.faces:
+            c = f.calc_center_median(); r = math.hypot(c.x, c.y)
+            if f.normal.z < -0.85 and c.z < -5 and 70 < r < 140: f.material_index = 1
+    if key == 'spot':
+        for f in bm.faces:
+            c = f.calc_center_median()
+            if f.normal.y < -0.9 and c.z > 150 and math.hypot(c.x, c.z - 195) < 26: f.material_index = 1
+    if key == 'clock':
+        for f in bm.faces:
+            c = f.calc_center_median()
+            if f.normal.y < -0.9 and c.z > 30: f.material_index = 1
+    if key == 'finishes':
+        for isl in islands(bm):
+            vs = [v.co for g in isl for v in g.verts]; xs = [v.x for v in vs]; zs = [v.z for v in vs]
+            dx = max(xs) - min(xs); cx = sum(xs) / len(xs)
+            if dx < 300 and max(zs) - min(zs) < 300 and dx < 200: idx = 0         # small bits = trays/brackets
+            else: idx = 1 + min(2, max(0, int((cx + 300) // 600)))
+            for g in isl: g.material_index = idx
+    bm.to_mesh(me); bm.free()
+    for p in me.polygons: p.use_smooth = True
+    bpy.context.view_layer.objects.active = o
+    try: bpy.ops.object.shade_smooth_by_angle(angle=math.radians(32), keep_sharp_edges=True)
+    except Exception: pass
+    # bake the smooth-by-angle modifier if it was added as one
+    for md in list(o.modifiers):
+        try: bpy.ops.object.modifier_apply(modifier=md.name)
+        except Exception: pass
+    bpy.data.objects.remove(o); MESH[key] = me; return me
+
+# ---------------------------------------------------------------- placing parts
+SHOTCOL = {}
+def coll(name):
+    if name not in SHOTCOL:
+        c = bpy.data.collections.new(name); sc.collection.children.link(c); SHOTCOL[name] = c
+    return SHOTCOL[name]
+CUR = ['main']
+def put(key, loc=(0, 0, 0), rot=(0, 0, 0), mat='frame', mats=None, name=None):
+    me = mesh(key); o = bpy.data.objects.new(name or key, me)
+    o.location = Vector(loc) * MM; o.rotation_euler = Euler([math.radians(a) for a in rot]); o.scale = (MM,) * 3
+    ml = mats or [mat, 'led']
+    if key == 'finishes': ml = ['clamp', 'whiteboard', 'pegboard', 'softboard']
+    while len(me.materials) < len(ml): me.materials.append(None)
+    for sl, mk in zip(o.material_slots, ml): sl.link = 'OBJECT'; sl.material = MAT[mk]
+    coll(CUR[0]).objects.link(o); return o
+ATT = {'grow': 'att_grow', 'spot': 'att_spot', 'hub': 'att_hub', 'pen': 'att_pen', 'clock': 'att_clock', 'speaker': 'att_speaker'}
+def att(key, top, face=0):
+    m2 = {'grow': 'led_grow', 'spot': 'led', 'clock': 'screen'}.get(key, 'led')
+    return put(key, top, (0, 0, face), mats=[ATT[key], m2])
+
+# H-frame stack: even levels upright, odd levels flipped upside down so tall sits on short.
+def column(x, y, n, rotz=0, feet=True, power_foot=False, cap=True, conn=False):
+    """n frames stacked at (x,y); frame plane along local +x rotated by rotz. Returns the two post-top points."""
+    R = Matrix.Rotation(math.radians(rotz), 4, 'Z'); base = Vector((x, y, 0))
+    P = lambda px, z: base + R @ Vector((px, 0, z))
+    tops = {0: 0.0, 1: 0.0}           # running top height of post A (x=0) and post B (x=G)
+    for i in range(n):
+        if i % 2 == 0:
+            z0 = max(tops[0], tops[1] - 0) if i == 0 else tops[0]
+            put('frame', P(0, tops[0]), (0, 0, rotz)); tops = {0: tops[0] + H, 1: tops[1] + HS}
+        else:
+            # flipped: short post now on post A (top-flush), tall on post B
+            zb = tops[1]; put('frame', P(G, zb + H), (0, 180, rotz)); tops = {0: zb + H, 1: zb + H}
+        if conn and i > 0:
+            pass
+    # connectors at every internal joint (where a new frame starts on a post top)
+    if conn:
+        zA, zB = 0.0, 0.0; za = [] ; zb_ = []
+        for i in range(n):
+            if i % 2 == 0: hA, hB = H, HS
+            else: hA, hB = HS, H
+            if i > 0: za.append(zA); zb_.append(zB)
+            zA += hA; zB += hB
+        for z in za: put('connector', P(0, z), (0, 0, rotz), mat='pom')
+        for z in zb_: put('connector', P(G, z), (0, 0, rotz), mat='pom')
+    if feet:
+        put('pfoot' if power_foot else 'foot', P(0, 0), (0, 0, rotz), mat='alu'); put('foot', P(G, 0), (0, 0, rotz), mat='alu')
+    tA, tB = P(0, tops[0]), P(G, tops[1])
+    POSTS[(round(tA.x), round(tA.y))] = tA.z; POSTS[(round(tB.x), round(tB.y))] = tB.z
+    return tA, tB
+
+POSTS = {}; CLAMPS = {}; WARN = []
+def clamp(post, z, rotz=0):
+    k = (round(post[0]), round(post[1]), round(z / 5))
+    for (a, b, c), r in CLAMPS.items():
+        if a == k[0] and b == k[1] and abs(c * 5 - z) < 36:
+            if abs(c * 5 - z) > 1: WARN.append('clamp overlap at %s z=%.0f' % (k[:2], z))
+            return None
+    top = POSTS.get(k[:2])
+    if top is None: WARN.append('clamp on missing post %s' % (k[:2],))
+    elif z + 35 > top - 5: WARN.append('clamp above post top %s z=%.0f top=%.0f' % (k[:2], z, top))
+    CLAMPS[k] = rotz; return put('clamp', (post[0], post[1], z), (0, 0, rotz), mat='clamp')
+def _four(cx, cy, z):
+    for dx, dy in ((-1, -1), (1, -1), (1, 1), (-1, 1)): clamp((cx + dx * G / 2, cy + dy * G / 2), z - 30, 0 if dy < 0 else 180)
+def shelf_on(cx, cy, z, mat='oak'):
+    _four(cx, cy, z); return put('shelf', (cx, cy, z), mat=mat)
+def planter_on(cx, cy, z):
+    _four(cx, cy, z); o = put('planter', (cx, cy, z), mat='pp'); put('pextras', (cx, cy, z), mat='pp')
+    soil(cx, cy, z + 95, 500); return o
+def panel_between(xa, xb, y, z, fin='pegboard', rotz=0):
+    """landscape panel hung on the -Y face of the post line y, board face toward -Y; z = panel bottom"""
+    cx = (xa + xb) / 2
+    for px in (xa, xb): clamp((px, y), z - 15, 180); clamp((px, y), z + HS - 15, 180)
+    key = 'pegpanel' if fin == 'pegboard' else 'panel'
+    return put(key, (cx, y - 51.9, z), (0, 0, 180), mats=[fin, fin])
+
+# ---------------------------------------------------------------- props: plants, soil, books, printer
+def soil(cx, cy, z, size):
+    bpy.ops.mesh.primitive_plane_add(size=size * MM * 0.96, location=(cx * MM, cy * MM, z * MM))
+    o = bpy.context.object; d = o.modifiers.new('d', 'DISPLACE'); tx = bpy.data.textures.new('soil', 'CLOUDS'); tx.noise_scale = 0.02
+    d.texture = tx; d.strength = 0.008; o.modifiers.new('s', 'SUBSURF').levels = 4; o.modifiers.move(1, 0)
+    o.data.materials.append(MAT['soil']); relink(o); return o
+def relink(o):
+    for c in o.users_collection: c.objects.unlink(o)
+    coll(CUR[0]).objects.link(o)
+LEAF = {}
+def leaf_mesh(kind='pothos'):
+    if kind in LEAF: return LEAF[kind]
+    bm = bmesh.new(); prof = []
+    N = 16
+    for i in range(N + 1):            # heart-ish outline
+        t = i / N; a = math.pi * t
+        w = math.sin(a) ** 0.8 * (1.15 - 0.4 * t) * (0.62 if kind == 'pothos' else 0.25)
+        prof.append((w, t))
+    vs_l = [bm.verts.new((-w, t, 0.06 * math.sin(math.pi * t) + 0.08 * w * w)) for w, t in prof]
+    vs_r = [bm.verts.new((w, t, 0.06 * math.sin(math.pi * t) + 0.08 * w * w)) for w, t in prof]
+    mid = [bm.verts.new((0, t, 0.06 * math.sin(math.pi * t) - 0.012)) for w, t in prof]
+    for i in range(N):
+        bm.faces.new((vs_l[i], vs_l[i + 1], mid[i + 1], mid[i])); bm.faces.new((mid[i], mid[i + 1], vs_r[i + 1], vs_r[i]))
+    me = bpy.data.meshes.new('leaf_' + kind); bm.to_mesh(me); bm.free()
+    for p in me.polygons: p.use_smooth = True
+    me.materials.append(MAT['leaf']); LEAF[kind] = me; return me
+def vine(pts, leaf_every=40.0, leaf_size=70.0, kind='pothos', r=3.0, centre=None):
+    """pts in mm; stem tube + leaves along it"""
+    cu = bpy.data.curves.new('stem', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = r * MM; cu.bevel_resolution = 4
+    sp = cu.splines.new('NURBS'); sp.points.add(len(pts) - 1); sp.use_endpoint_u = True; sp.order_u = 4
+    for p, q in zip(sp.points, pts): p.co = (q[0] * MM, q[1] * MM, q[2] * MM, 1)
+    o = bpy.data.objects.new('stem', cu); o.data.materials.append(MAT['stem']); coll(CUR[0]).objects.link(o)
+    # leaves
+    L = 0; prev = Vector(pts[0]); acc = 0
+    for q in pts[1:]:
+        q = Vector(q); seg = (q - prev).length; d = (q - prev).normalized() if seg > 0 else Vector((0, 0, 1))
+        acc += seg
+        while acc >= leaf_every:
+            acc -= leaf_every; p = q - d * acc
+            lf = bpy.data.objects.new('leaf', leaf_mesh(kind)); s = leaf_size * random.uniform(0.7, 1.25) * MM
+            lf.scale = (s, s, s); lf.location = p * MM
+            if centre is not None:
+                yaw = math.atan2(p.y - centre[1], p.x - centre[0]) + random.uniform(-0.5, 0.5)
+            else:
+                yaw = math.atan2(d.y, d.x) + random.choice((-1, 1)) * random.uniform(1.1, 1.9)
+            lf.rotation_euler = Euler((random.uniform(-0.6, 0.2), random.uniform(-0.4, 0.4), yaw - math.pi / 2))
+            coll(CUR[0]).objects.link(lf)
+        prev = q
+    return o
+def climb(post, z0, z1, turns=2.2, r=48, phase=0.0, trail=0):
+    pts = []; n = 40
+    for i in range(n + 1):
+        t = i / n; a = phase + t * turns * 2 * math.pi
+        pts.append((post[0] + r * math.cos(a), post[1] + r * math.sin(a), z0 + (z1 - z0) * t))
+    if trail:   # drape off the top and down
+        a = phase + turns * 2 * math.pi
+        for k in range(1, 8):
+            pts.append((post[0] + (r + 25 * k) * math.cos(a + 0.2 * k), post[1] + (r + 25 * k) * math.sin(a + 0.2 * k), z1 + 20 - k * k * trail))
+    vine(pts, centre=post)
+    for z in range(int(z0 + 120), int(z1 - 40), 170):
+        if not any(a == round(post[0]) and b == round(post[1]) and abs(c * 5 - z) < 50 for (a, b, c) in CLAMPS):
+            put('vclip', (post[0], post[1], z), (0, 0, random.uniform(0, 360)), mat='clip')
+def tuft(cx, cy, z, n=26, h=180, kind='pothos', spread=120):
+    for k in range(n):
+        a = k * 2.399; rr = spread * math.sqrt(k / n)
+        base = (cx + rr * math.cos(a) * 0.3, cy + rr * math.sin(a) * 0.3, z)
+        tip = (cx + rr * math.cos(a), cy + rr * math.sin(a), z + h * random.uniform(0.5, 1.0))
+        mid = ((base[0] + tip[0]) / 2, (base[1] + tip[1]) / 2, tip[2] + 30)
+        vine([base, mid, tip], leaf_every=60, leaf_size=60 if kind == 'pothos' else 45, kind=kind, r=2)
+def box(name, size, loc, mat, bevel=2.0, rotz=0):
+    bpy.ops.mesh.primitive_cube_add(size=1, location=Vector(loc) * MM); o = bpy.context.object
+    o.scale = Vector(size) * MM; o.rotation_euler[2] = math.radians(rotz); o.name = name
+    bpy.ops.object.transform_apply(scale=True)
+    if bevel: b = o.modifiers.new('b', 'BEVEL'); b.width = bevel * MM; b.segments = 3
+    for p in o.data.polygons: p.use_smooth = True
+    o.data.materials.append(MAT[mat] if isinstance(mat, str) else mat); relink(o); return o
+def book_row(x, y, z, n=9, rotz=0, depth=170):
+    cols = ['#2E3A4A', '#C9B79C', '#8C3B2E', '#E8E2D6', '#3F5E4A', '#1F1F1F', '#B8A06A', '#6E7F8C', '#D9CDB8']
+    xo = 0
+    for i in range(n):
+        w = random.uniform(22, 48); h = random.uniform(210, 300)
+        m = principled('book%d' % i, lin(cols[i % len(cols)]), 0.75)
+        R = Matrix.Rotation(math.radians(rotz), 4, 'Z')
+        p = Vector((x, y, z)) + R @ Vector((xo + w / 2, 0, h / 2)); box('book', (w, depth, h), p, m, 1.0, rotz); xo += w + 1
+def printer(x, y, z, rotz=0):
+    """generic, unbranded bed-slinger style 3D printer"""
+    R = Matrix.Rotation(math.radians(rotz), 4, 'Z'); P = lambda a, b, c: Vector((x, y, z)) + R @ Vector((a, b, c))
+    dark = principled('printer_dark', lin('#2A2B2D'), 0.5); alum = mk_cast('printer_alu', '#B9BBBD', 0.35, 0.9)
+    box('pr_base', (420, 380, 60), P(0, 0, 30), dark, 4, rotz); box('pr_bed', (260, 260, 8), P(0, 20, 78), alum, 1, rotz)
+    box('pr_upL', (30, 30, 420), P(-190, -40, 270), alum, 2, rotz); box('pr_upR', (30, 30, 420), P(190, -40, 270), alum, 2, rotz)
+    box('pr_top', (410, 30, 30), P(0, -40, 480), alum, 2, rotz); box('pr_x', (400, 22, 22), P(0, -40, 300), alum, 1, rotz)
+    box('pr_head', (60, 55, 70), P(30, -15, 300), dark, 4, rotz); box('pr_screen', (90, 10, 55), P(150, 175, 45), MAT['screen'], 2, rotz)
+    box('pr_print', (60, 60, 90), P(0, 20, 127), MAT['pp'], 8, rotz)
+def mug(x, y, z, col='#E9E4DA'):
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.042, depth=0.095, location=(x * MM, y * MM, (z + 47.5) * MM), vertices=64)
+    o = bpy.context.object; o.modifiers.new('b', 'BEVEL').width = 0.002; o.data.materials.append(mk_gloss('mug', col)); relink(o)
+    for p in o.data.polygons: p.use_smooth = True
+def laptop(x, y, z, rotz=0):
+    R = Matrix.Rotation(math.radians(rotz), 4, 'Z'); P = lambda a, b, c: Vector((x, y, z)) + R @ Vector((a, b, c))
+    alu = mk_cast('lap', '#C7C9CC', 0.3, 0.9); box('lap_base', (304, 212, 12), P(0, 0, 6), alu, 4, rotz)
+    o = box('lap_lid', (304, 6, 205), P(0, 105, 105), alu, 4, rotz); o.rotation_euler[0] = math.radians(-12)
+def sketches(x, y, z, rotz=0, n=3):
+    paper = principled('paper', lin('#F3EFE6'), 0.85)
+    for i in range(n): box('sheet', (297, 210, 0.6), (x + i * 30, y + i * 18, z + 0.6 * i), paper, 0, rotz + random.uniform(-14, 14))
+
+# ---------------------------------------------------------------- environments
+def floor_grid(dark=False):
+    """warm off-white floor with a dark grey 1 ft grid; floor at z = -FOOT"""
+    bpy.ops.mesh.primitive_plane_add(size=80, location=(0, 0, -FOOT * MM)); fl = bpy.context.object; fl.name = 'floor'
+    m = bpy.data.materials.new('floor'); m.use_nodes = True; n, l = nodes(m); b = n['Principled BSDF']
+    b.inputs['Roughness'].default_value = 0.7
+    oc = n.new('ShaderNodeTexCoord'); sep = n.new('ShaderNodeSeparateXYZ'); l.new(oc.outputs['Object'], sep.inputs[0])
+    def line(axis):
+        md = n.new('ShaderNodeMath'); md.operation = 'PINGPONG'; md.inputs[1].default_value = 0.1524   # 1 ft period
+        l.new(sep.outputs[axis], md.inputs[0])
+        st = n.new('ShaderNodeMath'); st.operation = 'LESS_THAN'; st.inputs[1].default_value = 0.0012
+        l.new(md.outputs[0], st.inputs[0]); return st
+    mx_ = n.new('ShaderNodeMath'); mx_.operation = 'MAXIMUM'; l.new(line('X').outputs[0], mx_.inputs[0]); l.new(line('Y').outputs[0], mx_.inputs[1])
+    mc = n.new('ShaderNodeMix'); mc.data_type = 'RGBA'
+    mc.inputs['A'].default_value = lin('#2B2C2E') if dark else lin('#F3EEE6'); mc.inputs['B'].default_value = lin('#55575A') if dark else lin('#6E7073')
+    l.new(mx_.outputs[0], mc.inputs['Factor']); l.new(mc.outputs['Result'], b.inputs['Base Color'])
+    fl.data.materials.append(m); sc.collection.objects.link(fl) if fl.name not in sc.collection.objects else None
+    relink(fl); return fl
+def world_studio(key_hex='#F3EEE6', strength=0.35, gradient=True, dark=False):
+    """camera sees an airy screen-space gradient keyed to the subject colour; lighting sees neutral white"""
+    w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; n, l = nodes(w); bg = n['Background']
+    out = n['World Output']; lp = n.new('ShaderNodeLightPath'); tc = n.new('ShaderNodeTexCoord')
+    sep = n.new('ShaderNodeSeparateXYZ'); l.new(tc.outputs['Window'], sep.inputs[0])
+    k = lin(key_hex); top = mix(k, [1, 1, 1], 0.82); bot = mix(k, [1, 1, 1], 0.45)
+    if dark: top, bot = lin('#1C1D20'), lin('#0C0C0E')
+    ramp = n.new('ShaderNodeValToRGB'); ramp.color_ramp.elements[0].color = bot; ramp.color_ramp.elements[1].color = top
+    ramp.color_ramp.elements[0].position = 0.05; ramp.color_ramp.elements[1].position = 0.95
+    gx = n.new('ShaderNodeMath'); gx.operation = 'MULTIPLY_ADD'; gx.inputs[1].default_value = 0.35; gx.inputs[2].default_value = 0
+    l.new(sep.outputs['X'], gx.inputs[0]); ad = n.new('ShaderNodeMath'); ad.operation = 'ADD'
+    l.new(sep.outputs['Y'], ad.inputs[0]); l.new(gx.outputs[0], ad.inputs[1]); l.new(ad.outputs[0], ramp.inputs['Fac'])
+    cam_bg = n.new('ShaderNodeBackground'); l.new(ramp.outputs['Color'], cam_bg.inputs['Color']); cam_bg.inputs['Strength'].default_value = 1.0
+    light_bg = n.new('ShaderNodeBackground'); light_bg.inputs['Color'].default_value = (1, 0.98, 0.96, 1); light_bg.inputs['Strength'].default_value = strength
+    ms = n.new('ShaderNodeMixShader'); l.new(lp.outputs['Is Camera Ray'], ms.inputs[0])
+    l.new(light_bg.outputs[0], ms.inputs[1]); l.new(cam_bg.outputs[0], ms.inputs[2]); l.new(ms.outputs[0], out.inputs['Surface'])
+    if not gradient:
+        l.new(light_bg.outputs[0], out.inputs['Surface'])
+def shadow_catcher():
+    bpy.ops.mesh.primitive_plane_add(size=60, location=(0, 0, -FOOT * MM)); o = bpy.context.object; o.is_shadow_catcher = True; relink(o); return o
+def area(name, loc, power, size, color=(1, 0.97, 0.93), target=(0, 0, 0.4), spread=180):
+    l = bpy.data.lights.new(name, 'AREA'); l.shape = 'DISK'; l.size = size; l.energy = power; l.color = color
+    l.spread = math.radians(spread)
+    o = bpy.data.objects.new(name, l); o.location = loc; coll(CUR[0]).objects.link(o)
+    d = Vector(target) - Vector(loc); o.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler(); return o
+def studio_lights(scale=1.0, target=(0, 0, 0.4)):
+    t = Vector(target)
+    area('key', t + Vector((-2.2, -2.6, 3.0)) * scale, 600 * scale ** 2, 2.2 * scale, target=t)
+    area('fill', t + Vector((3.0, -2.0, 1.0)) * scale, 160 * scale ** 2, 3.0 * scale, (0.95, 0.97, 1.0), target=t)
+    area('rim', t + Vector((1.2, 3.0, 2.6)) * scale, 450 * scale ** 2, 1.5 * scale, target=t)
+def sun_room(hour='golden', strength=1.0):
+    w = bpy.data.worlds.new('sky'); sc.world = w; w.use_nodes = True; n, l = nodes(w); bg = n['Background']
+    sky = n.new('ShaderNodeTexSky')
+    try: sky.sky_type = 'NISHITA'
+    except Exception: pass
+    elev = {'golden': 7, 'morning': 22, 'day': 45, 'night': -8}[hour]
+    try:
+        sky.sun_elevation = math.radians(elev); sky.sun_rotation = math.radians(215 if hour == 'golden' else 120)
+        sky.altitude = 200; sky.air_density = 1.4; sky.dust_density = 2.0 if hour == 'golden' else 1.0
+    except Exception: pass
+    l.new(sky.outputs['Color'], bg.inputs['Color']); bg.inputs['Strength'].default_value = (0.004 if hour == 'night' else 0.18) * strength
+def room(kind, hour):
+    """simple architectural shell: floor, back + side wall with a big steel window, ceiling"""
+    W, D, Hh = 7000, 6000, 3200
+    concrete = mk_cast('concrete', '#BDB7AE', 0.8, 0)
+    walls = principled('wall', lin('#EEEAE3'), 0.9); steel = principled('steel', lin('#1E1F21'), 0.4, 0.7)
+    glass = principled('glass', lin('#FFFFFF'), 0.02, ior=1.45); glass.node_tree.nodes['Principled BSDF'].inputs['Transmission Weight'].default_value = 1
+    floor_mat = concrete if kind != 'rest' else mk_oak('oakfloor', '#8A6A4A')
+    box('floor', (W * 2, D * 2, 20), (0, 0, -FOOT - 10), floor_mat, 0)
+    box('back', (W * 2, 40, Hh), (0, D * 0.55, Hh / 2 - FOOT), walls, 0)
+    # side wall with window opening (window frame bars) on the left
+    box('side_lo', (40, D * 2, 900), (-W * 0.55, 0, 450 - FOOT), walls, 0)
+    box('side_hi', (40, D * 2, 500), (-W * 0.55, 0, Hh - 250 - FOOT), walls, 0)
+    for k in range(7): box('mullion', (60, 40, Hh - 1400), (-W * 0.55, -D + k * 900, 900 + (Hh - 1400) / 2 - FOOT), steel, 2)
+    box('transom', (60, D * 2, 40), (-W * 0.55, 0, 1800 - FOOT), steel, 2)
+    box('glass', (6, D * 2, Hh - 1400), (-W * 0.55, 0, 900 + (Hh - 1400) / 2 - FOOT), glass, 0)
+    box('ceiling', (W * 2, D * 2, 40), (0, 0, Hh - FOOT + 20), walls, 0)
+    sun_room(hour)
+    if hour != 'night':
+        s = bpy.data.lights.new('sun', 'SUN'); s.energy = {'golden': 4.5, 'morning': 3.0, 'day': 5.0}[hour]; s.angle = math.radians(1.2)
+        s.color = {'golden': (1.0, 0.72, 0.45), 'morning': (0.9, 0.95, 1.0), 'day': (1, 0.97, 0.92)}[hour]
+        so = bpy.data.objects.new('sun', s); so.rotation_euler = Euler((math.radians(70 if hour == 'golden' else 55), 0, math.radians(-60))); coll(CUR[0]).objects.link(so)
+        area('window_fill', (-W * 0.5 * MM, 0, 1.6), 900, 4.0, (0.92, 0.95, 1.0), target=(0, 0, 0.8))
+    else:
+        area('practical', (1.2, -1.0, 2.6), 60, 0.4, (1.0, 0.78, 0.55), target=(0, 0, 0.8))
+    # haze: subtle volume scatter in the room only
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, (Hh / 2 - FOOT) * MM)); hz = bpy.context.object; hz.scale = (W * 1.9 * MM, D * 1.9 * MM, Hh * 0.98 * MM)
+    hm = bpy.data.materials.new('haze'); hm.use_nodes = True; n, l = nodes(hm); n.remove(n['Principled BSDF'])
+    vs = n.new('ShaderNodeVolumePrincipled'); vs.inputs['Density'].default_value = 0.012 if hour != 'night' else 0.02
+    l.new(vs.outputs[0], n['Material Output'].inputs['Volume']); hz.data.materials.append(hm); relink(hz)
+
+# ---------------------------------------------------------------- camera
+CAM = None
+def camera(target, az, el, dist, lens, dof=None, shift=(0, 0)):
+    global CAM
+    if CAM is None:
+        CAM = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); sc.collection.objects.link(CAM); sc.camera = CAM
+    t = Vector(target) * MM; a, e = math.radians(az), math.radians(el)
+    CAM.location = t + Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e))) * dist
+    CAM.rotation_euler = (t - CAM.location).to_track_quat('-Z', 'Y').to_euler()
+    c = CAM.data; c.lens = lens; c.clip_start = 0.005; c.clip_end = 200; c.shift_x, c.shift_y = shift
+    c.sensor_width = 36
+    c.dof.use_dof = dof is not None
+    if dof: c.dof.focus_distance = (t - CAM.location).length; c.dof.aperture_fstop = dof
+
+# ---------------------------------------------------------------- the system builders
+def lattice(variant='hero'):
+    """maximalist lattice: 3 rows x 3 columns of stacked frames, every module and attachment"""
+    LV = [[3, 2, 4], [2, 3, 2], [1, 2, 3]]
+    tops = []
+    for r, row in enumerate(LV):
+        for c, n in enumerate(row):
+            x = c * G * 1.0 + (c * 2 * G - c * G); y = r * G
+            tA, tB = column(c * 2 * G - c * G if False else c * G * 2, r * G, n, feet=True, power_foot=(r == 0 and c == 0))
+            tops += [tA, tB]
+    return tops, LV
+
+# ---------------------------------------------------------------- shots
+SHOTS = {}
+def shot(sid, name, bg, key='frame', versions=('day',)):
+    def deco(fn): SHOTS[sid] = dict(name=name, bg=bg, key=key, fn=fn, versions=versions); return fn
+    return deco
+
+def top_attach(tops, keys):
+    for t, k in zip(tops, keys):
+        if k == 'cap': put('cap', t, mat='cap')
+        elif k: att(k, t, face=random.choice((0, 0, 20, -20)))
+
+@shot('01', 'hero', 'room:studio:golden', versions=('day', 'night'))
+def s01(night):
+    tops = []
+    cols = [(0, 0, 3), (2 * G, 0, 2), (4 * G, 0, 4), (0, G, 2), (2 * G, G, 3), (4 * G, G, 2), (0, 2 * G, 1), (2 * G, 2 * G, 2), (4 * G, 2 * G, 3)]
+    for i, (x, y, n) in enumerate(cols):
+        tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
+    keys = ['spot', 'cap', 'grow', 'clock', 'speaker', 'cap', 'hub', 'pen', 'grow', 'spot', 'cap', 'clock', 'pen', 'cap', 'grow', 'speaker', 'spot', 'cap']
+    top_attach(tops, keys)
+    shelf_on(G / 2, G / 2, 280); shelf_on(2 * G + G / 2, G / 2, H + 200); shelf_on(4 * G + G / 2, G / 2, 2 * H - 100)
+    planter_on(G / 2, 1.5 * G, 230); planter_on(4 * G + G / 2, 1.5 * G, 260)
+    panel_between(2 * G, 3 * G, 0, 120, 'pegboard'); panel_between(2 * G, 3 * G, 0, 120 + HS, 'whiteboard')
+    panel_between(4 * G, 5 * G, 0, 140, 'softboard')
+    tuft(G / 2, 1.5 * G, 330, 30); tuft(4.5 * G, 1.5 * G, 360, 26)
+    climb((G, G), 30, 900, 2.6); climb((4 * G, 2 * G), 30, 1300, 3.0, trail=6); climb((2 * G, 2 * G), 30, 700, 2.0)
+    camera((1350, 650, 650), -32, 14, 6.4, 40, dof=5.6)
+    return (1350, 650, 650)
+
+@shot('02', 'exploded-system', 'grad', key='frame')
+def s02(night):
+    put('frame', (0, 0, 380)); put('connector', (0, 0, 380 + H + 140), mat='pom'); put('cap', (G, 0, 380 + HS + 160), mat='cap')
+    put('foot', (G, 0, 0), mat='alu'); put('pfoot', (0, 0, 0), mat='alu')
+    put('clamp', (G, 0, 380 + 120 + 0), (0, 0, 90), mat='clamp'); att('spot', (0, 0, 380 + H + 140 + 260))
+    camera((G / 2, 0, 700), -28, 12, 3.6, 50)
+    return (G / 2, 0, 700)
+
+@shot('03', 'growth', 'grid', versions=('day',))
+def s03(night):
+    # five stages side by side, same camera height
+    off = 0
+    def st(fn): nonlocal off; fn(off); off += 3 * G
+    st(lambda x: column(x, 0, 1))
+    st(lambda x: (column(x, 0, 1), column(x, G, 1), shelf_on(x + G / 2, G / 2, 250)))
+    st(lambda x: (column(x, 0, 2), column(x, G, 2), shelf_on(x + G / 2, G / 2, 250), att('grow', (x + G, G, H + HS))))
+    st(lambda x: (column(x, 0, 2), column(x, G, 2), column(x + 2 * G, 0, 1), shelf_on(x + G / 2, G / 2, 250), planter_on(x + G / 2, G / 2, H + 120),
+                  att('grow', (x + G, G, H + HS)), panel_between(x + 2 * G, x + 3 * G, 0, 120, 'pegboard')))
+    st(lambda x: (column(x, 0, 3), column(x, G, 2), column(x + 2 * G, 0, 2), column(x + 2 * G, G, 1), shelf_on(x + G / 2, G / 2, 250),
+                  planter_on(x + G / 2, G / 2, H + 120), att('grow', (x + G, G, H + HS)), att('spot', (x, 0, H + HS + H)),
+                  panel_between(x + 2 * G, x + 3 * G, 0, 120, 'pegboard'), climb((x, G, 0), 30, 900, 2.4)))
+    camera((off / 2 - 1.5 * G, 300, 600), -6, 10, 13.0, 55)
+    return (off / 2, 300, 600)
+
+def macro(key, mats, loc_cam, lens=100, f=2.8, rot=(0, 0, 0)):
+    o = put(key, (0, 0, 0), rot, mats=mats); bpy.context.view_layer.update()
+    bb = [o.matrix_world @ Vector(c) for c in o.bound_box]; mn = Vector([min(v[i] for v in bb) for i in range(3)]); mx = Vector([max(v[i] for v in bb) for i in range(3)])
+    c = (mn + mx) / 2 / MM; rad = (mx - mn).length / 2
+    d = rad / math.tan(math.atan(12 / lens)) * 1.25
+    camera(tuple(c), loc_cam[0], loc_cam[1], d, lens, dof=f); return tuple(c)
+
+@shot('04', 'macro-plus-socket', 'grad', key='pom')
+def s04(night):
+    put('frame', (0, 0, -H + 60)); put('connector', (0, 0, 60), mat='pom')
+    camera((0, 0, 70), -30, 34, 0.42, 100, dof=4); return (0, 0, 70)
+@shot('05', 'macro-clamp', 'grad', key='clamp')
+def s05(night):
+    put('frame', (0, 0, -300)); put('frame', (G, 0, -300)); panel_between(0, G, 0, -60, 'softboard')
+    camera((0, -30, 80), -38, 18, 0.55, 100, dof=4); return (0, -30, 80)
+@shot('06', 'macro-grow-light-planter', 'grad', key='att_grow', versions=('day', 'night'))
+def s06(night):
+    column(0, 0, 1, feet=False); column(0, G, 1, feet=False); planter_on(G / 2, G / 2, 180); tuft(G / 2, G / 2, 280, 30, 160)
+    att('grow', (0, G, H)); put('cap', (G, 0, HS), mat='cap')
+    camera((200, 300, 380), -24, 22, 1.7, 70, dof=4); return (200, 300, 380)
+@shot('07', 'macro-power-in-foot', 'grid', key='alu')
+def s07(night):
+    put('frame', (0, 0, 0)); put('pfoot', (0, 0, 0), mat='alu')
+    cable = [(-30, -400, -FOOT + 4), (-30, -250, -FOOT + 4), (-20, -150, -FOOT + 6), (-10, -120, -10)]
+    cu = bpy.data.curves.new('cable', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 3 * MM; sp = cu.splines.new('NURBS'); sp.points.add(len(cable) - 1)
+    for p, q in zip(sp.points, cable): p.co = (q[0] * MM, q[1] * MM, q[2] * MM, 1)
+    co = bpy.data.objects.new('cable', cu); co.data.materials.append(principled('cable', lin('#1C1C1C'), 0.5)); coll(CUR[0]).objects.link(co)
+    camera((0, -40, 30), -34, 20, 0.95, 85, dof=4); return (0, -40, 30)
+
+@shot('11', 'material-macro', 'grad', key='oak')
+def s11(night):
+    chips = ['frame', 'alu', 'pom', 'oak', 'pp', 'whiteboard', 'pegboard', 'softboard', 'cap', 'att_spot', 'att_grow', 'att_speaker']
+    for i, k in enumerate(chips):
+        x = (i % 6) * 70 - 175; y = (i // 6) * 70
+        bpy.ops.mesh.primitive_cube_add(size=1, location=(x * MM, y * MM, 6 * MM)); o = bpy.context.object; o.scale = (0.06, 0.06, 0.012)
+        bpy.ops.object.transform_apply(scale=True); b = o.modifiers.new('b', 'BEVEL'); b.width = 0.004; b.segments = 6
+        for p in o.data.polygons: p.use_smooth = True
+        o.rotation_euler[2] = math.radians(random.uniform(-6, 6)); o.data.materials.append(MAT[k]); relink(o)
+    shadow_catcher(); camera((0, 35, 0), -20, 38, 0.75, 85, dof=5.6); return (0, 35, 0)
+
+@shot('12', 'attachments', 'grad', key='att_spot')
+def s12(night):
+    keys = ['grow', 'spot', 'hub', 'pen', 'clock', 'speaker']
+    for i, k in enumerate(keys):
+        x = i * 330 - 825
+        bpy.ops.mesh.primitive_cylinder_add(radius=38.1 * MM, depth=0.28, location=(x * MM, 0, 0.14), vertices=128); s = bpy.context.object
+        for p in s.data.polygons: p.use_smooth = True
+        s.data.materials.append(MAT['frame']); relink(s); att(k, (x, 0, 280), face=0)
+    shadow_catcher(); camera((0, 0, 330), 0, 8, 3.3, 60); return (0, 0, 330)
+
+@shot('13', 'power-path', 'grad', key='hi')
+def s13(night):
+    tops = []
+    for i, (x, y, n) in enumerate([(0, 0, 2), (0, G, 2), (2 * G, 0, 1)]): tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
+    for o in list(coll(CUR[0]).objects):
+        if o.data and o.data.name in ('frame', 'connector'):
+            for sl in o.material_slots: sl.material = MAT['ghost']
+    for t, k in zip(tops, ['spot', 'grow', 'clock', 'cap', 'hub', 'cap']):
+        if k == 'cap': put('cap', t, mat='muted')
+        else: put(k, t, mats=['hi', 'hi'])
+    def wire(pts):
+        cu = bpy.data.curves.new('wire', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 6 * MM; sp = cu.splines.new('POLY'); sp.points.add(len(pts) - 1)
+        for p, q in zip(sp.points, pts): p.co = (q[0] * MM, q[1] * MM, q[2] * MM, 1)
+        o = bpy.data.objects.new('wire', cu); o.data.materials.append(MAT['power']); coll(CUR[0]).objects.link(o)
+    wire([(0, -300, -FOOT + 5), (0, 0, -FOOT + 5), (0, 0, 2 * H - 0)]); wire([(0, 0, 152), (G, 0, 152), (G, 0, H + HS)])
+    wire([(0, G, 0), (0, G, H + H)])
+    camera((450, 400, 650), -36, 20, 4.6, 50); return (450, 400, 650)
+
+@shot('14', 'concept-spotlight', 'grid-dark', key='att_spot', versions=('night',))
+def s14(night):
+    column(0, 0, 1); att('spot', (0, 0, H)); put('cap', (G, 0, HS), mat='cap')
+    l = bpy.data.lights.new('beam', 'SPOT'); l.energy = 120; l.spot_size = math.radians(38); l.spot_blend = 0.6; l.color = (1, 0.86, 0.7)
+    o = bpy.data.objects.new('beam', l); o.location = (0, -0.06, (H + 195) * MM); o.rotation_euler = (math.radians(55), 0, 0); coll(CUR[0]).objects.link(o)
+    camera((260, 0, 420), -30, 6, 2.6, 50, dof=4); return (260, 0, 420)
+
+@shot('15', 'combinations', 'grid', key='frame')
+def s15(night):
+    layouts = [[(0, 0, 1)], [(0, 0, 2), (0, G, 1)], [(0, 0, 1), (2 * G, 0, 1)], [(0, 0, 3), (0, G, 2), (2 * G, 0, 1)], [(0, 0, 2), (2 * G, 0, 2), (0, G, 2), (2 * G, G, 2)],
+               [(0, 0, 1), (0, G, 1), (0, 2 * G, 1)]]
+    for i, lay in enumerate(layouts):
+        ox = (i % 3) * 2400; oy = (i // 3) * 2400; tops = []
+        for (x, y, n) in lay: tA, tB = column(ox + x, oy + y, n); tops += [tA, tB]
+        top_attach(tops, random.sample(['spot', 'grow', 'clock', 'hub', 'pen', 'speaker', 'cap', 'cap'], k=min(8, len(tops))) + ['cap'] * 8)
+        if len(lay) > 1: shelf_on(ox + G / 2, oy + G / 2, 260)
+    camera((2600, 1500, 400), -30, 32, 11.5, 45); return (2600, 1500, 400)
+
+@shot('16', 'closing-hero', 'room:studio:golden')
+def s16(night):
+    r = s01(night); camera((1350, 650, 900), 38, 6, 5.6, 35, dof=8); return r
+
+@shot('08', 'lifestyle-studio', 'room:studio:golden', versions=('day', 'night'))
+def s08(night):
+    tops = []
+    for i, (x, y, n) in enumerate([(0, 0, 2), (2 * G, 0, 2), (0, G, 1), (2 * G, G, 1)]): tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
+    top_attach(tops, ['spot', 'cap', 'clock', 'cap', 'hub', 'cap', 'pen', 'cap'])
+    shelf_on(G / 2, G / 2, 720); shelf_on(2.5 * G, G / 2, 720)
+    box('desk', (1600, 800, 30), (G * 1.5, -700, 720), mk_oak('desk', '#C9A27A'), 4)
+    for dx in (-760, 760):
+        for dy in (-360, 360): box('leg', (40, 40, 735), (G * 1.5 + dx, -700 + dy, 735 / 2 - FOOT), principled('leg', lin('#1E1F21'), 0.4, 0.8), 3)
+    laptop(G * 1.5 - 200, -700, 735); mug(G * 1.5 + 330, -760, 735); sketches(G * 1.5 + 100, -560, 736)
+    printer(-1200, 300, 0, 25); panel_between(2 * G, 3 * G, 0, 760 + 40, 'pegboard')
+    climb((G, G), 30, HS + 0, 1.2); tuft(G / 2, G / 2, 740, 18, 140)
+    camera((900, -300, 900), -28, 10, 4.2, 32, dof=4); return (900, -300, 900)
+
+@shot('09', 'lifestyle-plant-corner', 'room:rest:morning', versions=('day', 'night'))
+def s09(night):
+    tops = []
+    for (x, y, n) in [(0, 0, 3), (0, G, 2), (2 * G, 0, 2)]: tA, tB = column(x, y, n); tops += [tA, tB]
+    top_attach(tops, ['grow', 'grow', 'clock', 'cap', 'speaker', 'cap'])
+    planter_on(G / 2, G / 2, 260); planter_on(G / 2, G / 2, H + 300); shelf_on(G / 2, G / 2, 2 * H + 200)
+    tuft(G / 2, G / 2, 360, 30); tuft(G / 2, G / 2, H + 400, 24, 140, 'fern')
+    climb((0, G, 0), 30, 1000, 2.8, trail=8); climb((2 * G, 0, 0), 30, 900, 2.2)
+    book_row(G / 2 - 230, G / 2 - 80, 2 * H + 219, 10)
+    box('armchair_seat', (720, 700, 180), (-1100, -500, 380), mk_felt('chair', '#C9B79C'), 30)
+    box('armchair_back', (720, 140, 520), (-1100, -150, 620), mk_felt('chair2', '#C9B79C'), 30)
+    box('side_table', (420, 420, 480), (-500, -900, 240 - FOOT), mk_oak('st', '#8A6A4A'), 6); mug(-480, -900, 480 - FOOT)
+    book_row(-650, -950, 480 - FOOT, 4, 90, 200)
+    camera((200, 0, 700), -40, 9, 4.0, 30, dof=4); return (200, 0, 700)
+
+@shot('10', 'lifestyle-workshop', 'room:shop:day', versions=('day', 'night'))
+def s10(night):
+    tops = []
+    for (x, y, n) in [(0, 0, 3), (2 * G, 0, 3), (4 * G, 0, 2)]: tA, tB = column(x, y, n, rotz=0); tops += [tA, tB]
+    top_attach(tops, ['spot', 'cap', 'hub', 'cap', 'spot', 'cap'])
+    for z in (120, 120 + HS, 120 + 2 * HS): panel_between(0, G, 0, z, 'pegboard'); panel_between(2 * G, 3 * G, 0, z, 'pegboard' if z < 600 else 'whiteboard')
+    shelf_on(4.5 * G, 0, 700)
+    box('bench', (2400, 750, 40), (1300, -700, 900), mk_oak('bench', '#B48E62'), 3)
+    for dx in (-1150, 1150):
+        for dy in (-330, 330): box('bleg', (60, 60, 920), (1300 + dx, -700 + dy, 460 - FOOT), principled('bl', lin('#2A2B2D'), 0.5, 0.6), 3)
+    printer(400, -650, 920, 0); printer(1900, -650, 920, -8)
+    for i in range(6): box('offcut', (random.uniform(60, 240), random.uniform(40, 120), random.uniform(8, 25)), (900 + i * 110, -900, 930), mk_oak('off%d' % i, '#C9A27A'), 2, random.uniform(-30, 30))
+    camera((1300, -200, 1100), -20, 6, 4.6, 32, dof=5.6); return (1300, -200, 1100)
+
+@shot('17', 'builder-presets', 'room:studio:golden', versions=('day', 'night'))
+def s17(night):
+    # three viewer presets side by side: starter, studio desk, plant corner
+    column(0, 0, 1, power_foot=True); att('spot', (0, 0, H)); put('cap', (G, 0, HS), mat='cap'); shelf_on(G / 2, -G / 2, 200)
+    column(2000, 0, 2); column(2000, G, 2); shelf_on(2000 + G / 2, G / 2, 720); att('clock', (2000, 0, H + HS)); att('hub', (2000 + G, G, H + HS))
+    column(4000, 0, 2); column(4000, G, 1); planter_on(4000 + G / 2, G / 2, 240); att('grow', (4000, G, H)); tuft(4000 + G / 2, G / 2, 340, 24)
+    camera((2300, 300, 600), -12, 12, 8.5, 40, dof=8); return (2300, 300, 600)
+
+# ---------------------------------------------------------------- run
+def setup_bg(bg, key, night, target):
+    parts = bg.split(':')
+    if parts[0] == 'room': room(parts[1], 'night' if night else parts[2])
+    elif parts[0] in ('grid', 'grid-dark'):
+        dark = parts[0] == 'grid-dark' or night
+        floor_grid(dark); world_studio('#2B2C2E' if dark else '#F3EEE6', 0.05 if dark else 0.35, gradient=True, dark=dark)
+        if not dark: studio_lights(1.4, Vector(target) * MM)
+    else:
+        shadow_catcher(); world_studio(CMF.get(key, CMF['frame'])['hex'], 0.0 if night else 0.35, dark=night)
+        studio_lights(1.0 if bg == 'grad' else 1.4, Vector(target) * MM)
+def render(sid, version):
+    global sc, CAM
+    sc = reset(); CAM = None; MESH.clear(); SHOTCOL.clear(); LEAF.clear(); random.seed(int(sid) * 13)
+    POSTS.clear(); CLAMPS.clear(); WARN.clear()
+    night = version == 'night'; build_materials(night)
+    S = SHOTS[sid]; CUR[0] = 's' + sid; t = S['fn'](night); setup_bg(S['bg'], S['key'], night, t)
+    r = sc.render; r.resolution_x = A.res; r.resolution_y = A.res if A.square else round(A.res / 1.41421)
+    os.makedirs(A.out, exist_ok=True)
+    tag = ('_clay' if A.clay else '') + ('_night' if night else '')
+    r.filepath = os.path.join(A.out, f'OG-RND-{sid}_{S["name"]}{tag}.png')
+    for w in WARN: print('WARN', sid, w, flush=True)
+    if A.save: bpy.ops.wm.save_as_mainfile(filepath=os.path.join(A.out, f'{sid}{tag}.blend'))
+    if A.dry: print('dry', sid, version, len(coll(CUR[0]).objects), 'objects', flush=True); return
+    bpy.ops.render.render(write_still=True); print('rendered', sid, version, flush=True)
+if A.list:
+    for k, v in sorted(SHOTS.items()): print(k, v['name'], v['bg'], v['versions'])
+    sys.exit(0)
+want = sorted(SHOTS) if A.shots == 'all' else A.shots.split(',')
+for sid in want:
+    vs = SHOTS[sid]['versions']
+    if A.night == 'only': vs = [v for v in vs if v == 'night']
+    elif A.night == 'skip': vs = [v for v in vs if v != 'night'] or vs[:1]
+    for v in vs: render(sid, v)
