@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <style>
 :root{
   --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
@@ -96,26 +96,6 @@ section{scroll-margin-top:64px}
 .two > *:first-child{border-right:1px solid var(--line)}
 .two > .prose{max-width:none}
 
-/* overgrwth */
-#overgrwth .band{background:var(--yellow);height:10px}
-.grow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);border-bottom:1px solid var(--line)}
-.grow-ctrl{padding:clamp(28px,4vw,56px) var(--gutter);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:20px}
-.grow-view{background:#ECECEC;position:relative;aspect-ratio:1570/1110;overflow:hidden}
-.grow-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease}
-.grow-view img.on{opacity:1}
-.steps{display:flex;gap:0;border:1px solid var(--ink)}
-.steps button{flex:1;background:transparent;border:0;border-right:1px solid var(--ink);padding:12px 0;font-size:13px}
-.steps button:last-child{border-right:0}
-.steps button[aria-pressed=true]{background:var(--ink);color:var(--cream)}
-input[type=range]{width:100%;accent-color:var(--pink)}
-.step-note{min-height:3.3em}
-.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
-.part{border-right:1px solid var(--line);background:#fff}
-.part:last-child{border-right:0}
-.part img{aspect-ratio:1200/849;object-fit:cover;width:100%}
-.part div{padding:16px 20px;border-top:1px solid var(--line);font-size:13px}
-.part b{font-family:var(--display);font-weight:400;font-size:14px;display:block;margin-bottom:4px}
-
 /* cortX (dark) */
 .dark{background:var(--ink);color:var(--cream);--line:rgba(255,0,106,.35);--muted:rgba(247,242,239,.55)}
 .dark .project-head h2 span{color:var(--pink)}
@@ -172,9 +152,103 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
   .project-head h2{font-size:clamp(28px,9vw,56px)}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.grow-view img{transition:none}}
+
+/* overgrwth: its own theme (Instrument Sans, #FFFAFA, blue/yellow/red/green) */
+.og{--ogb:#4569BE;--ogy:#FBCB44;--ogr:#D95942;--ogg:#2F7A4B;--ogp:#FFFAFA;--ogi:#1F2F5C;
+  background:var(--ogp);color:var(--ogi);font:400 16px/1.6 'Instrument Sans',system-ui,sans-serif;position:relative;overflow:hidden;
+  border-top:0;padding-bottom:clamp(40px,6vw,96px)}
+.og h2,.og h3{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:700;letter-spacing:-.02em}
+.og-wipe{position:absolute;inset:0 0 auto 0;height:14px;display:flex;pointer-events:none}
+.og-wipe i{flex:1;transform-origin:left;transform:scaleX(var(--p,0));transition:transform .2s linear}
+.og-wipe i:nth-child(1){background:var(--ogb)}.og-wipe i:nth-child(2){background:var(--ogy)}.og-wipe i:nth-child(3){background:var(--ogr)}.og-wipe i:nth-child(4){background:var(--ogg)}
+.og-head{padding:clamp(56px,8vw,120px) var(--gutter) 24px;background:
+  linear-gradient(var(--ogp),var(--ogp)) padding-box,
+  repeating-linear-gradient(90deg,rgba(69,105,190,.12) 0 1px,transparent 1px 96px),
+  repeating-linear-gradient(0deg,rgba(69,105,190,.12) 0 1px,transparent 1px 96px)}
+.og-head{background:repeating-linear-gradient(90deg,rgba(69,105,190,.10) 0 1px,transparent 1px 96px),repeating-linear-gradient(0deg,rgba(69,105,190,.10) 0 1px,transparent 1px 96px)}
+.og-eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ogb);font-weight:600}
+.og-word{font-size:clamp(64px,15vw,220px);line-height:1;color:var(--ogb);margin:12px 0 8px;white-space:nowrap;clip-path:inset(0 calc(100% - var(--p,0)*100%) 0 0)}
+.og-sub{font-size:clamp(18px,2vw,26px);font-weight:500;color:var(--ogb)}
+.og-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding:32px var(--gutter)}
+.og-quote{font-size:clamp(22px,2.6vw,34px);line-height:1.25;font-weight:600;color:var(--ogb);margin-bottom:16px}
+.og-facts{display:grid;gap:14px;align-self:start;border-left:6px solid var(--ogr);padding-left:20px}
+.og-facts dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ogb);font-weight:600}
+.og-facts dd{margin:0}
+.team{display:flex;flex-direction:column;gap:4px}
+.team span{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ico{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:50%;background:currentColor;flex:none}
+.ico svg{width:15px;height:15px;fill:var(--ico-fg,#fff)}
+.og .ico{color:var(--ogb)}
+.og-mix{margin:0 var(--gutter) 24px}
+.og-fig{margin:0}
+.og-fig img{width:100%;background:#EEECE9}
+.og-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--ogi)}
+.og-fig figcaption span{color:var(--ogb);font-weight:600;white-space:nowrap}
+.og > .og-fig{padding:16px var(--gutter) 0}
+.og-block{padding:clamp(40px,6vw,88px) var(--gutter) 0;display:grid;gap:24px}
+.og-out{font-size:clamp(48px,8vw,112px);line-height:1;color:transparent;-webkit-text-stroke:2px var(--ogb);text-transform:lowercase}
+.og-lead{font-size:clamp(20px,2.2vw,30px);line-height:1.3;font-weight:500;max-width:34ch;color:var(--ogi)}
+.og-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-cards div{padding:24px;font-size:15px}
+.og-cards b{display:block;font-size:22px;margin-bottom:8px}
+.c-blue{background:var(--ogb);color:var(--ogp)}.c-yellow{background:var(--ogy);color:var(--ogi)}.c-red{background:var(--ogr);color:var(--ogp)}
+.og-note{max-width:60ch}
+.og-two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding:clamp(40px,6vw,88px) var(--gutter) 0;align-items:center}
+.og-two p+p{margin-top:12px}
+.og-two h3{margin-bottom:16px}
+.og-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.og-rules{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-rules li{border-top:6px solid var(--ogy);padding-top:12px}
+.og-rules b{display:block;color:var(--ogb)}
+.og-build{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.8fr);margin:clamp(40px,6vw,88px) var(--gutter) 0;background:var(--ogb);color:var(--ogp)}
+.og-build-ctrl{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:18px}
+.og-build .og-out{-webkit-text-stroke-color:var(--ogp)}
+.og-presets,.og-toggles{display:flex;flex-wrap:wrap;gap:8px}
+.og-build button{font:600 14px/1 'Instrument Sans',system-ui,sans-serif;padding:10px 14px;border:0;border-radius:999px;background:rgba(255,250,250,.16);color:var(--ogp);cursor:pointer;min-height:40px}
+.og-presets button[aria-pressed=true]{background:var(--ogy);color:var(--ogi)}
+.og-toggles button{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;font-weight:500}
+.og-toggles button i{width:12px;height:12px;border-radius:50%;background:var(--sw);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+.og-toggles button[aria-pressed=false]{opacity:.45}
+.og-toggles button[aria-pressed=false] i{background:transparent;box-shadow:0 0 0 1px var(--ogp)}
+.og-build-view{position:relative;background:var(--ogp);min-height:420px;aspect-ratio:16/11}
+.og-build-view canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.og-build-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.og-build-view.ready img,.og-build-view.ready .og-loading{display:none}
+.og-build-view:not(.ready) canvas{visibility:hidden}
+.og-loading{position:absolute;left:16px;bottom:12px;font-size:13px;color:var(--ogb);background:var(--ogp);padding:4px 10px}
+.og-swatches{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;font-size:13px}
+.og-swatches i{display:block;aspect-ratio:1;box-shadow:inset 0 0 0 1px rgba(31,47,92,.18);margin-bottom:8px}
+.og-swatches b{display:block;color:var(--ogb)}
+.og-close{margin:clamp(40px,6vw,88px) var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ogb);color:var(--ogp);font-size:clamp(22px,2.8vw,40px);line-height:1.25;font-weight:600;border-right:24px solid var(--ogr)}
+.og-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.og-in.seen{opacity:1;transform:none}
+html.in-og header{background:#FFFAFA;color:#4569BE;transition:background .5s,color .5s}
+header{transition:background .5s,color .5s}
+@media (max-width:820px){
+  .og-intro,.og-two,.og-build,.og-grid2,.og-cards,.og-rules{grid-template-columns:minmax(0,1fr)}
+  .og-swatches{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .og-build-view{aspect-ratio:1;min-height:0}
+  .og-close{border-right-width:12px}
+}
+@media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
+/* site-wide social icons */
+.socials{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px}
+.socials .ico{color:var(--ink)}
+footer .socials .ico{width:24px;height:24px}
+footer .socials .ico svg{width:13px;height:13px}
+.dark .ico{color:var(--pink)}
 </style>
 </head>
 <body id="top">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-in" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 2.2c-2.7 0-3 0-4 .1C3.6 2.5 2.5 4.6 2.3 8c-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.4 1.3 5.5 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.4-.2 5.5-1.3 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.4-1.3-5.5-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.4.1 3.6 1.2 3.7 3.7.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.4-1.2 3.6-3.7 3.7-1 .1-1.4.1-4 .1s-2.9 0-4-.1c-2.5-.1-3.6-1.3-3.7-3.7-.1-1-.1-1.4-.1-4s0-2.9.1-4C4.4 5.3 5.5 4.2 8 4.1c1-.1 1.4-.1 4-.1z"/></symbol>
+<symbol id="i-be" viewBox="0 0 24 24"><path d="M8.2 11.3c.9-.4 1.4-1.1 1.4-2.2C9.6 7 8 6 6 6H1v12h5.2c2.1 0 4.1-1 4.1-3.4 0-1.5-.7-2.6-2.1-3.3zM3.4 8h2.2c.8 0 1.6.2 1.6 1.2 0 .9-.6 1.2-1.4 1.2H3.4zm2.5 8H3.4v-3.3h2.6c1 0 1.7.4 1.7 1.6 0 1.2-.8 1.7-1.8 1.7zM15.5 7h5V8.3h-5zM23 13.6c0-2.6-1.5-4.7-4.2-4.7-2.6 0-4.4 2-4.4 4.6 0 2.7 1.7 4.6 4.4 4.6 2 0 3.4-.9 4-3h-2.1c-.2.8-1.1 1.2-1.9 1.2-1.3 0-2-.7-2-2zm-6.2-1.3c.1-1 .8-1.7 1.9-1.7 1 0 1.6.7 1.8 1.7z"/></symbol>
+<symbol id="i-web" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-3a15 15 0 0 0-1.3-3.9A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4zM4.3 14a8 8 0 0 1 0-4h3.4a16 16 0 0 0 0 4zm.8 2h3a15 15 0 0 0 1.3 3.9A8 8 0 0 1 5.1 16zm3-8h-3a8 8 0 0 1 4.3-3.9C8.9 5.3 8.4 6.6 8.1 8zM12 20c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4zm2.3-6H9.7a14 14 0 0 1 0-4h4.6a14 14 0 0 1 0 4zm.3 5.9c.6-1.2 1-2.5 1.3-3.9h3a8 8 0 0 1-4.3 3.9zm1.7-5.9a16 16 0 0 0 0-4h3.4a8 8 0 0 1 0 4z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 2.8-8 5-8-5V17h16z"/></symbol>
+</svg>
+
 
 <div class="wip" role="note"><b>Under construction</b><span>This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span></div>
 
@@ -238,68 +312,120 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 </div>
 
 <!-- ============ OVERGRWTH ============ -->
-<section id="overgrwth">
-  <div class="band"></div>
-  <div class="project-head">
+<section id="overgrwth" class="og">
+  <div class="og-wipe" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="og-head">
+    <div class="og-eyebrow">01 · Modular Design · 2025</div>
+    <h2 class="og-word">overgrwth</h2>
+    <p class="og-sub">A modular workspace system for creative spaces.</p>
+  </div>
+  <div class="og-intro og-in">
     <div>
-      <div class="eyebrow">01 · Modular design</div>
-      <h2>overgrwth</h2>
-      <p class="sub">A modular system for creative workspaces</p>
+      <p class="og-quote">A creative's work is never over. There's always something to change, to add, or to remove.</p>
+      <p>overgrwth is built around that cycle. The whole system is two kinds of part: H-frames and modules. Every frame you add opens up new formations, and modules clip on only when you need them. Home or office, solo or studio, artist or architect, it grows with you, your space and what you make.</p>
     </div>
+    <dl class="og-facts">
+      <div><dt>For</dt><dd>Designers, artists, content creators, engineers and architects</dd></div>
+      <div><dt>Focus</dt><dd>Space adaptability, physical and digital work in one place, keeping tools in reach</dd></div>
+      <div><dt>Team</dt><dd class="team">
+        <span>Abhik Gupta</span>
+        <span>Abhishek Vishwakarma <a class="ico" href="https://www.linkedin.com/in/abhishek-vishwakarma-03839b340/" target="_blank" rel="noopener" aria-label="Abhishek Vishwakarma on LinkedIn"><svg><use href="#i-in"/></svg></a></span>
+        <span>Dhawal Musale <a class="ico" href="https://www.linkedin.com/in/dhawal-m-380097228/" target="_blank" rel="noopener" aria-label="Dhawal Musale on LinkedIn"><svg><use href="#i-in"/></svg></a><a class="ico" href="https://www.behance.net/963e1d2a" target="_blank" rel="noopener" aria-label="Dhawal Musale on Behance"><svg><use href="#i-be"/></svg></a><a class="ico" href="https://www.instagram.com/dhawal_musale/" target="_blank" rel="noopener" aria-label="Dhawal Musale on Instagram"><svg><use href="#i-ig"/></svg></a></span>
+      </dd></div>
+    </dl>
+  </div>
+  <div class="mix og-mix" data-playlist="overgrwth" hidden><div class="mix-label">What I listened to while making overgrwth</div><div class="mix-frame"></div></div>
+
+  <figure class="og-fig og-in">
+    <img src="img/og3-hero.jpg" alt="A large overgrwth lattice: white H-frames stacked at different heights carrying green shelves, red planter trays, yellow pegboard, a blue softboard, yellow grow lights, blue spotlights and vines" width="1800" height="1005" loading="lazy">
+    <figcaption><span>Fig. 01</span>The full system, every attachment on</figcaption>
+  </figure>
+
+  <div class="og-block og-in">
+    <h3 class="og-out">brief</h3>
+    <p class="og-lead">Design a modular system for professional creative spaces that helps people manage their things and builds a connection with the workspace.</p>
+    <div class="og-cards">
+      <div class="c-blue"><b>Space</b>Studios change size, shape and use. The system has to fit whatever room it lands in.</div>
+      <div class="c-yellow"><b>Physical + digital</b>Creatives move between physical, digital and paper-based work all day. A workspace has to hold all three.</div>
+      <div class="c-red"><b>Organisation</b>Tools, materials and references need a place close at hand, and that place keeps changing.</div>
+    </div>
+    <p class="og-note">Research started with interviews and observation at Oro Innovations, then case studies of modular walls and workstations already on the market.</p>
+  </div>
+
+  <div class="og-two og-in">
+    <img src="img/og-sketches.jpg" alt="Grid of black-pen ideation sketches exploring frames, joints and surfaces" loading="lazy">
     <div>
-      <p class="big-quote">A creative's work is never over.</p>
-      <div class="prose" style="margin-top:20px">
-        <p>There is always something to change, add or remove on a desk that's actually being used. overgrwth is built around that cycle. Every H-frame you add opens up new layouts, and modules clip on only when you need them.</p>
+      <h3 class="og-out">ideation</h3>
+      <p>Rounds of sketching explored H-frames with rows of holes, slotting joints, pegboards, magnetic boards and toolboxes.</p>
+      <p>The name comes from the way flora grows over a landscape: serendipitously, a piece at a time, following what is around it. The system grows the same way.</p>
+    </div>
+  </div>
+
+  <div class="og-block og-in">
+    <h3 class="og-out">system</h3>
+    <p class="og-lead">One H-frame, repeated. A 4 in tube with one tall and one short post, 24 by 24 in overall.</p>
+    <div class="og-grid2">
+      <figure class="og-fig"><img src="img/og3-kit.jpg" alt="Exploded frame kit: an H-frame, a frame connector and an end cap floating above a cross-shaped floor foot" width="1800" height="1005" loading="lazy"><figcaption><span>Fig. 02</span>Frame kit: frame, connector, cap, foot</figcaption></figure>
+      <figure class="og-fig"><img src="img/og3-joint.jpg" alt="Close-up of a plus-shaped grey connector half inside the open end of a white post" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 03</span>Plus-shaped sockets lock frames at 90°</figcaption></figure>
+    </div>
+    <ul class="og-rules">
+      <li><b>Flip and stack.</b> Two short posts equal one tall post, so a flipped frame drops onto its neighbour and the lattice steps up 12 in at a time.</li>
+      <li><b>Grid.</b> Posts sit on a 20 in square grid. Every horizontal module fills one cell.</li>
+      <li><b>No anchoring.</b> Frames stand by interlocking, with no floor or ceiling fixings. The uneven lattice is kept on purpose to invite serendipity.</li>
+    </ul>
+  </div>
+
+  <div class="og-build og-in" id="ogBuild">
+    <div class="og-build-ctrl">
+      <h3 class="og-out">build</h3>
+      <p>Add and remove modules on a five-frame setup. Drag to turn it.</p>
+      <div class="og-presets" role="group" aria-label="Presets">
+        <button data-p="bare">Bare</button><button data-p="home">Home desk</button><button data-p="studio" aria-pressed="true">Studio</button><button data-p="plant">Plant corner</button>
       </div>
-      <dl class="facts">
-        <div><dt>For</dt><dd>Designers and content creators</dd></div>
-        <div><dt>Focus</dt><dd>Spatial adaptability, customisability, workspace essentials</dd></div>
-        <div><dt>Team</dt><dd>Abhik Gupta</dd></div>
-      </dl>
-      <div class="mix" data-playlist="overgrwth" hidden><div class="mix-label">What I listened to while making overgrwth</div><div class="mix-frame"></div></div>
+      <div class="og-toggles" role="group" aria-label="Modules"></div>
+    </div>
+    <div class="og-build-view">
+      <canvas id="ogCanvas" aria-label="Interactive 3D model of an overgrwth setup"></canvas>
+      <img id="ogFallback" src="img/og3-growth.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy">
+      <span class="og-loading" id="ogLoading">Loading model</span>
     </div>
   </div>
 
-  <div class="fig">
-    <img src="img/og-hero.jpg" alt="overgrwth render: aluminium H-frames carrying a whiteboard, yellow pegboard, three green shelves, a blue softboard and a spotlight" width="1570" height="1110" loading="lazy">
-    <div class="figcap"><span>Fig. 01 · The full system</span><span>KeyShot render</span></div>
-  </div>
-
-  <div class="grow">
-    <div class="grow-ctrl">
-      <div class="eyebrow">Fig. 02 · Grow it</div>
-      <h3 style="font-size:22px">It grows with your workspace.</h3>
-      <p class="step-note" id="stepNote"></p>
-      <div class="steps" role="group" aria-label="Growth step">
-        <button data-s="0" aria-pressed="true">1</button><button data-s="1">2</button><button data-s="2">3</button><button data-s="3">4</button>
-      </div>
-      <input type="range" id="growRange" min="0" max="3" step="1" value="0" aria-label="Growth step slider">
-    </div>
-    <div class="grow-view" id="growView">
-      <img src="img/og-step1.jpg" alt="Step 1: a bare frame of a few H-pieces" class="on">
-      <img src="img/og-step2.jpg" alt="Step 2: three green shelves added" loading="lazy">
-      <img src="img/og-step3.jpg" alt="Step 3: whiteboard and pegboard attached" loading="lazy">
-      <img src="img/og-hero.jpg" alt="Step 4: softboard and spotlight complete the setup" loading="lazy">
+  <div class="og-block og-in">
+    <h3 class="og-out">modules</h3>
+    <p class="og-lead">One universal post clamp carries everything that hangs or sits: panels, shelves and the planter, at any height.</p>
+    <figure class="og-fig"><img src="img/og3-modules.jpg" alt="Whiteboard, yellow pegboard and blue softboard panels beside a green shelf and a red planter tray mounted on posts with grey clamps" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 04</span>Whiteboard, pegboard, softboard, shelf, planter</figcaption></figure>
+    <div class="og-grid2">
+      <figure class="og-fig"><img src="img/og3-attach.jpg" alt="Six post-top attachments in a row: grow light, spotlight, power hub, pen stand, clock and speaker" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 05</span>Grow light, spotlight, power hub, pen stand, clock, speaker</figcaption></figure>
+      <figure class="og-fig"><img src="img/og3-grow.jpg" alt="Yellow donut grow light on a post top with a planter in its centre and vines trailing down the post" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 06</span>The grow light makes the name literal</figcaption></figure>
     </div>
   </div>
 
-  <div class="two">
-    <div class="prose">
-      <div class="eyebrow">Process</div>
-      <p style="margin-top:14px">We started with primary research on creative workspaces at Oro Innovations, then mapped secondary research. That fed several rounds of sketching: H-frames with rows of holes, slotting joints, pegboards, magnetic boards, toolboxes. The bottom of the board is where the H-frame and its connector settle.</p>
+  <div class="og-two og-in og-power">
+    <figure class="og-fig"><img src="img/og3-power.jpg" alt="A frame setup in grey with the 24 volt power path traced in yellow from the power-in foot up through the posts to the attachments" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 07</span>Power path</figcaption></figure>
+    <div>
+      <h3 class="og-out">power</h3>
+      <p>24 V DC comes in at one power-in foot and runs up through the frames, carried by concentric pogo-pin contacts that work at any rotation.</p>
+      <p>Powered attachments plug into free post tops only. Nothing powered mounts partway up a post and no cables run down the tubes. The power hub turns one post top into three USB-C outlets and a Qi pad.</p>
     </div>
-    <div style="padding:0"><img src="img/og-sketches.jpg" alt="Grid of black-pen ideation sketches exploring frames, joints and surfaces" loading="lazy"></div>
   </div>
 
-  <div class="parts">
-    <div class="part"><img src="img/og-posts.jpg" alt="Two H-frame posts with slotted pins about to slide in" loading="lazy"><div><b>H-frame</b>The one structural part. Frames stack and branch off each other.</div></div>
-    <div class="part"><img src="img/og-connector.jpg" alt="Close-up of the four-prong frame connector" loading="lazy"><div><b>Connector</b>A slotted four-prong plug joins frames and holds modules.</div></div>
-    <div class="part"><img src="img/og-panels.jpg" alt="Blue softboard, grey whiteboard and yellow pegboard panels" loading="lazy"><div><b>Surfaces</b>Softboard, whiteboard and pegboard clip on vertically. Shelves go horizontal.</div></div>
+  <div class="og-block og-in">
+    <h3 class="og-out">colour</h3>
+    <p class="og-lead">Colour tells you what a module does. Structure stays neutral.</p>
+    <div class="og-swatches">
+      <div><i style="background:#FFFAFA"></i><b>Structure</b>Frames, connectors, clamps</div>
+      <div><i style="background:#2F7A4B"></i><b>Set down</b>Shelves</div>
+      <div><i style="background:#D95942"></i><b>Water and soil</b>Planter</div>
+      <div><i style="background:#FBCB44"></i><b>Hang</b>Pegboard</div>
+      <div><i style="background:#4569BE"></i><b>Pin</b>Softboard</div>
+      <div><i style="background:#fff"></i><b>Write</b>Whiteboard</div>
+    </div>
+    <figure class="og-fig"><img src="img/og3-growth.jpg" alt="Three overgrwth setups side by side, growing from bare frames to a stacked setup with shelves, planter and grow light" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 08</span>It grows with your workspace</figcaption></figure>
   </div>
 
-  <div class="fig">
-    <img src="img/og-field-dark.jpg" alt="A dozen bare H-frames interlocking across a dark floor under a spotlight" loading="lazy">
-    <div class="figcap"><span>Fig. 03 · Endless combinations</span><span>Placing each frame is intentional and organic</span></div>
+  <div class="og-close og-in">
+    <p>There's no final form. Every arrangement is a different picture of the people using it.</p>
   </div>
 </section>
 
@@ -319,7 +445,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
       </div>
       <dl class="facts">
         <div><dt>For</dt><dd>Lead data analyst, Premier League club</dd></div>
-        <div><dt>Team</dt><dd>Muesli &amp; Brothers: Abhik Gupta, Ansha Gawande</dd></div>
+        <div><dt>Team</dt><dd class="team"><span>Muesli &amp; Brothers</span><span>Abhik Gupta</span><span>Ansha Gawande <a class="ico" href="https://anshawtydesigns.framer.website/" target="_blank" rel="noopener" aria-label="Ansha Gawande's portfolio"><svg><use href="#i-web"/></svg></a><a class="ico" href="https://www.linkedin.com/in/ansha-gawande-954812283/" target="_blank" rel="noopener" aria-label="Ansha Gawande on LinkedIn"><svg><use href="#i-in"/></svg></a></span></dd></div>
       </dl>
       <div class="mix" data-playlist="cortx" hidden><div class="mix-label">What I listened to while making cortX</div><div class="mix-frame"></div></div>
     </div>
@@ -406,10 +532,10 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 <section id="contact" class="contact">
   <div class="eyebrow">Open to studio roles and internships</div>
   <p style="margin:18px 0 10px"><a class="mail" href="mailto:abhikthegupta@gmail.com">abhikthegupta@gmail.com</a></p>
-  <!-- TODO: add LinkedIn / Instagram / CV links here -->
+<div class="socials"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div>
 </section>
 
-<footer><span>Abhik Gupta · Industrial design · 2026</span><span>portfolio.27</span></footer>
+<footer><span>Abhik Gupta · Industrial design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script>
@@ -485,7 +611,7 @@ window.setSpeaking=setSpeaking;
 
 /* ---------- voice ---------- */
 const AGENT_READY=false; // flip to true once the Blue Machines snippet is pasted into #voice-agent-mount
-const INTRO="Hi, I'm Abhik, an industrial design student at U I D Gandhinagar. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
+const INTRO="Hi, I'm Abhik, a product design student. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
 document.getElementById('introBtn').onclick=()=>{
   if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
   speechSynthesis.cancel();
@@ -520,12 +646,6 @@ document.querySelectorAll('.mix').forEach(el=>{
   el.querySelector('.mix-frame').appendChild(f);el.hidden=false;
 });
 
-/* ---------- overgrwth growth stepper ---------- */
-const notes=['A couple of bare H-frames to start.','Shelves go on as soon as there is stuff to put down.','A whiteboard and pegboard for thinking out loud.','Softboard and spotlight. The desk has grown into the work.'];
-const gImgs=[...document.querySelectorAll('#growView img')],gBtns=[...document.querySelectorAll('.steps button')],gR=document.getElementById('growRange');
-function grow(s){s=+s;gImgs.forEach((im,i)=>im.classList.toggle('on',i===s));gBtns.forEach((b,i)=>b.setAttribute('aria-pressed',i===s));gR.value=s;document.getElementById('stepNote').textContent=(s+1)+' / 4 · '+notes[s];}
-gBtns.forEach(b=>b.onclick=()=>grow(b.dataset.s));gR.oninput=()=>grow(gR.value);grow(0);
-
 /* ---------- cortX sensor readout ---------- */
 const S={
   eeg:{where:'Headset unit',name:'EEG',text:'Electroencephalography. Reads alpha, beta and gamma brain waves from the cerebral cortex.',f:t=>Math.sin(t*.5)*.5+Math.sin(t*1.7)*.3+Math.sin(t*4.3)*.2},
@@ -557,6 +677,70 @@ try{
 }catch(e){
   console.warn('3D head unavailable, keeping point cloud',e);
   document.getElementById('head3d').hidden=true;
+}
+</script>
+
+<script>
+/* ---------- overgrwth: scroll-in transition ---------- */
+(()=>{
+  const og=document.getElementById('overgrwth');if(!og)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  og.querySelectorAll('.og-in').forEach(el=>io.observe(el));
+  const tick=()=>{
+    const r=og.getBoundingClientRect(),vh=innerHeight;
+    const p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.85)));
+    og.style.setProperty('--p',p.toFixed(3));
+    document.documentElement.classList.toggle('in-og',r.top<80&&r.bottom>80);
+  };
+  addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);tick();
+})();
+</script>
+<script type="module">
+/* ---------- overgrwth: build-your-own viewer ---------- */
+const view=document.querySelector('.og-build-view'),cv=document.getElementById('ogCanvas');
+const G=[['shelf','Shelves','#2F7A4B'],['planter','Planter','#D95942'],['whiteboard','Whiteboard','#FFFFFF'],['pegboard','Pegboard','#FBCB44'],['softboard','Softboard','#4569BE'],
+  ['grow','Grow light','#FBCB44'],['spot','Spotlight','#4569BE'],['clock','Clock','#FBCB44'],['speaker','Speaker','#2F7A4B'],['hub','Power hub','#C9A27A'],['pen','Pen stand','#4569BE'],['clips','Vine clips','#A9ACAE']];
+const P={bare:[],home:['shelf','whiteboard','clock','pen','hub','spot'],studio:G.map(g=>g[0]),plant:['shelf','planter','grow','clips','spot']};
+let on=new Set(P.studio),apply=()=>{};
+const tg=document.querySelector('.og-toggles'),pr=[...document.querySelectorAll('.og-presets button')];
+G.forEach(([k,l,c])=>{const b=document.createElement('button');b.dataset.k=k;b.style.setProperty('--sw',c);b.innerHTML='<i></i>'+l;b.onclick=()=>{on.has(k)?on.delete(k):on.add(k);pr.forEach(x=>x.setAttribute('aria-pressed','false'));sync();};tg.appendChild(b);});
+pr.forEach(b=>b.onclick=()=>{on=new Set(P[b.dataset.p]);pr.forEach(x=>x.setAttribute('aria-pressed',x===b));sync();});
+function sync(){tg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',on.has(b.dataset.k)));apply();}
+sync();
+let started=false;
+const io=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;io.disconnect();start();}},{rootMargin:'400px'});
+io.observe(view);
+async function start(){
+  try{
+    const THREE=await import('three');
+    const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
+    const {OrbitControls}=await import('three/addons/controls/OrbitControls.js');
+    const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+    r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NoToneMapping;
+    const sc=new THREE.Scene();
+    sc.add(new THREE.HemisphereLight(0xffffff,0xd9d6d2,1.3));
+    const d=new THREE.DirectionalLight(0xffffff,2.2);d.position.set(3,5,4);sc.add(d);
+    const d2=new THREE.DirectionalLight(0xffffff,.6);d2.position.set(-4,2,-3);sc.add(d2);
+    const cam=new THREE.PerspectiveCamera(30,1,.05,50);
+    const gl=await new GLTFLoader().loadAsync('img/og-system.glb');
+    const root=gl.scene;sc.add(root);
+    const groups={};
+    root.traverse(o=>{if(o.isMesh){const g=o.name.split('|')[0];(groups[g]=groups[g]||[]).push(o);o.material.flatShading=false;}});
+    root.traverse(o=>{if(o.isMesh&&!o.geometry.attributes.normal)o.geometry.computeVertexNormals();});
+    const box=new THREE.Box3().setFromObject(root),c=box.getCenter(new THREE.Vector3()),s=box.getSize(new THREE.Vector3()).length();
+    root.position.sub(c);root.position.y+=0;
+    const ctl=new OrbitControls(cam,cv);ctl.enableZoom=false;ctl.enablePan=false;ctl.enableDamping=true;ctl.minPolarAngle=.6;ctl.maxPolarAngle=1.45;
+    ctl.autoRotate=!matchMedia('(prefers-reduced-motion: reduce)').matches;ctl.autoRotateSpeed=.6;
+    const R=s/2,dist=R/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*.78;cam.position.set(1,.55,1.3).normalize().multiplyScalar(dist);ctl.target.set(0,0,0);
+    apply=()=>{for(const[g,ms]of Object.entries(groups)){const k=g.startsWith('cap-')?g.slice(4):g;const vis=g==='base'?true:g.startsWith('cap-')?!on.has(k):on.has(k);ms.forEach(m=>m.visible=vis);}};
+    apply();
+    const fit=()=>{const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();};
+    new ResizeObserver(fit).observe(cv);fit();
+    view.classList.add('ready');
+    ctl.addEventListener('start',()=>ctl.autoRotate=false);
+    let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(view);
+    r.setAnimationLoop(()=>{if(!vis)return;ctl.update();r.render(sc,cam);});
+  }catch(e){console.warn('overgrwth viewer unavailable',e);document.getElementById('ogLoading').textContent='3D view unavailable, showing renders';}
 }
 </script>
 </body>
