@@ -3,7 +3,8 @@
 //   node tools/export-pdf.mjs vitra adidas              -> out/vitra.pdf, out/adidas.pdf
 //   node tools/export-pdf.mjs default --version=preview -> out/default-preview.pdf (4 cards per project)
 //   node tools/export-pdf.mjs default --squares         -> out/default-squares/<project>-<n>-<card>.png, 1080 x 1080
-// Serves the repo locally, opens /?profile=<id>&print=1, and prints with Chromium.
+// The PDF is its own A4 layout (pdf/index.html), not the website printed. Squares still come
+// from the website's ?format=square. Serves the repo locally and prints with Chromium.
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
@@ -31,9 +32,9 @@ if (!ids.length) ids.push('default');
 await mkdir(join(root, 'out'), { recursive: true });
 const browser = await chromium.launch();
 
-async function open(id, query, viewport) {
+async function open(id, query, viewport, path = '/') {
   const page = await browser.newPage({ viewport });
-  await page.goto(`http://localhost:${port}/?profile=${encodeURIComponent(id)}${query}`, { waitUntil: 'load' });
+  await page.goto(`http://localhost:${port}${path}?profile=${encodeURIComponent(id)}${query}`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.PORTFOLIO, null, { timeout: 15000 });
   await page.evaluate(() => document.querySelectorAll('img[loading="lazy"]').forEach(i => i.loading = 'eager'));
   await page.waitForLoadState('networkidle').catch(() => {});
@@ -56,7 +57,7 @@ for (const id of ids) {
     }
     await page.close();
   } else {
-    const page = await open(id, `&print=1${v}`, { width: 1600, height: 1131 });
+    const page = await open(id, v, { width: 1123, height: 794 }, '/pdf/');
     await page.emulateMedia({ media: 'print' });
     const out = join(root, 'out', `${id}${version ? '-' + version : ''}.pdf`);
     await page.pdf({ path: out, format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true });

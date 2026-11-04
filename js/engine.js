@@ -6,7 +6,8 @@
    overview, and full case study. data-tiers on a slide lists the versions it is in
    (missing = "overview full"); data-card marks the four preview cards. Inside a card,
    data-len="short" shows only in the preview and data-len="long" everywhere else.
-   Open a version with  /#<id>  or  /?profile=<id>  (add &print=1 for the A4 layout,
+   Runs on the website (index.html) and on the separate A4 document (pdf/index.html).
+   Open a version with  /#<id>  or  /?profile=<id>  (pdf/?profile=<id> for A4,
    &version=preview|overview|full to force one version, &format=square for social squares). */
 (function () {
   const params = new URLSearchParams(location.search);
@@ -37,7 +38,8 @@
 
   async function load(id) {
     try {
-      const r = await fetch('profiles/' + id + '.json', { cache: 'no-store' });
+      const root = document.documentElement.dataset.root || '';  // pdf/ sets "../"
+      const r = await fetch(root + 'profiles/' + id + '.json', { cache: 'no-store' });
       if (r.ok) return Object.assign({ id }, await r.json());
     } catch (e) { /* offline or file:// */ }
     return null;

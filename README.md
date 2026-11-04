@@ -41,7 +41,9 @@ node tools/export-pdf.mjs default --version=preview    # out/default-preview.pdf
 
 ## Printable PDF (A4 landscape)
 
-`css/print.css` turns any version into A4 landscape pages: 10 mm margins, one project per run of pages, and the gallery as a contact sheet. The 3D viewer becomes its still image, the voice agent becomes a printed pointer to the site, and Spotify embeds and animations are dropped.
+The PDF is its own layout, kept separate from the website: `pdf/index.html` and `pdf/pdf.css`. Nothing in it is the website printed. Each `<article class="page">` is one A4 landscape page with the ABK header and footer, and pages carry the same `data-slide`, `data-tiers`, `data-card`, `data-base` and `data-skills` attributes, so the same profiles and `js/engine.js` pick, cut and order them. A page that holds several cards lists them in `data-cards`. Preview pages (one per preview card) and overview pages are separate pages. Grey hatched boxes are visuals still to be made.
+
+Open `pdf/?profile=<id>` (and `&version=preview`) in a browser to proof it.
 
 ```
 node tools/export-pdf.mjs default vitra   # writes out/default.pdf, out/vitra.pdf
