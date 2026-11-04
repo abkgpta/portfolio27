@@ -451,7 +451,7 @@ def sweep(key_hex, target, az, dist, grid=False, dark=False):
     o = bpy.data.objects.new('sweep', me); o.scale = (MM,) * 3
     o.location = (target[0] * MM, target[1] * MM, -FOOT * MM); o.rotation_euler[2] = math.radians(az)
     m = bpy.data.materials.new('sweep'); m.use_nodes = True; n, l = nodes(m); b = n['Principled BSDF']; b.inputs['Roughness'].default_value = 0.85
-    k = lin(key_hex); base = lin('#2B2C2E') if dark else (lin('#F3EEE6') if grid else mix(k, [1, 1, 1], 0.62))
+    k = lin(key_hex); base = lin('#2B2C2E') if dark else (lin('#E9E3DA') if grid else mix(k, [1, 1, 1], 0.5))
     if grid:
         gc = lin('#55575A') if dark else lin('#8E9093')
         oc = n.new('ShaderNodeTexCoord'); sep = n.new('ShaderNodeSeparateXYZ'); l.new(oc.outputs['Object'], sep.inputs[0])
@@ -607,7 +607,7 @@ ROOMS = {   # floor texture, floor tint, wall tint, world hdri per hour
     'studio': ('concrete_floor_worn_001', '#E6E1DA', '#F4F0EA'),
     'rest': ('laminate_floor_02', '#FFFFFF', '#F2ECE3'),
     'shop': ('concrete_floor_worn_001', '#C9C4BC', '#ECE9E4')}
-HDRI = {'golden': ('kiara_1_dawn', 1.0, 200), 'morning': ('kiara_1_dawn', 0.8, 120), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.35, 0)}
+HDRI = {'golden': ('potsdamer_platz', 0.7, 150), 'morning': ('potsdamer_platz', 0.8, 60), 'day': ('potsdamer_platz', 0.9, 90), 'night': ('rooftop_night', 0.35, 0)}
 def room(kind, hour, target=(0, 0, 0)):
     """studio interior: textured floor + plaster walls, full-height steel window on the right, beams, props by the walls"""
     xs = [k[0] for k in POSTS] or [target[0]]; ys = [k[1] for k in POSTS] or [target[1]]
@@ -680,9 +680,13 @@ def room(kind, hour, target=(0, 0, 0)):
         prop('potted_plant_02', rx - 600, y0 + 700, 0, 1100); prop('potted_plant_01', lx + 500, back - 500, 0, 900)
         prop('wooden_display_shelves_01', cx + 900, back - 230, 0, 1100)
         if free(lx + 900, back - 700):
-            box('rug', (2200, 1500, 8), (lx + 1600, cy - 800, -FOOT + 4), mk_felt('rug', '#CFC4B3'), 3)
+            box('rug', (2200, 1500, 8), (lx + 1600, cy - 800, -FOOT + 4), mk_felt('rug', '#9C8468'), 3)
     elif kind == 'shop':
-        prop('steel_frame_shelves_02', lx + 260, cy - 400, 90, 1900); prop('tool_cart', lx + 900, back - 600, 15)
+        for k in range(3):
+            tl = bpy.data.lights.new('tube%d' % k, 'AREA'); tl.shape = 'RECTANGLE'; tl.size = 1.5; tl.size_y = 0.12; tl.energy = 220 if hour != 'night' else 120
+            tl.color = (0.96, 0.98, 1.0); to = bpy.data.objects.new('tube', tl); coll(CUR[0]).objects.link(to)
+            to.location = ((cx - W * 0.5 + k * W * 0.5) * MM, (cy - 800) * MM, (Hh - 500) * MM)
+        prop('steel_frame_shelves_02', lx + 260, cy - 400, 90, 1900); prop('tool_cart', rx - 1000, back - 700, -20)
         prop('metal_stool_01', cx - 300, cy - 1500, 30); prop('potted_plant_04', rx - 500, y0 + 400, 0, 450)
     # haze, very subtle
     bpy.ops.mesh.primitive_cube_add(size=1, location=(cx * MM, my * MM, (Hh / 2 - FOOT) * MM)); hz = bpy.context.object
@@ -743,7 +747,7 @@ def s01(night):
     planter_on(G / 2, 1.5 * G, 230); planter_on(4 * G + G / 2, 1.5 * G, 260)
     panel_between(2 * G, 3 * G, 0, 120, 'pegboard'); panel_between(2 * G, 3 * G, 0, 120 + HS, 'whiteboard')
     panel_between(4 * G, 5 * G, 0, 140, 'softboard')
-    tuft(G / 2, 1.5 * G, 330, 30); tuft(4.5 * G, 1.5 * G, 360, 26)
+    tuft(G / 2, 1.5 * G, 330, 44, 320, spread=200); tuft(4.5 * G, 1.5 * G, 360, 40, 300, 'fern', 190)
     climb((G, G), 30, 900, 2.6); climb((4 * G, 2 * G), 30, 1300, 3.0, trail=6); climb((2 * G, 2 * G), 30, 700, 2.0)
     camera((1300, 500, 700), -30, 11, 4.4, 35, dof=5.6)
     return (1350, 650, 650)
@@ -774,7 +778,7 @@ def s03(night):
     st(lambda x: (column(x, 0, 3), column(x, G, 2), column(x + 2 * G, 0, 2), column(x + 2 * G, G, 1), shelf_on(x + G / 2, G / 2, 250),
                   planter_on(x + G / 2, G / 2, H + 120), att('grow', (x + G, G, H + HS)), att('spot', (x, 0, H + HS + H)),
                   panel_between(x + 2 * G, x + 3 * G, 0, 120, 'pegboard'), climb((x, G, 0), 30, 900, 2.4)))
-    camera((off / 2 - 1.5 * G, 300, 550), -6, 9, 10.2, 55)
+    camera((off / 2 - 1.5 * G, 300, 550), -6, 9, 11.8, 55)
     return (off / 2, 300, 600)
 
 def macro(key, mats, loc_cam, lens=100, f=2.8, rot=(0, 0, 0)):
@@ -821,11 +825,11 @@ def s11(night):
 def s12(night):
     keys = ['grow', 'spot', 'hub', 'pen', 'clock', 'speaker']
     for i, k in enumerate(keys):
-        x = i * 330 - 825
+        x = i * 250 - 625
         bpy.ops.mesh.primitive_cylinder_add(radius=38.1 * MM, depth=0.302, location=(x * MM, 0, 0.129), vertices=128); s = bpy.context.object
         for p in s.data.polygons: p.use_smooth = True
         s.data.materials.append(MAT['frame']); relink(s); att(k, (x, 0, 280), face=0)
-    camera((0, 0, 300), 0, 8, 2.5, 70); return (0, 0, 300)
+    camera((0, 0, 280), 0, 8, 3.3, 70); return (0, 0, 280)
 
 @shot('13', 'power-path', 'grad', key='hi')
 def s13(night):
@@ -841,8 +845,8 @@ def s13(night):
         cu = bpy.data.curves.new('wire', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 6 * MM; sp = cu.splines.new('POLY'); sp.points.add(len(pts) - 1)
         for p, q in zip(sp.points, pts): p.co = (q[0] * MM, q[1] * MM, q[2] * MM, 1)
         o = bpy.data.objects.new('wire', cu); o.data.materials.append(MAT['power']); coll(CUR[0]).objects.link(o)
-    wire([(0, -300, -FOOT + 5), (0, 0, -FOOT + 5), (0, 0, 2 * H - 0)]); wire([(0, 0, 152), (G, 0, 152), (G, 0, H + HS)])
-    wire([(0, G, 0), (0, G, H + H)])
+    wire([(0, -480, -FOOT + 6), (0, -45, -FOOT + 6), (0, 0, 10), (0, 0, H + HS - 25)]); wire([(0, 0, CB), (G, 0, CB), (G, 0, H + HS - 25)])
+    wire([(0, 0, 40), (0, G, 40), (0, G, H + HS - 25)])
     camera((450, 400, 650), -36, 20, 4.6, 50); return (450, 400, 650)
 
 @shot('14', 'concept-spotlight', 'grid-dark', key='att_spot', versions=('night',))
@@ -875,16 +879,16 @@ def s08(night):
     for i, (x, y, n) in enumerate([(0, 0, 2), (2 * G, 0, 3), (0, G, 2), (2 * G, G, 2)]): tA, tB = column(x, y, n, power_foot=(i == 0)); tops += [tA, tB]
     top_attach(tops, ['spot', 'cap', 'clock', 'spot', 'hub', 'cap', 'pen', 'cap'])
     shelf_on(G / 2, G / 2, 720); shelf_on(2.5 * G, G / 2, 720)
-    DX, DY = 2 * G + 1350, 150          # desk beside the build, not in front of it
+    DX, DY = 3 * G + 1500, -350         # desk beside the build, clear of the posts
     d, top = ph_model('metal_office_desk', (DX, DY, -FOOT), 0)
     if d is None:
         top = 735; box('desk', (1600, 800, 30), (DX, DY, 720), mk_oak('desk', '#C9A27A'), 4)
     z = top - 0.5; laptop(DX - 350, DY - 60, z, -8); mug(DX + 80, DY - 200, z); sketches(DX - 50, DY - 120, z + 1)
     printer(DX + 480, DY + 40, z, -15)
-    ph_model('mid_century_lounge_chair', (DX - 200, DY - 750, -FOOT), 200)
+    ph_model('WoodenChair_01', (DX - 150, DY - 650, -FOOT), 190, 850)
     panel_between(2 * G, 3 * G, 0, 760 + 40, 'pegboard')
     climb((G, G), 30, HS + 0, 1.2); tuft(G / 2, G / 2, 740, 18, 140)
-    camera((1500, -100, 850), -24, 9, 4.6, 32, dof=4.5); return (1500, -100, 850)
+    camera((1900, -150, 850), -24, 9, 5.0, 32, dof=4.5); return (1900, -150, 850)
 
 @shot('09', 'lifestyle-plant-corner', 'room:rest:morning', versions=('day', 'night'))
 def s09(night):
@@ -895,10 +899,10 @@ def s09(night):
     tuft(G / 2, G / 2, 360, 30); tuft(G / 2, G / 2, H + 400, 24, 140, 'fern')
     climb((0, G, 0), 30, 1000, 2.8, trail=8); climb((2 * G, 0, 0), 30, 900, 2.2)
     book_row(G / 2 - 230, G / 2 - 80, 2 * H + 219, 10)
-    ph_model('modern_arm_chair_01', (-1150, -450, -FOOT), 215)
-    st, top = ph_model('side_table_01', (-480, -950, -FOOT), 10, 520)
+    ph_model('modern_arm_chair_01', (-1300, -350, -FOOT), 215)
+    st, top = ph_model('side_table_01', (-420, -1150, -FOOT), 10, 520)
     if st is None: top = 480 - FOOT; box('side_table', (420, 420, 480), (-500, -900, 240 - FOOT), mk_oak('st', '#8A6A4A'), 6)
-    mug(-420, -930, top); book_row(-600, -980, top, 4, 90, 200)
+    mug(-360, -1130, top); book_row(-540, -1180, top, 4, 90, 200)
     camera((200, 0, 700), -40, 9, 4.0, 30, dof=4); return (200, 0, 700)
 
 @shot('10', 'lifestyle-workshop', 'room:shop:day', versions=('day', 'night'))
@@ -908,11 +912,11 @@ def s10(night):
     top_attach(tops, ['spot', 'cap', 'hub', 'cap', 'spot', 'cap'])
     for z in (120, 120 + HS, 120 + 2 * HS): panel_between(0, G, 0, z, 'pegboard'); panel_between(2 * G, 3 * G, 0, z, 'pegboard' if z < 600 else 'whiteboard')
     column(4 * G, G, 2); shelf_on(4.5 * G, G / 2, 700)
-    box('bench', (2400, 750, 40), (1300, -700, 900), mk_oak('bench', '#B48E62'), 3)
+    box('bench', (2400, 750, 40), (1300, -900, 900), mk_oak('bench', '#B48E62'), 3)
     for dx in (-1150, 1150):
-        for dy in (-330, 330): box('bleg', (60, 60, 920), (1300 + dx, -700 + dy, 460 - FOOT), principled('bl', lin('#2A2B2D'), 0.5, 0.6), 3)
-    printer(400, -650, 920, 0); printer(1900, -650, 920, -8)
-    for i in range(6): box('offcut', (random.uniform(60, 240), random.uniform(40, 120), random.uniform(8, 25)), (900 + i * 110, -900, 930), mk_oak('off%d' % i, '#C9A27A'), 2, random.uniform(-30, 30))
+        for dy in (-330, 330): box('bleg', (60, 60, 920), (1300 + dx, -900 + dy, 460 - FOOT), principled('bl', lin('#2A2B2D'), 0.5, 0.6), 3)
+    printer(400, -850, 920, 0); printer(1900, -850, 920, -8)
+    for i in range(6): box('offcut', (random.uniform(60, 240), random.uniform(40, 120), random.uniform(8, 25)), (900 + i * 110, -1100, 930), mk_oak('off%d' % i, '#C9A27A'), 2, random.uniform(-30, 30))
     camera((1300, -200, 1100), -20, 6, 4.6, 32, dof=5.6); return (1300, -200, 1100)
 
 @shot('17', 'builder-presets', 'room:studio:golden', versions=('day', 'night'))
@@ -942,7 +946,9 @@ def render(sid, version):
     for (px, py), top in list(POSTS.items()):
         if (round(px), round(py)) not in USED: put('cap', (px, py, top), mat='cap')
     setup_bg(S['bg'], S['key'], night, t)
-    sc.view_settings.exposure = S['exposure']
+    ev = S['exposure']
+    if not S['bg'].startswith(('room', 'grid-dark')) and ev == 0: ev = -1.8      # sweep + softbox clipped at 0 EV in pass 2
+    sc.view_settings.exposure = ev
     r = sc.render; r.resolution_x = A.res; r.resolution_y = A.res if A.square else round(A.res / 1.41421)
     os.makedirs(A.out, exist_ok=True)
     tag = ('_clay' if A.clay else '') + ('_night' if night else '')
