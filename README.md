@@ -25,6 +25,7 @@ Every project comes in three lengths. Full has every card, overview has the card
 
 - `data-tiers="preview overview full"` on a slide lists the versions it belongs to. A slide without it is in overview and full.
 - `data-card="hero|hook|sketch|logo"` marks the four preview cards: hero visual, written hook, stylised sketch, logo lockup.
+- Inside a card, `data-len="short"` shows only in the preview and `data-len="long"` only in overview and full. A card without a short part shows everything in every version.
 - A profile picks the version with `version` (default for every project, `overview` if unset) and `versions` (per project, e.g. `{"cortx": "preview"}`). `?version=preview` forces one version for the whole page.
 - The version filters first, then the weights cut inside it. Preview cards are never cut by weight.
 - Only previews and overviews are built for now, so the open version shows overviews.

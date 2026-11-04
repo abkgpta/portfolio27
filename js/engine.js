@@ -4,7 +4,8 @@
    A profile (profiles/<id>.json) multiplies those weights for one studio.
    Every project comes in three versions: preview (4 cards: hero, hook, sketch, logo),
    overview, and full case study. data-tiers on a slide lists the versions it is in
-   (missing = "overview full"); data-card marks the four preview cards.
+   (missing = "overview full"); data-card marks the four preview cards. Inside a card,
+   data-len="short" shows only in the preview and data-len="long" everywhere else.
    Open a version with  /#<id>  or  /?profile=<id>  (add &print=1 for the A4 layout,
    &version=preview|overview|full to force one version, &format=square for social squares). */
 (function () {
@@ -71,6 +72,10 @@
         const fits = inVersion(sl, v) && (!square || sl.hasAttribute('data-card'));
         const keep = fits && (v === 'preview' || sl.hasAttribute('data-required') || s >= threshold);
         sl.dataset.score = s.toFixed(2);
+        // short/long versions inside a card: the preview gets the short one when it exists
+        const hasShort = !!sl.querySelector('[data-len="short"]');
+        sl.querySelectorAll('[data-len]').forEach(el => el.classList.toggle('is-cut',
+          el.dataset.len === 'short' ? v !== 'preview' : (v === 'preview' && hasShort)));
         sl.classList.toggle('is-cut', !keep);
         if (keep) { total += s; shown++; }
       });
