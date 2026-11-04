@@ -121,3 +121,13 @@ p + p, p + h3, dl + p { margin-top: 3mm; }
 .full-bleed::after { content: ""; position: absolute; inset: 55% 0 0 0; background: linear-gradient(transparent, rgba(10,10,10,.55)); z-index: 1; }
 .full-bleed .ph-head.on-img { background: linear-gradient(rgba(10,10,10,.35), transparent); margin: -8mm calc(-1 * var(--m)) 0; padding: 8mm var(--m) 2.5mm; }
 .cols > div.grid2, .cols > div.stack { display: grid; }
+
+/* overgrwth identity: the real logo (img/og-logo.svg) and the site's Instrument Sans, not Michroma */
+.og-page { font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 10.5pt; }
+.og-page h3, .og-page .quote, .og-page .tri b { font-family: 'Instrument Sans', system-ui, sans-serif; font-weight: 700; letter-spacing: -.02em; }
+.og-page .quote { font-weight: 600; }
+.og-page .eyebrow, .og-page .facts dt { font-family: 'Instrument Sans', system-ui, sans-serif; font-weight: 600; }
+.og-logo { width: 95mm; height: auto; }
+.og-logo.xl { width: 210mm; }
+.full-bleed .og-logo { width: 110mm; filter: drop-shadow(0 1px 6px rgba(0,0,0,.25)); }
+.og-page .ph-head, .og-page .ph-foot { font-family: var(--mono); font-weight: 400; }
