@@ -160,7 +160,7 @@ STLMAP = {'frame': 'OG-FRM-001', 'connector': 'OG-CON-001', 'cap': 'OG-CON-002',
 def stl_path(key):
     pre = STLMAP[key]; fs = sorted(glob.glob(os.path.join(A.stl, pre + '*.stl*')))
     if not fs: raise SystemExit('missing STL for ' + key)
-    f = fs[0]
+    f = fs[-1]                                  # highest version wins
     if f.endswith('.gz'):
         out = os.path.join(A.stl, '_unz', os.path.basename(f)[:-3]); os.makedirs(os.path.dirname(out), exist_ok=True)
         if not os.path.exists(out):
