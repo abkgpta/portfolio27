@@ -105,6 +105,17 @@
       t.style.order = (t.dataset.for === lead && t.classList.contains('wide')) ? -1 : 0;
     });
 
+    // one-page note for a studio (A4 document only): profile.pitch = {title, lines[]}
+    const pitch = document.getElementById('pitch');
+    if (pitch) {
+      const ok = profile.pitch && profile.pitch.lines && profile.pitch.lines.length;
+      pitch.classList.toggle('is-cut', !ok);
+      if (ok) {
+        pitch.querySelector('[data-pitch-title]').textContent = profile.pitch.title || '';
+        const ul = pitch.querySelector('[data-pitch-lines]'); ul.textContent = '';
+        profile.pitch.lines.forEach(l => { const li = document.createElement('li'); li.textContent = l; ul.appendChild(li); });
+      }
+    }
     if (profile.voiceAgent === false) document.querySelectorAll('.stage').forEach(s => s.hidden = true);
     const prep = document.getElementById('prepared');
     if (prep && profile.greeting) { prep.textContent = profile.greeting; prep.classList.add('on'); }
