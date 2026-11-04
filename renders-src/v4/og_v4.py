@@ -818,6 +818,9 @@ def s05(night):
 def s06(night):
     column(0, 0, 1, feet=False); column(0, G, 1, feet=False); planter_on(G / 2, G / 2, 180); tuft(G / 2, G / 2, 280, 30, 160)
     att('grow', (0, G, H)); put('cap', (G, 0, HS), mat='cap')
+    if night:                                   # the grow light's own wash on the planter
+        gl = bpy.data.lights.new('growwash', 'SPOT'); gl.energy = 18; gl.spot_size = math.radians(80); gl.spot_blend = 0.8; gl.color = (1.0, 0.62, 0.85)
+        go = bpy.data.objects.new('growwash', gl); go.location = (G / 2 * MM, G * 0.75 * MM, (H + 120) * MM); coll(CUR[0]).objects.link(go)
     camera((150, 350, 520), -24, 18, 2.3, 70, dof=5.6); return (150, 350, 520)
 @shot('07', 'macro-power-in-foot', 'grid', key='alu')
 def s07(night):
@@ -833,7 +836,7 @@ def s11(night):
     chips = ['frame', 'alu', 'pom', 'oak', 'pp', 'whiteboard', 'pegboard', 'softboard', 'cap', 'att_spot', 'att_grow', 'att_speaker']
     for i, k in enumerate(chips):
         x = (i % 6) * 70 - 175; y = (i // 6) * 70
-        bpy.ops.mesh.primitive_cube_add(size=1, location=(x * MM, y * MM, (6 - FOOT) * MM)); o = bpy.context.object; o.scale = (0.06, 0.06, 0.012)
+        bpy.ops.mesh.primitive_cube_add(size=1, location=(x * MM, y * MM, (6.5 - FOOT) * MM)); o = bpy.context.object; o.scale = (0.06, 0.06, 0.012)
         bpy.ops.object.transform_apply(scale=True); b = o.modifiers.new('b', 'BEVEL'); b.width = 0.004; b.segments = 6
         for p in o.data.polygons: p.use_smooth = True
         o.rotation_euler[2] = math.radians(random.uniform(-6, 6)); o.data.materials.append(MAT[k]); relink(o)
@@ -874,6 +877,7 @@ def s14(night):
     o = bpy.data.objects.new('beam', l); o.location = (0, -0.06, (H + 195) * MM); o.rotation_euler = (math.radians(55), 0, 0); coll(CUR[0]).objects.link(o)
     area('rim_night', (0.9, 1.2, 1.4), 25, 1.2, (0.6, 0.7, 1.0), target=(0.26, 0, 0.4))
     area('fill_night', (-1.5, -1.8, 0.9), 6, 2.0, (0.8, 0.85, 1.0), target=(0.26, 0, 0.4))
+    area('top_night', (0.3, -0.4, 2.2), 14, 2.5, (0.85, 0.9, 1.0), target=(0.26, 0, 0.4))     # gives the silver frame something to reflect
     camera((260, 0, 420), -30, 6, 2.6, 50, dof=4); return (260, 0, 420)
 
 @shot('15', 'combinations', 'grid', key='frame', exposure=-1.8)
@@ -957,7 +961,8 @@ def setup_bg(bg, key, night, target):
         if not dark: softbox(Vector(target) * MM, sc_); studio_lights(sc_, Vector(target) * MM)
         elif night and parts[0] != 'grid-dark':        # night product shot: the product's own lights plus a faint cool rim
             t = Vector(target) * MM
-            area('rim_night', t + Vector((1.0, 2.2, 1.6)) * sc_, 40 * sc_ ** 2, 1.2 * sc_, (0.75, 0.82, 1.0), target=t)
+            a_ = math.radians(CAMINFO['az'] - 70)                     # camera-side, inside the sweep (the old rim sat behind it)
+            area('key_night', t + Vector((math.sin(a_) * 1.4, -math.cos(a_) * 1.4, 1.3)) * sc_, 25 * sc_ ** 2, 1.0 * sc_, (0.75, 0.82, 1.0), target=t)
 def render(sid, version):
     global sc, CAM
     sc = reset(); CAM = None; MESH.clear(); SHOTCOL.clear(); LEAF.clear(); random.seed(int(sid) * 13)
