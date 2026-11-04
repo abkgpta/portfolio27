@@ -819,7 +819,7 @@ def s06(night):
     column(0, 0, 1, feet=False); column(0, G, 1, feet=False); planter_on(G / 2, G / 2, 180); tuft(G / 2, G / 2, 280, 30, 160)
     att('grow', (0, G, H)); put('cap', (G, 0, HS), mat='cap')
     if night:                                   # the grow light's own wash on the planter
-        gl = bpy.data.lights.new('growwash', 'SPOT'); gl.energy = 18; gl.spot_size = math.radians(80); gl.spot_blend = 0.8; gl.color = (1.0, 0.62, 0.85)
+        gl = bpy.data.lights.new('growwash', 'SPOT'); gl.energy = 18; gl.spot_size = math.radians(80); gl.spot_blend = 0.8; gl.color = (1.0, 0.82, 0.9)
         go = bpy.data.objects.new('growwash', gl); go.location = (G / 2 * MM, G * 0.75 * MM, (H + 120) * MM); coll(CUR[0]).objects.link(go)
     camera((150, 350, 520), -24, 18, 2.3, 70, dof=5.6); return (150, 350, 520)
 @shot('07', 'macro-power-in-foot', 'grid', key='alu')
