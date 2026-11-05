@@ -51,5 +51,14 @@
     "date": "2026-11-05",
     "title": "Rebuild the overgrwth 3D viewer on the 3 in CAD",
     "pr": 8
+  },
+  {
+    "v": 8,
+    "commit": "58f88a2c2c452cbfcff2af82bdb1b5dc04625289",
+    "date": "2026-11-05",
+    "title": "Make the grow light and spotlight glow from their emitting faces",
+    "pr": [
+      10
+    ]
   }
 ]
