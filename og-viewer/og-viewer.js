@@ -11,7 +11,7 @@ import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
 
 const BASE=new URL('./',import.meta.url).href;
-const G=533.4, P=914.4, TALL=609.6, SHORT=304.8, R=38.1, CL=35, GLB_BYTES=1735432;
+const G=533.4, P=914.4, TALL=609.6, SHORT=304.8, R=38.1, CL=35, GLB_BYTES=1735036;
 
 /* ---------------- layouts ---------------- */
 // blocks: frame stacks. i = grid column of the tall post, rows {j: number of stacked frames}.
@@ -320,13 +320,14 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
     const g=new THREE.Group();g.userData.fx=true;
     const fx=o=>{o.userData.fx=true;o.raycast=()=>{};o.renderOrder=5;g.add(o);return o;};
     if(kind==='spot'){
-      const h=fx(new THREE.Sprite(M_HALO_SPOT));h.position.set(0,-62,194);h.scale.set(170,170,1);
+      const h=fx(new THREE.Sprite(M_HALO_SPOT));h.position.set(0,-66,194);h.scale.set(170,170,1);
       const dir=new THREE.Vector3(0,-1,-.55).normalize(),L=720,cone=new THREE.CylinderGeometry(24,260,L,40,1,true);
       const b=fx(new THREE.Mesh(cone,M_BEAM_SPOT));b.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());b.position.set(0,-58,194).addScaledVector(dir,L/2);
     }
     if(kind==='grow'){
-      const h=fx(new THREE.Sprite(M_HALO_GROW));h.position.set(0,0,112);h.scale.set(420,420,1);
-      const L=520,b=fx(new THREE.Mesh(new THREE.CylinderGeometry(150,430,L,48,1,true),M_BEAM_GROW));b.rotation.x=Math.PI/2;b.position.set(0,0,118-L/2);
+      // glow sits on the angled LED band under the donut (r 100-127 mm, z 73-87)
+      for(let i=0;i<10;i++){const a=i/10*Math.PI*2,h=fx(new THREE.Sprite(M_HALO_GROW));h.position.set(112*Math.cos(a),112*Math.sin(a),74);h.scale.set(150,150,1);}
+      const L=520,b=fx(new THREE.Mesh(new THREE.CylinderGeometry(122,430,L,48,1,true),M_BEAM_GROW));b.rotation.x=Math.PI/2;b.position.set(0,0,76-L/2);
     }
     return g;
   }
@@ -389,8 +390,8 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
       if(t.k){const o=place(part(t.k),p.x,p.y,p.top,rz);add(o,{kind:t.k,ex:[dx,dy,K*EX+260]});
         if(t.k==='spot'||t.k==='grow')o.add(lightFx(t.k));
         if(t.k==='grow')o.add(growPlant());
-        if(t.k==='grow'){const L=new THREE.SpotLight('#FFD9E8',0,2.2,1.1,.6,1.2);L.userData={owner:o,dir:[0,0,-1],z:120};lights.push(L);}
-        if(t.k==='spot'){const L=new THREE.SpotLight('#FFF0D0',0,3.5,.45,.5,1.4);L.userData={owner:o,dir:[0,-1,-.55],z:194,y:-56};lights.push(L);}}
+        if(t.k==='grow'){const L=new THREE.SpotLight('#FFD9E8',0,2.2,1.1,.6,1.2);L.userData={owner:o,dir:[0,0,-1],z:70};lights.push(L);}
+        if(t.k==='spot'){const L=new THREE.SpotLight('#FFF0D0',0,3.5,.45,.5,1.4);L.userData={owner:o,dir:[0,-1,-.55],z:194,y:-64};lights.push(L);}}
     }
     for(const m of mods){
       const k=frameIndexAt(m.ps[0],m.z);
@@ -575,7 +576,7 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
     scene.background.copy(DAY_BG).lerp(NIGHT_BG,nightT);
     sun.intensity=1.15*(1-nightT)+.04*nightT; fill.intensity=.3*(1-nightT)+.05*nightT; gridMat.opacity=.6-.4*nightT; for(const m of fxMats)m.opacity=m.userData.max*nightT; ground.material.opacity=.16*(1-nightT)+.25*nightT;
     for(const m of Object.values(mats))if(m&&m.isMaterial&&m.envMapIntensity!==undefined&&!m.userData.light)m.envMapIntensity=(m.userData.env??.5)*(1-.85*nightT);
-    for(const [n,i] of [['grow_led',2.2],['spot_lens',5],['clock_face',.9]])mats[n].emissiveIntensity=i*nightT;
+    for(const [n,i] of [['grow_led',4],['spot_lens',6],['clock_face',.9]])mats[n].emissiveIntensity=i*nightT;
     for(const L of lights){const o=L.userData.owner,on=o.visible;L.intensity=on?nightT*(L.userData.dir[1]?10:3.5):0;
       o.updateMatrixWorld();const p=new THREE.Vector3(0,L.userData.y||0,L.userData.z).applyMatrix4(o.matrixWorld);L.position.copy(p);
       const d=new THREE.Vector3(...L.userData.dir).transformDirection(o.matrixWorld);L.target.position.copy(p).add(d);L.target.updateMatrixWorld();}
@@ -586,6 +587,6 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
     q.copy(cam.quaternion).invert(); cube.quaternion.copy(q); cubeR.render(cubeS,cubeCam);
     dimsUpdate();
   });
-  window.__ogv={state,sync,rebuild,items:()=>items.length,renderer,sol:()=>sol};
+  window.__ogv={state,sync,rebuild,items:()=>items.length,renderer,sol:()=>sol,cam,ctl,wake};
   return {state,sync,rebuild};
 }

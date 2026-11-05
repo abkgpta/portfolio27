@@ -1,5 +1,5 @@
 import numpy as np, trimesh, glob, os
-SPLIT={'grow':{222:'grow_led'},'spot':{391:'spot_lens'},'clock':{379:'clock_face'}}
+SPLIT={'grow':{i:'grow_led' for i in range(366,372)},'spot':{i:'spot_lens' for i in range(401,406)},'clock':{379:'clock_face'}}  # grow: LED band solid, spot: lens disc solid
 sc=trimesh.Scene()
 def add(name,V,N,F):
     used=np.unique(F); remap=-np.ones(len(V),np.int64); remap[used]=np.arange(len(used))
@@ -16,7 +16,7 @@ for f in sorted(glob.glob('build/*.npz')):
         continue
     sp=SPLIT.get(k,{})
     mask=np.isin(FI,list(sp))
-    for fi,nm in sp.items(): add(nm,V,N,F[FI==fi])
+    for nm in sorted(set(sp.values())): add(nm,V,N,F[np.isin(FI,[i for i,n in sp.items() if n==nm])])
     add(k,V,N,F[~mask])
 sc.export('build/og-parts-raw.glb')
 print(os.path.getsize('build/og-parts-raw.glb')/1e6,'MB')
