@@ -147,3 +147,6 @@ p + p, p + h3, dl + p { margin-top: 3mm; }
 .strip.one.tall { height: 34mm; }
 .strip img { width: 100%; height: 100%; object-fit: cover; min-height: 0; }
 .scenes img { width: 100%; height: 100%; object-fit: cover; min-height: 0; }
+.grid2.g3 { grid-template-columns: repeat(3, 1fr); }
+.cmf-row { display: flex; gap: 4mm; align-items: center; flex: 0 0 auto !important; }
+.cmf-row .cmf-macro { width: 40mm; height: 18mm; object-fit: cover; }
