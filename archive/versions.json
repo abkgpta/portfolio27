@@ -33,5 +33,12 @@
     "date": "2026-11-04",
     "title": "overgrwth section in its own theme with a 3D build viewer",
     "pr": 3
+  },
+  {
+    "v": 6,
+    "commit": "58eb6c46173ce3fa7dba870abcc459272c75fc44",
+    "date": "2026-11-05",
+    "title": "Add a browsable archive of every site version",
+    "pr": 5
   }
 ]
