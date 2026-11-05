@@ -295,18 +295,18 @@ footer .socials .ico svg{width:13px;height:13px}
     <div class="eyebrow">portfolio.27 · <span class="pink">product design</span></div>
   </div>
   <div class="g-grid">
-    <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og3-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
     <a href="#cortx" data-for="cortx" class="wide"><img src="img/cx-hero.jpg" alt="The cortX brain-imaging headset render" loading="eager"><span>cortX</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-kit.jpg" alt="The overgrwth frame kit laid out part by part" loading="lazy"><span>overgrwth</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-joint.jpg" alt="Close-up of an overgrwth frame joint and clamp" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-exploded.jpg" alt="The overgrwth system exploded part by part" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-socket.jpg" alt="Close-up of the plus-shaped socket inside an overgrwth post" loading="lazy"><span>overgrwth</span></a>
     <a href="#cortx" data-for="cortx"><img src="img/cx-render.jpg" alt="Closer render of the cortX headset" loading="lazy"><span>cortX</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-power.jpg" alt="An overgrwth setup with the power path traced in yellow" loading="lazy"><span>overgrwth</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-modules.jpg" alt="overgrwth panels, shelf and planter modules" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-power.jpg" alt="An overgrwth setup with the power path traced in yellow" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-clamp.jpg" alt="overgrwth panels, shelf and planter modules" loading="lazy"><span>overgrwth</span></a>
     <a href="#cortx" data-for="cortx"><img src="img/cx-mockup.jpg" alt="A hand holding the cortX fit mock-up" loading="lazy"><span>cortX</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-grow.jpg" alt="The overgrwth grow light over a planter" loading="lazy"><span>overgrwth</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-attach.jpg" alt="overgrwth powered attachments: spotlight, clock and speaker" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-grow.jpg" alt="The overgrwth grow light over a planter" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-attach.jpg" alt="overgrwth powered attachments: spotlight, clock and speaker" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og-sketches.jpg" alt="overgrwth ideation sketches" loading="lazy"><span>overgrwth</span></a>
-    <a href="#overgrwth" data-for="overgrwth"><img src="img/og3-growth.jpg" alt="Three overgrwth setups growing from bare frames to full stacks" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-growth.jpg" alt="Three overgrwth setups growing from bare frames to full stacks" loading="lazy"><span>overgrwth</span></a>
   </div>
 </section>
 
@@ -426,19 +426,7 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
 
   <div class="og-build og-in" id="ogBuild" data-slide="og-build" data-tiers="overview full" data-base="3" data-skills="cad,interaction">
-    <div class="og-build-ctrl">
-      <h3 class="og-out">build</h3>
-      <p>Add and remove modules on a five-frame setup. Drag to turn it.</p>
-      <div class="og-presets" role="group" aria-label="Presets">
-        <button data-p="bare">Bare</button><button data-p="home">Home desk</button><button data-p="studio" aria-pressed="true">Studio</button><button data-p="plant">Plant corner</button>
-      </div>
-      <div class="og-toggles" role="group" aria-label="Modules"></div>
-    </div>
-    <div class="og-build-view">
-      <canvas id="ogCanvas" aria-label="Interactive 3D model of an overgrwth setup"></canvas>
-      <img id="ogFallback" src="img/og4-build.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy">
-      <span class="og-loading" id="ogLoading">Loading model</span>
-    </div>
+    <img src="img/og4-build.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy" style="width:100%;display:block">
   </div>
 
   <div class="og-block og-in" data-slide="og-modules" data-tiers="overview full" data-base="2" data-skills="systems,cmf">
@@ -788,52 +776,12 @@ try{
 })();
 </script>
 <script type="module">
-/* ---------- overgrwth: build-your-own viewer ---------- */
-const view=document.querySelector('.og-build-view'),cv=document.getElementById('ogCanvas');
-const G=[['shelf','Shelves','#2F7A4B'],['planter','Planter','#D95942'],['whiteboard','Whiteboard','#FFFFFF'],['pegboard','Pegboard','#FBCB44'],['softboard','Softboard','#4569BE'],
-  ['grow','Grow light','#FBCB44'],['spot','Spotlight','#4569BE'],['clock','Clock','#FBCB44'],['speaker','Speaker','#2F7A4B'],['hub','Power hub','#C9A27A'],['pen','Pen stand','#4569BE'],['clips','Vine clips','#A9ACAE']];
-const P={bare:[],home:['shelf','whiteboard','clock','pen','hub','spot'],studio:G.map(g=>g[0]),plant:['shelf','planter','grow','clips','spot']};
-let on=new Set(P.studio),apply=()=>{};
-const tg=document.querySelector('.og-toggles'),pr=[...document.querySelectorAll('.og-presets button')];
-G.forEach(([k,l,c])=>{const b=document.createElement('button');b.dataset.k=k;b.style.setProperty('--sw',c);b.innerHTML='<i></i>'+l;b.onclick=()=>{on.has(k)?on.delete(k):on.add(k);pr.forEach(x=>x.setAttribute('aria-pressed','false'));sync();};tg.appendChild(b);});
-pr.forEach(b=>b.onclick=()=>{on=new Set(P[b.dataset.p]);pr.forEach(x=>x.setAttribute('aria-pressed',x===b));sync();});
-function sync(){tg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',on.has(b.dataset.k)));apply();}
-sync();
-let started=false;
-const io=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;io.disconnect();start();}},{rootMargin:'400px'});
-io.observe(view);
-async function start(){
-  try{
-    const THREE=await import('three');
-    const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
-    const {OrbitControls}=await import('three/addons/controls/OrbitControls.js');
-    const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
-    r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NoToneMapping;
-    const sc=new THREE.Scene();
-    sc.add(new THREE.HemisphereLight(0xffffff,0xd9d6d2,1.3));
-    const d=new THREE.DirectionalLight(0xffffff,2.2);d.position.set(3,5,4);sc.add(d);
-    const d2=new THREE.DirectionalLight(0xffffff,.6);d2.position.set(-4,2,-3);sc.add(d2);
-    const cam=new THREE.PerspectiveCamera(30,1,.05,50);
-    const gl=await new GLTFLoader().loadAsync('img/og-system.glb');
-    const root=gl.scene;sc.add(root);
-    const groups={};
-    root.traverse(o=>{if(o.isMesh){const g=o.name.split('|')[0];(groups[g]=groups[g]||[]).push(o);o.material.flatShading=false;}});
-    root.traverse(o=>{if(o.isMesh&&!o.geometry.attributes.normal)o.geometry.computeVertexNormals();});
-    const box=new THREE.Box3().setFromObject(root),c=box.getCenter(new THREE.Vector3()),s=box.getSize(new THREE.Vector3()).length();
-    root.position.sub(c);root.position.y+=0;
-    const ctl=new OrbitControls(cam,cv);ctl.enableZoom=false;ctl.enablePan=false;ctl.enableDamping=true;ctl.minPolarAngle=.6;ctl.maxPolarAngle=1.45;
-    ctl.autoRotate=!matchMedia('(prefers-reduced-motion: reduce)').matches;ctl.autoRotateSpeed=.6;
-    const R=s/2,dist=R/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*.78;cam.position.set(1,.55,1.3).normalize().multiplyScalar(dist);ctl.target.set(0,0,0);
-    apply=()=>{for(const[g,ms]of Object.entries(groups)){const k=g.startsWith('cap-')?g.slice(4):g;const vis=g==='base'?true:g.startsWith('cap-')?!on.has(k):on.has(k);ms.forEach(m=>m.visible=vis);}};
-    apply();
-    const fit=()=>{const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();};
-    new ResizeObserver(fit).observe(cv);fit();
-    view.classList.add('ready');
-    ctl.addEventListener('start',()=>ctl.autoRotate=false);
-    let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(view);
-    r.setAnimationLoop(()=>{if(!vis)return;ctl.update();r.render(sc,cam);});
-  }catch(e){console.warn('overgrwth viewer unavailable',e);document.getElementById('ogLoading').textContent='3D view unavailable, showing renders';}
-}
+/* ---------- overgrwth: build viewer (og-viewer/og-viewer.js) ---------- */
+const ogEl=document.getElementById('ogBuild');
+const ogIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting)return;ogIO.disconnect();
+  try{const {mountOgViewer}=await import('./og-viewer/og-viewer.js');mountOgViewer(ogEl,{fallback:'img/og4-build.jpg',fallbackAlt:'Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light'});}
+  catch(e){console.warn('overgrwth viewer unavailable',e);}},{rootMargin:'600px'});
+ogIO.observe(ogEl);
 </script>
 </body>
 </html>
