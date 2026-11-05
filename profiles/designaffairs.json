@@ -1,0 +1,29 @@
+{
+  "name": "Designaffairs",
+  "gunj": "GUNJ-032",
+  "wave": 1,
+  "greeting": "Prepared for Designaffairs",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "dash",
+  "multipliers": {
+    "research": 1.4,
+    "systems": 1.3,
+    "electronics": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.0,
+    "dash": 1.3
+  },
+  "pitch": {
+    "title": "Why Designaffairs",
+    "lines": [
+      "You design products, medical devices and mobility as strategy, not just form.",
+      "cortX is a headset system designed for a Premier League club's data analysts; overgrwth is a whole workspace system, not one object.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}
