@@ -2,6 +2,7 @@
 """Archive snapshots of the portfolio site.
 
   snapshot.py add <commit> "<title>" [--pr N]   copy the site at <commit> into archive/vN/
+  snapshot.py add <commit> auto                  same, titled from every PR merged since the last version
   snapshot.py index                              rebuild archive/index.html from versions.json
 
 A snapshot is the site exactly as it was at that commit (index.html, img/,
@@ -51,6 +52,30 @@ def banner(v, entry, newest):
     )
 
 
+SITE_PATHS = ["--", ".", *[f":(exclude){x.rstrip('/')}" for x in SKIP]]
+
+
+def changes_since(last, sha):
+    """(titles, PR numbers) of first-parent commits after `last` that touched the site."""
+    titles, prs = [], []
+    log = git("log", "--first-parent", "--reverse", "--format=%H%x1f%s%x1f%b%x1e", f"{last}..{sha}")
+    for rec in filter(None, (r.strip() for r in log.split("\x1e"))):
+        h, subj, body = (rec.split("\x1f") + ["", ""])[:3]
+        if subprocess.run(["git", "diff", "--quiet", f"{h}^", h, *SITE_PATHS], cwd=ROOT).returncode == 0:
+            continue
+        m = re.match(r"Merge pull request #(\d+)", subj)
+        if m:
+            prs.append(int(m.group(1)))
+            subj = body.strip().splitlines()[0] if body.strip() else subj
+        else:
+            m = re.search(r" \(#(\d+)\)$", subj)
+            if m:
+                prs.append(int(m.group(1)))
+                subj = subj[: m.start()]
+        titles.append(subj)
+    return titles, prs
+
+
 def add(commit, title, pr=None):
     versions = load()
     sha = git("rev-parse", commit)
@@ -58,10 +83,13 @@ def add(commit, title, pr=None):
         print(f"{sha[:7]} is already archived")
         return
     if versions:
-        site = ["--", ".", *[f":(exclude){x.rstrip('/')}" for x in SKIP]]
-        if subprocess.run(["git", "diff", "--quiet", versions[-1]["commit"], sha, *site], cwd=ROOT).returncode == 0:
+        if subprocess.run(["git", "diff", "--quiet", versions[-1]["commit"], sha, *SITE_PATHS], cwd=ROOT).returncode == 0:
             print(f"site files unchanged since v{versions[-1]['v']}; nothing to archive")
             return
+    if title == "auto":
+        titles, prs = changes_since(versions[-1]["commit"], sha) if versions else ([], [])
+        title = "; ".join(titles) or git("log", "-1", "--format=%s", sha)
+        pr = prs or None
     v = max((e["v"] for e in versions), default=0) + 1
     date = git("log", "-1", "--format=%cd", "--date=short", sha)
     entry = {"v": v, "commit": sha, "date": date, "title": title, "pr": pr}
@@ -100,7 +128,9 @@ def index():
     versions = sorted(load(), key=lambda e: -e["v"])
     rows = []
     for e in versions:
-        pr = f' &middot; <a href="{REPO_URL}/pull/{e["pr"]}">PR #{e["pr"]}</a>' if e.get("pr") else ""
+        nums = e.get("pr") or []
+        nums = nums if isinstance(nums, list) else [nums]
+        pr = "".join(f' &middot; <a href="{REPO_URL}/pull/{n}">PR #{n}</a>' for n in nums)
         rows.append(
             f'<li><a class="v" href="v{e["v"]}/">v{e["v"]}</a>'
             f'<div><a class="t" href="v{e["v"]}/">{html.escape(e["title"])}</a>'

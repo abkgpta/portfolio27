@@ -23,31 +23,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Work out the release title
-        id: meta
-        run: |
-          subject=$(git log -1 --format=%s)
-          pr=""
-          if [[ $subject =~ ^Merge\ pull\ request\ \#([0-9]+) ]]; then
-            pr=${BASH_REMATCH[1]}
-            subject=$(git log -1 --format=%b | head -n1)
-          elif [[ $subject =~ \(\#([0-9]+)\)$ ]]; then
-            pr=${BASH_REMATCH[1]}
-            subject=${subject% (#*}
-          fi
-          echo "title=$subject" >> "$GITHUB_OUTPUT"
-          echo "pr=$pr" >> "$GITHUB_OUTPUT"
-
       - name: Snapshot the site
-        env:
-          TITLE: ${{ steps.meta.outputs.title }}
-          PR: ${{ steps.meta.outputs.pr }}
-        run: |
-          if [ -n "$PR" ]; then
-            python3 .github/scripts/snapshot.py add HEAD "$TITLE" --pr "$PR"
-          else
-            python3 .github/scripts/snapshot.py add HEAD "$TITLE"
-          fi
+        run: python3 .github/scripts/snapshot.py add HEAD auto
 
       - name: Commit the snapshot
         run: |
