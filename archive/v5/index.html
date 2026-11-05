@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhik Gupta · Industrial Design</title>
+<meta name="description" content="Abhik Gupta, industrial designer. portfolio.27: overgrwth, cortX, DASH.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
+  --line:rgba(10,10,10,.14); --muted:#5b5652;
+  --display:'Michroma',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --gutter:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:400 15px/1.65 var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,.display{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:1.15}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pink{color:var(--pink)}
+.rule{border-top:1px solid var(--line)}
+button{font:inherit;cursor:pointer}
+
+/* under construction strip */
+.wip{background:var(--ink);color:var(--cream);font-size:12px;padding:8px var(--gutter);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.wip b{font-weight:500;color:var(--pink)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.wordmark{font-family:var(--display);font-size:15px;text-decoration:none;letter-spacing:.04em;white-space:nowrap}
+.wordmark span{color:var(--pink)}
+nav{display:flex;gap:clamp(12px,2.4vw,32px);font-size:13px}
+nav a{text-decoration:none;opacity:.75}
+nav a:hover{opacity:1;color:var(--pink)}
+@media (max-width:640px){nav a.opt{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.hero-text{padding:clamp(40px,7vw,96px) var(--gutter) clamp(40px,6vw,72px);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:28px;justify-content:center}
+.hero h1{font-size:clamp(30px,4.4vw,62px)}
+.hero p.lede{max-width:46ch;color:#2b2826}
+.prepared{display:none;font-size:13px;border:1px solid var(--pink);color:var(--pink);padding:6px 12px;align-self:flex-start}
+.prepared.on{display:inline-block}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;font-size:13px}
+.hero-meta b{display:block;font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--pink);color:var(--ink);border:0;padding:14px 20px;text-decoration:none;font-size:13px;letter-spacing:.04em}
+.cta:hover{background:var(--ink);color:var(--cream)}
+.cta.alt{background:var(--ink);color:var(--cream)}
+.cta.alt:hover{background:var(--pink);color:var(--ink)}
+.cta:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+/* avatar stage */
+.stage{background:var(--ink);color:var(--cream);position:relative;min-height:560px;display:flex;flex-direction:column}
+.stage canvas{flex:1;width:100%;min-height:380px;display:block}
+.stage canvas[hidden]{display:none}
+.stage-top,.stage-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(247,242,239,.6)}
+.stage-top{border-bottom:1px solid rgba(255,0,106,.35)}
+.stage-bottom{border-top:1px solid rgba(255,0,106,.35);flex-wrap:wrap;text-transform:none;letter-spacing:0;font-size:13px;color:var(--cream)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#555;margin-right:8px;vertical-align:middle}
+.dot.live{background:var(--pink);box-shadow:0 0 12px var(--pink)}
+.stage .cta{background:var(--pink);color:var(--ink)}
+.stage .cta:hover{background:var(--white);color:var(--ink)}
+.stage .cta.alt{background:var(--cream);color:var(--ink)}
+.stage .cta.alt:hover{background:var(--pink);color:var(--ink)}
+#voice-agent-mount{min-height:0}
+.caption{font-size:12px;color:var(--muted)}
+.stage .caption{color:rgba(247,242,239,.5)}
+
+/* sections */
+section{scroll-margin-top:64px}
+.project-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
+.project-head > div{padding:clamp(32px,5vw,64px) var(--gutter)}
+.project-head > div:first-child{border-right:1px solid var(--line)}
+.project-head h2{font-size:clamp(28px,2.7vw,48px);margin:10px 0 8px;white-space:nowrap}
+.project-head .sub{font-size:14px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 28px;margin-top:28px;font-size:13px}
+.facts dt{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.big-quote{font-family:var(--display);font-size:clamp(20px,2.6vw,34px);line-height:1.3;max-width:24ch}
+.prose p+p{margin-top:14px}
+.prose{max-width:62ch}
+
+.fig{border-bottom:1px solid var(--line)}
+.fig img{width:100%}
+.figcap{display:flex;justify-content:space-between;gap:16px;padding:12px var(--gutter);font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.two > *{padding:clamp(28px,4vw,56px) var(--gutter)}
+.two > *:first-child{border-right:1px solid var(--line)}
+.two > .prose{max-width:none}
+
+/* cortX (dark) */
+.dark{background:var(--ink);color:var(--cream);--line:rgba(255,0,106,.35);--muted:rgba(247,242,239,.55)}
+.dark .project-head h2 span{color:var(--pink)}
+.sensors{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);border-bottom:1px solid var(--line)}
+.sensors > div{padding:clamp(28px,4vw,56px) var(--gutter)}
+.sensors > div:first-child{border-right:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:18px 0}
+.tabs button{background:transparent;color:var(--cream);border:0;border-right:1px solid var(--line);padding:12px 4px;font-size:13px}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-pressed=true]{background:var(--pink);color:#fff}
+.readout{border:1px solid var(--line);padding:20px;min-height:200px}
+.readout h3{font-size:18px;margin-bottom:6px}
+.readout .where{font-size:12px;color:var(--pink);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.trace{width:100%;height:70px;margin-top:16px;display:block}
+.concepts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.concept{padding:28px var(--gutter);border-right:1px solid var(--line);font-size:13px}
+.concept:last-child{border-right:0}
+.concept b{font-family:var(--display);font-weight:400;display:block;font-size:15px;margin:8px 0}
+.concept.chosen{background:rgba(255,0,106,.08)}
+.tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;padding:2px 8px}
+.chosen .tag{color:var(--pink)}
+
+/* project playlists */
+.mix{margin-top:28px;max-width:560px}
+.mix-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.mix-frame{background:rgba(127,127,127,.15);min-height:152px}
+.mix iframe{display:block;width:100%;height:152px;border:0}
+
+/* dash */
+.dash{background:linear-gradient(110deg,#05070d 0%,#0b1a3a 55%,#1b2f6b 100%);color:#fff;padding:clamp(56px,9vw,120px) var(--gutter);border-bottom:1px solid var(--line)}
+.dash h2{font-size:clamp(40px,7vw,96px);letter-spacing:.04em}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
+.about > div{padding:clamp(32px,5vw,64px) var(--gutter)}
+.about > div:first-child{border-right:1px solid var(--line)}
+.cv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:36px;font-size:13px}
+.cv h3{font-size:13px;margin-bottom:10px;color:var(--pink)}
+.cv li{list-style:none;margin-bottom:10px}
+.cv li b{font-weight:500}
+
+/* contact */
+.contact{padding:clamp(56px,9vw,120px) var(--gutter);text-align:left}
+.contact a.mail{font-family:var(--display);font-size:clamp(20px,4vw,52px);text-decoration:none;word-break:break-all}
+.contact a.mail:hover{color:var(--pink)}
+footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (max-width:900px){
+  .hero,.project-head,.two,.grow,.sensors,.about{grid-template-columns:1fr}
+  .hero-text,.project-head>div:first-child,.two>*:first-child,.grow-ctrl,.sensors>div:first-child,.about>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .parts,.concepts{grid-template-columns:1fr}
+  .part,.concept{border-right:0;border-bottom:1px solid var(--line)}
+  .stage{min-height:460px}
+  .project-head h2{font-size:clamp(28px,9vw,56px)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.grow-view img{transition:none}}
+
+/* overgrwth: its own theme (Instrument Sans, #FFFAFA, blue/yellow/red/green) */
+.og{--ogb:#4569BE;--ogy:#FBCB44;--ogr:#D95942;--ogg:#2F7A4B;--ogp:#FFFAFA;--ogi:#1F2F5C;
+  background:var(--ogp);color:var(--ogi);font:400 16px/1.6 'Instrument Sans',system-ui,sans-serif;position:relative;overflow:hidden;
+  border-top:0;padding-bottom:clamp(40px,6vw,96px)}
+.og h2,.og h3{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:700;letter-spacing:-.02em}
+.og-wipe{position:absolute;inset:0 0 auto 0;height:14px;display:flex;pointer-events:none}
+.og-wipe i{flex:1;transform-origin:left;transform:scaleX(var(--p,0));transition:transform .2s linear}
+.og-wipe i:nth-child(1){background:var(--ogb)}.og-wipe i:nth-child(2){background:var(--ogy)}.og-wipe i:nth-child(3){background:var(--ogr)}.og-wipe i:nth-child(4){background:var(--ogg)}
+.og-head{padding:clamp(56px,8vw,120px) var(--gutter) 24px;background:
+  linear-gradient(var(--ogp),var(--ogp)) padding-box,
+  repeating-linear-gradient(90deg,rgba(69,105,190,.12) 0 1px,transparent 1px 96px),
+  repeating-linear-gradient(0deg,rgba(69,105,190,.12) 0 1px,transparent 1px 96px)}
+.og-head{background:repeating-linear-gradient(90deg,rgba(69,105,190,.10) 0 1px,transparent 1px 96px),repeating-linear-gradient(0deg,rgba(69,105,190,.10) 0 1px,transparent 1px 96px)}
+.og-eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ogb);font-weight:600}
+.og-word{font-size:clamp(64px,15vw,220px);line-height:1;color:var(--ogb);margin:12px 0 8px;white-space:nowrap;clip-path:inset(0 calc(100% - var(--p,0)*100%) 0 0)}
+.og-sub{font-size:clamp(18px,2vw,26px);font-weight:500;color:var(--ogb)}
+.og-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding:32px var(--gutter)}
+.og-quote{font-size:clamp(22px,2.6vw,34px);line-height:1.25;font-weight:600;color:var(--ogb);margin-bottom:16px}
+.og-facts{display:grid;gap:14px;align-self:start;border-left:6px solid var(--ogr);padding-left:20px}
+.og-facts dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ogb);font-weight:600}
+.og-facts dd{margin:0}
+.team{display:flex;flex-direction:column;gap:4px}
+.team span{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ico{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:50%;background:currentColor;flex:none}
+.ico svg{width:15px;height:15px;fill:var(--ico-fg,#fff)}
+.og .ico{color:var(--ogb)}
+.og-mix{margin:0 var(--gutter) 24px}
+.og-fig{margin:0}
+.og-fig img{width:100%;background:#EEECE9}
+.og-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--ogi)}
+.og-fig figcaption span{color:var(--ogb);font-weight:600;white-space:nowrap}
+.og > .og-fig{padding:16px var(--gutter) 0}
+.og-block{padding:clamp(40px,6vw,88px) var(--gutter) 0;display:grid;gap:24px}
+.og-out{font-size:clamp(48px,8vw,112px);line-height:1;color:transparent;-webkit-text-stroke:2px var(--ogb);text-transform:lowercase}
+.og-lead{font-size:clamp(20px,2.2vw,30px);line-height:1.3;font-weight:500;max-width:34ch;color:var(--ogi)}
+.og-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-cards div{padding:24px;font-size:15px}
+.og-cards b{display:block;font-size:22px;margin-bottom:8px}
+.c-blue{background:var(--ogb);color:var(--ogp)}.c-yellow{background:var(--ogy);color:var(--ogi)}.c-red{background:var(--ogr);color:var(--ogp)}
+.og-note{max-width:60ch}
+.og-two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding:clamp(40px,6vw,88px) var(--gutter) 0;align-items:center}
+.og-two p+p{margin-top:12px}
+.og-two h3{margin-bottom:16px}
+.og-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.og-rules{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-rules li{border-top:6px solid var(--ogy);padding-top:12px}
+.og-rules b{display:block;color:var(--ogb)}
+.og-build{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.8fr);margin:clamp(40px,6vw,88px) var(--gutter) 0;background:var(--ogb);color:var(--ogp)}
+.og-build-ctrl{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:18px}
+.og-build .og-out{-webkit-text-stroke-color:var(--ogp)}
+.og-presets,.og-toggles{display:flex;flex-wrap:wrap;gap:8px}
+.og-build button{font:600 14px/1 'Instrument Sans',system-ui,sans-serif;padding:10px 14px;border:0;border-radius:999px;background:rgba(255,250,250,.16);color:var(--ogp);cursor:pointer;min-height:40px}
+.og-presets button[aria-pressed=true]{background:var(--ogy);color:var(--ogi)}
+.og-toggles button{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;font-weight:500}
+.og-toggles button i{width:12px;height:12px;border-radius:50%;background:var(--sw);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+.og-toggles button[aria-pressed=false]{opacity:.45}
+.og-toggles button[aria-pressed=false] i{background:transparent;box-shadow:0 0 0 1px var(--ogp)}
+.og-build-view{position:relative;background:var(--ogp);min-height:420px;aspect-ratio:16/11}
+.og-build-view canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.og-build-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.og-build-view.ready img,.og-build-view.ready .og-loading{display:none}
+.og-build-view:not(.ready) canvas{visibility:hidden}
+.og-loading{position:absolute;left:16px;bottom:12px;font-size:13px;color:var(--ogb);background:var(--ogp);padding:4px 10px}
+.og-swatches{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;font-size:13px}
+.og-swatches i{display:block;aspect-ratio:1;box-shadow:inset 0 0 0 1px rgba(31,47,92,.18);margin-bottom:8px}
+.og-swatches b{display:block;color:var(--ogb)}
+.og-close{margin:clamp(40px,6vw,88px) var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ogb);color:var(--ogp);font-size:clamp(22px,2.8vw,40px);line-height:1.25;font-weight:600;border-right:24px solid var(--ogr)}
+.og-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.og-in.seen{opacity:1;transform:none}
+html.in-og header{background:#FFFAFA;color:#4569BE;transition:background .5s,color .5s}
+header{transition:background .5s,color .5s}
+@media (max-width:820px){
+  .og-intro,.og-two,.og-build,.og-grid2,.og-cards,.og-rules{grid-template-columns:minmax(0,1fr)}
+  .og-swatches{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .og-build-view{aspect-ratio:1;min-height:0}
+  .og-close{border-right-width:12px}
+}
+@media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
+/* site-wide social icons */
+.socials{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px}
+.socials .ico{color:var(--ink)}
+footer .socials .ico{width:24px;height:24px}
+footer .socials .ico svg{width:13px;height:13px}
+.dark .ico{color:var(--pink)}
+</style>
+</head>
+<body id="top">
+<div id="archive-bar" style="position:sticky;top:0;z-index:2147483647;display:flex;flex-wrap:wrap;gap:.4em 1.2em;align-items:center;padding:8px 16px;background:#0A0A0A;color:#F7F2EF;font:500 12px/1.4 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.02em"><span>Archived version v5 &middot; 2026-11-04 &middot; overgrwth section in its own theme with a 3D build viewer</span><span style="opacity:.6">Newer: v6.</span><span style="margin-left:auto;display:flex;gap:1.2em"><a href="../" style="color:#FF006A">All versions</a><a href="../../" style="color:#FF006A">Live site</a></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-in" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 2.2c-2.7 0-3 0-4 .1C3.6 2.5 2.5 4.6 2.3 8c-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.4 1.3 5.5 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.4-.2 5.5-1.3 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.4-1.3-5.5-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.4.1 3.6 1.2 3.7 3.7.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.4-1.2 3.6-3.7 3.7-1 .1-1.4.1-4 .1s-2.9 0-4-.1c-2.5-.1-3.6-1.3-3.7-3.7-.1-1-.1-1.4-.1-4s0-2.9.1-4C4.4 5.3 5.5 4.2 8 4.1c1-.1 1.4-.1 4-.1z"/></symbol>
+<symbol id="i-be" viewBox="0 0 24 24"><path d="M8.2 11.3c.9-.4 1.4-1.1 1.4-2.2C9.6 7 8 6 6 6H1v12h5.2c2.1 0 4.1-1 4.1-3.4 0-1.5-.7-2.6-2.1-3.3zM3.4 8h2.2c.8 0 1.6.2 1.6 1.2 0 .9-.6 1.2-1.4 1.2H3.4zm2.5 8H3.4v-3.3h2.6c1 0 1.7.4 1.7 1.6 0 1.2-.8 1.7-1.8 1.7zM15.5 7h5V8.3h-5zM23 13.6c0-2.6-1.5-4.7-4.2-4.7-2.6 0-4.4 2-4.4 4.6 0 2.7 1.7 4.6 4.4 4.6 2 0 3.4-.9 4-3h-2.1c-.2.8-1.1 1.2-1.9 1.2-1.3 0-2-.7-2-2zm-6.2-1.3c.1-1 .8-1.7 1.9-1.7 1 0 1.6.7 1.8 1.7z"/></symbol>
+<symbol id="i-web" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-3a15 15 0 0 0-1.3-3.9A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4zM4.3 14a8 8 0 0 1 0-4h3.4a16 16 0 0 0 0 4zm.8 2h3a15 15 0 0 0 1.3 3.9A8 8 0 0 1 5.1 16zm3-8h-3a8 8 0 0 1 4.3-3.9C8.9 5.3 8.4 6.6 8.1 8zM12 20c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4zm2.3-6H9.7a14 14 0 0 1 0-4h4.6a14 14 0 0 1 0 4zm.3 5.9c.6-1.2 1-2.5 1.3-3.9h3a8 8 0 0 1-4.3 3.9zm1.7-5.9a16 16 0 0 0 0-4h3.4a8 8 0 0 1 0 4z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 2.8-8 5-8-5V17h16z"/></symbol>
+</svg>
+
+
+<div class="wip" role="note"><b>Under construction</b><span>This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span></div>
+
+<header>
+  <div class="wrap">
+    <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
+    <nav>
+      <a href="#overgrwth">overgrwth</a>
+      <a href="#cortx">cortX</a>
+      <a class="opt" href="#dash">DASH</a>
+      <a class="opt" href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero-text">
+    <span class="prepared" id="prepared"></span>
+    <div class="eyebrow">portfolio.27 · <span class="pink">industrial design</span></div>
+    <h1>Understanding the rules to break them better.</h1>
+    <p class="lede">I'm Abhik, a product design student. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
+    <div class="hero-meta">
+      <div><b>Based in</b>Pune, India</div>
+      <div><b>Studying</b>B.Des Product Design, 2027</div>
+      <div><b>Tools</b>Rhino, Plasticity, KeyShot</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="cta" href="#overgrwth">See the work ↓</a>
+      <a class="cta alt" href="#contact">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="stage" aria-label="Talking avatar">
+    <div class="stage-top"><span><span class="dot" id="agentDot"></span><span id="agentStatus">Avatar idle</span></span><span id="ptCount"></span></div>
+    <canvas id="head" aria-hidden="true"></canvas>
+    <canvas id="head3d" aria-hidden="true" hidden></canvas>
+
+    <!-- =====================================================================
+         VOICE AGENT MOUNT
+         1. In the Blue Machines dashboard, find the embed / web-widget snippet
+            for your agent and paste it inside the div below.
+         2. Set AGENT_READY = true near the bottom of this file.
+         3. If the dashboard asks for allowed domains, add abkgpta.github.io
+         4. If their widget fires start/stop-speaking events, call
+            setSpeaking(true) / setSpeaking(false) from them so the head talks.
+         Until then, "Hear my intro" uses the browser's own voice as a fallback.
+         ===================================================================== -->
+    <div id="voice-agent-mount"></div>
+
+    <div class="stage-bottom">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="cta" id="talkBtn">Talk to me</button>
+        <button class="cta alt" id="introBtn">Hear my intro</button>
+      </div>
+      <span class="caption" id="stageNote">Early 3D head. A sharper one from a full scan is on the way.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OVERGRWTH ============ -->
+<section id="overgrwth" class="og">
+  <div class="og-wipe" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="og-head">
+    <div class="og-eyebrow">01 · Modular Design · 2025</div>
+    <h2 class="og-word">overgrwth</h2>
+    <p class="og-sub">A modular workspace system for creative spaces.</p>
+  </div>
+  <div class="og-intro og-in">
+    <div>
+      <p class="og-quote">A creative's work is never over. There's always something to change, to add, or to remove.</p>
+      <p>overgrwth is built around that cycle. The whole system is two kinds of part: H-frames and modules. Every frame you add opens up new formations, and modules clip on only when you need them. Home or office, solo or studio, artist or architect, it grows with you, your space and what you make.</p>
+    </div>
+    <dl class="og-facts">
+      <div><dt>For</dt><dd>Designers, artists, content creators, engineers and architects</dd></div>
+      <div><dt>Focus</dt><dd>Space adaptability, physical and digital work in one place, keeping tools in reach</dd></div>
+      <div><dt>Team</dt><dd class="team">
+        <span>Abhik Gupta</span>
+        <span>Abhishek Vishwakarma <a class="ico" href="https://www.linkedin.com/in/abhishek-vishwakarma-03839b340/" target="_blank" rel="noopener" aria-label="Abhishek Vishwakarma on LinkedIn"><svg><use href="#i-in"/></svg></a></span>
+        <span>Dhawal Musale <a class="ico" href="https://www.linkedin.com/in/dhawal-m-380097228/" target="_blank" rel="noopener" aria-label="Dhawal Musale on LinkedIn"><svg><use href="#i-in"/></svg></a><a class="ico" href="https://www.behance.net/963e1d2a" target="_blank" rel="noopener" aria-label="Dhawal Musale on Behance"><svg><use href="#i-be"/></svg></a><a class="ico" href="https://www.instagram.com/dhawal_musale/" target="_blank" rel="noopener" aria-label="Dhawal Musale on Instagram"><svg><use href="#i-ig"/></svg></a></span>
+      </dd></div>
+    </dl>
+  </div>
+  <div class="mix og-mix" data-playlist="overgrwth" hidden><div class="mix-label">What I listened to while making overgrwth</div><div class="mix-frame"></div></div>
+
+  <figure class="og-fig og-in">
+    <img src="img/og3-hero.jpg" alt="A large overgrwth lattice: white H-frames stacked at different heights carrying green shelves, red planter trays, yellow pegboard, a blue softboard, yellow grow lights, blue spotlights and vines" width="1800" height="1005" loading="lazy">
+    <figcaption><span>Fig. 01</span>The full system, every attachment on</figcaption>
+  </figure>
+
+  <div class="og-block og-in">
+    <h3 class="og-out">brief</h3>
+    <p class="og-lead">Design a modular system for professional creative spaces that helps people manage their things and builds a connection with the workspace.</p>
+    <div class="og-cards">
+      <div class="c-blue"><b>Space</b>Studios change size, shape and use. The system has to fit whatever room it lands in.</div>
+      <div class="c-yellow"><b>Physical + digital</b>Creatives move between physical, digital and paper-based work all day. A workspace has to hold all three.</div>
+      <div class="c-red"><b>Organisation</b>Tools, materials and references need a place close at hand, and that place keeps changing.</div>
+    </div>
+    <p class="og-note">Research started with interviews and observation at Oro Innovations, then case studies of modular walls and workstations already on the market.</p>
+  </div>
+
+  <div class="og-two og-in">
+    <img src="img/og-sketches.jpg" alt="Grid of black-pen ideation sketches exploring frames, joints and surfaces" loading="lazy">
+    <div>
+      <h3 class="og-out">ideation</h3>
+      <p>Rounds of sketching explored H-frames with rows of holes, slotting joints, pegboards, magnetic boards and toolboxes.</p>
+      <p>The name comes from the way flora grows over a landscape: serendipitously, a piece at a time, following what is around it. The system grows the same way.</p>
+    </div>
+  </div>
+
+  <div class="og-block og-in">
+    <h3 class="og-out">system</h3>
+    <p class="og-lead">One H-frame, repeated. A 4 in tube with one tall and one short post, 24 by 24 in overall.</p>
+    <div class="og-grid2">
+      <figure class="og-fig"><img src="img/og3-kit.jpg" alt="Exploded frame kit: an H-frame, a frame connector and an end cap floating above a cross-shaped floor foot" width="1800" height="1005" loading="lazy"><figcaption><span>Fig. 02</span>Frame kit: frame, connector, cap, foot</figcaption></figure>
+      <figure class="og-fig"><img src="img/og3-joint.jpg" alt="Close-up of a plus-shaped grey connector half inside the open end of a white post" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 03</span>Plus-shaped sockets lock frames at 90°</figcaption></figure>
+    </div>
+    <ul class="og-rules">
+      <li><b>Flip and stack.</b> Two short posts equal one tall post, so a flipped frame drops onto its neighbour and the lattice steps up 12 in at a time.</li>
+      <li><b>Grid.</b> Posts sit on a 20 in square grid. Every horizontal module fills one cell.</li>
+      <li><b>No anchoring.</b> Frames stand by interlocking, with no floor or ceiling fixings. The uneven lattice is kept on purpose to invite serendipity.</li>
+    </ul>
+  </div>
+
+  <div class="og-build og-in" id="ogBuild">
+    <div class="og-build-ctrl">
+      <h3 class="og-out">build</h3>
+      <p>Add and remove modules on a five-frame setup. Drag to turn it.</p>
+      <div class="og-presets" role="group" aria-label="Presets">
+        <button data-p="bare">Bare</button><button data-p="home">Home desk</button><button data-p="studio" aria-pressed="true">Studio</button><button data-p="plant">Plant corner</button>
+      </div>
+      <div class="og-toggles" role="group" aria-label="Modules"></div>
+    </div>
+    <div class="og-build-view">
+      <canvas id="ogCanvas" aria-label="Interactive 3D model of an overgrwth setup"></canvas>
+      <img id="ogFallback" src="img/og3-growth.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy">
+      <span class="og-loading" id="ogLoading">Loading model</span>
+    </div>
+  </div>
+
+  <div class="og-block og-in">
+    <h3 class="og-out">modules</h3>
+    <p class="og-lead">One universal post clamp carries everything that hangs or sits: panels, shelves and the planter, at any height.</p>
+    <figure class="og-fig"><img src="img/og3-modules.jpg" alt="Whiteboard, yellow pegboard and blue softboard panels beside a green shelf and a red planter tray mounted on posts with grey clamps" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 04</span>Whiteboard, pegboard, softboard, shelf, planter</figcaption></figure>
+    <div class="og-grid2">
+      <figure class="og-fig"><img src="img/og3-attach.jpg" alt="Six post-top attachments in a row: grow light, spotlight, power hub, pen stand, clock and speaker" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 05</span>Grow light, spotlight, power hub, pen stand, clock, speaker</figcaption></figure>
+      <figure class="og-fig"><img src="img/og3-grow.jpg" alt="Yellow donut grow light on a post top with a planter in its centre and vines trailing down the post" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 06</span>The grow light makes the name literal</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="og-two og-in og-power">
+    <figure class="og-fig"><img src="img/og3-power.jpg" alt="A frame setup in grey with the 24 volt power path traced in yellow from the power-in foot up through the posts to the attachments" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 07</span>Power path</figcaption></figure>
+    <div>
+      <h3 class="og-out">power</h3>
+      <p>24 V DC comes in at one power-in foot and runs up through the frames, carried by concentric pogo-pin contacts that work at any rotation.</p>
+      <p>Powered attachments plug into free post tops only. Nothing powered mounts partway up a post and no cables run down the tubes. The power hub turns one post top into three USB-C outlets and a Qi pad.</p>
+    </div>
+  </div>
+
+  <div class="og-block og-in">
+    <h3 class="og-out">colour</h3>
+    <p class="og-lead">Colour tells you what a module does. Structure stays neutral.</p>
+    <div class="og-swatches">
+      <div><i style="background:#FFFAFA"></i><b>Structure</b>Frames, connectors, clamps</div>
+      <div><i style="background:#2F7A4B"></i><b>Set down</b>Shelves</div>
+      <div><i style="background:#D95942"></i><b>Water and soil</b>Planter</div>
+      <div><i style="background:#FBCB44"></i><b>Hang</b>Pegboard</div>
+      <div><i style="background:#4569BE"></i><b>Pin</b>Softboard</div>
+      <div><i style="background:#fff"></i><b>Write</b>Whiteboard</div>
+    </div>
+    <figure class="og-fig"><img src="img/og3-growth.jpg" alt="Three overgrwth setups side by side, growing from bare frames to a stacked setup with shelves, planter and grow light" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 08</span>It grows with your workspace</figcaption></figure>
+  </div>
+
+  <div class="og-close og-in">
+    <p>There's no final form. Every arrangement is a different picture of the people using it.</p>
+  </div>
+</section>
+
+<!-- ============ CORTX ============ -->
+<section id="cortx" class="dark">
+  <div class="project-head">
+    <div>
+      <div class="eyebrow">02 · Design and Technology</div>
+      <h2>cort<span>X</span></h2>
+      <p class="sub">A brain-imaging headset for elite football training</p>
+    </div>
+    <div>
+      <p class="big-quote">You can only improve what you measure.</p>
+      <div class="prose" style="margin-top:20px">
+        <p>Top training facilities measure almost everything about a player's body, but have nothing for kinaesthetic and spatial awareness: the sense of your own movement and of the space around you. In team ball sports, where sensory load is highest, that gap matters.</p>
+        <p>cortX is worn during training. It collects positional and neurological data so a club's analysts can work with coaches on personalised programmes.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>For</dt><dd>Lead data analyst, Premier League club</dd></div>
+        <div><dt>Team</dt><dd class="team"><span>Muesli &amp; Brothers</span><span>Abhik Gupta</span><span>Ansha Gawande <a class="ico" href="https://anshawtydesigns.framer.website/" target="_blank" rel="noopener" aria-label="Ansha Gawande's portfolio"><svg><use href="#i-web"/></svg></a><a class="ico" href="https://www.linkedin.com/in/ansha-gawande-954812283/" target="_blank" rel="noopener" aria-label="Ansha Gawande on LinkedIn"><svg><use href="#i-in"/></svg></a></span></dd></div>
+      </dl>
+      <div class="mix" data-playlist="cortx" hidden><div class="mix-label">What I listened to while making cortX</div><div class="mix-frame"></div></div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <img src="img/cx-hero.jpg" alt="cortX headset render on black: pale grey shell with green seams, charcoal fabric side piece with sensor contacts" loading="lazy">
+    <div class="figcap"><span>Fig. 04 · cortX headset</span><span>Render</span></div>
+  </div>
+
+  <div class="sensors">
+    <div>
+      <div class="eyebrow">Fig. 05 · What it reads</div>
+      <h3 style="font-size:22px;margin-top:10px">Four sensors, two units.</h3>
+      <p style="margin-top:12px">The headset carries the brain and head sensors. A vest unit holds the microcontroller, analog front end, heart rate monitor, GPS, Bluetooth and battery, and sends everything to the analysts' computers.</p>
+      <div class="tabs" role="group" aria-label="Sensor">
+        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="gps">GPS</button>
+      </div>
+      <div class="readout" aria-live="polite">
+        <div class="where" id="sWhere"></div>
+        <h3 id="sName"></h3>
+        <p id="sText"></p>
+        <canvas class="trace" id="trace"></canvas>
+        <p class="caption">Illustrative signal, not recorded data.</p>
+      </div>
+    </div>
+    <div style="padding:0;display:flex;align-items:center;background:#7b7b7b"><img src="img/cx-render.jpg" alt="Closer render of the cortX headset showing fabric side panel and five sensor ports" loading="lazy"></div>
+  </div>
+
+  <div class="concepts">
+    <div class="concept chosen"><span class="tag">Taken forward</span><b>Brain-imaging headset</b>EEG, fNIRS, IMU and GPS worn in training to measure, not guess.</div>
+    <div class="concept"><span class="tag">Concept</span><b>Blind-spot wristband</b>A sweat-proof haptic band that cues a player when someone enters their blind spot.</div>
+    <div class="concept"><span class="tag">Concept</span><b>Game disruptor</b>A robotic unit that breaks a player's rhythm to force decisions under pressure.</div>
+  </div>
+
+  <div class="two">
+    <div class="prose">
+      <div class="eyebrow">Making</div>
+      <p style="margin-top:14px">Before refining the shell, we built a fit mock-up of the liner in translucent plastic straps and foam pads to see how it actually sits on a head.</p>
+      <p>Research ran from liveable spaces, through neurodiversity and sensory-centred design, to Sensory Intelligence Optimisation: taking someone from baseline to far above it. We studied the Red Bull Athlete Performance Centre and P3 along the way.</p>
+    </div>
+    <div style="padding:0;max-height:640px;overflow:hidden"><img src="img/cx-mockup.jpg" alt="Hand holding the translucent plastic and pink foam fit mock-up of the headset liner" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+  </div>
+</section>
+
+<!-- ============ DASH ============ -->
+<section id="dash" class="dash">
+  <div class="eyebrow" style="color:rgba(255,255,255,.6)">03 · with adidas</div>
+  <h2 style="margin:12px 0 16px">DASH</h2>
+  <p style="max-width:52ch;color:rgba(255,255,255,.8)">Under construction. The case study is coming soon.</p>
+  <div class="mix" data-playlist="dash" hidden><div class="mix-label">What I listened to while making DASH</div><div class="mix-frame"></div></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div>
+    <img src="img/p-about.jpg" alt="Abhik standing on a path at dusk in a lavender hoodie" width="396" height="308" style="width:100%;max-width:420px">
+  </div>
+  <div>
+    <div class="eyebrow">About</div>
+    <div class="prose" style="margin-top:14px">
+      <p>Sketching sneakers was my escape in school. I didn't take notes, I carved lines into paper, and I watched more football boot reviews than I played football.</p>
+      <p>Design school is where I fell for all of it: how lines move, how surfaces converge, the stance of a silhouette, how materials and colours meet. It didn't take long to see that design goes much further than visuals. Electronics, systems and mechanisms got me just as hooked.</p>
+    </div>
+    <div class="cv">
+      <div>
+        <h3>Experience</h3>
+        <ul>
+          <li><b>Evoluir</b>, Ahmedabad<br>Freelance industrial designer, Aug 2024 to May 2025. Designed the pilot product, Evoluir Air (form, CMF, detailing), plus brand identity, packaging and pitch decks.</li>
+          <li><b>Oro Innovations</b>, Ahmedabad<br>Industrial design apprentice, May to Jun 2025. An assistive accessory for a medtech client, and the studio's visual identity.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Education</h3>
+        <ul><li><b>B.Des (Hons.) Product Design</b><br>2023 to 2027</li></ul>
+        <h3 style="margin-top:20px">Skills</h3>
+        <ul><li>Design research, product thinking, sketching, UX methods. Rhino, Plasticity, KeyShot, Figma, Adobe CC.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="eyebrow">Open to studio roles and internships</div>
+  <p style="margin:18px 0 10px"><a class="mail" href="mailto:abhikthegupta@gmail.com">abhikthegupta@gmail.com</a></p>
+<div class="socials"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div>
+</section>
+
+<footer><span>Abhik Gupta · Industrial design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script>
+/* ---------- per-studio greeting: abhikgupta.github.io/#pentagram ---------- */
+(function(){
+  const known=['overgrwth','cortx','dash','about','contact','top'];
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(!h||known.includes(h.toLowerCase()))return;
+  const name=h.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  const el=document.getElementById('prepared');
+  el.textContent='Prepared for '+name;el.classList.add('on');
+  window.STUDIO=name;
+})();
+
+/* ---------- point-cloud head ---------- */
+const cv=document.getElementById('head'),ctx=cv.getContext('2d');
+let speaking=false,mouth=0,t=0;
+const pts=[];
+(function build(){
+  // head: ellipsoid sampled on a golden spiral, plus nose, brow and neck
+  const N=2600;
+  for(let i=0;i<N;i++){
+    const y=1-2*(i+.5)/N, r=Math.sqrt(1-y*y), a=i*2.39996;
+    let x=Math.cos(a)*r, z=Math.sin(a)*r, yy=y*1.28;
+    if(yy<-.55){x*=.82+.18*((yy+1.28)/.73);}           // narrow the jaw
+    if(z>.55&&Math.abs(x)<.18&&yy>-.35&&yy<.15){z+=.16*(1-Math.abs(x)/.18)*(1-Math.abs(yy+.1)/.25);} // nose
+    const isMouth=z>.6&&Math.abs(x)<.28&&yy>-.66&&yy<-.42;
+    const isEye=z>.55&&Math.abs(Math.abs(x)-.32)<.1&&Math.abs(yy-.12)<.06;
+    pts.push({x,y:yy,z,m:isMouth?(yy<-.54?-1:1):0,e:isEye});
+  }
+  for(let i=0;i<500;i++){ // neck
+    const a=Math.random()*Math.PI*2,h=Math.random();
+    pts.push({x:Math.cos(a)*.48,y:-1.25-h*.6,z:Math.sin(a)*.42,m:0,e:false});
+  }
+  document.getElementById('ptCount').textContent=pts.length.toLocaleString()+' pts';
+})();
+function resize(){const d=devicePixelRatio||1;cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d;}
+addEventListener('resize',resize);resize();
+let mx=0,my=0;
+cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;});
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function frame(){
+  if(cv.hidden)return;
+  t+=reduce?0:.01;
+  const target=speaking?(.35+.65*Math.abs(Math.sin(t*9)*Math.sin(t*3.7))):0;
+  mouth+=(target-mouth)*.35;
+  const W=cv.width,H=cv.height,S=Math.min(W,H)*.27,cx=W/2,cy=H*.46;
+  ctx.clearRect(0,0,W,H);
+  const ry=Math.sin(t*.6)*.5+mx*.8,rx=my*.3;
+  const cy_=Math.cos(ry),sy=Math.sin(ry),cx_=Math.cos(rx),sx=Math.sin(rx);
+  const d=devicePixelRatio||1;
+  for(const p of pts){
+    let y=p.y+(p.m===-1?-mouth*.12:0);
+    let x=p.x*cy_+p.z*sy, z=-p.x*sy+p.z*cy_;
+    let y2=y*cx_-z*sx; z=y*sx+z*cx_;
+    const k=3/(3-z), px=cx+x*S*k, py=cy-y2*S*k;
+    const lit=(z+1)/2;
+    if(p.m&&speaking)ctx.fillStyle=`rgba(255,0,106,${.5+lit*.5})`;
+    else if(p.e)ctx.fillStyle=`rgba(255,0,106,${.25+lit*.6})`;
+    else ctx.fillStyle=`rgba(247,242,239,${.06+lit*.6})`;
+    const s=(.6+lit*1.1)*d;ctx.fillRect(px,py,s,s);
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+function setSpeaking(on){
+  speaking=!!on;
+  if(window.avatar3d)window.avatar3d.setSpeaking(speaking);
+  document.getElementById('agentDot').classList.toggle('live',speaking);
+  document.getElementById('agentStatus').textContent=speaking?'Speaking':(AGENT_READY?'Agent ready':'Avatar idle');
+}
+window.setSpeaking=setSpeaking;
+
+/* ---------- voice ---------- */
+const AGENT_READY=false; // flip to true once the Blue Machines snippet is pasted into #voice-agent-mount
+const INTRO="Hi, I'm Abhik, a product design student. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
+document.getElementById('introBtn').onclick=()=>{
+  if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
+  speechSynthesis.cancel();
+  if(window.avatar3d){
+    setSpeaking(true);
+    window.avatar3d.speakScript(INTRO).catch(()=>{}).finally(()=>setSpeaking(false));
+    return;
+  }
+  const u=new SpeechSynthesisUtterance(INTRO);u.rate=1.02;
+  u.onstart=()=>setSpeaking(true);u.onend=u.onerror=()=>setSpeaking(false);
+  speechSynthesis.speak(u);
+};
+document.getElementById('talkBtn').onclick=()=>{
+  if(AGENT_READY){document.getElementById('voice-agent-mount').scrollIntoView({block:'nearest'});return;}
+  document.getElementById('stageNote').textContent='The live voice agent is under construction. Try "Hear my intro" for now.';
+};
+if(AGENT_READY)setSpeaking(false);
+
+/* ---------- project playlists: paste each Spotify playlist link here ---------- */
+const PLAYLISTS={
+  overgrwth:'https://open.spotify.com/playlist/53EsNRr8eb2gWstUWnXea7',
+  cortx:'https://open.spotify.com/playlist/2hw26JndxXsr3pwU92JWDa',
+  dash:'https://open.spotify.com/playlist/1T2OlLzVH50fTQfLUuUgzh'
+};
+document.querySelectorAll('.mix').forEach(el=>{
+  const m=(PLAYLISTS[el.dataset.playlist]||'').match(/playlist\/([A-Za-z0-9]+)/);
+  if(!m)return;
+  const f=document.createElement('iframe');
+  f.src='https://open.spotify.com/embed/playlist/'+m[1]+'?utm_source=generator&theme=0';
+  f.loading='lazy';f.title='Spotify playlist for '+el.dataset.playlist;
+  f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  el.querySelector('.mix-frame').appendChild(f);el.hidden=false;
+});
+
+/* ---------- cortX sensor readout ---------- */
+const S={
+  eeg:{where:'Headset unit',name:'EEG',text:'Electroencephalography. Reads alpha, beta and gamma brain waves from the cerebral cortex.',f:t=>Math.sin(t*.5)*.5+Math.sin(t*1.7)*.3+Math.sin(t*4.3)*.2},
+  fnirs:{where:'Headset unit',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
+  imu:{where:'Headset unit',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
+  gps:{where:'Vest unit',name:'GPS',text:'Tracks the player’s position on the pitch, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
+};
+let sk='eeg';const tr=document.getElementById('trace'),tc=tr.getContext('2d');let tt=0;
+function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>setSensor(b.dataset.k));setSensor('eeg');
+function drawTrace(){
+  const d=devicePixelRatio||1;if(tr.width!==tr.clientWidth*d){tr.width=tr.clientWidth*d;tr.height=tr.clientHeight*d;}
+  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);tc.strokeStyle='#FF006A';tc.lineWidth=1.5*d;tc.beginPath();
+  for(let x=0;x<W;x+=2){const v=S[sk].f((x/d)*.15+tt);x?tc.lineTo(x,H/2-v*H*.4):tc.moveTo(x,H/2-v*H*.4);}
+  tc.stroke();tt+=reduce?0:.08;requestAnimationFrame(drawTrace);
+}
+drawTrace();
+</script>
+<script type="module">
+/* 3D head: loads over the point-cloud stand-in; if anything fails the point cloud stays */
+try{
+  await import('./avatar/head-avatar.js');
+  const c=document.getElementById('head3d');
+  c.hidden=false;
+  const a=await window.AbhikHead.mount(c,{src:'avatar/abhik_head.glb',orbit:false});
+  window.avatar3d=a;
+  document.getElementById('head').hidden=true;
+  document.getElementById('ptCount').textContent='';
+}catch(e){
+  console.warn('3D head unavailable, keeping point cloud',e);
+  document.getElementById('head3d').hidden=true;
+}
+</script>
+
+<script>
+/* ---------- overgrwth: scroll-in transition ---------- */
+(()=>{
+  const og=document.getElementById('overgrwth');if(!og)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  og.querySelectorAll('.og-in').forEach(el=>io.observe(el));
+  const tick=()=>{
+    const r=og.getBoundingClientRect(),vh=innerHeight;
+    const p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.85)));
+    og.style.setProperty('--p',p.toFixed(3));
+    document.documentElement.classList.toggle('in-og',r.top<80&&r.bottom>80);
+  };
+  addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);tick();
+})();
+</script>
+<script type="module">
+/* ---------- overgrwth: build-your-own viewer ---------- */
+const view=document.querySelector('.og-build-view'),cv=document.getElementById('ogCanvas');
+const G=[['shelf','Shelves','#2F7A4B'],['planter','Planter','#D95942'],['whiteboard','Whiteboard','#FFFFFF'],['pegboard','Pegboard','#FBCB44'],['softboard','Softboard','#4569BE'],
+  ['grow','Grow light','#FBCB44'],['spot','Spotlight','#4569BE'],['clock','Clock','#FBCB44'],['speaker','Speaker','#2F7A4B'],['hub','Power hub','#C9A27A'],['pen','Pen stand','#4569BE'],['clips','Vine clips','#A9ACAE']];
+const P={bare:[],home:['shelf','whiteboard','clock','pen','hub','spot'],studio:G.map(g=>g[0]),plant:['shelf','planter','grow','clips','spot']};
+let on=new Set(P.studio),apply=()=>{};
+const tg=document.querySelector('.og-toggles'),pr=[...document.querySelectorAll('.og-presets button')];
+G.forEach(([k,l,c])=>{const b=document.createElement('button');b.dataset.k=k;b.style.setProperty('--sw',c);b.innerHTML='<i></i>'+l;b.onclick=()=>{on.has(k)?on.delete(k):on.add(k);pr.forEach(x=>x.setAttribute('aria-pressed','false'));sync();};tg.appendChild(b);});
+pr.forEach(b=>b.onclick=()=>{on=new Set(P[b.dataset.p]);pr.forEach(x=>x.setAttribute('aria-pressed',x===b));sync();});
+function sync(){tg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',on.has(b.dataset.k)));apply();}
+sync();
+let started=false;
+const io=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;io.disconnect();start();}},{rootMargin:'400px'});
+io.observe(view);
+async function start(){
+  try{
+    const THREE=await import('three');
+    const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
+    const {OrbitControls}=await import('three/addons/controls/OrbitControls.js');
+    const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+    r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NoToneMapping;
+    const sc=new THREE.Scene();
+    sc.add(new THREE.HemisphereLight(0xffffff,0xd9d6d2,1.3));
+    const d=new THREE.DirectionalLight(0xffffff,2.2);d.position.set(3,5,4);sc.add(d);
+    const d2=new THREE.DirectionalLight(0xffffff,.6);d2.position.set(-4,2,-3);sc.add(d2);
+    const cam=new THREE.PerspectiveCamera(30,1,.05,50);
+    const gl=await new GLTFLoader().loadAsync('img/og-system.glb');
+    const root=gl.scene;sc.add(root);
+    const groups={};
+    root.traverse(o=>{if(o.isMesh){const g=o.name.split('|')[0];(groups[g]=groups[g]||[]).push(o);o.material.flatShading=false;}});
+    root.traverse(o=>{if(o.isMesh&&!o.geometry.attributes.normal)o.geometry.computeVertexNormals();});
+    const box=new THREE.Box3().setFromObject(root),c=box.getCenter(new THREE.Vector3()),s=box.getSize(new THREE.Vector3()).length();
+    root.position.sub(c);root.position.y+=0;
+    const ctl=new OrbitControls(cam,cv);ctl.enableZoom=false;ctl.enablePan=false;ctl.enableDamping=true;ctl.minPolarAngle=.6;ctl.maxPolarAngle=1.45;
+    ctl.autoRotate=!matchMedia('(prefers-reduced-motion: reduce)').matches;ctl.autoRotateSpeed=.6;
+    const R=s/2,dist=R/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*.78;cam.position.set(1,.55,1.3).normalize().multiplyScalar(dist);ctl.target.set(0,0,0);
+    apply=()=>{for(const[g,ms]of Object.entries(groups)){const k=g.startsWith('cap-')?g.slice(4):g;const vis=g==='base'?true:g.startsWith('cap-')?!on.has(k):on.has(k);ms.forEach(m=>m.visible=vis);}};
+    apply();
+    const fit=()=>{const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();};
+    new ResizeObserver(fit).observe(cv);fit();
+    view.classList.add('ready');
+    ctl.addEventListener('start',()=>ctl.autoRotate=false);
+    let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(view);
+    r.setAnimationLoop(()=>{if(!vis)return;ctl.update();r.render(sc,cam);});
+  }catch(e){console.warn('overgrwth viewer unavailable',e);document.getElementById('ogLoading').textContent='3D view unavailable, showing renders';}
+}
+</script>
+</body>
+</html>

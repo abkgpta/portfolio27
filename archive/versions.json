@@ -1,0 +1,44 @@
+[
+  {
+    "v": 1,
+    "commit": "25eb4a5798222d46b815e72f83aba0e3b4357c47",
+    "date": "2026-10-28",
+    "title": "First version of the site (under construction)",
+    "pr": null
+  },
+  {
+    "v": 2,
+    "commit": "0398933570733dca289a0b2f59ed061d10443538",
+    "date": "2026-11-01",
+    "title": "ABK favicon and project playlists",
+    "pr": null
+  },
+  {
+    "v": 3,
+    "commit": "fc327fbcb6818e009eb09eb8817e7aa9449b1f10",
+    "date": "2026-11-01",
+    "title": "3D head in the avatar stage",
+    "pr": null
+  },
+  {
+    "v": 4,
+    "commit": "719a668b83ef3425ce8698b4f7af1282c528313b",
+    "date": "2026-11-02",
+    "title": "Teammate and university mentions removed",
+    "pr": 1
+  },
+  {
+    "v": 5,
+    "commit": "588900ebe248e13acf24615dcdf9f4cc4109d62f",
+    "date": "2026-11-04",
+    "title": "overgrwth section in its own theme with a 3D build viewer",
+    "pr": 3
+  },
+  {
+    "v": 6,
+    "commit": "58eb6c46173ce3fa7dba870abcc459272c75fc44",
+    "date": "2026-11-05",
+    "title": "Add a browsable archive of every site version",
+    "pr": 5
+  }
+]
