@@ -26,7 +26,7 @@ P={ # key: (step, linear tol mm, crop x-range or None)
  'clip':('04_attachments/unpowered/OG-ATT-007_vine-clip_v2.0.step',0.35,None),
 }
 ANG={'pegboard':1.2,'speaker':1.2,'panels':1.2,'clamp':.7,'frame':.45,'connector':.7,'endcap':.6,'foot':.5,'powerfoot':.5,'grow':.5,'spot':.5,'hub':.6,'clock':.6,'pen':.6,'planterx':.8,'clip':.7,'planter':.6}
-SPLIT={'grow':{222:'grow_led'},'spot':{391:'spot_lens'},'clock':{379:'clock_face'}}
+SPLIT={'grow':{i:'grow_led' for i in range(366,372)},'spot':{i:'spot_lens' for i in range(401,406)},'clock':{379:'clock_face'}}  # grow: LED band solid, spot: lens disc solid
 def tess(shape,tol,ang=0.35,split=None):
     BRepMesh_IncrementalMesh(shape.wrapped,tol,False,ang,True)
     V=[];N=[];F=[];o=0;FI=[]
