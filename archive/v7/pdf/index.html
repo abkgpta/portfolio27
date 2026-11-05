@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-root="../">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhik Gupta · portfolio.27 (A4)</title>
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/engine.css">
+<link rel="stylesheet" href="pdf.css">
+</head>
+<!--
+  The A4 landscape portfolio. A layout of its own: it shares cards, images, profiles and
+  js/engine.js with the website, but nothing here is adapted from the site's layout.
+  Each <article class="page"> is one A4 page. Pages carry the same attributes as site cards:
+  data-slide (the card id, or the page id when a page holds several cards, listed in
+  data-cards), data-tiers, data-card on the four preview pages, data-base, data-skills,
+  data-required. Grey boxes marked .ph are visuals still to be made.
+  Export: node tools/export-pdf.mjs <profile> [--version=preview]
+-->
+<body>
+
+<!-- ============ COVER ============ -->
+<article class="page cover" data-required>
+  <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>portfolio.27</span><span class="pn"></span></header>
+  <div class="cover-body">
+    <div class="cover-id">
+      <div class="wm big">ABHIK<span>GUPTA</span></div>
+      <p class="eyebrow">Product design · portfolio.27</p>
+      <p class="prepared" id="prepared"></p>
+    </div>
+    <div class="sheet" id="gallery">
+      <figure data-for="overgrwth"><img src="../img/og4-hero.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="cortx"><img src="../img/cx-hero.jpg" alt=""><figcaption>cortX</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-exploded.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-socket.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="cortx"><img src="../img/cx-render.jpg" alt=""><figcaption>cortX</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-attach.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-clamp.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="cortx"><img src="../img/cx-mockup.jpg" alt=""><figcaption>cortX</figcaption></figure>
+    </div>
+  </div>
+  <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+</article>
+
+<!-- ============ PITCH (filled from the profile's "pitch"; hidden when a profile has none) ============ -->
+<article class="page pitch" id="pitch">
+  <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>a note</span><span class="pn"></span></header>
+  <div class="pitch-body">
+    <h2 data-pitch-title></h2>
+    <ul data-pitch-lines></ul>
+    <p class="note">abhikthegupta@gmail.com · abkgpta.github.io/portfolio27</p>
+  </div>
+  <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+</article>
+
+<!-- ============ OVERGRWTH ============ -->
+<section data-project="overgrwth" data-type="concept" class="og">
+
+  <!-- preview: 4 pages, one per card -->
+  <article class="page og-page full-bleed" data-slide="og-hero" data-tiers="preview" data-card="hero" data-base="3" data-skills="rendering,cmf" data-required>
+    <img class="bleed" src="../img/og4-hero.jpg" alt="The overgrwth lattice with every attachment">
+    <div class="over"><img class="og-logo" src="../img/og-logo.svg" alt="overgrwth"><span class="eyebrow"><span data-num>01</span> · Modular Design · 2025</span></div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth</span><span class="pn"></span></header>
+  </article>
+  <article class="page og-page" data-slide="og-brief" data-tiers="preview" data-card="hook" data-base="2" data-skills="research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · the problem</span><span class="pn"></span></header>
+    <div class="hook">
+      <p class="quote">A creative's work is never over. There's always something to change, to add, or to remove.</p>
+      <div class="duo"><img src="../img/og4-exploded.jpg" alt="One H-frame, connector and clamp, exploded"><img src="../img/og4-combos.jpg" alt="Many arrangements of the same frame"></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page og-page" data-slide="og-concept" data-tiers="preview" data-card="sketch" data-base="2" data-skills="sketching">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · one rule</span><span class="pn"></span></header>
+    <div class="ph fill"><b>Under construction</b><small>Stylised concept sketch: one H-frame, flip and stack</small></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page og-page" data-slide="og-identity" data-tiers="preview" data-card="logo" data-base="2" data-skills="branding">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · identity</span><span class="pn"></span></header>
+    <div class="lockup"><img class="og-logo xl" src="../img/og-logo.svg" alt="overgrwth"><span class="eyebrow">A modular workspace system for creative spaces</span></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <!-- overview: the 7 pages from the agreed structure plan -->
+  <article class="page og-page full-bleed" data-slide="og-hero" data-tiers="overview full" data-base="3" data-skills="rendering,cmf" data-required>
+    <img class="bleed" src="../img/og4-hero.jpg" alt="The overgrwth lattice with every attachment">
+    <div class="over">
+      <img class="og-logo" src="../img/og-logo.svg" alt="overgrwth">
+      <span class="eyebrow"><span data-num>01</span> · Modular Design · 2025</span>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Research, concept, system architecture, CAD, CMF, visualisation</dd></div>
+        <div><dt>Team</dt><dd>Abhik Gupta, Abhishek Vishwakarma, Dhawal Musale</dd></div>
+      </dl>
+    </div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth</span><span class="pn"></span></header>
+  </article>
+
+  <article class="page og-page" data-slide="og-brief" data-tiers="overview full" data-base="2" data-skills="research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · brief</span><span class="pn"></span></header>
+    <div class="cols">
+      <div>
+        <p class="quote sm">A creative's work is never over.</p>
+        <p class="lead">Design a modular system for professional creative spaces that helps people manage their things and builds a connection with the workspace.</p>
+        <div class="tri">
+          <div class="c-blue"><b>Space</b>Studios change size, shape and use.</div>
+          <div class="c-yellow"><b>Physical + digital</b>Creatives move between physical, digital and paper work all day.</div>
+          <div class="c-red"><b>Organisation</b>Tools need a place close at hand, and that place keeps changing.</div>
+        </div>
+      </div>
+      <div class="stack"><div class="ph"><b>Under construction</b><small>Cluttered creative desk 1</small></div><div class="ph"><b>Under construction</b><small>Cluttered creative desk 2</small></div></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-ideation" data-tiers="overview full" data-base="2" data-skills="sketching,research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · ideation</span><span class="pn"></span></header>
+    <div class="cols wide-left">
+      <img class="cover-img" src="../img/og-sketches.jpg" alt="Ideation sketches">
+      <div><h3>ideation</h3><p>Rounds of sketching explored H-frames with rows of holes, slotting joints, pegboards, magnetic boards and toolboxes.</p><p class="note">To be redrawn as a stylised sheet: 3 to 5 directions, then the pick.</p></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p4" data-cards="og-concept og-build" data-tiers="overview full" data-base="3" data-skills="sketching,systems,cad">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · one rule</span><span class="pn"></span></header>
+    <div class="cols">
+      <div class="ph"><b>Under construction</b><small>Stylised concept sketch: one H-frame, flip and stack</small></div>
+      <div><h3>build your own</h3><p class="note">Online, this is a 3D viewer. On paper, three builds from one frame.</p>
+        <div class="strip one"><img src="../img/og4-build.jpg" alt="Three preset builds from one frame to a full setup"></div></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p5" data-cards="og-system og-motion og-detail" data-tiers="overview full" data-base="3" data-skills="systems,cad,electronics">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · system</span><span class="pn"></span></header>
+    <div class="cols">
+      <div>
+        <img class="cover-img" src="../img/og4-exploded.jpg" alt="The system exploded: frame, connector, foot, clamp and modules">
+        <div class="spec"><span><b>3 in</b>tube</span><span><b>24 x 24 in</b>unit</span><span><b>24 V</b>power</span></div>
+        <div class="strip one tall"><img src="../img/og4-growth.jpg" alt="One frame growing into a full lattice"></div>
+      </div>
+      <div class="grid2 g3">
+        <figure><img src="../img/og4-socket.jpg" alt=""><figcaption>Plus socket locks frames at 90°</figcaption></figure>
+        <figure><img src="../img/og4-clamp.jpg" alt=""><figcaption>One clamp carries every module</figcaption></figure>
+        <figure><img src="../img/og4-grow.jpg" alt=""><figcaption>Grow light over the planter</figcaption></figure>
+        <figure><img src="../img/og4-foot.jpg" alt=""><figcaption>24 V in through the foot</figcaption></figure>
+        <figure><img src="../img/og4-power.jpg" alt=""><figcaption>Power runs up through the posts</figcaption></figure>
+        <figure><img src="../img/og4-attach.jpg" alt=""><figcaption>Six powered post-top attachments</figcaption></figure>
+      </div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p6" data-cards="og-scene-studio og-scene-rest og-scene-workshop og-cmf" data-tiers="overview full" data-base="3" data-skills="rendering,cmf">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · in use</span><span class="pn"></span></header>
+    <div class="scenes">
+      <img class="big" src="../img/og4-studio.jpg" alt="overgrwth in a design studio">
+      <img src="../img/og4-plant.jpg" alt="Plant corner in a rest area">
+      <img src="../img/og4-workshop.jpg" alt="Utility wall in a design workshop">
+    </div>
+    <div class="cmf-row"><img class="cmf-macro" src="../img/og4-material.jpg" alt="Material and finish samples"><div class="swatches">
+      <span><i style="background:#FFFAFA"></i>Structure</span><span><i style="background:#2F7A4B"></i>Set down</span>
+      <span><i style="background:#D95942"></i>Water and soil</span><span><i style="background:#FBCB44"></i>Hang</span>
+      <span><i style="background:#4569BE"></i>Pin</span><span><i style="background:#fff"></i>Write</span>
+    </div></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p7" data-cards="og-identity og-outcome" data-tiers="overview full" data-base="2" data-skills="branding,systems">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · identity</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><div class="lockup sm"><img class="og-logo" src="../img/og-logo.svg" alt="overgrwth"></div><div class="strip three"><div class="ph"><b>Under construction</b><small>Packaging</small></div><div class="ph"><b>Under construction</b><small>Leaflet</small></div><div class="ph"><b>Under construction</b><small>Part tags</small></div></div></div>
+      <div><img class="cover-img" src="../img/og4-closing.jpg" alt="overgrwth lattice from a new angle"><p class="lead">There's no final form. Every arrangement is a different picture of the people using it.</p><p class="note">Next: cortX</p></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+</section>
+
+<!-- ============ CORTX (pages from the current site content; plan to come) ============ -->
+<section data-project="cortx" data-type="concept" class="cx">
+  <article class="page dark full-bleed" data-slide="cx-hero" data-tiers="preview overview full" data-card="hero" data-base="3" data-skills="rendering">
+    <img class="bleed contain" src="../img/cx-hero.jpg" alt="cortX headset render">
+    <div class="over"><span class="cx-word">cort<span>X</span></span><span class="eyebrow"><span data-num>02</span> · Design and Technology</span></div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>cortX</span><span class="pn"></span></header>
+  </article>
+  <article class="page dark" data-slide="cx-intro" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>cortX · brief</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><p class="quote">You can only improve what you measure.</p><p class="lead">A brain-imaging headset for elite football training.</p></div>
+      <div><p>Top training facilities measure almost everything about a player's body, but have nothing for kinaesthetic and spatial awareness. cortX is worn during training and collects positional and neurological data for a club's analysts.</p>
+        <dl class="facts"><div><dt>For</dt><dd>Lead data analyst, Premier League club</dd></div><div><dt>Team</dt><dd>Abhik Gupta, Ansha Gawande</dd></div></dl></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page dark" data-slide="cx-sensors" data-tiers="overview full" data-base="3" data-skills="electronics,interaction">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>cortX · what it reads</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><h3>Four sensors, two units.</h3><p>The headset carries the brain and head sensors: EEG, fNIRS and IMU. A vest unit holds the microcontroller, analog front end, heart rate monitor, GPS, Bluetooth and battery, and sends everything to the analysts' computers.</p></div>
+      <img class="cover-img" src="../img/cx-render.jpg" alt="Closer render of the cortX headset">
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page dark" data-slide="cx-concepts" data-tiers="preview overview full" data-card="sketch" data-base="2" data-skills="research,sketching">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>cortX · concepts</span><span class="pn"></span></header>
+    <div class="tri dark-cards">
+      <div class="chosen"><b>Brain-imaging headset</b>Taken forward. EEG, fNIRS, IMU and GPS worn in training to measure, not guess.</div>
+      <div><b>Blind-spot wristband</b>A sweat-proof haptic band that cues a player when someone enters their blind spot.</div>
+      <div><b>Game disruptor</b>A robotic unit that breaks a player's rhythm to force decisions under pressure.</div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page dark" data-slide="cx-making" data-tiers="overview full" data-base="2" data-skills="prototyping">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>cortX · making</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><h3>Making</h3><p>Before refining the shell, we built a fit mock-up of the liner in translucent plastic straps and foam pads to see how it actually sits on a head.</p></div>
+      <img class="cover-img" src="../img/cx-mockup.jpg" alt="The fit mock-up of the headset liner">
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+</section>
+
+<!-- ============ DASH ============ -->
+<section data-project="dash" data-type="concept">
+  <article class="page dark" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>DASH</span><span class="pn"></span></header>
+    <div class="lockup"><span class="eyebrow"><span data-num>03</span> · Solo concept</span><span class="cx-word">DASH</span><p>The case study is coming soon.</p></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+</section>
+
+<!-- ============ BANK (drafts, hidden until a profile asks) ============ -->
+<section data-project="evoluir" data-type="industry" data-draft><article class="page" data-slide="evoluir-cover" data-tiers="preview overview full" data-skills="branding,packaging" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>Evoluir</span><span class="pn"></span></header><div class="ph fill">Evoluir: branding, product and packaging, 2024 to 2025</div></article></section>
+<section data-project="goodknocks" data-type="industry" data-draft><article class="page" data-slide="goodknocks-cover" data-tiers="preview overview full" data-skills="branding" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>Goodknocks</span><span class="pn"></span></header><div class="ph fill">Goodknocks: product and brand, 2026</div></article></section>
+<section data-project="nnode" data-type="industry" data-draft><article class="page" data-slide="nnode-cover" data-tiers="preview overview full" data-skills="branding" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>nnode</span><span class="pn"></span></header><div class="ph fill">nnode: product and brand, 2026</div></article></section>
+<section data-project="misc" data-type="misc" data-draft><article class="page" data-slide="misc-cover" data-tiers="preview overview full" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>Miscellaneous</span><span class="pn"></span></header><div class="ph fill">Miscellaneous</div></article></section>
+
+<!-- ============ ABOUT + CONTACT ============ -->
+<article class="page" id="about" data-required>
+  <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>about</span><span class="pn"></span></header>
+  <div class="cols">
+    <img class="cover-img" src="../img/p-about.jpg" alt="Abhik at dusk">
+    <div>
+      <p>Sketching sneakers was my escape in school. Design school is where I fell for all of it: how lines move, how surfaces converge, how materials and colours meet. Electronics, systems and mechanisms got me just as hooked.</p>
+      <h3>Experience</h3>
+      <p><b>Evoluir</b>, Ahmedabad. Freelance industrial designer, Aug 2024 to May 2025.<br><b>Oro Innovations</b>, Ahmedabad. Industrial design apprentice, May to Jun 2025.</p>
+      <h3>Education</h3><p>B.Des (Hons.) Product Design, 2023 to 2027</p>
+      <h3>Contact</h3><p>abhikthegupta@gmail.com · linkedin.com/in/abhik-gupta-9a587026a · instagram.com/abkgpta</p>
+      <p class="note">Ask my portfolio anything: the live version at abkgpta.github.io/portfolio27 has a voice agent that knows every project.</p>
+    </div>
+  </div>
+  <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+</article>
+
+<script src="../js/engine.js"></script>
+</body>
+</html>

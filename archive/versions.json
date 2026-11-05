@@ -40,5 +40,12 @@
     "date": "2026-11-05",
     "title": "Add a browsable archive of every site version",
     "pr": 5
+  },
+  {
+    "v": 7,
+    "commit": "f2813aa5455d0257e0b2b47fba4ed0a8a5ac66be",
+    "date": "2026-11-05",
+    "title": "Rebuild the overgrwth 3D viewer on the 3 in CAD",
+    "pr": 8
   }
 ]
