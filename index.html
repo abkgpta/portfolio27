@@ -197,6 +197,11 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 .og-two p+p{margin-top:12px}
 .og-two h3{margin-bottom:16px}
 .og-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.og-stack{display:grid;gap:16px}
+.og-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:1.414;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#ECE8E4 0 8px,#F3F0EC 8px 16px);border:1px dashed #B9B2AC;color:var(--ogi);font-size:13px}
+.og-block > .og-uc{max-width:640px}
+.og-uc b{font-family:var(--mono,monospace);font-weight:400;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
 .og-rules{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .og-rules li{border-top:6px solid var(--ogy);padding-top:12px}
 .og-rules b{display:block;color:var(--ogb)}
@@ -225,7 +230,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 html.in-og header{background:#FFFAFA;color:#4569BE;transition:background .5s,color .5s}
 header{transition:background .5s,color .5s}
 @media (max-width:820px){
-  .og-intro,.og-two,.og-build,.og-grid2,.og-cards,.og-rules{grid-template-columns:minmax(0,1fr)}
+  .og-intro,.og-two,.og-build,.og-grid2,.og-grid3,.og-cards,.og-rules{grid-template-columns:minmax(0,1fr)}
   .og-swatches{grid-template-columns:repeat(3,minmax(0,1fr))}
   .og-build-view{aspect-ratio:1;min-height:0}
   .og-close{border-right-width:12px}
@@ -376,7 +381,7 @@ footer .socials .ico svg{width:13px;height:13px}
   <div class="mix og-mix" data-playlist="overgrwth" hidden><div class="mix-label">What I listened to while making overgrwth</div><div class="mix-frame"></div></div>
 
   <figure class="og-fig og-in" data-slide="og-hero" data-tiers="preview overview full" data-card="hero" data-base="3" data-skills="rendering,cmf">
-    <img src="img/og3-hero.jpg" alt="A large overgrwth lattice: white H-frames stacked at different heights carrying green shelves, red planter trays, yellow pegboard, a blue softboard, yellow grow lights, blue spotlights and vines" width="1800" height="1005" loading="lazy">
+    <img src="img/og4-hero.jpg" alt="A large overgrwth lattice in a studio: white H-frames stacked at different heights carrying shelves, planters, panels, grow lights and spotlights" width="2000" height="1414" loading="lazy">
     <figcaption><span>Fig. 01</span>The full system, every attachment on</figcaption>
   </figure>
 
@@ -401,12 +406,17 @@ footer .socials .ico svg{width:13px;height:13px}
     </div>
   </div>
 
+  <div class="og-block og-in" data-slide="og-concept" data-tiers="overview full" data-base="2" data-skills="sketching,systems">
+    <h3 class="og-out">concept</h3>
+    <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span></div>
+  </div>
+
   <div class="og-block og-in" data-slide="og-system" data-tiers="overview full" data-base="3" data-skills="systems,cad">
     <h3 class="og-out">system</h3>
-    <p class="og-lead">One H-frame, repeated. A 4 in tube with one tall and one short post, 24 by 24 in overall.</p>
+    <p class="og-lead">One H-frame, repeated. A 3 in tube with one tall and one short post, 24 by 24 in overall.</p>
     <div class="og-grid2">
-      <figure class="og-fig"><img src="img/og3-kit.jpg" alt="Exploded frame kit: an H-frame, a frame connector and an end cap floating above a cross-shaped floor foot" width="1800" height="1005" loading="lazy"><figcaption><span>Fig. 02</span>Frame kit: frame, connector, cap, foot</figcaption></figure>
-      <figure class="og-fig"><img src="img/og3-joint.jpg" alt="Close-up of a plus-shaped grey connector half inside the open end of a white post" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 03</span>Plus-shaped sockets lock frames at 90°</figcaption></figure>
+      <figure class="og-fig"><img src="img/og4-exploded.jpg" alt="The system exploded: H-frame, connector, cross foot, clamps, shelf and pegboard panel" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 02</span>One frame, one connector, one clamp</figcaption></figure>
+      <figure class="og-fig"><img src="img/og4-socket.jpg" alt="Close-up of the plus-shaped socket inside the open end of a post" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 03</span>Plus-shaped sockets lock frames at 90°</figcaption></figure>
     </div>
     <ul class="og-rules">
       <li><b>Flip and stack.</b> Two short posts equal one tall post, so a flipped frame drops onto its neighbour and the lattice steps up 12 in at a time.</li>
@@ -426,7 +436,7 @@ footer .socials .ico svg{width:13px;height:13px}
     </div>
     <div class="og-build-view">
       <canvas id="ogCanvas" aria-label="Interactive 3D model of an overgrwth setup"></canvas>
-      <img id="ogFallback" src="img/og3-growth.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy">
+      <img id="ogFallback" src="img/og4-build.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy">
       <span class="og-loading" id="ogLoading">Loading model</span>
     </div>
   </div>
@@ -434,15 +444,18 @@ footer .socials .ico svg{width:13px;height:13px}
   <div class="og-block og-in" data-slide="og-modules" data-tiers="overview full" data-base="2" data-skills="systems,cmf">
     <h3 class="og-out">modules</h3>
     <p class="og-lead">One universal post clamp carries everything that hangs or sits: panels, shelves and the planter, at any height.</p>
-    <figure class="og-fig"><img src="img/og3-modules.jpg" alt="Whiteboard, yellow pegboard and blue softboard panels beside a green shelf and a red planter tray mounted on posts with grey clamps" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 04</span>Whiteboard, pegboard, softboard, shelf, planter</figcaption></figure>
+    <figure class="og-fig"><img src="img/og4-clamp.jpg" alt="Close-up of the green universal clamp holding a blue panel to a post" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 04</span>One clamp carries every module, at any height</figcaption></figure>
     <div class="og-grid2">
-      <figure class="og-fig"><img src="img/og3-attach.jpg" alt="Six post-top attachments in a row: grow light, spotlight, power hub, pen stand, clock and speaker" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 05</span>Grow light, spotlight, power hub, pen stand, clock, speaker</figcaption></figure>
-      <figure class="og-fig"><img src="img/og3-grow.jpg" alt="Yellow donut grow light on a post top with a planter in its centre and vines trailing down the post" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 06</span>The grow light makes the name literal</figcaption></figure>
+      <figure class="og-fig"><img src="img/og4-attach.jpg" alt="Six post-top attachments in a row: grow light, spotlight, power hub, pen stand, clock and speaker" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 05</span>Grow light, spotlight, power hub, pen stand, clock, speaker</figcaption></figure>
+      <figure class="og-fig"><img src="img/og4-grow.jpg" alt="Red donut grow light on a post top over a planter tray with a plant" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 06</span>The grow light makes the name literal</figcaption></figure>
     </div>
   </div>
 
   <div class="og-two og-in og-power" data-slide="og-power" data-tiers="overview full" data-base="2" data-skills="electronics,systems">
-    <figure class="og-fig"><img src="img/og3-power.jpg" alt="A frame setup in grey with the 24 volt power path traced in yellow from the power-in foot up through the posts to the attachments" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 07</span>Power path</figcaption></figure>
+    <div class="og-stack">
+    <figure class="og-fig"><img src="img/og4-power.jpg" alt="A frame setup with the 24 volt power path traced from the power-in foot up through the posts to the attachments" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 07</span>Power path</figcaption></figure>
+    <figure class="og-fig"><img src="img/og4-foot.jpg" alt="Close-up of the red cross-shaped power-in foot with its cable" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 08</span>24 V comes in through the foot</figcaption></figure>
+    </div>
     <div>
       <h3 class="og-out">power</h3>
       <p>24 V DC comes in at one power-in foot and runs up through the frames, carried by concentric pogo-pin contacts that work at any rotation.</p>
@@ -461,8 +474,22 @@ footer .socials .ico svg{width:13px;height:13px}
       <div><i style="background:#4569BE"></i><b>Pin</b>Softboard</div>
       <div><i style="background:#fff"></i><b>Write</b>Whiteboard</div>
     </div>
-    <figure class="og-fig"><img src="img/og3-growth.jpg" alt="Three overgrwth setups side by side, growing from bare frames to a stacked setup with shelves, planter and grow light" width="1800" height="1013" loading="lazy"><figcaption><span>Fig. 08</span>It grows with your workspace</figcaption></figure>
+    <div class="og-grid2"><figure class="og-fig"><img src="img/og4-material.jpg" alt="Material and colour samples for every part" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 09</span>Materials and finishes</figcaption></figure><figure class="og-fig"><img src="img/og4-growth.jpg" alt="One frame growing step by step into a full lattice" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 10</span>It grows with your workspace</figcaption></figure></div>
   </div>
+
+  <div class="og-block og-in" data-slide="og-scenes" data-tiers="overview full" data-base="3" data-skills="rendering">
+    <h3 class="og-out">in use</h3>
+    <p class="og-lead">Three spaces, one system.</p>
+    <figure class="og-fig"><img src="img/og4-studio.jpg" alt="overgrwth frames with panels and lights beside a desk in a design studio" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 11</span>The centrepiece of a design studio</figcaption></figure>
+    <div class="og-grid2"><figure class="og-fig"><img src="img/og4-plant.jpg" alt="A tall overgrwth stack with plants and books beside a lounge chair" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 12</span>A plant corner in a rest area</figcaption></figure><figure class="og-fig"><img src="img/og4-workshop.jpg" alt="overgrwth frames with pegboards along a workbench in a design workshop" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 13</span>A utility wall in a workshop</figcaption></figure></div>
+  </div>
+
+  <div class="og-block og-in" data-slide="og-identity" data-tiers="overview full" data-base="2" data-skills="branding">
+    <h3 class="og-out">identity</h3>
+    <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span></div><div class="og-uc"><b>Under construction</b><span>Part tags</span></div></div>
+  </div>
+
+  <figure class="og-fig og-in" data-slide="og-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/og4-closing.jpg" alt="The overgrwth lattice from a new angle" width="2000" height="1414" loading="lazy"></figure>
 
   <div class="og-close og-in" data-slide="og-outcome" data-tiers="overview full" data-base="1" data-skills="systems">
     <p>There's no final form. Every arrangement is a different picture of the people using it.</p>
