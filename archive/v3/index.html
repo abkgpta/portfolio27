@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhik Gupta · Industrial Design</title>
+<meta name="description" content="Abhik Gupta, industrial designer. portfolio.27: overgrwth, cortX, DASH.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Michroma&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
+  --line:rgba(10,10,10,.14); --muted:#5b5652;
+  --display:'Michroma',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --gutter:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:400 15px/1.65 var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,.display{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:1.15}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pink{color:var(--pink)}
+.rule{border-top:1px solid var(--line)}
+button{font:inherit;cursor:pointer}
+
+/* under construction strip */
+.wip{background:var(--ink);color:var(--cream);font-size:12px;padding:8px var(--gutter);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.wip b{font-weight:500;color:var(--pink)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.wordmark{font-family:var(--display);font-size:15px;text-decoration:none;letter-spacing:.04em;white-space:nowrap}
+.wordmark span{color:var(--pink)}
+nav{display:flex;gap:clamp(12px,2.4vw,32px);font-size:13px}
+nav a{text-decoration:none;opacity:.75}
+nav a:hover{opacity:1;color:var(--pink)}
+@media (max-width:640px){nav a.opt{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.hero-text{padding:clamp(40px,7vw,96px) var(--gutter) clamp(40px,6vw,72px);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:28px;justify-content:center}
+.hero h1{font-size:clamp(30px,4.4vw,62px)}
+.hero p.lede{max-width:46ch;color:#2b2826}
+.prepared{display:none;font-size:13px;border:1px solid var(--pink);color:var(--pink);padding:6px 12px;align-self:flex-start}
+.prepared.on{display:inline-block}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;font-size:13px}
+.hero-meta b{display:block;font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--pink);color:var(--ink);border:0;padding:14px 20px;text-decoration:none;font-size:13px;letter-spacing:.04em}
+.cta:hover{background:var(--ink);color:var(--cream)}
+.cta.alt{background:var(--ink);color:var(--cream)}
+.cta.alt:hover{background:var(--pink);color:var(--ink)}
+.cta:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+/* avatar stage */
+.stage{background:var(--ink);color:var(--cream);position:relative;min-height:560px;display:flex;flex-direction:column}
+.stage canvas{flex:1;width:100%;min-height:380px;display:block}
+.stage canvas[hidden]{display:none}
+.stage-top,.stage-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(247,242,239,.6)}
+.stage-top{border-bottom:1px solid rgba(255,0,106,.35)}
+.stage-bottom{border-top:1px solid rgba(255,0,106,.35);flex-wrap:wrap;text-transform:none;letter-spacing:0;font-size:13px;color:var(--cream)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#555;margin-right:8px;vertical-align:middle}
+.dot.live{background:var(--pink);box-shadow:0 0 12px var(--pink)}
+.stage .cta{background:var(--pink);color:var(--ink)}
+.stage .cta:hover{background:var(--white);color:var(--ink)}
+.stage .cta.alt{background:var(--cream);color:var(--ink)}
+.stage .cta.alt:hover{background:var(--pink);color:var(--ink)}
+#voice-agent-mount{min-height:0}
+.caption{font-size:12px;color:var(--muted)}
+.stage .caption{color:rgba(247,242,239,.5)}
+
+/* sections */
+section{scroll-margin-top:64px}
+.project-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
+.project-head > div{padding:clamp(32px,5vw,64px) var(--gutter)}
+.project-head > div:first-child{border-right:1px solid var(--line)}
+.project-head h2{font-size:clamp(28px,2.7vw,48px);margin:10px 0 8px;white-space:nowrap}
+.project-head .sub{font-size:14px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 28px;margin-top:28px;font-size:13px}
+.facts dt{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.big-quote{font-family:var(--display);font-size:clamp(20px,2.6vw,34px);line-height:1.3;max-width:24ch}
+.prose p+p{margin-top:14px}
+.prose{max-width:62ch}
+
+.fig{border-bottom:1px solid var(--line)}
+.fig img{width:100%}
+.figcap{display:flex;justify-content:space-between;gap:16px;padding:12px var(--gutter);font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.two > *{padding:clamp(28px,4vw,56px) var(--gutter)}
+.two > *:first-child{border-right:1px solid var(--line)}
+.two > .prose{max-width:none}
+
+/* overgrwth */
+#overgrwth .band{background:var(--yellow);height:10px}
+.grow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);border-bottom:1px solid var(--line)}
+.grow-ctrl{padding:clamp(28px,4vw,56px) var(--gutter);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:20px}
+.grow-view{background:#ECECEC;position:relative;aspect-ratio:1570/1110;overflow:hidden}
+.grow-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease}
+.grow-view img.on{opacity:1}
+.steps{display:flex;gap:0;border:1px solid var(--ink)}
+.steps button{flex:1;background:transparent;border:0;border-right:1px solid var(--ink);padding:12px 0;font-size:13px}
+.steps button:last-child{border-right:0}
+.steps button[aria-pressed=true]{background:var(--ink);color:var(--cream)}
+input[type=range]{width:100%;accent-color:var(--pink)}
+.step-note{min-height:3.3em}
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.part{border-right:1px solid var(--line);background:#fff}
+.part:last-child{border-right:0}
+.part img{aspect-ratio:1200/849;object-fit:cover;width:100%}
+.part div{padding:16px 20px;border-top:1px solid var(--line);font-size:13px}
+.part b{font-family:var(--display);font-weight:400;font-size:14px;display:block;margin-bottom:4px}
+
+/* cortX (dark) */
+.dark{background:var(--ink);color:var(--cream);--line:rgba(255,0,106,.35);--muted:rgba(247,242,239,.55)}
+.dark .project-head h2 span{color:var(--pink)}
+.sensors{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);border-bottom:1px solid var(--line)}
+.sensors > div{padding:clamp(28px,4vw,56px) var(--gutter)}
+.sensors > div:first-child{border-right:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:18px 0}
+.tabs button{background:transparent;color:var(--cream);border:0;border-right:1px solid var(--line);padding:12px 4px;font-size:13px}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-pressed=true]{background:var(--pink);color:#fff}
+.readout{border:1px solid var(--line);padding:20px;min-height:200px}
+.readout h3{font-size:18px;margin-bottom:6px}
+.readout .where{font-size:12px;color:var(--pink);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.trace{width:100%;height:70px;margin-top:16px;display:block}
+.concepts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.concept{padding:28px var(--gutter);border-right:1px solid var(--line);font-size:13px}
+.concept:last-child{border-right:0}
+.concept b{font-family:var(--display);font-weight:400;display:block;font-size:15px;margin:8px 0}
+.concept.chosen{background:rgba(255,0,106,.08)}
+.tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;padding:2px 8px}
+.chosen .tag{color:var(--pink)}
+
+/* project playlists */
+.mix{margin-top:28px;max-width:560px}
+.mix-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.mix-frame{background:rgba(127,127,127,.15);min-height:152px}
+.mix iframe{display:block;width:100%;height:152px;border:0}
+
+/* dash */
+.dash{background:linear-gradient(110deg,#05070d 0%,#0b1a3a 55%,#1b2f6b 100%);color:#fff;padding:clamp(56px,9vw,120px) var(--gutter);border-bottom:1px solid var(--line)}
+.dash h2{font-size:clamp(40px,7vw,96px);letter-spacing:.04em}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
+.about > div{padding:clamp(32px,5vw,64px) var(--gutter)}
+.about > div:first-child{border-right:1px solid var(--line)}
+.cv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:36px;font-size:13px}
+.cv h3{font-size:13px;margin-bottom:10px;color:var(--pink)}
+.cv li{list-style:none;margin-bottom:10px}
+.cv li b{font-weight:500}
+
+/* contact */
+.contact{padding:clamp(56px,9vw,120px) var(--gutter);text-align:left}
+.contact a.mail{font-family:var(--display);font-size:clamp(20px,4vw,52px);text-decoration:none;word-break:break-all}
+.contact a.mail:hover{color:var(--pink)}
+footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (max-width:900px){
+  .hero,.project-head,.two,.grow,.sensors,.about{grid-template-columns:1fr}
+  .hero-text,.project-head>div:first-child,.two>*:first-child,.grow-ctrl,.sensors>div:first-child,.about>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .parts,.concepts{grid-template-columns:1fr}
+  .part,.concept{border-right:0;border-bottom:1px solid var(--line)}
+  .stage{min-height:460px}
+  .project-head h2{font-size:clamp(28px,9vw,56px)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.grow-view img{transition:none}}
+</style>
+</head>
+<body id="top">
+<div id="archive-bar" style="position:sticky;top:0;z-index:2147483647;display:flex;flex-wrap:wrap;gap:.4em 1.2em;align-items:center;padding:8px 16px;background:#0A0A0A;color:#F7F2EF;font:500 12px/1.4 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.02em"><span>Archived version v3 &middot; 2026-11-01 &middot; 3D head in the avatar stage</span><span style="opacity:.6">Newer: v4.</span><span style="margin-left:auto;display:flex;gap:1.2em"><a href="../" style="color:#FF006A">All versions</a><a href="../../" style="color:#FF006A">Live site</a></span></div>
+
+<div class="wip" role="note"><b>Under construction</b><span>This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span></div>
+
+<header>
+  <div class="wrap">
+    <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
+    <nav>
+      <a href="#overgrwth">overgrwth</a>
+      <a href="#cortx">cortX</a>
+      <a class="opt" href="#dash">DASH</a>
+      <a class="opt" href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero-text">
+    <span class="prepared" id="prepared"></span>
+    <div class="eyebrow">portfolio.27 · <span class="pink">industrial design</span></div>
+    <h1>Understanding the rules to break them better.</h1>
+    <p class="lede">I'm Abhik, a product design student. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
+    <div class="hero-meta">
+      <div><b>Based in</b>Pune, India</div>
+      <div><b>Studying</b>B.Des Product Design, 2027</div>
+      <div><b>Tools</b>Rhino, Plasticity, KeyShot</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="cta" href="#overgrwth">See the work ↓</a>
+      <a class="cta alt" href="#contact">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="stage" aria-label="Talking avatar">
+    <div class="stage-top"><span><span class="dot" id="agentDot"></span><span id="agentStatus">Avatar idle</span></span><span id="ptCount"></span></div>
+    <canvas id="head" aria-hidden="true"></canvas>
+    <canvas id="head3d" aria-hidden="true" hidden></canvas>
+
+    <!-- =====================================================================
+         VOICE AGENT MOUNT
+         1. In the Blue Machines dashboard, find the embed / web-widget snippet
+            for your agent and paste it inside the div below.
+         2. Set AGENT_READY = true near the bottom of this file.
+         3. If the dashboard asks for allowed domains, add abkgpta.github.io
+         4. If their widget fires start/stop-speaking events, call
+            setSpeaking(true) / setSpeaking(false) from them so the head talks.
+         Until then, "Hear my intro" uses the browser's own voice as a fallback.
+         ===================================================================== -->
+    <div id="voice-agent-mount"></div>
+
+    <div class="stage-bottom">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="cta" id="talkBtn">Talk to me</button>
+        <button class="cta alt" id="introBtn">Hear my intro</button>
+      </div>
+      <span class="caption" id="stageNote">Early 3D head. A sharper one from a full scan is on the way.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OVERGRWTH ============ -->
+<section id="overgrwth">
+  <div class="band"></div>
+  <div class="project-head">
+    <div>
+      <div class="eyebrow">01 · Modular design</div>
+      <h2>overgrwth</h2>
+      <p class="sub">A modular system for creative workspaces</p>
+    </div>
+    <div>
+      <p class="big-quote">A creative's work is never over.</p>
+      <div class="prose" style="margin-top:20px">
+        <p>There is always something to change, add or remove on a desk that's actually being used. overgrwth is built around that cycle. Every H-frame you add opens up new layouts, and modules clip on only when you need them.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>For</dt><dd>Designers and content creators</dd></div>
+        <div><dt>Focus</dt><dd>Spatial adaptability, customisability, workspace essentials</dd></div>
+        <div><dt>Team</dt><dd>Abhik Gupta</dd></div>
+      </dl>
+      <div class="mix" data-playlist="overgrwth" hidden><div class="mix-label">What I listened to while making overgrwth</div><div class="mix-frame"></div></div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <img src="img/og-hero.jpg" alt="overgrwth render: aluminium H-frames carrying a whiteboard, yellow pegboard, three green shelves, a blue softboard and a spotlight" width="1570" height="1110" loading="lazy">
+    <div class="figcap"><span>Fig. 01 · The full system</span><span>KeyShot render</span></div>
+  </div>
+
+  <div class="grow">
+    <div class="grow-ctrl">
+      <div class="eyebrow">Fig. 02 · Grow it</div>
+      <h3 style="font-size:22px">It grows with your workspace.</h3>
+      <p class="step-note" id="stepNote"></p>
+      <div class="steps" role="group" aria-label="Growth step">
+        <button data-s="0" aria-pressed="true">1</button><button data-s="1">2</button><button data-s="2">3</button><button data-s="3">4</button>
+      </div>
+      <input type="range" id="growRange" min="0" max="3" step="1" value="0" aria-label="Growth step slider">
+    </div>
+    <div class="grow-view" id="growView">
+      <img src="img/og-step1.jpg" alt="Step 1: a bare frame of a few H-pieces" class="on">
+      <img src="img/og-step2.jpg" alt="Step 2: three green shelves added" loading="lazy">
+      <img src="img/og-step3.jpg" alt="Step 3: whiteboard and pegboard attached" loading="lazy">
+      <img src="img/og-hero.jpg" alt="Step 4: softboard and spotlight complete the setup" loading="lazy">
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="prose">
+      <div class="eyebrow">Process</div>
+      <p style="margin-top:14px">We started with primary research on creative workspaces at Oro Innovations, then mapped secondary research. That fed several rounds of sketching: H-frames with rows of holes, slotting joints, pegboards, magnetic boards, toolboxes. The bottom of the board is where the H-frame and its connector settle.</p>
+    </div>
+    <div style="padding:0"><img src="img/og-sketches.jpg" alt="Grid of black-pen ideation sketches exploring frames, joints and surfaces" loading="lazy"></div>
+  </div>
+
+  <div class="parts">
+    <div class="part"><img src="img/og-posts.jpg" alt="Two H-frame posts with slotted pins about to slide in" loading="lazy"><div><b>H-frame</b>The one structural part. Frames stack and branch off each other.</div></div>
+    <div class="part"><img src="img/og-connector.jpg" alt="Close-up of the four-prong frame connector" loading="lazy"><div><b>Connector</b>A slotted four-prong plug joins frames and holds modules.</div></div>
+    <div class="part"><img src="img/og-panels.jpg" alt="Blue softboard, grey whiteboard and yellow pegboard panels" loading="lazy"><div><b>Surfaces</b>Softboard, whiteboard and pegboard clip on vertically. Shelves go horizontal.</div></div>
+  </div>
+
+  <div class="fig">
+    <img src="img/og-field-dark.jpg" alt="A dozen bare H-frames interlocking across a dark floor under a spotlight" loading="lazy">
+    <div class="figcap"><span>Fig. 03 · Endless combinations</span><span>Placing each frame is intentional and organic</span></div>
+  </div>
+</section>
+
+<!-- ============ CORTX ============ -->
+<section id="cortx" class="dark">
+  <div class="project-head">
+    <div>
+      <div class="eyebrow">02 · Design and Technology</div>
+      <h2>cort<span>X</span></h2>
+      <p class="sub">A brain-imaging headset for elite football training</p>
+    </div>
+    <div>
+      <p class="big-quote">You can only improve what you measure.</p>
+      <div class="prose" style="margin-top:20px">
+        <p>Top training facilities measure almost everything about a player's body, but have nothing for kinaesthetic and spatial awareness: the sense of your own movement and of the space around you. In team ball sports, where sensory load is highest, that gap matters.</p>
+        <p>cortX is worn during training. It collects positional and neurological data so a club's analysts can work with coaches on personalised programmes.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>For</dt><dd>Lead data analyst, Premier League club</dd></div>
+        <div><dt>Team</dt><dd>Muesli &amp; Brothers: Abhik Gupta, Ansha Gawande</dd></div>
+      </dl>
+      <div class="mix" data-playlist="cortx" hidden><div class="mix-label">What I listened to while making cortX</div><div class="mix-frame"></div></div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <img src="img/cx-hero.jpg" alt="cortX headset render on black: pale grey shell with green seams, charcoal fabric side piece with sensor contacts" loading="lazy">
+    <div class="figcap"><span>Fig. 04 · cortX headset</span><span>Render</span></div>
+  </div>
+
+  <div class="sensors">
+    <div>
+      <div class="eyebrow">Fig. 05 · What it reads</div>
+      <h3 style="font-size:22px;margin-top:10px">Four sensors, two units.</h3>
+      <p style="margin-top:12px">The headset carries the brain and head sensors. A vest unit holds the microcontroller, analog front end, heart rate monitor, GPS, Bluetooth and battery, and sends everything to the analysts' computers.</p>
+      <div class="tabs" role="group" aria-label="Sensor">
+        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="gps">GPS</button>
+      </div>
+      <div class="readout" aria-live="polite">
+        <div class="where" id="sWhere"></div>
+        <h3 id="sName"></h3>
+        <p id="sText"></p>
+        <canvas class="trace" id="trace"></canvas>
+        <p class="caption">Illustrative signal, not recorded data.</p>
+      </div>
+    </div>
+    <div style="padding:0;display:flex;align-items:center;background:#7b7b7b"><img src="img/cx-render.jpg" alt="Closer render of the cortX headset showing fabric side panel and five sensor ports" loading="lazy"></div>
+  </div>
+
+  <div class="concepts">
+    <div class="concept chosen"><span class="tag">Taken forward</span><b>Brain-imaging headset</b>EEG, fNIRS, IMU and GPS worn in training to measure, not guess.</div>
+    <div class="concept"><span class="tag">Concept</span><b>Blind-spot wristband</b>A sweat-proof haptic band that cues a player when someone enters their blind spot.</div>
+    <div class="concept"><span class="tag">Concept</span><b>Game disruptor</b>A robotic unit that breaks a player's rhythm to force decisions under pressure.</div>
+  </div>
+
+  <div class="two">
+    <div class="prose">
+      <div class="eyebrow">Making</div>
+      <p style="margin-top:14px">Before refining the shell, we built a fit mock-up of the liner in translucent plastic straps and foam pads to see how it actually sits on a head.</p>
+      <p>Research ran from liveable spaces, through neurodiversity and sensory-centred design, to Sensory Intelligence Optimisation: taking someone from baseline to far above it. We studied the Red Bull Athlete Performance Centre and P3 along the way.</p>
+    </div>
+    <div style="padding:0;max-height:640px;overflow:hidden"><img src="img/cx-mockup.jpg" alt="Hand holding the translucent plastic and pink foam fit mock-up of the headset liner" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+  </div>
+</section>
+
+<!-- ============ DASH ============ -->
+<section id="dash" class="dash">
+  <div class="eyebrow" style="color:rgba(255,255,255,.6)">03 · with adidas</div>
+  <h2 style="margin:12px 0 16px">DASH</h2>
+  <p style="max-width:52ch;color:rgba(255,255,255,.8)">Under construction. The case study is coming soon.</p>
+  <div class="mix" data-playlist="dash" hidden><div class="mix-label">What I listened to while making DASH</div><div class="mix-frame"></div></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div>
+    <img src="img/p-about.jpg" alt="Abhik standing on a path at dusk in a lavender hoodie" width="396" height="308" style="width:100%;max-width:420px">
+  </div>
+  <div>
+    <div class="eyebrow">About</div>
+    <div class="prose" style="margin-top:14px">
+      <p>Sketching sneakers was my escape in school. I didn't take notes, I carved lines into paper, and I watched more football boot reviews than I played football.</p>
+      <p>Design school is where I fell for all of it: how lines move, how surfaces converge, the stance of a silhouette, how materials and colours meet. It didn't take long to see that design goes much further than visuals. Electronics, systems and mechanisms got me just as hooked.</p>
+    </div>
+    <div class="cv">
+      <div>
+        <h3>Experience</h3>
+        <ul>
+          <li><b>Evoluir</b>, Ahmedabad<br>Freelance industrial designer, Aug 2024 to May 2025. Designed the pilot product, Evoluir Air (form, CMF, detailing), plus brand identity, packaging and pitch decks.</li>
+          <li><b>Oro Innovations</b>, Ahmedabad<br>Industrial design apprentice, May to Jun 2025. An assistive accessory for a medtech client, and the studio's visual identity.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Education</h3>
+        <ul><li><b>B.Des (Hons.) Product Design</b><br>2023 to 2027</li></ul>
+        <h3 style="margin-top:20px">Skills</h3>
+        <ul><li>Design research, product thinking, sketching, UX methods. Rhino, Plasticity, KeyShot, Figma, Adobe CC.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="eyebrow">Open to studio roles and internships</div>
+  <p style="margin:18px 0 10px"><a class="mail" href="mailto:abhikthegupta@gmail.com">abhikthegupta@gmail.com</a></p>
+  <!-- TODO: add LinkedIn / Instagram / CV links here -->
+</section>
+
+<footer><span>Abhik Gupta · Industrial design · 2026</span><span>portfolio.27</span></footer>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script>
+/* ---------- per-studio greeting: abhikgupta.github.io/#pentagram ---------- */
+(function(){
+  const known=['overgrwth','cortx','dash','about','contact','top'];
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(!h||known.includes(h.toLowerCase()))return;
+  const name=h.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  const el=document.getElementById('prepared');
+  el.textContent='Prepared for '+name;el.classList.add('on');
+  window.STUDIO=name;
+})();
+
+/* ---------- point-cloud head ---------- */
+const cv=document.getElementById('head'),ctx=cv.getContext('2d');
+let speaking=false,mouth=0,t=0;
+const pts=[];
+(function build(){
+  // head: ellipsoid sampled on a golden spiral, plus nose, brow and neck
+  const N=2600;
+  for(let i=0;i<N;i++){
+    const y=1-2*(i+.5)/N, r=Math.sqrt(1-y*y), a=i*2.39996;
+    let x=Math.cos(a)*r, z=Math.sin(a)*r, yy=y*1.28;
+    if(yy<-.55){x*=.82+.18*((yy+1.28)/.73);}           // narrow the jaw
+    if(z>.55&&Math.abs(x)<.18&&yy>-.35&&yy<.15){z+=.16*(1-Math.abs(x)/.18)*(1-Math.abs(yy+.1)/.25);} // nose
+    const isMouth=z>.6&&Math.abs(x)<.28&&yy>-.66&&yy<-.42;
+    const isEye=z>.55&&Math.abs(Math.abs(x)-.32)<.1&&Math.abs(yy-.12)<.06;
+    pts.push({x,y:yy,z,m:isMouth?(yy<-.54?-1:1):0,e:isEye});
+  }
+  for(let i=0;i<500;i++){ // neck
+    const a=Math.random()*Math.PI*2,h=Math.random();
+    pts.push({x:Math.cos(a)*.48,y:-1.25-h*.6,z:Math.sin(a)*.42,m:0,e:false});
+  }
+  document.getElementById('ptCount').textContent=pts.length.toLocaleString()+' pts';
+})();
+function resize(){const d=devicePixelRatio||1;cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d;}
+addEventListener('resize',resize);resize();
+let mx=0,my=0;
+cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;});
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function frame(){
+  if(cv.hidden)return;
+  t+=reduce?0:.01;
+  const target=speaking?(.35+.65*Math.abs(Math.sin(t*9)*Math.sin(t*3.7))):0;
+  mouth+=(target-mouth)*.35;
+  const W=cv.width,H=cv.height,S=Math.min(W,H)*.27,cx=W/2,cy=H*.46;
+  ctx.clearRect(0,0,W,H);
+  const ry=Math.sin(t*.6)*.5+mx*.8,rx=my*.3;
+  const cy_=Math.cos(ry),sy=Math.sin(ry),cx_=Math.cos(rx),sx=Math.sin(rx);
+  const d=devicePixelRatio||1;
+  for(const p of pts){
+    let y=p.y+(p.m===-1?-mouth*.12:0);
+    let x=p.x*cy_+p.z*sy, z=-p.x*sy+p.z*cy_;
+    let y2=y*cx_-z*sx; z=y*sx+z*cx_;
+    const k=3/(3-z), px=cx+x*S*k, py=cy-y2*S*k;
+    const lit=(z+1)/2;
+    if(p.m&&speaking)ctx.fillStyle=`rgba(255,0,106,${.5+lit*.5})`;
+    else if(p.e)ctx.fillStyle=`rgba(255,0,106,${.25+lit*.6})`;
+    else ctx.fillStyle=`rgba(247,242,239,${.06+lit*.6})`;
+    const s=(.6+lit*1.1)*d;ctx.fillRect(px,py,s,s);
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+function setSpeaking(on){
+  speaking=!!on;
+  if(window.avatar3d)window.avatar3d.setSpeaking(speaking);
+  document.getElementById('agentDot').classList.toggle('live',speaking);
+  document.getElementById('agentStatus').textContent=speaking?'Speaking':(AGENT_READY?'Agent ready':'Avatar idle');
+}
+window.setSpeaking=setSpeaking;
+
+/* ---------- voice ---------- */
+const AGENT_READY=false; // flip to true once the Blue Machines snippet is pasted into #voice-agent-mount
+const INTRO="Hi, I'm Abhik, an industrial design student at U I D Gandhinagar. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
+document.getElementById('introBtn').onclick=()=>{
+  if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
+  speechSynthesis.cancel();
+  if(window.avatar3d){
+    setSpeaking(true);
+    window.avatar3d.speakScript(INTRO).catch(()=>{}).finally(()=>setSpeaking(false));
+    return;
+  }
+  const u=new SpeechSynthesisUtterance(INTRO);u.rate=1.02;
+  u.onstart=()=>setSpeaking(true);u.onend=u.onerror=()=>setSpeaking(false);
+  speechSynthesis.speak(u);
+};
+document.getElementById('talkBtn').onclick=()=>{
+  if(AGENT_READY){document.getElementById('voice-agent-mount').scrollIntoView({block:'nearest'});return;}
+  document.getElementById('stageNote').textContent='The live voice agent is under construction. Try "Hear my intro" for now.';
+};
+if(AGENT_READY)setSpeaking(false);
+
+/* ---------- project playlists: paste each Spotify playlist link here ---------- */
+const PLAYLISTS={
+  overgrwth:'https://open.spotify.com/playlist/53EsNRr8eb2gWstUWnXea7',
+  cortx:'https://open.spotify.com/playlist/2hw26JndxXsr3pwU92JWDa',
+  dash:'https://open.spotify.com/playlist/1T2OlLzVH50fTQfLUuUgzh'
+};
+document.querySelectorAll('.mix').forEach(el=>{
+  const m=(PLAYLISTS[el.dataset.playlist]||'').match(/playlist\/([A-Za-z0-9]+)/);
+  if(!m)return;
+  const f=document.createElement('iframe');
+  f.src='https://open.spotify.com/embed/playlist/'+m[1]+'?utm_source=generator&theme=0';
+  f.loading='lazy';f.title='Spotify playlist for '+el.dataset.playlist;
+  f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  el.querySelector('.mix-frame').appendChild(f);el.hidden=false;
+});
+
+/* ---------- overgrwth growth stepper ---------- */
+const notes=['A couple of bare H-frames to start.','Shelves go on as soon as there is stuff to put down.','A whiteboard and pegboard for thinking out loud.','Softboard and spotlight. The desk has grown into the work.'];
+const gImgs=[...document.querySelectorAll('#growView img')],gBtns=[...document.querySelectorAll('.steps button')],gR=document.getElementById('growRange');
+function grow(s){s=+s;gImgs.forEach((im,i)=>im.classList.toggle('on',i===s));gBtns.forEach((b,i)=>b.setAttribute('aria-pressed',i===s));gR.value=s;document.getElementById('stepNote').textContent=(s+1)+' / 4 · '+notes[s];}
+gBtns.forEach(b=>b.onclick=()=>grow(b.dataset.s));gR.oninput=()=>grow(gR.value);grow(0);
+
+/* ---------- cortX sensor readout ---------- */
+const S={
+  eeg:{where:'Headset unit',name:'EEG',text:'Electroencephalography. Reads alpha, beta and gamma brain waves from the cerebral cortex.',f:t=>Math.sin(t*.5)*.5+Math.sin(t*1.7)*.3+Math.sin(t*4.3)*.2},
+  fnirs:{where:'Headset unit',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
+  imu:{where:'Headset unit',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
+  gps:{where:'Vest unit',name:'GPS',text:'Tracks the player’s position on the pitch, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
+};
+let sk='eeg';const tr=document.getElementById('trace'),tc=tr.getContext('2d');let tt=0;
+function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>setSensor(b.dataset.k));setSensor('eeg');
+function drawTrace(){
+  const d=devicePixelRatio||1;if(tr.width!==tr.clientWidth*d){tr.width=tr.clientWidth*d;tr.height=tr.clientHeight*d;}
+  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);tc.strokeStyle='#FF006A';tc.lineWidth=1.5*d;tc.beginPath();
+  for(let x=0;x<W;x+=2){const v=S[sk].f((x/d)*.15+tt);x?tc.lineTo(x,H/2-v*H*.4):tc.moveTo(x,H/2-v*H*.4);}
+  tc.stroke();tt+=reduce?0:.08;requestAnimationFrame(drawTrace);
+}
+drawTrace();
+</script>
+<script type="module">
+/* 3D head: loads over the point-cloud stand-in; if anything fails the point cloud stays */
+try{
+  await import('./avatar/head-avatar.js');
+  const c=document.getElementById('head3d');
+  c.hidden=false;
+  const a=await window.AbhikHead.mount(c,{src:'avatar/abhik_head.glb',orbit:false});
+  window.avatar3d=a;
+  document.getElementById('head').hidden=true;
+  document.getElementById('ptCount').textContent='';
+}catch(e){
+  console.warn('3D head unavailable, keeping point cloud',e);
+  document.getElementById('head3d').hidden=true;
+}
+</script>
+</body>
+</html>
