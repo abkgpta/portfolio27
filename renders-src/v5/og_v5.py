@@ -1098,7 +1098,7 @@ def build_asm(k):
     elif k == 'tower':
         tops = []
         for (x, y) in ((0, 0), (0, G)): tA, tB = column(x, y, 2); tops += [tA, tB]
-        top_attach(tops, ['grow', 'clock', 'spot', 'cap']); shelf_on(G / 2, G / 2, 300); planter_on(G / 2, G / 2, H + 150); real_plants(G / 2, G / 2, H + 250, 3, 7)
+        top_attach(tops, ['grow', 'clock', 'spot', 'cap']); shelf_on(G / 2, G / 2, 300); planter_on(G / 2, G / 2, H + 150); real_plants(G / 2, G / 2, H + 250, 2, 0)
         panel_wall(0, 0, 120, 1, 1, [('pegboard', 0, 0, 1, 1)])
     elif k == 'wall': wall_section()
     elif k == 'lattice': hero_build()
