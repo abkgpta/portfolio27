@@ -548,6 +548,25 @@ def _fix_images(folder):
         if not img.filepath or os.path.exists(bpy.path.abspath(img.filepath)): continue
         for c in glob.glob(os.path.join(folder, '**', os.path.basename(img.filepath)), recursive=True):
             img.filepath = c; break
+def _one_variant(objs, aid):
+    """Poly Haven plant files lay out several variants (and LODs) 0.5-1 m apart: keep one variant, LOD0, at the origin"""
+    top = [o for o in objs if o.parent is None or o.parent not in objs]
+    if len(top) < 2: return objs
+    import re
+    lod = [o for o in top if re.search(r'_LOD\d+$', o.name)]
+    if lod: top = [o for o in top if not re.search(r'_LOD\d+$', o.name) or o.name.endswith('_LOD0')]
+    best = min(top, key=lambda o: (o.location.x ** 2 + o.location.y ** 2, -o.dimensions.z))
+    keep_top = [o for o in top if (o.location.xy - best.location.xy).length < 0.02]
+    keep = set(keep_top)
+    for o in objs:
+        p = o.parent
+        while p is not None and p not in keep: p = p.parent
+        if p is not None: keep.add(o)
+    off = best.location.xy.copy()
+    for o in keep_top: o.location.x -= off.x; o.location.y -= off.y
+    for o in objs:
+        if o not in keep: bpy.data.objects.remove(o, do_unlink=True)
+    return [o for o in objs if o in keep]
 def ph_model(aid, loc, rotz=0, height=None, scale=1.0, res='2k'):
     """append a Poly Haven model; loc in mm with z = floor level; returns (root, top_z_mm) or (None, 0)"""
     try:
@@ -558,6 +577,7 @@ def ph_model(aid, loc, rotz=0, height=None, scale=1.0, res='2k'):
         if not ok: return None, 0
         with bpy.data.libraries.load(path, link=False) as (src, dst): dst.objects = list(src.objects)
         objs = [o for o in dst.objects if o is not None]; _fix_images(mdir)
+        objs = _one_variant(objs, aid)
         root = bpy.data.objects.new(aid, None); coll(CUR[0]).objects.link(root)
         for o in objs:
             coll(CUR[0]).objects.link(o)
@@ -1098,7 +1118,7 @@ def build_asm(k):
     elif k == 'tower':
         tops = []
         for (x, y) in ((0, 0), (0, G)): tA, tB = column(x, y, 2); tops += [tA, tB]
-        top_attach(tops, ['grow', 'clock', 'spot', 'cap']); shelf_on(G / 2, G / 2, 300); planter_on(G / 2, G / 2, H + 150); real_plants(G / 2, G / 2, H + 250, 2, 0)
+        top_attach(tops, ['grow', 'clock', 'spot', 'cap']); shelf_on(G / 2, G / 2, 300); planter_on(G / 2, G / 2, H + 150); real_plants(G / 2, G / 2, H + 250, 3, 7)
         panel_wall(0, 0, 120, 1, 1, [('pegboard', 0, 0, 1, 1)])
     elif k == 'wall': wall_section()
     elif k == 'lattice': hero_build()
