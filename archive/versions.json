@@ -69,5 +69,15 @@
     "pr": [
       11
     ]
+  },
+  {
+    "v": 10,
+    "commit": "e4bc6cef7ff04964e488dc395a850451f4353535",
+    "date": "2026-11-12",
+    "title": "Add influences section at the bottom of the site; CortX: back unit v3, app and dashboard, data flow, season progress, family shot",
+    "pr": [
+      12,
+      13
+    ]
   }
 ]
