@@ -141,6 +141,17 @@ section{scroll-margin-top:64px}
 .contact{padding:clamp(56px,9vw,120px) var(--gutter);text-align:left}
 .contact a.mail{font-family:var(--display);font-size:clamp(20px,4vw,52px);text-decoration:none;word-break:break-all}
 .contact a.mail:hover{color:var(--pink)}
+/* influences */
+.influences{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,80px)}
+.inf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--line)}
+.inf-col{padding:24px 0 0}
+.inf-col + .inf-col{border-left:1px solid var(--line);padding-left:var(--gutter)}
+.inf-col h3{font-size:13px;color:var(--pink);margin-bottom:14px}
+.inf-col ol{list-style:none;counter-reset:inf}
+.inf-col li{counter-increment:inf;display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--display);font-size:clamp(18px,2.2vw,30px);line-height:1.2}
+.inf-col li:last-child{border-bottom:0}
+.inf-col li::before{content:counter(inf,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2ch}
+@media (max-width:640px){.inf-grid{grid-template-columns:1fr}.inf-col + .inf-col{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:24px}}
 footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
 @media (max-width:900px){
@@ -791,6 +802,21 @@ footer .socials .ico svg{width:13px;height:13px}
   <div class="eyebrow">Open to studio roles and internships</div>
   <p style="margin:18px 0 10px"><a class="mail" href="mailto:abhikthegupta@gmail.com">abhikthegupta@gmail.com</a></p>
 <div class="socials"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div>
+</section>
+
+<!-- ============ INFLUENCES ============ -->
+<section id="influences" class="influences" aria-labelledby="inf-h">
+  <div class="eyebrow" id="inf-h">Influences</div>
+  <div class="inf-grid">
+    <div class="inf-col">
+      <h3>People</h3>
+      <ol><li>Rick Rubin</li><li>Peter Yee</li><li>Naval Ravikant</li></ol>
+    </div>
+    <div class="inf-col">
+      <h3>Brands</h3>
+      <ol><li>BMW</li><li>KTM</li><li>Dyson</li></ol>
+    </div>
+  </div>
 </section>
 
 <footer><span>Abhik Gupta · Industrial design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>

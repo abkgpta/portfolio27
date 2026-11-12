@@ -11,7 +11,7 @@
    &version=preview|overview|full to force one version, &format=square for social squares). */
 (function () {
   const params = new URLSearchParams(location.search);
-  const RESERVED = ['top', 'gallery', 'about', 'contact'];
+  const RESERVED = ['top', 'gallery', 'about', 'contact', 'influences'];
   const VERSIONS = ['preview', 'overview', 'full'];
   const CARDS = ['hero', 'hook', 'sketch', 'logo'];
 
