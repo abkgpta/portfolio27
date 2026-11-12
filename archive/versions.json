@@ -60,5 +60,14 @@
     "pr": [
       10
     ]
+  },
+  {
+    "v": 9,
+    "commit": "e7bd839133f524959836232f617f418d6fa6f65e",
+    "date": "2026-11-12",
+    "title": "Rebuild CortX section and A4 pages in identity v0.2",
+    "pr": [
+      11
+    ]
   }
 ]

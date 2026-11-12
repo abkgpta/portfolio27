@@ -1,0 +1,29 @@
+{
+  "name": "adidas Design",
+  "gunj": "GUNJ-046",
+  "wave": 1,
+  "greeting": "Prepared for adidas Design",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "dash",
+  "multipliers": {
+    "cmf": 1.4,
+    "sketching": 1.3,
+    "electronics": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.0,
+    "dash": 1.3
+  },
+  "pitch": {
+    "title": "Why adidas Design",
+    "lines": [
+      "I started out sketching sneakers in school.",
+      "DASH is a music player for runners who leave their phone at home, with wearable mounts and Strava sync.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}
