@@ -272,6 +272,21 @@ header{transition:background .5s,color .5s}
 }
 @media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
 /* ---------- CortX: identity v0.2 (Void, K2D, JetBrains Mono) ---------- */
+/* CortX scroll sequence (pre-rendered frames scrubbed by scroll) */
+.cx-sc{position:relative;height:820vh;margin-top:clamp(32px,5vw,72px)}
+.cx-sc-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.cx-sc canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cx-sc-logo{position:absolute;left:50%;top:44%;width:min(84vw,1300px);opacity:0;transform:translate(-50%,-50%) scale(.92);will-change:opacity,transform}
+.cx-sc-logo img{width:100%;height:auto;display:block}
+.cx-sc-cap{position:absolute;left:var(--gutter);bottom:clamp(28px,5vh,56px);max-width:min(420px,calc(100% - 2*var(--gutter)));opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
+.cx-sc.has-cap .cx-sc-cap{opacity:1;transform:none}
+.cx-sc-cap .n{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
+.cx-sc-cap h3{font-size:clamp(22px,2.6vw,34px);line-height:1.1;margin:4px 0}
+.cx-sc-cap p{color:var(--cxm);font-size:15px;line-height:1.45}
+.cx-sc-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--cxl)}
+.cx-sc-bar i{display:block;height:100%;width:0;background:var(--red)}
+@media print{.cx-sc{display:none}}
+
 .cx{--void:#0D031E;--paper:#F4F2F8;--ind:#4527A1;--red:#FF190F;--cxl:rgba(244,242,248,.14);--cxm:rgba(244,242,248,.62);
   background:var(--void);color:var(--paper);font-family:'K2D',system-ui,sans-serif;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
 .cx h2,.cx h3{font-family:'K2D',system-ui,sans-serif;font-weight:700;letter-spacing:-.01em}
@@ -607,6 +622,17 @@ footer .socials .ico svg{width:13px;height:13px}
     <figure class="cx-fig cx-hero"><img src="img/cx3-hero.jpg" alt="The CortX headset in a pale grey shell with a graphite side and an indigo liner, linked by a thin cable to the egg-shaped back unit lying in front of it" width="1920" height="1080" loading="lazy"></figure>
   </div>
 
+
+  <div class="cx-sc" data-frames="420" data-step="2" data-src="img/cx-scroll/{w}/f_{n}.webp" aria-label="The CortX headset taking itself apart and going back together as you scroll, then worn by a player who runs off">
+    <script type="application/json">[[1,36,"01","Side on","The headset as it sits on the pitch."],[37,90,"02","Every layer, apart","Shell, liner, sensors, pads, frame."],[91,118,"03.1","Top shell","The Mist shell you see from the stands."],[119,146,"03.2","Side shell and Boa dial","One turn of the dial sets the fit."],[147,174,"03.3","Hard liner","The indigo structure that carries every sensor."],[175,206,"03.4","EEG electrodes","Ag/AgCl contacts read brain activity during play."],[207,232,"03.5","Knit pads","Soft where it touches the head."],[233,260,"03.6","Webbing and frame","Holds everything at the right pressure."],[261,300,"04","Back together","Every part back in place."],[301,360,"05","Worn like part of the kit","Headset on, back unit high between the shoulder blades."],[361,420,"06","Now it's time to measure the mind.",""]]</script>
+    <div class="cx-sc-pin">
+      <div class="cx-sc-logo" aria-hidden="true"><img src="img/cx-logo-traced.svg" alt=""></div>
+      <canvas></canvas>
+      <div class="cx-sc-cap"><div class="n"></div><h3></h3><p></p></div>
+      <div class="cx-sc-bar"><i></i></div>
+    </div>
+  </div>
+
   <div class="cx-block cx-in cx-brief" data-slide="cx-brief" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
     <p class="cx-quote">Until now, we've only measured the body. Now it's time to measure the mind.</p>
     <div class="cx-cols" data-len="long">
@@ -917,6 +943,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <footer><span>Abhik Gupta · Industrial design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
 
 <script src="js/engine.js"></script>
+<script src="js/cx-scroll.js" defer></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script>
 /* per-studio versions now live in js/engine.js and profiles/*.json */
