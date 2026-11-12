@@ -58,6 +58,36 @@ for (const [name, vp] of Object.entries(VIEWPORTS)) {
   await page.waitForTimeout(400);
 
   // Elements that can't be rebuilt as layers get a marker and are screenshotted below.
+  // Text-only ::before/::after (list numbers, labels) become real spans so they come through as text layers.
+  await page.evaluate(() => {
+    const fmt = (n, style) => style === 'decimal-leading-zero' ? String(n).padStart(2, '0') : style === 'upper-roman' || style === 'lower-roman' ? String(n) : String(n);
+    const copy = ['fontFamily', 'fontSize', 'fontWeight', 'fontStyle', 'lineHeight', 'letterSpacing', 'color', 'textTransform', 'minWidth', 'marginRight', 'marginLeft', 'display'];
+    for (const el of document.body.querySelectorAll('*')) {
+      for (const p of ['::before', '::after']) {
+        const ps = getComputedStyle(el, p);
+        const c = ps.content;
+        if (!c || c === 'none' || c === 'normal' || ps.display === 'none' || ps.position === 'absolute' || ps.position === 'fixed') continue;
+        const bg = ps.backgroundColor;
+        if ((bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') || ps.backgroundImage !== 'none') continue;
+        let text = '';
+        for (const m of c.matchAll(/"([^"]*)"|counter\(\s*[\w-]+\s*(?:,\s*([\w-]+))?\)/g)) {
+          if (m[1] !== undefined) text += m[1];
+          else { const sib = [...el.parentElement.children].filter(s => s.tagName === el.tagName); text += fmt(sib.indexOf(el) + 1, m[2]); }
+        }
+        if (!/\S/.test(text)) continue;
+        const s = document.createElement('span');
+        s.textContent = text;
+        for (const k of copy) s.style[k] = ps[k];
+        if (s.style.display === 'inline' || !s.style.display) s.style.display = 'inline-block';
+        s.dataset.figPseudo = p;
+        el.dataset.figPs = (el.dataset.figPs || '') + p;
+        p === '::before' ? el.prepend(s) : el.append(s);
+      }
+    }
+    const st = document.createElement('style');
+    st.textContent = '[data-fig-ps*="::before"]::before{content:none!important}[data-fig-ps*="::after"]::after{content:none!important}';
+    document.head.append(st);
+  });
   const tree = await page.evaluate(walk);
   // For the shots: keep the sticky header out of the way, and shoot gradient backgrounds without their content.
   await page.addStyleTag({ content: 'header{visibility:hidden!important}[data-fig-bg] *{visibility:hidden!important}' });
