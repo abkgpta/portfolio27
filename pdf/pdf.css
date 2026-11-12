@@ -172,3 +172,33 @@ p + p, p + h3, dl + p { margin-top: 3mm; }
 .cx-keys { display: flex; gap: 2mm; margin: 3mm 0 2mm; flex: 0 0 auto !important; }
 .cx-keys span { font: 500 7.5pt 'JetBrains Mono', monospace; padding: 1mm 2.5mm; border: 1px solid var(--c); color: var(--c); }
 .cx-page h3 { text-transform: none; font-size: 20pt; }
+
+/* CortX: app, dashboard, data flow and progress pages */
+.cx-page figure { margin: 0; display: flex; flex-direction: column; min-height: 0; }
+.cx-page .stack figure img, .cx-page .dash-fig img { width: 100%; height: auto; display: block; }
+.cx-page .stack figcaption, .cx-page .dash-fig figcaption { font: 8pt 'JetBrains Mono', monospace; color: rgba(244,242,248,.6); padding-top: 1.5mm; }
+.cx-page .dash-fig { justify-content: center; }
+.cx-a4-flow h3, .cx-a4-prog h3 { margin: 0 0 2mm; font-size: 13pt; }
+.cx-a4-flow .cx-flow-svg { width: 100%; height: auto; max-height: 82mm; display: block; }
+.cx-page .cx-flow-svg text { font-family: 'K2D', sans-serif; fill: #F4F2F8; }
+.cx-page .cx-flow-svg .f-n, .cx-page .cx-flow-svg .f-d, .cx-page .cx-flow-svg .f-s { font: 500 13px 'JetBrains Mono', monospace; fill: rgba(244,242,248,.6); }
+.cx-page .cx-flow-svg .f-h { font-size: 24px; font-weight: 700; }
+.cx-page .cx-flow-svg .f-c { font-size: 16px; font-weight: 600; }
+.cx-page .cx-flow-svg .f-step { font-size: 16px; fill: rgba(244,242,248,.6); }
+.cx-page .cx-flow-svg .f-step.last { fill: #F4F2F8; font-weight: 700; }
+.cx-page .cx-flow-svg .f-box { fill: #150A2B; stroke: rgba(244,242,248,.16); }
+.cx-page .cx-flow-svg .f-sep { stroke: rgba(244,242,248,.16); }
+.cx-page .cx-flow-svg .f-line { fill: none; stroke-width: 1.5; opacity: .55; }
+.cx-page .cx-flow-svg .f-main { stroke: #F4F2F8; stroke-width: 2.5; opacity: .8; }
+.cx-page .cx-flow-svg .f-dash { stroke: rgba(244,242,248,.6); stroke-dasharray: 4 6; }
+.cx-page .cx-flow-svg .f-dot { display: none; }
+.cx-a4-prog .cx-progs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.cx-a4-prog .cx-prog { border: 1px solid rgba(244,242,248,.18); border-radius: 3mm; padding: 3mm; }
+.cx-a4-prog .cx-prog figcaption b { display: block; font-size: 10pt; }
+.cx-a4-prog .cx-prog figcaption span { font: 7.5pt 'JetBrains Mono', monospace; color: rgba(244,242,248,.6); }
+.cx-a4-prog .cx-prog-svg { width: 100%; height: auto; }
+.cx-a4-prog .p-grid { stroke: rgba(244,242,248,.16); }
+.cx-a4-prog .p-ax { font: 500 12px 'JetBrains Mono', monospace; fill: rgba(244,242,248,.6); }
+.cx-a4-prog .p-lab { font: 600 13px 'JetBrains Mono', monospace; }
+.cx-a4-prog .p-note { font-size: 9pt; margin: 1mm 0 0; }
+.cx-a4-prog > .note { margin-top: 2mm; }

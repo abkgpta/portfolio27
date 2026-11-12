@@ -28,6 +28,30 @@ h1,h2,h3,.display{font-family:var(--display);font-weight:400;letter-spacing:.01e
 .rule{border-top:1px solid var(--line)}
 button{font:inherit;cursor:pointer}
 
+/* CortX: data flow + progress */
+.cx-flow-wrap{border:1px solid var(--cxl);border-radius:14px;padding:clamp(12px,2vw,28px);overflow:hidden}
+.cx-flow-svg{width:100%;height:auto;display:block}
+.cx-flow-svg text{font-family:'K2D',sans-serif;fill:var(--paper)}
+.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-h{font-size:24px;font-weight:700}
+.cx-flow-svg .f-s{font:500 13px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-c{font-size:16px;font-weight:600}
+.cx-flow-svg .f-step{font-size:16px;fill:var(--cxm)}.cx-flow-svg .f-step.last{fill:var(--paper);font-weight:700}
+.cx-flow-svg .f-box{fill:#150A2B;stroke:var(--cxl)}
+.cx-flow-svg .f-sep{stroke:var(--cxl)}
+.cx-flow-svg .f-line{fill:none;stroke-width:1.5;opacity:.55}
+.cx-flow-svg .f-main{stroke:var(--paper);stroke-width:2.5;opacity:.8}
+.cx-flow-svg .f-dash{stroke:var(--cxm);stroke-dasharray:4 6}
+@media (prefers-reduced-motion:reduce){.cx-flow-svg .f-dot{display:none}}
+.cx-progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cx-prog{margin:0;border:1px solid var(--cxl);border-radius:14px;padding:18px 18px 14px;display:grid;gap:10px}
+.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'JetBrains Mono',monospace;color:var(--cxm)}
+.cx-prog-svg{width:100%;height:auto;display:block}
+.cx-prog-svg .p-grid{stroke:var(--cxl)}
+.cx-prog-svg .p-ax{font:500 12px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-prog-svg .p-lab{font:600 13px 'JetBrains Mono',monospace}
+.cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
+@media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
 /* under construction strip */
 .wip{background:var(--ink);color:var(--cream);font-size:12px;padding:8px var(--gutter);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .wip b{font-weight:500;color:var(--pink)}
@@ -373,7 +397,7 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
   <div class="g-grid">
     <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
-    <a href="#cortx" data-for="cortx" class="wide"><img src="img/cx2-hero.jpg" alt="The CortX headset beside its back unit" loading="eager"><span>CortX</span></a>
+    <a href="#cortx" data-for="cortx" class="wide"><img src="img/cx3-hero.jpg" alt="The CortX headset beside its back unit" loading="eager"><span>CortX</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-exploded.jpg" alt="The overgrwth system exploded part by part" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-socket.jpg" alt="Close-up of the plus-shaped socket inside an overgrwth post" loading="lazy"><span>overgrwth</span></a>
     <a href="#cortx" data-for="cortx"><img src="img/cx2-dial.jpg" alt="The red Boa dial on the back of the CortX headset" loading="lazy"><span>CortX</span></a>
@@ -569,7 +593,7 @@ footer .socials .ico svg{width:13px;height:13px}
       <h2 class="cx-logo"><img src="img/cx-logo-void.png" alt="CortX" width="351" height="107"></h2>
       <p class="cx-sub">A headset and back unit that read the brain and body in real training, and a pitch-side app that turns it into something a coach can act on today.</p>
     </div>
-    <figure class="cx-fig cx-hero"><img src="img/cx2-hero.jpg" alt="The CortX headset in a pale grey shell with a graphite side, an indigo liner showing at the edge, beside the small back unit" width="1920" height="1080" loading="lazy"></figure>
+    <figure class="cx-fig cx-hero"><img src="img/cx3-hero.jpg" alt="The CortX headset in a pale grey shell with a graphite side and an indigo liner, linked by a thin cable to the egg-shaped back unit lying in front of it" width="1920" height="1080" loading="lazy"></figure>
   </div>
 
   <div class="cx-block cx-in cx-brief" data-slide="cx-brief" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
@@ -611,7 +635,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
   <div class="cx-block cx-in" data-slide="cx-concept" data-tiers="preview overview full" data-card="sketch" data-base="2" data-skills="sketching">
     <h3 class="cx-h">Concept</h3>
-    <div class="cx-uc"><b>Under construction</b><span>Stylised sketch: headset and back unit</span></div>
+    <figure class="cx-fig"><img src="img/cx3-sketch.jpg" alt="Line sketches on a dark background: a player wearing the headset with the back unit high on the upper back, and the back unit from the front, an egg shape, and from the side, a lens shape" width="1920" height="1080" loading="lazy"><figcaption><span>Sketch</span>Where it sits on the body, and the back unit from the front and side</figcaption></figure>
   </div>
 
   <div class="cx-block cx-in" data-slide="cx-system" data-tiers="overview full" data-base="3" data-skills="systems">
@@ -619,7 +643,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <p class="cx-lead">It fits the club's routine instead of asking the club to change.</p>
     <ol class="cx-system">
       <li><i>01</i><b>Headset</b>Dry EEG electrodes and fNIRS sensors in a light shell. One Boa dial fits many head sizes.</li>
-      <li><i>02</i><b>Back unit</b>Amplifier, battery, GPS and Bluetooth in an upright 52 × 96 × 24 mm capsule that clips into a washable compression vest.</li>
+      <li><i>02</i><b>Back unit</b>Amplifier, battery, GPS and Bluetooth in an egg-shaped 52 × 92 × 24 mm unit. It slides into a plate in the vest, between the shoulder blades, and a magnetic cable runs up to the headset.</li>
       <li><i>03</i><b>Charging dock</b>A bench station where a squad of 25 headsets and back units charge and sync together.</li>
       <li><i>04</i><b>Pitch-side app</b>Live focus, load and fatigue per player on a tablet. No laptop, no waiting for the report.</li>
       <li><i>05</i><b>Analyst dashboard</b>Sessions over time, joined with positional and event data through Catapult and STATSports APIs.</li>
@@ -646,6 +670,63 @@ footer .socials .ico svg{width:13px;height:13px}
     <figure class="cx-fig"><img src="img/cx2-top.jpg" alt="The CortX headset from directly above: a pale grey top shell over the graphite side" width="1920" height="1080" loading="lazy"></figure>
   </div>
 
+  <div class="cx-block cx-in cx-flow" data-slide="cx-flow" data-tiers="overview full" data-base="3" data-skills="systems,interaction">
+    <h3 class="cx-h">How the data moves</h3>
+    <p class="cx-lead">The back unit does the hard work, so the tablet only gets answers.</p>
+    <div class="cx-flow-wrap"><svg class="cx-flow-svg" viewBox="0 0 1200 520" role="img" aria-labelledby="cxFlowT cxFlowD">
+<title id="cxFlowT">How CortX data moves</title><desc id="cxFlowD">Five sensors in the headset and back unit feed the back unit, which cleans the signals and turns them into focus, load and fatigue. It streams those over Bluetooth to the pitch-side tablet during training, and after the session the dock syncs everything to the analyst dashboard, where it is joined with GPS and event data.</desc>
+<text x="60" y="40" class="f-n">01</text><text x="60" y="70" class="f-h">Collect</text><text x="60" y="94" class="f-s">5 sensors, 2 devices</text>
+<text x="380" y="40" class="f-n">02</text><text x="380" y="70" class="f-h">Process</text><text x="380" y="94" class="f-s">On the back unit</text>
+<text x="690" y="40" class="f-n">03</text><text x="690" y="70" class="f-h">Stream</text><text x="690" y="94" class="f-s">Bluetooth, under 1 s</text>
+<text x="960" y="40" class="f-n">04</text><text x="960" y="70" class="f-h">Visualise</text><text x="960" y="94" class="f-s">Tablet now, dashboard later</text>
+<g><rect x="60" y="130" width="196" height="40" rx="20" fill="none" stroke="#9101B1" stroke-width="1.5"/><circle cx="82" cy="150" r="5" fill="#9101B1"/><text x="98" y="155" class="f-c">EEG</text><text x="242" y="155" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="190" width="196" height="40" rx="20" fill="none" stroke="#0098F6" stroke-width="1.5"/><circle cx="82" cy="210" r="5" fill="#0098F6"/><text x="98" y="215" class="f-c">fNIRS</text><text x="242" y="215" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="250" width="196" height="40" rx="20" fill="none" stroke="#AEC959" stroke-width="1.5"/><circle cx="82" cy="270" r="5" fill="#AEC959"/><text x="98" y="275" class="f-c">IMU</text><text x="242" y="275" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="310" width="196" height="40" rx="20" fill="none" stroke="#00C2A8" stroke-width="1.5"/><circle cx="82" cy="330" r="5" fill="#00C2A8"/><text x="98" y="335" class="f-c">HR</text><text x="242" y="335" class="f-d" text-anchor="end">Back unit</text></g>
+<g><rect x="60" y="370" width="196" height="40" rx="20" fill="none" stroke="#F46C02" stroke-width="1.5"/><circle cx="82" cy="390" r="5" fill="#F46C02"/><text x="98" y="395" class="f-c">GPS</text><text x="242" y="395" class="f-d" text-anchor="end">Back unit</text></g>
+<path d="M256,150 C330,150 310,190 380,190" class="f-line" stroke="#9101B1"/>
+<path d="M256,210 C330,210 310,230 380,230" class="f-line" stroke="#0098F6"/>
+<path d="M256,270 C330,270 310,270 380,270" class="f-line" stroke="#AEC959"/>
+<path d="M256,330 C330,330 310,310 380,310" class="f-line" stroke="#00C2A8"/>
+<path d="M256,390 C330,390 310,350 380,350" class="f-line" stroke="#F46C02"/>
+<rect x="380" y="150" width="230" height="240" rx="14" class="f-box"/>
+<text x="402" y="198" class="f-step">Filter noise</text>
+<line x1="402" x2="588" y1="220" y2="220" class="f-sep"/>
+<text x="402" y="250" class="f-step">Remove motion using IMU</text>
+<line x1="402" x2="588" y1="272" y2="272" class="f-sep"/>
+<text x="402" y="302" class="f-step">Check against baseline</text>
+<line x1="402" x2="588" y1="324" y2="324" class="f-sep"/>
+<text x="402" y="354" class="f-step last">Focus · Load · Fatigue</text>
+<path d="M610,270.0 C730,270.0 840,205.0 960,205.0" class="f-line f-main"/>
+<text x="785.0" y="314.0" class="f-d" text-anchor="middle">3 numbers per player,</text><text x="785.0" y="334.0" class="f-d" text-anchor="middle">every second</text>
+<rect x="960" y="140" width="200" height="130" rx="12" class="f-box"/>
+<text x="978" y="172" class="f-c">Pitch-side tablet</text><text x="978" y="194" class="f-d">Live, during training</text>
+<rect x="978" y="216" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="216" width="118.08" height="6" rx="3" fill="#9101B1" class="f-bar" style="--w:0.72"/>
+<rect x="978" y="232" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="232" width="98.39999999999999" height="6" rx="3" fill="#0098F6" class="f-bar" style="--w:0.6"/>
+<rect x="978" y="248" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="248" width="62.32" height="6" rx="3" fill="#F46C02" class="f-bar" style="--w:0.38"/>
+<path d="M495.0,390 C495.0,417.0 610,417.0 690,417.0" class="f-line f-dash"/><path d="M860,417.0 C900,417.0 920,405.0 960,405.0" class="f-line f-dash"/>
+<rect x="690" y="380" width="170" height="74" rx="12" class="f-box"/><text x="708" y="412" class="f-c">Dock</text><text x="708" y="434" class="f-d">Full session syncs</text>
+<rect x="960" y="330" width="200" height="150" rx="12" class="f-box"/><text x="978" y="362" class="f-c">Analyst dashboard</text><text x="978" y="384" class="f-d">After the session</text>
+<text x="978" y="414" class="f-d" fill="#F46C02">+ Catapult GPS</text>
+<text x="978" y="434" class="f-d" fill="#F46C02">+ STATSports</text>
+<text x="978" y="454" class="f-d" fill="#F4F2F8">+ Event data</text>
+<circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="0.00s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
+<circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="1.20s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
+<circle r="4" fill="#0098F6" class="f-dot"><animateMotion dur="2.4s" begin="0.37s" repeatCount="indefinite" path="M256,210 C330,210 310,230 380,230"/></circle>
+<circle r="4" fill="#0098F6" class="f-dot"><animateMotion dur="2.4s" begin="1.57s" repeatCount="indefinite" path="M256,210 C330,210 310,230 380,230"/></circle>
+<circle r="4" fill="#AEC959" class="f-dot"><animateMotion dur="2.4s" begin="0.74s" repeatCount="indefinite" path="M256,270 C330,270 310,270 380,270"/></circle>
+<circle r="4" fill="#AEC959" class="f-dot"><animateMotion dur="2.4s" begin="1.94s" repeatCount="indefinite" path="M256,270 C330,270 310,270 380,270"/></circle>
+<circle r="4" fill="#00C2A8" class="f-dot"><animateMotion dur="2.4s" begin="1.11s" repeatCount="indefinite" path="M256,330 C330,330 310,310 380,310"/></circle>
+<circle r="4" fill="#00C2A8" class="f-dot"><animateMotion dur="2.4s" begin="2.31s" repeatCount="indefinite" path="M256,330 C330,330 310,310 380,310"/></circle>
+<circle r="4" fill="#F46C02" class="f-dot"><animateMotion dur="2.4s" begin="1.48s" repeatCount="indefinite" path="M256,390 C330,390 310,350 380,350"/></circle>
+<circle r="4" fill="#F46C02" class="f-dot"><animateMotion dur="2.4s" begin="2.68s" repeatCount="indefinite" path="M256,390 C330,390 310,350 380,350"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="0.0s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="4" fill="rgba(244,242,248,.6)" class="f-dot"><animateMotion dur="4s" begin="0s" repeatCount="indefinite" path="M495.0,390 C495.0,417.0 610,417.0 690,417.0"/></circle>
+<circle r="4" fill="rgba(244,242,248,.6)" class="f-dot"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M860,417.0 C900,417.0 920,405.0 960,405.0"/></circle>
+</svg></div>
+  </div>
   <div class="cx-block cx-in" data-slide="cx-exploded" data-tiers="overview full" data-base="3" data-skills="cad,rendering">
     <h3 class="cx-h">Inside the headset</h3>
     <figure class="cx-fig"><img src="img/cx2-exploded.jpg" alt="The CortX headset exploded vertically: top shell, side shell, indigo hard liner, electrodes, knit pads and webbing, with the Boa dial and frame pulled back" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 01</span>Top shell, side shell, liner, electrodes, pads, webbing, dial</figcaption></figure>
@@ -656,8 +737,8 @@ footer .socials .ico svg{width:13px;height:13px}
     <div class="cx-grid2">
       <figure class="cx-fig"><img src="img/cx2-dial.jpg" alt="Close-up of the red Boa dial embossed with the cortX mark on the graphite back of the headset" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 02</span>The only colour on the headset is the dial</figcaption></figure>
       <figure class="cx-fig"><img src="img/cx2-inside.jpg" alt="The headset upside down showing the indigo liner with electrode pods and oval pads" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 03</span>Indigo liner, dry electrode pods</figcaption></figure>
-      <figure class="cx-fig"><img src="img/cx2-bu-front.jpg" alt="The back unit: an upright pale grey capsule with a vertical status light and a button on top" width="1280" height="720" loading="lazy"><figcaption><span>Fig. 04</span>Back unit: an upright capsule, one light, one button</figcaption></figure>
-      <figure class="cx-fig"><img src="img/cx2-bu-exploded.jpg" alt="The back unit exploded: front cover, light pipe, button, graphite rear base with T-rail clip and gold charging contacts" width="1280" height="720" loading="lazy"><figcaption><span>Fig. 05</span>Two-part shell, T-rail clip, charging contacts</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-bu-front.jpg" alt="The back unit: a pale grey egg shape, wider at the top, with a round button near the top and a thin status light" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 04</span>Back unit: an egg from the front, a lens from the side</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-bu-exploded.jpg" alt="The back unit exploded: button, light pipe, front cover with four snap hooks, indigo silicone seal, graphite rear base, gold charging pads and the magnetic cable plug above" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 05</span>Snap-fit shell with a silicone seal. No screws, and sweat stays out.</figcaption></figure>
     </div>
     <div class="cx-cmf">
       <div><i style="background:#D9D9D9"></i><b>Mist</b>Shell top, back unit</div>
@@ -672,9 +753,9 @@ footer .socials .ico svg{width:13px;height:13px}
     <h3 class="cx-h">The family</h3>
     <div class="cx-grid2">
       <figure class="cx-fig"><img src="img/cx2-side.jpg" alt="The CortX headset in profile, showing the long top shell and the red dial at the back" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 06</span>Headset, profile</figcaption></figure>
-      <figure class="cx-fig"><img src="img/cx2-bu-back.jpg" alt="The back of the capsule: graphite rear base with the vertical T-rail clip" width="1280" height="720" loading="lazy"><figcaption><span>Fig. 07</span>The clip slides into the vest between the shoulder blades</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-bu-plate.jpg" alt="The back unit sitting in its dark receiver plate, the magnetic cable plug on top" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 07</span>It slides down into a plate in the vest. The cable clicks on with magnets and breaks away in a tackle.</figcaption></figure>
     </div>
-    <div class="cx-uc"><b>Under construction</b><span>Headset, back unit, vest, dock and tablet together</span></div>
+    <figure class="cx-fig"><img src="img/cx3-family.jpg" alt="The whole kit together: headset, back unit in its receiver plate linked by a cable, and the pitch-side tablet showing the squad view" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 08</span>Headset, back unit and pitch-side tablet</figcaption></figure>
   </div>
 
   <div class="cx-block cx-in" data-slide="cx-day" data-tiers="overview full" data-base="2" data-skills="systems,research">
@@ -689,14 +770,28 @@ footer .socials .ico svg{width:13px;height:13px}
 
   <div class="cx-block cx-in" data-slide="cx-app" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
     <h3 class="cx-h">Pitch-side app</h3>
-    <div class="cx-grid2"><div class="cx-uc"><b>Under construction</b><span>Squad view</span></div><div class="cx-uc"><b>Under construction</b><span>Player view</span></div></div>
+    <p class="cx-lead">Three numbers per player, live. The coach sees who is fading before it shows on the pitch.</p>
+    <div class="cx-grid2">
+      <figure class="cx-fig"><img src="img/cx3-app-squad.jpg" alt="Squad view on the tablet: sixteen player tiles with focus, load and fatigue bars, two players flagged in orange, and a list of flags on the right" width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 09</span>Squad view. CortX flags, the coach decides.</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-app-player.jpg" alt="Player view for number 8: a focus ring at 58 and live traces for EEG, fNIRS, heart rate, head motion and GPS" width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 10</span>Player view. Every sensor in its own colour.</figcaption></figure>
+    </div>
   </div>
 
   <div class="cx-block cx-in" data-slide="cx-dashboard" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
     <h3 class="cx-h">Analyst dashboard</h3>
-    <div class="cx-uc"><b>Under construction</b><span>Season view with Catapult and STATSports data</span></div>
+    <figure class="cx-fig"><img src="img/cx3-dashboard.jpg" alt="Analyst dashboard for the season: four headline numbers, a chart of mental load against high-speed running by week, a watch list and a heat map of focus by player and week" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 11</span>Season view, joined with Catapult, STATSports and event data</figcaption></figure>
   </div>
 
+  <div class="cx-block cx-in" data-slide="cx-progress" data-tiers="overview full" data-base="2" data-skills="interaction,research">
+    <h3 class="cx-h">One player, one season</h3>
+    <p class="cx-lead">The point isn't one session. It's seeing a player get sharper week by week, and knowing the training did it.</p>
+    <div class="cx-progs">
+<figure class="cx-prog"><figcaption><b>Focus late in matches</b><span>Last 15 minutes, match days</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Focus late in matches. Up from 58 to 74 over 18 weeks"><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">50</text><line x1="44" x2="486" y1="184.0" y2="184.0" class="p-grid"/><text x="36" y="188.0" class="p-ax" text-anchor="end">60</text><line x1="44" x2="486" y1="102.0" y2="102.0" class="p-grid"/><text x="36" y="106.0" class="p-ax" text-anchor="end">70</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">80</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">W1</text><text x="174.0" y="290" class="p-ax" text-anchor="middle">W6</text><text x="330.0" y="290" class="p-ax" text-anchor="middle">W12</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">W18</text><polyline points="44.0,200.4 70.0,208.6 96.0,184.0 122.0,192.2 148.0,167.6 174.0,175.8 200.0,151.2 226.0,159.4 252.0,134.8 278.0,143.0 304.0,118.4 330.0,126.6 356.0,102.0 382.0,110.2 408.0,93.8 434.0,85.6 460.0,77.4 486.0,69.2" fill="none" stroke="#9101B1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="69.2" r="4" fill="#9101B1"/><text x="494.0" y="73.2" class="p-lab" fill="#9101B1">74</text></svg><p class="p-note">Up from 58 to 74 over 18 weeks</p></figure>
+<figure class="cx-prog"><figcaption><b>Decision time when tired</b><span>Small-sided games, after minute 60</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Decision time when tired. Down from 820 to 655 ms"><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">600</text><line x1="44" x2="486" y1="216.8" y2="216.8" class="p-grid"/><text x="36" y="220.8" class="p-ax" text-anchor="end">650</text><line x1="44" x2="486" y1="167.6" y2="167.6" class="p-grid"/><text x="36" y="171.6" class="p-ax" text-anchor="end">700</text><line x1="44" x2="486" y1="118.4" y2="118.4" class="p-grid"/><text x="36" y="122.4" class="p-ax" text-anchor="end">750</text><line x1="44" x2="486" y1="69.2" y2="69.2" class="p-grid"/><text x="36" y="73.2" class="p-ax" text-anchor="end">800</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">850</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">W1</text><text x="174.0" y="290" class="p-ax" text-anchor="middle">W6</text><text x="330.0" y="290" class="p-ax" text-anchor="middle">W12</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">W18</text><polyline points="44.0,49.5 70.0,57.4 96.0,71.2 122.0,64.3 148.0,88.9 174.0,98.7 200.0,96.8 226.0,118.4 252.0,127.3 278.0,133.2 304.0,147.9 330.0,151.9 356.0,165.6 382.0,169.6 408.0,177.4 434.0,191.2 460.0,199.1 486.0,211.9" fill="none" stroke="#0098F6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="211.9" r="4" fill="#0098F6"/><text x="494.0" y="215.9" class="p-lab" fill="#0098F6">655 ms</text></svg><p class="p-note">Down from 820 to 655 ms</p></figure>
+<figure class="cx-prog"><figcaption><b>Same session, two months apart</b><span>Focus across 90 minutes</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Same session, two months apart. In July focus fell away after the hour. By November it holds."><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">40</text><line x1="44" x2="486" y1="184.0" y2="184.0" class="p-grid"/><text x="36" y="188.0" class="p-ax" text-anchor="end">55</text><line x1="44" x2="486" y1="102.0" y2="102.0" class="p-grid"/><text x="36" y="106.0" class="p-ax" text-anchor="end">70</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">85</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">0′</text><text x="191.3" y="290" class="p-ax" text-anchor="middle">30′</text><text x="338.7" y="290" class="p-ax" text-anchor="middle">60′</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">90′</text><polyline points="44.0,58.3 68.6,63.7 93.1,63.7 117.7,69.2 142.2,74.7 166.8,74.7 191.3,80.1 215.9,85.6 240.4,91.1 265.0,102.0 289.6,112.9 314.1,134.8 338.7,156.7 363.2,173.1 387.8,189.5 412.3,200.4 436.9,211.3 461.4,216.8 486.0,222.3" fill="none" stroke="rgba(244,242,248,.6)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 5" class="p-line"/><circle cx="486.0" cy="222.3" r="4" fill="rgba(244,242,248,.6)"/><text x="494.0" y="226.3" class="p-lab" fill="rgba(244,242,248,.6)">July</text><polyline points="44.0,47.3 68.6,47.3 93.1,52.8 117.7,52.8 142.2,52.8 166.8,58.3 191.3,58.3 215.9,58.3 240.4,63.7 265.0,63.7 289.6,69.2 314.1,69.2 338.7,74.7 363.2,74.7 387.8,80.1 412.3,80.1 436.9,85.6 461.4,85.6 486.0,91.1" fill="none" stroke="#9101B1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="91.1" r="4" fill="#9101B1"/><text x="494.0" y="95.1" class="p-lab" fill="#9101B1">Nov</text></svg><p class="p-note">In July focus fell away after the hour. By November it holds.</p></figure>
+</div>
+    <p class="caption">Illustrative data for one player, not recorded.</p>
+  </div>
   <div class="cx-block cx-in cx-identity" data-slide="cx-identity" data-tiers="preview overview full" data-card="logo" data-base="2" data-skills="branding">
     <h3 class="cx-h">Identity</h3>
     <div class="cx-lockups">
