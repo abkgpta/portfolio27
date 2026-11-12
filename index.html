@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=K2D:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <style>
 :root{
   --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
@@ -236,6 +236,83 @@ header{transition:background .5s,color .5s}
   .og-close{border-right-width:12px}
 }
 @media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
+/* ---------- CortX: identity v0.2 (Void, K2D, JetBrains Mono) ---------- */
+.cx{--void:#0D031E;--paper:#F4F2F8;--ind:#4527A1;--red:#FF190F;--cxl:rgba(244,242,248,.14);--cxm:rgba(244,242,248,.62);
+  background:var(--void);color:var(--paper);font-family:'K2D',system-ui,sans-serif;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
+.cx h2,.cx h3{font-family:'K2D',system-ui,sans-serif;font-weight:700;letter-spacing:-.01em}
+.cx-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:center;gap:clamp(16px,3vw,48px);padding:clamp(48px,7vw,104px) var(--gutter) 0}
+.cx-eyebrow{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-logo{margin:18px 0 18px}
+.cx-logo img{width:min(100%,300px);height:auto}
+.cx-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:34ch}
+.cx-fig{margin:0}
+.cx-fig img{width:100%;display:block;background:#1a1230}
+.cx-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--cxm)}
+.cx-fig figcaption span{font-family:'JetBrains Mono',monospace;color:var(--paper);white-space:nowrap}
+.cx-block{padding:clamp(48px,7vw,96px) var(--gutter) 0;display:grid;gap:24px}
+.cx-h{font-size:clamp(32px,4.4vw,64px);line-height:1}
+.cx-quote{font-size:clamp(28px,3.6vw,52px);line-height:1.12;font-weight:700;max-width:22ch}
+.cx-lead{font-size:clamp(19px,1.9vw,26px);line-height:1.3;font-weight:500;max-width:36ch;margin-bottom:12px}
+.cx-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
+.cx-cols p+p{margin-top:12px}
+.cx-facts{display:grid;gap:14px;border-left:4px solid var(--ind);padding-left:20px}
+.cx-facts dt{font:500 11px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-facts dd{margin:2px 0 0}
+.cx .ico{color:var(--paper)}
+.cx-barriers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cx-barriers div{border-top:1px solid var(--cxl);padding-top:14px;font-size:15px;color:var(--cxm)}
+.cx-barriers b{display:block;font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
+.cx-mix{margin-top:8px}
+.cx-concepts{display:grid;gap:10px;margin-top:20px}
+.cx-concepts div{padding:14px 16px;border:1px solid var(--cxl);font-size:14px;color:var(--cxm)}
+.cx-concepts .chosen{border-color:var(--ind);background:rgba(69,39,161,.22);color:var(--paper)}
+.cx-concepts span{display:block;font:500 11px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.cx-concepts b{display:block;font-size:17px;color:var(--paper);margin:4px 0}
+.cx-system{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--cxl);border:1px solid var(--cxl)}
+.cx-system li{background:var(--void);padding:20px;font-size:14px;color:var(--cxm)}
+.cx-system i,.cx-day i{display:block;font:500 12px/1 'JetBrains Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
+.cx-system b,.cx-day b{display:block;font-size:19px;color:var(--paper);margin-bottom:6px}
+.cx-rule{font-size:clamp(18px,1.6vw,22px);font-weight:600;padding-left:16px;border-left:4px solid var(--red)}
+.cx-sense{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);padding:clamp(48px,7vw,96px) var(--gutter) 0;align-items:center}
+.cx-sense > div > p{margin-top:14px;max-width:46ch}
+.cx .tabs{grid-template-columns:repeat(5,1fr);border-color:var(--cxl)}
+.cx .tabs button{font-family:'JetBrains Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
+.cx .tabs button[aria-pressed=true]{background:var(--sc,#9101B1);color:#fff}
+.cx .readout{border-color:var(--cxl)}
+.cx .readout .where{font-family:'JetBrains Mono',monospace;color:var(--sc,#9101B1)}
+.cx .caption{font-size:12px;color:var(--cxm);margin-top:8px}
+.cx-cite{font-size:13px;color:var(--cxm)}
+.cx-cite a{color:var(--paper)}
+.cx-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cx-cmf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;font-size:13px;color:var(--cxm)}
+.cx-cmf i{display:block;height:56px;margin-bottom:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.cx-cmf b{display:block;color:var(--paper)}
+.cx-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:16/9;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#150a2b 0 8px,#1b1035 8px 16px);border:1px dashed rgba(244,242,248,.25);color:var(--cxm);font-size:13px}
+.cx-block > .cx-uc{max-width:720px}
+.cx-uc b{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
+.cx-day{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:d}
+.cx-day li{border-top:2px solid var(--ind);padding-top:14px;font-size:14px;color:var(--cxm)}
+.cx-day i{color:var(--paper);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.cx-lockups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cx-lockups div{display:flex;align-items:center;justify-content:center;aspect-ratio:2/1;border:1px solid var(--cxl)}
+.cx-lockups .paper{background:var(--paper);border-color:var(--paper)}
+.cx-lockups img{width:min(60%,300px);height:auto}
+.cx-sensors-key{display:flex;flex-wrap:wrap;gap:8px}
+.cx-sensors-key span{font:500 12px/1 'JetBrains Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
+.cx-identity > p{max-width:56ch;color:var(--cxm)}
+.cx > .cx-closing{padding:clamp(48px,7vw,96px) var(--gutter) 0}
+.cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(22px,2.6vw,38px);line-height:1.25;font-weight:600;border-right:16px solid var(--red)}
+.cx-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.cx-in.seen{opacity:1;transform:none}
+html.in-cx header{background:#0D031E;color:#F4F2F8}
+@media (max-width:900px){
+  .cx-head,.cx-cols,.cx-sense,.cx-grid2,.cx-lockups,.cx-barriers{grid-template-columns:minmax(0,1fr)}
+  .cx-system{grid-template-columns:minmax(0,1fr)}
+  .cx-day{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cx-cmf{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cx-close{border-right-width:8px}
+}
+@media (prefers-reduced-motion:reduce){.cx-in{opacity:1;transform:none;transition:none}}
 /* site-wide social icons */
 .socials{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px}
@@ -278,7 +355,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
     <nav>
       <a href="#overgrwth">overgrwth</a>
-      <a href="#cortx">cortX</a>
+      <a href="#cortx">CortX</a>
       <a class="opt" href="#dash">DASH</a>
       <a class="opt" href="#about">About</a>
       <a href="#contact">Contact</a>
@@ -296,13 +373,13 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
   <div class="g-grid">
     <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
-    <a href="#cortx" data-for="cortx" class="wide"><img src="img/cx-hero.jpg" alt="The cortX brain-imaging headset render" loading="eager"><span>cortX</span></a>
+    <a href="#cortx" data-for="cortx" class="wide"><img src="img/cx2-hero.jpg" alt="The CortX headset beside its back unit" loading="eager"><span>CortX</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-exploded.jpg" alt="The overgrwth system exploded part by part" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-socket.jpg" alt="Close-up of the plus-shaped socket inside an overgrwth post" loading="lazy"><span>overgrwth</span></a>
-    <a href="#cortx" data-for="cortx"><img src="img/cx-render.jpg" alt="Closer render of the cortX headset" loading="lazy"><span>cortX</span></a>
+    <a href="#cortx" data-for="cortx"><img src="img/cx2-dial.jpg" alt="The red Boa dial on the back of the CortX headset" loading="lazy"><span>CortX</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-power.jpg" alt="An overgrwth setup with the power path traced in yellow" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-clamp.jpg" alt="overgrwth panels, shelf and planter modules" loading="lazy"><span>overgrwth</span></a>
-    <a href="#cortx" data-for="cortx"><img src="img/cx-mockup.jpg" alt="A hand holding the cortX fit mock-up" loading="lazy"><span>cortX</span></a>
+    <a href="#cortx" data-for="cortx"><img src="img/cx2-exploded.jpg" alt="The CortX headset exploded part by part" loading="lazy"><span>CortX</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-grow.jpg" alt="The overgrwth grow light over a planter" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-attach.jpg" alt="overgrwth powered attachments: spotlight, clock and speaker" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og-sketches.jpg" alt="overgrwth ideation sketches" loading="lazy"><span>overgrwth</span></a>
@@ -485,39 +562,77 @@ footer .socials .ico svg{width:13px;height:13px}
 </section>
 
 <!-- ============ CORTX ============ -->
-<section id="cortx" class="dark" data-project="cortx" data-type="concept">
-  <div class="project-head" data-slide="cx-intro" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
-    <div>
-      <div class="eyebrow"><span data-num>02</span> · Design and Technology</div>
-      <h2>cort<span>X</span></h2>
-      <p class="sub">A brain-imaging headset for elite football training</p>
+<section id="cortx" class="cx" data-project="cortx" data-type="concept">
+  <div class="cx-head" data-slide="cx-hero" data-tiers="preview overview full" data-card="hero" data-base="3" data-skills="rendering,systems" data-required>
+    <div class="cx-head-text">
+      <div class="cx-eyebrow"><span data-num>02</span> · Neuro-performance system</div>
+      <h2 class="cx-logo"><img src="img/cx-logo-void.png" alt="CortX" width="351" height="107"></h2>
+      <p class="cx-sub">A headset and back unit that read the brain and body in real training, and a pitch-side app that turns it into something a coach can act on today.</p>
     </div>
-    <div>
-      <p class="big-quote">You can only improve what you measure.</p>
-      <div class="prose" style="margin-top:20px">
-        <p>Top training facilities measure almost everything about a player's body, but have nothing for kinaesthetic and spatial awareness: the sense of your own movement and of the space around you. In team ball sports, where sensory load is highest, that gap matters.</p>
-        <p>cortX is worn during training. It collects positional and neurological data so a club's analysts can work with coaches on personalised programmes.</p>
+    <figure class="cx-fig cx-hero"><img src="img/cx2-hero.jpg" alt="The CortX headset in a pale grey shell with a graphite side, an indigo liner showing at the edge, beside the small back unit" width="1920" height="1080" loading="lazy"></figure>
+  </div>
+
+  <div class="cx-block cx-in cx-brief" data-slide="cx-brief" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
+    <p class="cx-quote">Until now, we've only measured the body. Now it's time to measure the mind.</p>
+    <div class="cx-cols" data-len="long">
+      <div>
+        <p class="cx-lead">Clubs track almost everything about a player's body and nothing about their mind.</p>
+        <p>Mental fatigue hurts decisions and motor control before it shows up physically. The tools that could see it are wired lab caps with 64 channels, and nobody can sprint in one.</p>
       </div>
-      <dl class="facts">
-        <div><dt>For</dt><dd>Lead data analyst, Premier League club</dd></div>
-        <div><dt>Team</dt><dd class="team"><span>Muesli &amp; Brothers</span><span>Abhik Gupta</span><span>Ansha Gawande <a class="ico" href="https://anshawtydesigns.framer.website/" target="_blank" rel="noopener" aria-label="Ansha Gawande's portfolio"><svg><use href="#i-web"/></svg></a><a class="ico" href="https://www.linkedin.com/in/ansha-gawande-954812283/" target="_blank" rel="noopener" aria-label="Ansha Gawande on LinkedIn"><svg><use href="#i-in"/></svg></a></span></dd></div>
+      <dl class="cx-facts">
+        <div><dt>For</dt><dd>The lead data analyst and head coach at a top club or performance centre</dd></div>
+        <div><dt>Reads</dt><dd>EEG, fNIRS, head motion, heart rate and GPS</dd></div>
+        <div><dt>Team</dt><dd class="team"><span>Abhik Gupta</span><span>Ansha Gawande <a class="ico" href="https://anshawtydesigns.framer.website/" target="_blank" rel="noopener" aria-label="Ansha Gawande's portfolio"><svg><use href="#i-web"/></svg></a><a class="ico" href="https://www.linkedin.com/in/ansha-gawande-954812283/" target="_blank" rel="noopener" aria-label="Ansha Gawande on LinkedIn"><svg><use href="#i-in"/></svg></a></span></dd></div>
       </dl>
-      <div class="mix" data-playlist="cortx" hidden><div class="mix-label">What I listened to while making cortX</div><div class="mix-frame"></div></div>
+    </div>
+    <div class="cx-barriers" data-len="long">
+      <div><b>01 · Hardware</b>Brain-sensing kit is heavy, wired and slow to put on.</div>
+      <div><b>02 · Trust</b>Coaches trust the eye test over a new kind of data.</div>
+      <div><b>03 · Friction</b>It needs outside specialists, which adds cost and delay.</div>
+    </div>
+    <div class="mix cx-mix" data-playlist="cortx" hidden><div class="mix-label">What I listened to while making CortX</div><div class="mix-frame"></div></div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-research" data-tiers="full" data-base="1" data-skills="research,prototyping">
+    <h3 class="cx-h">Research</h3>
+    <div class="cx-cols">
+      <div>
+        <p>Research ran from liveable spaces, through neurodiversity and sensory-centred design, to Sensory Intelligence Optimisation: taking someone from baseline to far above it. We studied the Red Bull Athlete Performance Centre and P3 along the way.</p>
+        <p>Before refining the shell, we built a fit mock-up of the liner in translucent plastic straps and foam pads to see how it actually sits on a head.</p>
+        <div class="cx-concepts">
+          <div class="chosen"><span>Taken forward</span><b>Brain-imaging headset</b>Worn in training to measure, not guess.</div>
+          <div><span>Concept</span><b>Blind-spot wristband</b>A haptic band that cues a player when someone enters their blind spot.</div>
+          <div><span>Concept</span><b>Game disruptor</b>A robotic unit that breaks a player's rhythm to force decisions under pressure.</div>
+        </div>
+      </div>
+      <figure class="cx-fig"><img src="img/cx-mockup.jpg" alt="Hand holding the translucent plastic and pink foam fit mock-up of the headset liner" loading="lazy"></figure>
     </div>
   </div>
 
-  <div class="fig" data-slide="cx-hero" data-tiers="preview overview full" data-card="hero" data-base="3" data-skills="rendering">
-    <img src="img/cx-hero.jpg" alt="cortX headset render on black: pale grey shell with green seams, charcoal fabric side piece with sensor contacts" loading="lazy">
-    <div class="figcap"><span>Fig. 04 · cortX headset</span><span>Render</span></div>
+  <div class="cx-block cx-in" data-slide="cx-concept" data-tiers="preview overview full" data-card="sketch" data-base="2" data-skills="sketching">
+    <h3 class="cx-h">Concept</h3>
+    <div class="cx-uc"><b>Under construction</b><span>Stylised sketch: headset and back unit</span></div>
   </div>
 
-  <div class="sensors" data-slide="cx-sensors" data-tiers="overview full" data-base="3" data-skills="electronics,interaction">
+  <div class="cx-block cx-in" data-slide="cx-system" data-tiers="overview full" data-base="3" data-skills="systems">
+    <h3 class="cx-h">The system</h3>
+    <p class="cx-lead">It fits the club's routine instead of asking the club to change.</p>
+    <ol class="cx-system">
+      <li><i>01</i><b>Headset</b>Dry EEG electrodes and fNIRS sensors in a light shell. One Boa dial fits many head sizes.</li>
+      <li><i>02</i><b>Back unit</b>Amplifier, battery, GPS and Bluetooth in an upright 52 × 96 × 24 mm capsule that clips into a washable compression vest.</li>
+      <li><i>03</i><b>Charging dock</b>A bench station where a squad of 25 headsets and back units charge and sync together.</li>
+      <li><i>04</i><b>Pitch-side app</b>Live focus, load and fatigue per player on a tablet. No laptop, no waiting for the report.</li>
+      <li><i>05</i><b>Analyst dashboard</b>Sessions over time, joined with positional and event data through Catapult and STATSports APIs.</li>
+    </ol>
+    <p class="cx-rule">CortX assists the coach's judgement. It never overrides it.</p>
+  </div>
+
+  <div class="cx-sense cx-in" data-slide="cx-science" data-tiers="overview full" data-base="3" data-skills="electronics,interaction">
     <div>
-      <div class="eyebrow">Fig. 05 · What it reads</div>
-      <h3 style="font-size:22px;margin-top:10px">Four sensors, two units.</h3>
-      <p style="margin-top:12px">The headset carries the brain and head sensors. A vest unit holds the microcontroller, analog front end, heart rate monitor, GPS, Bluetooth and battery, and sends everything to the analysts' computers.</p>
+      <h3 class="cx-h">What it reads</h3>
+      <p>The headset carries the brain and head sensors. The back unit holds the analog front end, heart rate, GPS, Bluetooth and battery, and streams it all to the pitch-side app.</p>
       <div class="tabs" role="group" aria-label="Sensor">
-        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="gps">GPS</button>
+        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="hr">HR</button><button data-k="gps">GPS</button>
       </div>
       <div class="readout" aria-live="polite">
         <div class="where" id="sWhere"></div>
@@ -526,23 +641,78 @@ footer .socials .ico svg{width:13px;height:13px}
         <canvas class="trace" id="trace"></canvas>
         <p class="caption">Illustrative signal, not recorded data.</p>
       </div>
+      <p class="cx-cite">Why it matters: EEG neurofeedback training improved sport motor performance with a large effect (Hedges' g 0.78) across 21 randomised trials. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12019780/" target="_blank" rel="noopener">Yu et al. 2025 ↗</a></p>
     </div>
-    <div style="padding:0;display:flex;align-items:center;background:#7b7b7b"><img src="img/cx-render.jpg" alt="Closer render of the cortX headset showing fabric side panel and five sensor ports" loading="lazy"></div>
+    <figure class="cx-fig"><img src="img/cx2-top.jpg" alt="The CortX headset from directly above: a pale grey top shell over the graphite side" width="1920" height="1080" loading="lazy"></figure>
   </div>
 
-  <div class="concepts" data-slide="cx-concepts" data-tiers="preview overview full" data-card="sketch" data-base="2" data-skills="research,sketching">
-    <div class="concept chosen"><span class="tag">Taken forward</span><b>Brain-imaging headset</b>EEG, fNIRS, IMU and GPS worn in training to measure, not guess.</div>
-    <div class="concept"><span class="tag">Concept</span><b>Blind-spot wristband</b>A sweat-proof haptic band that cues a player when someone enters their blind spot.</div>
-    <div class="concept"><span class="tag">Concept</span><b>Game disruptor</b>A robotic unit that breaks a player's rhythm to force decisions under pressure.</div>
+  <div class="cx-block cx-in" data-slide="cx-exploded" data-tiers="overview full" data-base="3" data-skills="cad,rendering">
+    <h3 class="cx-h">Inside the headset</h3>
+    <figure class="cx-fig"><img src="img/cx2-exploded.jpg" alt="The CortX headset exploded vertically: top shell, side shell, indigo hard liner, electrodes, knit pads and webbing, with the Boa dial and frame pulled back" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 01</span>Top shell, side shell, liner, electrodes, pads, webbing, dial</figcaption></figure>
   </div>
 
-  <div class="two" data-slide="cx-making" data-tiers="overview full" data-base="2" data-skills="prototyping">
-    <div class="prose">
-      <div class="eyebrow">Making</div>
-      <p style="margin-top:14px">Before refining the shell, we built a fit mock-up of the liner in translucent plastic straps and foam pads to see how it actually sits on a head.</p>
-      <p>Research ran from liveable spaces, through neurodiversity and sensory-centred design, to Sensory Intelligence Optimisation: taking someone from baseline to far above it. We studied the Red Bull Athlete Performance Centre and P3 along the way.</p>
+  <div class="cx-block cx-in" data-slide="cx-detail" data-tiers="overview full" data-base="2" data-skills="cmf,cad">
+    <h3 class="cx-h">Details</h3>
+    <div class="cx-grid2">
+      <figure class="cx-fig"><img src="img/cx2-dial.jpg" alt="Close-up of the red Boa dial embossed with the cortX mark on the graphite back of the headset" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 02</span>The only colour on the headset is the dial</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx2-inside.jpg" alt="The headset upside down showing the indigo liner with electrode pods and oval pads" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 03</span>Indigo liner, dry electrode pods</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx2-bu-front.jpg" alt="The back unit: an upright pale grey capsule with a vertical status light and a button on top" width="1280" height="720" loading="lazy"><figcaption><span>Fig. 04</span>Back unit: an upright capsule, one light, one button</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx2-bu-exploded.jpg" alt="The back unit exploded: front cover, light pipe, button, graphite rear base with T-rail clip and gold charging contacts" width="1280" height="720" loading="lazy"><figcaption><span>Fig. 05</span>Two-part shell, T-rail clip, charging contacts</figcaption></figure>
     </div>
-    <div style="padding:0;max-height:640px;overflow:hidden"><img src="img/cx-mockup.jpg" alt="Hand holding the translucent plastic and pink foam fit mock-up of the headset liner" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+    <div class="cx-cmf">
+      <div><i style="background:#D9D9D9"></i><b>Mist</b>Shell top, back unit</div>
+      <div><i style="background:#9A9AA0"></i><b>Mist side</b>Shell side</div>
+      <div><i style="background:#2B2E36"></i><b>Graphite</b>Frame, rear base</div>
+      <div><i style="background:#4527A1"></i><b>Indigo</b>Liner</div>
+      <div><i style="background:#FF190F"></i><b>Signal red</b>Boa dial only</div>
+    </div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-family" data-tiers="overview full" data-base="2" data-skills="rendering">
+    <h3 class="cx-h">The family</h3>
+    <div class="cx-grid2">
+      <figure class="cx-fig"><img src="img/cx2-side.jpg" alt="The CortX headset in profile, showing the long top shell and the red dial at the back" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 06</span>Headset, profile</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx2-bu-back.jpg" alt="The back of the capsule: graphite rear base with the vertical T-rail clip" width="1280" height="720" loading="lazy"><figcaption><span>Fig. 07</span>The clip slides into the vest between the shoulder blades</figcaption></figure>
+    </div>
+    <div class="cx-uc"><b>Under construction</b><span>Headset, back unit, vest, dock and tablet together</span></div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-day" data-tiers="overview full" data-base="2" data-skills="systems,research">
+    <h3 class="cx-h">A day at the club</h3>
+    <ol class="cx-day">
+      <li><i>Assess</i><b>Morning</b>Players put on the headset and vest. A short baseline sets today's starting point.</li>
+      <li><i>Train</i><b>Session</b>Focus, load and fatigue stream to the coach's tablet, live, player by player.</li>
+      <li><i>Profile</i><b>Afternoon</b>The analyst joins the session with GPS and event data and updates each player's profile.</li>
+      <li><i>Prepare</i><b>Matchday</b>Selection and warm-ups use what the week showed, with the coach making the call.</li>
+    </ol>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-app" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
+    <h3 class="cx-h">Pitch-side app</h3>
+    <div class="cx-grid2"><div class="cx-uc"><b>Under construction</b><span>Squad view</span></div><div class="cx-uc"><b>Under construction</b><span>Player view</span></div></div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-dashboard" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
+    <h3 class="cx-h">Analyst dashboard</h3>
+    <div class="cx-uc"><b>Under construction</b><span>Season view with Catapult and STATSports data</span></div>
+  </div>
+
+  <div class="cx-block cx-in cx-identity" data-slide="cx-identity" data-tiers="preview overview full" data-card="logo" data-base="2" data-skills="branding">
+    <h3 class="cx-h">Identity</h3>
+    <div class="cx-lockups">
+      <div class="paper"><img src="img/cx-logo.png" alt="CortX logo: indigo cort with a slanted red X" width="351" height="107" loading="lazy"></div>
+      <div><img src="img/cx-logo-void.png" alt="CortX logo on the dark Void background" width="351" height="107" loading="lazy"></div>
+    </div>
+    <div class="cx-sensors-key">
+      <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">GPS</span>
+    </div>
+    <p>Dark first, on Void. K2D for words, JetBrains Mono for numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
+  </div>
+
+  <figure class="cx-fig cx-in cx-closing" data-slide="cx-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/cx2-back34.jpg" alt="The CortX headset from behind, the red dial catching the light" width="1920" height="1080" loading="lazy"></figure>
+
+  <div class="cx-close cx-in" data-slide="cx-outcome" data-tiers="overview full" data-base="1" data-skills="systems">
+    <p>Clubs already know how far a player ran. CortX tells them how the player was thinking while they ran it.</p>
   </div>
 </section>
 
@@ -726,19 +896,20 @@ document.querySelectorAll('.mix').forEach(el=>{
   el.querySelector('.mix-frame').appendChild(f);el.hidden=false;
 });
 
-/* ---------- cortX sensor readout ---------- */
+/* ---------- CortX sensor readout ---------- */
 const S={
-  eeg:{where:'Headset unit',name:'EEG',text:'Electroencephalography. Reads alpha, beta and gamma brain waves from the cerebral cortex.',f:t=>Math.sin(t*.5)*.5+Math.sin(t*1.7)*.3+Math.sin(t*4.3)*.2},
-  fnirs:{where:'Headset unit',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
-  imu:{where:'Headset unit',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
-  gps:{where:'Vest unit',name:'GPS',text:'Tracks the player’s position on the pitch, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
+  eeg:{c:'#9101B1',where:'Headset',name:'EEG',text:'Electroencephalography. Reads alpha, beta and gamma brain waves from the cerebral cortex.',f:t=>Math.sin(t*.5)*.5+Math.sin(t*1.7)*.3+Math.sin(t*4.3)*.2},
+  fnirs:{c:'#0098F6',where:'Headset',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
+  imu:{c:'#AEC959',where:'Headset',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
+  hr:{c:'#00C2A8',where:'Back unit',name:'Heart rate',text:'Tracks heart rate through the vest, so mental load can be read against physical load.',f:t=>{const p=(t*.18)%1;return p<.08?Math.sin(p/.08*Math.PI)*.9:(p<.16?-Math.sin((p-.08)/.08*Math.PI)*.25:Math.sin(t*.3)*.05)}},
+  gps:{c:'#F46C02',where:'Back unit',name:'GPS',text:'Tracks the player’s position on the pitch, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
 };
 let sk='eeg';const tr=document.getElementById('trace'),tc=tr.getContext('2d');let tt=0;
-function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
+function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.getElementById('cortx').style.setProperty('--sc',s.c);document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>setSensor(b.dataset.k));setSensor('eeg');
 function drawTrace(){
   const d=devicePixelRatio||1;if(tr.width!==tr.clientWidth*d){tr.width=tr.clientWidth*d;tr.height=tr.clientHeight*d;}
-  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);tc.strokeStyle='#FF006A';tc.lineWidth=1.5*d;tc.beginPath();
+  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);tc.strokeStyle=S[sk].c;tc.lineWidth=1.5*d;tc.beginPath();
   for(let x=0;x<W;x+=2){const v=S[sk].f((x/d)*.15+tt);x?tc.lineTo(x,H/2-v*H*.4):tc.moveTo(x,H/2-v*H*.4);}
   tc.stroke();tt+=reduce?0:.08;requestAnimationFrame(drawTrace);
 }
@@ -774,6 +945,14 @@ try{
   };
   addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);tick();
 })();
+</script>
+<script>
+/* ---------- CortX: scroll-in ---------- */
+(()=>{const cx=document.getElementById('cortx');if(!cx)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  cx.querySelectorAll('.cx-in').forEach(el=>io.observe(el));
+  const tick=()=>{const r=cx.getBoundingClientRect();document.documentElement.classList.toggle('in-cx',r.top<80&&r.bottom>80);};
+  addEventListener('scroll',tick,{passive:true});tick();})();
 </script>
 <script type="module">
 /* ---------- overgrwth: build viewer (og-viewer/og-viewer.js) ---------- */
