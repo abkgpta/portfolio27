@@ -348,6 +348,10 @@ header{transition:background .5s,color .5s}
 .cx-fig figcaption span{font-family:'IBM Plex Mono',monospace;color:var(--paper);white-space:nowrap}
 .cx-block{padding:clamp(48px,7vw,96px) var(--gutter) 0;display:grid;gap:24px}
 .cx-h{font-size:clamp(24px,3.2vw,46px);line-height:1.12}
+.cx-stat{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:center;border-top:1px solid var(--cxl);border-bottom:1px solid var(--cxl);padding:clamp(20px,3vw,32px) 0}
+.cx-stat>b{font:700 clamp(56px,9vw,120px)/1 'JetBrains Mono',monospace;color:var(--paper);letter-spacing:-.04em}
+.cx-stat p{margin:0 0 10px;max-width:60ch;font-size:clamp(16px,1.4vw,19px)}
+@media (max-width:600px){.cx-stat{grid-template-columns:minmax(0,1fr)}}
 .cx-quote{font-family:'Michroma',system-ui,sans-serif;font-size:clamp(20px,2.6vw,36px);line-height:1.3;font-weight:400;max-width:26ch}
 .cx-lead{font-size:clamp(19px,1.9vw,26px);line-height:1.3;font-weight:500;max-width:36ch;margin-bottom:12px}
 .cx-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
@@ -730,6 +734,12 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
 
   <div class="cx-block cx-in cx-brief" data-slide="cx-brief" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
+    <div class="cx-stat">
+      <b>&lt;10%</b>
+      <div><p>When Neymar rotated his foot inside an MRI scanner, the motor areas of his brain were less than 10% as active as an amateur player's. Years of practice had made the skill almost effortless for his brain.</p>
+      <p class="cx-cite">Eiichi Naito and Satoshi Hirose, "Efficient foot motor control by Neymar's brain", Frontiers in Human Neuroscience, 2014. <a href="https://doi.org/10.3389/fnhum.2014.00594" target="_blank" rel="noopener">Read the study ↗</a></p></div>
+    </div>
+    <p class="cx-lead">What makes a great player is partly in the brain. Clubs just can't see it.</p>
     <p class="cx-quote">Until now, we've only measured the body. Now it's time to measure the mind.</p>
     <div class="cx-cols" data-len="long">
       <div>

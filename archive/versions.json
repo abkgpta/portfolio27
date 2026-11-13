@@ -118,5 +118,32 @@
     "pr": [
       21
     ]
+  },
+  {
+    "v": 15,
+    "commit": "1beba8633d06a6ae150af23a79df4cfa18c439cb",
+    "date": "2026-11-13",
+    "title": "CortX: open the brief with the Neymar brain study",
+    "pr": [
+      23
+    ]
+  },
+  {
+    "v": 16,
+    "commit": "f83ca7fe0816ffc2cdad5bff7c9aeb70b176037b",
+    "date": "2026-11-13",
+    "title": "CortX coach app: cleaner UI, 2007-08 United squad, deeper insights, no Catapult",
+    "pr": [
+      22
+    ]
+  },
+  {
+    "v": 17,
+    "commit": "700e3cff84f1f093eea966f1858b35d194ef57fc",
+    "date": "2026-11-13",
+    "title": "Add tools to sync the site into an editable Figma file",
+    "pr": [
+      14
+    ]
   }
 ]
