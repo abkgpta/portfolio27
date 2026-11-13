@@ -118,5 +118,14 @@
     "pr": [
       21
     ]
+  },
+  {
+    "v": 15,
+    "commit": "1beba8633d06a6ae150af23a79df4cfa18c439cb",
+    "date": "2026-11-13",
+    "title": "CortX: open the brief with the Neymar brain study",
+    "pr": [
+      23
+    ]
   }
 ]
