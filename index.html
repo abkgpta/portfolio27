@@ -271,6 +271,52 @@ header{transition:background .5s,color .5s}
   .og-close{border-right-width:12px}
 }
 @media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
+/* ---------- CortX: how it senses (cx-brain/cx-brain.js) ---------- */
+.cb{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);border:1px solid var(--cxl);border-radius:14px;overflow:hidden;--m:#9101B1;--mi:#fff}
+.cb-stage{position:relative;aspect-ratio:4/3;min-height:340px;background:radial-gradient(ellipse 70% 65% at 50% 46%,#22104a 0%,#140832 45%,var(--void) 100%);overflow:hidden}
+.cb-gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+.cb-gl:active{cursor:grabbing}
+.cb-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.cb-nogl .cb-fallback{display:block}.cb-nogl .cb-gl,.cb-nogl .cb-hint,.cb-nogl .cb-toggle{display:none}
+.cb-labels{position:absolute;inset:0;pointer-events:none}
+.cb-lab{position:absolute;left:0;top:0;font:500 11px/1.2 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);white-space:nowrap;opacity:0;transition:opacity .3s;padding:3px 7px;margin:-10px 0 0 10px;background:rgba(13,3,30,.66);border-left:2px solid var(--m)}
+.cb-lab.lobe{border-left-color:rgba(244,242,248,.5)}
+.cb-lab.tip{text-transform:none;letter-spacing:0;font-size:12px;border-left-color:#9101B1;margin:-34px 0 0 12px}
+.cb-lab.tip b{font-weight:500;color:#D9A6FF;margin-right:6px}
+.cb-hud{position:absolute;left:14px;top:14px;font:500 12px/1.2 'IBM Plex Mono',monospace;color:var(--paper);letter-spacing:.04em}
+.cb-hud:empty{display:none}
+.cb-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm);transition:opacity .5s;pointer-events:none}
+.cb-hint.gone{opacity:0}
+.cb-toggle{position:absolute;right:12px;top:12px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--cxl);background:rgba(13,3,30,.55);color:var(--paper);font:500 12px 'IBM Plex Mono',monospace;cursor:pointer;display:flex;align-items:center;gap:8px}
+.cb-toggle::before{content:"";width:8px;height:8px;border-radius:50%;border:1px solid var(--paper)}
+.cb-toggle[aria-pressed=true]::before{background:var(--paper)}
+.cb-panel{border-left:1px solid var(--cxl);padding:clamp(16px,2vw,28px);display:flex;flex-direction:column;gap:16px;min-width:0}
+.cb-tabs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--cxl);border-radius:8px;overflow:hidden}
+.cb-tabs button{background:transparent;color:var(--paper);border:0;border-right:1px solid var(--cxl);min-height:44px;font:500 13px 'IBM Plex Mono',monospace;cursor:pointer;transition:background .2s,color .2s}
+.cb-tabs button:last-child{border-right:0}
+.cb-tabs button[aria-pressed=true]{background:var(--m);color:var(--mi)}
+.cb-where{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--cxm)}
+.cb-where::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--m);margin-right:8px;vertical-align:1px}
+.cb-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.cb-steps button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:28px 1fr;column-gap:8px;width:100%;padding:10px 12px;border:1px solid var(--cxl);border-radius:8px;cursor:pointer;position:relative;overflow:hidden}
+.cb-steps button:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+.cb-steps i{font:500 12px/1.6 'IBM Plex Mono',monospace;font-style:normal;color:var(--cxm)}
+.cb-steps b{font-size:16px;font-weight:600;color:var(--cxm)}
+.cb-steps span{grid-column:2;font-size:14px;line-height:1.45;color:var(--cxm);display:none;margin-top:4px}
+.cb-steps [aria-current=step]{border-color:var(--m);background:rgba(244,242,248,.04)}
+.cb-steps [aria-current=step] b{color:var(--paper)}
+.cb-steps [aria-current=step] span{display:block}
+.cb-steps [aria-current=step]::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--m);transform-origin:left;transform:scaleX(0)}
+.cb.auto .cb-steps [aria-current=step]::after{animation:cbStep 5.2s linear forwards}
+@keyframes cbStep{to{transform:scaleX(1)}}
+.cb-scope{border-top:1px solid var(--cxl);padding-top:12px}
+.cb-trace{width:100%;height:96px;display:block}
+.cb-scope-k{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font:500 11px/1.4 'IBM Plex Mono',monospace;color:var(--cxm)}
+.cb-scope-k i{display:inline-block;width:10px;height:2px;margin-right:6px;vertical-align:3px}
+.cb-take{margin-top:auto;font-size:15px;font-weight:600;padding-left:14px;border-left:4px solid var(--m)}
+.cb-note{font-size:12px;color:var(--cxm)}
+@media (max-width:900px){.cb{grid-template-columns:minmax(0,1fr)}.cb-stage{aspect-ratio:1/1;min-height:0}.cb-panel{border-left:0;border-top:1px solid var(--cxl)}}
+@media print{.cb-gl,.cb-hint,.cb-toggle,.cb-labels{display:none}.cb-fallback{display:block}}
 /* ---------- CortX: identity v0.3 (Void, Michroma display, IBM Plex Mono body + data) ---------- */
 /* CortX scroll sequence (pre-rendered frames scrubbed by scroll) */
 .cx-sc{position:relative;height:820vh;margin-top:clamp(32px,5vw,72px)}
@@ -883,6 +929,31 @@ footer .socials .ico svg{width:13px;height:13px}
     </figure>
   </div>
 
+  <div class="cx-block cx-in cx-brain" id="cxBrain" data-slide="cx-brain" data-tiers="overview full" data-base="3" data-skills="electronics,interaction,systems">
+    <h3 class="cx-h">How it senses</h3>
+    <p class="cx-lead">Three sensors in the headset, each reading something different about the brain. Turn the model, pick a sensor and step through it.</p>
+    <div class="cb">
+      <div class="cb-stage">
+        <canvas class="cb-gl" role="img" aria-label="A 3D brain inside a see-through CortX headset, showing where the EEG electrodes, fNIRS light sensors and motion sensor sit and what each one picks up"></canvas>
+        <img class="cb-fallback" src="img/cx-brain.jpg" alt="A brain inside a see-through CortX headset, with the 21 EEG electrodes glowing purple over it" width="1600" height="1200" loading="lazy">
+        <div class="cb-labels" aria-hidden="true"></div>
+        <div class="cb-hud" aria-hidden="true"></div>
+        <div class="cb-hint" aria-hidden="true">Drag to turn</div>
+        <button class="cb-toggle" type="button" aria-pressed="true">Headset</button>
+      </div>
+      <div class="cb-panel">
+        <div class="cb-tabs" role="group" aria-label="Sensor">
+          <button type="button" data-m="eeg" aria-pressed="true">EEG</button><button type="button" data-m="fnirs" aria-pressed="false">fNIRS</button><button type="button" data-m="imu" aria-pressed="false">IMU</button><button type="button" data-m="all" aria-pressed="false">All</button>
+        </div>
+        <div class="cb-where"></div>
+        <ol class="cb-steps"></ol>
+        <div class="cb-scope"><canvas class="cb-trace" aria-hidden="true"></canvas><div class="cb-scope-k"></div></div>
+        <p class="cb-take"></p>
+      </div>
+    </div>
+    <p class="cb-note">Illustrative model and signals, not recorded data. Electrode positions come from the headset CAD; fNIRS and IMU placement is design intent.</p>
+  </div>
+
   <div class="cx-block cx-in cx-flow" data-slide="cx-flow" data-tiers="overview full" data-base="3" data-skills="systems,interaction">
     <h3 class="cx-h">How the data moves</h3>
     <p class="cx-lead">The back unit does the hard work, so the tablet only gets answers.</p>
@@ -1302,6 +1373,27 @@ const ogIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting)return;o
   try{const {mountOgViewer}=await import('./og-viewer/og-viewer.js');mountOgViewer(ogEl,{fallback:'img/og4-build.jpg',fallbackAlt:'Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light'});}
   catch(e){console.warn('overgrwth viewer unavailable',e);}},{rootMargin:'600px'});
 ogIO.observe(ogEl);
+</script>
+<script type="module">
+/* ---------- CortX: how it senses (cx-brain/cx-brain.js) ---------- */
+const cbEl=document.getElementById('cxBrain');
+if(cbEl){const cbIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting)return;cbIO.disconnect();
+  const cb=cbEl.querySelector('.cb'),tabs=[...cb.querySelectorAll('.cb-tabs button')],ol=cb.querySelector('.cb-steps'),where=cb.querySelector('.cb-where'),take=cb.querySelector('.cb-take'),tog=cb.querySelector('.cb-toggle');
+  let api;
+  try{const {mountCxBrain,MODES}=await import('./cx-brain/cx-brain.js');
+    const markStep=s=>{[...ol.querySelectorAll('button')].forEach((b,i)=>{if(i===s){b.setAttribute('aria-current','step');}else b.removeAttribute('aria-current');});
+      const cur=ol.querySelector('[aria-current=step]');if(cur){cur.style.animation='none';void cur.offsetWidth;cur.style.animation='';}};
+    const fill=m=>{const M=MODES[m];where.textContent=M.where;take.textContent=M.take;
+      ol.innerHTML=M.steps.map((s,i)=>`<li><button type="button"><i>0${i+1}</i><b>${s[0]}</b><span>${s[1]}</span></button></li>`).join('');
+      [...ol.querySelectorAll('button')].forEach((b,i)=>b.addEventListener('click',()=>{cb.classList.remove('auto');api.setAuto(false);api.setStep(i);}));
+      tabs.forEach(t=>t.setAttribute('aria-pressed',t.dataset.m===m));markStep(0);};
+    api=mountCxBrain(cb,{onStep:markStep});
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches)cb.classList.add('auto');
+    tabs.forEach(t=>t.addEventListener('click',()=>{api.setMode(t.dataset.m);fill(t.dataset.m);}));
+    tog.addEventListener('click',()=>{const on=tog.getAttribute('aria-pressed')!=='true';tog.setAttribute('aria-pressed',on);api.setHeadset(on);});
+    fill('eeg');
+  }catch(e){console.warn('CortX brain visualiser unavailable',e);cb.classList.add('cb-nogl');cbEl.querySelector('.cb-panel').hidden=true;}
+},{rootMargin:'600px'});cbIO.observe(cbEl);}
 </script>
 </body>
 </html>
