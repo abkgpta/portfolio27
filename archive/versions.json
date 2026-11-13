@@ -136,5 +136,14 @@
     "pr": [
       22
     ]
+  },
+  {
+    "v": 17,
+    "commit": "700e3cff84f1f093eea966f1858b35d194ef57fc",
+    "date": "2026-11-13",
+    "title": "Add tools to sync the site into an editable Figma file",
+    "pr": [
+      14
+    ]
   }
 ]
