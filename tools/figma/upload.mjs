@@ -4,7 +4,7 @@
 //      node tools/figma/upload.mjs map phone out/figma/images-phone.json
 //    images-<viewport>.json = the returned lists concatenated: [[nodeId, assetIndex, ...], ...]
 //    Writes out/figma/upload-<viewport>.json = [[nodeId, file, mime], ...] and prints the node ids to pass
-//    to upload_assets (60 per call, ALWAYS with currentPageId = the Desktop/Phone page id, or the fills
+//    to upload_assets (60 per call, ALWAYS with currentPageId = the website page id, or the fills
 //    silently do not apply).
 // 2. Post the files:
 //      node tools/figma/upload.mjs out/figma/upload-phone.json out/figma/urls.txt
