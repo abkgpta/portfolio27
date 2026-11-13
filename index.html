@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=K2D:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <style>
 :root{
   --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
@@ -31,10 +31,10 @@ button{font:inherit;cursor:pointer}
 /* CortX: data flow + progress */
 .cx-flow-wrap{border:1px solid var(--cxl);border-radius:14px;padding:clamp(12px,2vw,28px);overflow:hidden}
 .cx-flow-svg{width:100%;height:auto;display:block}
-.cx-flow-svg text{font-family:'K2D',sans-serif;fill:var(--paper)}
-.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg text{font-family:'IBM Plex Mono',monospace;fill:var(--paper)}
+.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
 .cx-flow-svg .f-h{font-size:24px;font-weight:700}
-.cx-flow-svg .f-s{font:500 13px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-s{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
 .cx-flow-svg .f-c{font-size:16px;font-weight:600}
 .cx-flow-svg .f-step{font-size:16px;fill:var(--cxm)}.cx-flow-svg .f-step.last{fill:var(--paper);font-weight:700}
 .cx-flow-svg .f-box{fill:#150A2B;stroke:var(--cxl)}
@@ -45,11 +45,11 @@ button{font:inherit;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.cx-flow-svg .f-dot{display:none}}
 .cx-progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-prog{margin:0;border:1px solid var(--cxl);border-radius:14px;padding:18px 18px 14px;display:grid;gap:10px}
-.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'JetBrains Mono',monospace;color:var(--cxm)}
+.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'IBM Plex Mono',monospace;color:var(--cxm)}
 .cx-prog-svg{width:100%;height:auto;display:block}
 .cx-prog-svg .p-grid{stroke:var(--cxl)}
-.cx-prog-svg .p-ax{font:500 12px 'JetBrains Mono',monospace;fill:var(--cxm)}
-.cx-prog-svg .p-lab{font:600 13px 'JetBrains Mono',monospace}
+.cx-prog-svg .p-ax{font:500 12px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-prog-svg .p-lab{font:600 13px 'IBM Plex Mono',monospace}
 .cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
 @media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
 /* under construction strip */
@@ -271,7 +271,7 @@ header{transition:background .5s,color .5s}
   .og-close{border-right-width:12px}
 }
 @media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
-/* ---------- CortX: identity v0.2 (Void, K2D, JetBrains Mono) ---------- */
+/* ---------- CortX: identity v0.3 (Void, Michroma display, IBM Plex Mono body + data) ---------- */
 /* CortX scroll sequence (pre-rendered frames scrubbed by scroll) */
 .cx-sc{position:relative;height:820vh;margin-top:clamp(32px,5vw,72px)}
 .cx-sc-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
@@ -280,56 +280,56 @@ header{transition:background .5s,color .5s}
 .cx-sc-logo img{width:100%;height:auto;display:block}
 .cx-sc-cap{position:absolute;left:var(--gutter);bottom:clamp(28px,5vh,56px);max-width:min(420px,calc(100% - 2*var(--gutter)));opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
 .cx-sc.has-cap .cx-sc-cap{opacity:1;transform:none}
-.cx-sc-cap .n{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
-.cx-sc-cap h3{font-size:clamp(22px,2.6vw,34px);line-height:1.1;margin:4px 0}
+.cx-sc-cap .n{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
+.cx-sc-cap h3{font-size:clamp(17px,1.9vw,25px);line-height:1.2;margin:4px 0}
 .cx-sc-cap p{color:var(--cxm);font-size:15px;line-height:1.45}
 .cx-sc-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--cxl)}
 .cx-sc-bar i{display:block;height:100%;width:0;background:var(--red)}
 @media print{.cx-sc{display:none}}
 
 .cx{--void:#0D031E;--paper:#F4F2F8;--ind:#4527A1;--red:#FF190F;--cxl:rgba(244,242,248,.14);--cxm:rgba(244,242,248,.62);
-  background:var(--void);color:var(--paper);font-family:'K2D',system-ui,sans-serif;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
-.cx h2,.cx h3{font-family:'K2D',system-ui,sans-serif;font-weight:700;letter-spacing:-.01em}
+  background:var(--void);color:var(--paper);font-family:'IBM Plex Mono',ui-monospace,monospace;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
+.cx h2,.cx h3{font-family:'Michroma',system-ui,sans-serif;font-weight:400;letter-spacing:0}
 .cx-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:center;gap:clamp(16px,3vw,48px);padding:clamp(48px,7vw,104px) var(--gutter) 0}
-.cx-eyebrow{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-eyebrow{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-logo{margin:18px 0 18px}
 .cx-logo img{width:min(100%,300px);height:auto}
 .cx-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:34ch}
 .cx-fig{margin:0}
 .cx-fig img{width:100%;display:block;background:#1a1230}
 .cx-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--cxm)}
-.cx-fig figcaption span{font-family:'JetBrains Mono',monospace;color:var(--paper);white-space:nowrap}
+.cx-fig figcaption span{font-family:'IBM Plex Mono',monospace;color:var(--paper);white-space:nowrap}
 .cx-block{padding:clamp(48px,7vw,96px) var(--gutter) 0;display:grid;gap:24px}
-.cx-h{font-size:clamp(32px,4.4vw,64px);line-height:1}
-.cx-quote{font-size:clamp(28px,3.6vw,52px);line-height:1.12;font-weight:700;max-width:22ch}
+.cx-h{font-size:clamp(24px,3.2vw,46px);line-height:1.12}
+.cx-quote{font-family:'Michroma',system-ui,sans-serif;font-size:clamp(20px,2.6vw,36px);line-height:1.3;font-weight:400;max-width:26ch}
 .cx-lead{font-size:clamp(19px,1.9vw,26px);line-height:1.3;font-weight:500;max-width:36ch;margin-bottom:12px}
 .cx-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
 .cx-cols p+p{margin-top:12px}
 .cx-facts{display:grid;gap:14px;border-left:4px solid var(--ind);padding-left:20px}
-.cx-facts dt{font:500 11px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-facts dt{font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-facts dd{margin:2px 0 0}
 .cx .ico{color:var(--paper)}
 .cx-barriers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-barriers div{border-top:1px solid var(--cxl);padding-top:14px;font-size:15px;color:var(--cxm)}
-.cx-barriers b{display:block;font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
+.cx-barriers b{display:block;font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
 .cx-mix{margin-top:8px}
 .cx-concepts{display:grid;gap:10px;margin-top:20px}
 .cx-concepts div{padding:14px 16px;border:1px solid var(--cxl);font-size:14px;color:var(--cxm)}
 .cx-concepts .chosen{border-color:var(--ind);background:rgba(69,39,161,.22);color:var(--paper)}
-.cx-concepts span{display:block;font:500 11px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.cx-concepts span{display:block;font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
 .cx-concepts b{display:block;font-size:17px;color:var(--paper);margin:4px 0}
 .cx-system{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--cxl);border:1px solid var(--cxl)}
 .cx-system li{background:var(--void);padding:20px;font-size:14px;color:var(--cxm)}
-.cx-system i,.cx-day i{display:block;font:500 12px/1 'JetBrains Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
+.cx-system i,.cx-day i{display:block;font:500 12px/1 'IBM Plex Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
 .cx-system b,.cx-day b{display:block;font-size:19px;color:var(--paper);margin-bottom:6px}
 .cx-rule{font-size:clamp(18px,1.6vw,22px);font-weight:600;padding-left:16px;border-left:4px solid var(--red)}
 .cx-sense{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);padding:clamp(48px,7vw,96px) var(--gutter) 0;align-items:center}
 .cx-sense > div > p{margin-top:14px;max-width:46ch}
 .cx .tabs{grid-template-columns:repeat(5,1fr);border-color:var(--cxl)}
-.cx .tabs button{font-family:'JetBrains Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
+.cx .tabs button{font-family:'IBM Plex Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
 .cx .tabs button[aria-pressed=true]{background:var(--sc,#9101B1);color:#fff}
 .cx .readout{border-color:var(--cxl)}
-.cx .readout .where{font-family:'JetBrains Mono',monospace;color:var(--sc,#9101B1)}
+.cx .readout .where{font-family:'IBM Plex Mono',monospace;color:var(--sc,#9101B1)}
 .cx .caption{font-size:12px;color:var(--cxm);margin-top:8px}
 .cx-cite{font-size:13px;color:var(--cxm)}
 .cx-cite a{color:var(--paper)}
@@ -339,7 +339,7 @@ header{transition:background .5s,color .5s}
 .cx-cmf b{display:block;color:var(--paper)}
 .cx-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:16/9;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#150a2b 0 8px,#1b1035 8px 16px);border:1px dashed rgba(244,242,248,.25);color:var(--cxm);font-size:13px}
 .cx-block > .cx-uc{max-width:720px}
-.cx-uc b{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
+.cx-uc b{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
 .cx-day{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:d}
 .cx-day li{border-top:2px solid var(--ind);padding-top:14px;font-size:14px;color:var(--cxm)}
 .cx-day i{color:var(--paper);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
@@ -348,10 +348,10 @@ header{transition:background .5s,color .5s}
 .cx-lockups .paper{background:var(--paper);border-color:var(--paper)}
 .cx-lockups img{width:min(60%,300px);height:auto}
 .cx-sensors-key{display:flex;flex-wrap:wrap;gap:8px}
-.cx-sensors-key span{font:500 12px/1 'JetBrains Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
+.cx-sensors-key span{font:500 12px/1 'IBM Plex Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
 .cx-identity > p{max-width:56ch;color:var(--cxm)}
 .cx > .cx-closing{padding:clamp(48px,7vw,96px) var(--gutter) 0}
-.cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(22px,2.6vw,38px);line-height:1.25;font-weight:600;border-right:16px solid var(--red)}
+.cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(17px,2vw,28px);line-height:1.35;font-family:'Michroma',system-ui,sans-serif;font-weight:400;border-right:16px solid var(--red)}
 .cx-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .cx-in.seen{opacity:1;transform:none}
 html.in-cx header{background:#0D031E;color:#F4F2F8}
@@ -838,7 +838,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <div class="cx-sensors-key">
       <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">GPS</span>
     </div>
-    <p>Dark first, on Void. K2D for words, JetBrains Mono for numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
+    <p>Dark first, on Void. Michroma for headlines, IBM Plex Mono for words and numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
   </div>
 
   <figure class="cx-fig cx-in cx-closing" data-slide="cx-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/cx2-back34.jpg" alt="The CortX headset from behind, the red dial catching the light" width="1920" height="1080" loading="lazy"></figure>
