@@ -11,7 +11,10 @@ const label = process.argv[2] || 'snapshot';
 const date = new Date().toISOString().slice(0, 10);
 const runtime = await readFile(new URL('runtime.js', import.meta.url), 'utf8');
 const LIMIT = 49000 - runtime.length - 400;
-const PAGES = { desktop: 'Desktop', phone: 'Phone' };
+// Both viewports go on one page; the root frame names ("Desktop · vN", "Phone · vN") keep them apart.
+const PAGE = process.env.FIGMA_PAGE || 'website';
+const PAGES = { desktop: PAGE, phone: PAGE };
+const ROOT = { desktop: 'Desktop', phone: 'Phone' };
 await mkdir(join(dir, 'calls'), { recursive: true });
 
 const toHex = c => '#' + c.slice(0, 3).map(v => Math.round(v * 255).toString(16).padStart(2, '0')).join('') +
@@ -46,7 +49,7 @@ for (const vp of Object.keys(PAGES)) {
     return o;
   };
   const rootC = conv(tree.root);
-  const rootName = `${PAGES[vp]} · ${label} · ${date}`;
+  const rootName = `${ROOT[vp]} · ${label} · ${date}`;
   plan.assets[vp] = tree.assets;
 
   // Greedy chunking: whole subtrees when they fit, otherwise the frame shell now and its children later.

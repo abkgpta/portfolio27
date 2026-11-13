@@ -1,12 +1,14 @@
 # Editable Figma copy of the site
 
 Every time the site goes live, a new snapshot of it goes into the Figma file
-**portfolio.27 website** (https://www.figma.com/design/ZvS3oZJ97UlncdfpGPT7DB).
+**portfolio.27** (main file, https://www.figma.com/design/HMUfg2cg7UJmsbBgLY4a0n), on the page **website**.
+Versions up to v11 live in the older separate file https://www.figma.com/design/ZvS3oZJ97UlncdfpGPT7DB.
 The snapshot is real layers: frames with auto layout, editable text in the site's
 fonts, and images as fills. It is not a screenshot.
 
-- Page **Desktop**: the site at 1440 px wide.
-- Page **Phone**: the site at 390 px wide.
+- Frames `Desktop · v<N> · <date>`: the site at 1440 px wide.
+- Frames `Phone · v<N> · <date>`: the site at 390 px wide.
+- Both sit on the page **website** (override with `FIGMA_PAGE=<name>`).
 - Each release adds a new top-level frame named `<Page> · v<N> · <date>`, placed to the
   right of the older ones. Older frames, including any hand-edited ones, are never touched.
   Re-running the same label replaces only the frame with that exact name.
@@ -43,7 +45,7 @@ fonts, and images as fills. It is not a screenshot.
    ```
 
    Call `upload_assets` with the printed node ids (60 per call) **and `currentPageId`** set
-   to that page's id (Desktop or Phone). Save the returned `targetNodeId submitUrl` pairs
+   to the **website** page's id. Save the returned `targetNodeId submitUrl` pairs
    as `out/figma/urls.txt`, then:
 
    ```sh
