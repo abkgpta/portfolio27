@@ -99,5 +99,15 @@
       17,
       18
     ]
+  },
+  {
+    "v": 13,
+    "commit": "8c8ba9278da5a5ea236de1e2672d68560e1b7057",
+    "date": "2026-11-13",
+    "title": "CortX: 3D brain visualiser for EEG, fNIRS and IMU; Smoother CortX scroll render",
+    "pr": [
+      19,
+      20
+    ]
   }
 ]
