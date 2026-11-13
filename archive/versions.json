@@ -88,5 +88,16 @@
     "pr": [
       15
     ]
+  },
+  {
+    "v": 12,
+    "commit": "90018a52e2a79439a3a3a4f9db6fac40473c126d",
+    "date": "2026-11-13",
+    "title": "Set positioning line to \"abhik gupta: industrial & experiential design\"; CortX: body diagrams for each sensor in \"What it reads\"; CortX type: Michroma headlines, IBM Plex Mono body and data",
+    "pr": [
+      16,
+      17,
+      18
+    ]
   }
 ]

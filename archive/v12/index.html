@@ -1,0 +1,1309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>abhik gupta: industrial &amp; experiential design</title>
+<meta name="description" content="abhik gupta: industrial &amp; experiential design. portfolio.27: overgrwth, cortX, DASH.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
+  --line:rgba(10,10,10,.14); --muted:#5b5652;
+  --display:'Michroma',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --gutter:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:400 15px/1.65 var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,.display{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:1.15}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pink{color:var(--pink)}
+.rule{border-top:1px solid var(--line)}
+button{font:inherit;cursor:pointer}
+
+/* CortX: data flow + progress */
+.cx-flow-wrap{border:1px solid var(--cxl);border-radius:14px;padding:clamp(12px,2vw,28px);overflow:hidden}
+.cx-flow-svg{width:100%;height:auto;display:block}
+.cx-flow-svg text{font-family:'IBM Plex Mono',monospace;fill:var(--paper)}
+.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-h{font-size:24px;font-weight:700}
+.cx-flow-svg .f-s{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-c{font-size:16px;font-weight:600}
+.cx-flow-svg .f-step{font-size:16px;fill:var(--cxm)}.cx-flow-svg .f-step.last{fill:var(--paper);font-weight:700}
+.cx-flow-svg .f-box{fill:#150A2B;stroke:var(--cxl)}
+.cx-flow-svg .f-sep{stroke:var(--cxl)}
+.cx-flow-svg .f-line{fill:none;stroke-width:1.5;opacity:.55}
+.cx-flow-svg .f-main{stroke:var(--paper);stroke-width:2.5;opacity:.8}
+.cx-flow-svg .f-dash{stroke:var(--cxm);stroke-dasharray:4 6}
+@media (prefers-reduced-motion:reduce){.cx-flow-svg .f-dot{display:none}}
+.cx-progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cx-prog{margin:0;border:1px solid var(--cxl);border-radius:14px;padding:18px 18px 14px;display:grid;gap:10px}
+.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'IBM Plex Mono',monospace;color:var(--cxm)}
+.cx-prog-svg{width:100%;height:auto;display:block}
+.cx-prog-svg .p-grid{stroke:var(--cxl)}
+.cx-prog-svg .p-ax{font:500 12px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-prog-svg .p-lab{font:600 13px 'IBM Plex Mono',monospace}
+.cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
+@media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
+/* under construction strip */
+.wip{background:var(--ink);color:var(--cream);font-size:12px;padding:8px var(--gutter);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.wip b{font-weight:500;color:var(--pink)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.wordmark{font-family:var(--display);font-size:15px;text-decoration:none;letter-spacing:.04em;white-space:nowrap}
+.wordmark span{color:var(--pink)}
+nav{display:flex;gap:clamp(12px,2.4vw,32px);font-size:13px}
+nav a{text-decoration:none;opacity:.75}
+nav a:hover{opacity:1;color:var(--pink)}
+@media (max-width:640px){nav a.opt{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.hero-text{padding:clamp(40px,7vw,96px) var(--gutter) clamp(40px,6vw,72px);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:28px;justify-content:center}
+.hero h1,.hero .hero-h{font-size:clamp(30px,4.4vw,62px)}
+.hero p.lede{max-width:46ch;color:#2b2826}
+.prepared{display:none;font-size:13px;border:1px solid var(--pink);color:var(--pink);padding:6px 12px;align-self:flex-start}
+.prepared.on{display:inline-block}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;font-size:13px}
+.hero-meta b{display:block;font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--pink);color:var(--ink);border:0;padding:14px 20px;text-decoration:none;font-size:13px;letter-spacing:.04em}
+.cta:hover{background:var(--ink);color:var(--cream)}
+.cta.alt{background:var(--ink);color:var(--cream)}
+.cta.alt:hover{background:var(--pink);color:var(--ink)}
+.cta:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+/* avatar stage */
+.stage{background:var(--ink);color:var(--cream);position:relative;min-height:560px;display:flex;flex-direction:column}
+.stage canvas{flex:1;width:100%;min-height:380px;display:block}
+.stage canvas[hidden]{display:none}
+.stage-top,.stage-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(247,242,239,.6)}
+.stage-top{border-bottom:1px solid rgba(255,0,106,.35)}
+.stage-bottom{border-top:1px solid rgba(255,0,106,.35);flex-wrap:wrap;text-transform:none;letter-spacing:0;font-size:13px;color:var(--cream)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#555;margin-right:8px;vertical-align:middle}
+.dot.live{background:var(--pink);box-shadow:0 0 12px var(--pink)}
+.stage .cta{background:var(--pink);color:var(--ink)}
+.stage .cta:hover{background:var(--white);color:var(--ink)}
+.stage .cta.alt{background:var(--cream);color:var(--ink)}
+.stage .cta.alt:hover{background:var(--pink);color:var(--ink)}
+#voice-agent-mount{min-height:0}
+.caption{font-size:12px;color:var(--muted)}
+.stage .caption{color:rgba(247,242,239,.5)}
+
+/* sections */
+section{scroll-margin-top:64px}
+.project-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
+.project-head > div{padding:clamp(32px,5vw,64px) var(--gutter)}
+.project-head > div:first-child{border-right:1px solid var(--line)}
+.project-head h2{font-size:clamp(28px,2.7vw,48px);margin:10px 0 8px;white-space:nowrap}
+.project-head .sub{font-size:14px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 28px;margin-top:28px;font-size:13px}
+.facts dt{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.big-quote{font-family:var(--display);font-size:clamp(20px,2.6vw,34px);line-height:1.3;max-width:24ch}
+.prose p+p{margin-top:14px}
+.prose{max-width:62ch}
+
+.fig{border-bottom:1px solid var(--line)}
+.fig img{width:100%}
+.figcap{display:flex;justify-content:space-between;gap:16px;padding:12px var(--gutter);font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.two > *{padding:clamp(28px,4vw,56px) var(--gutter)}
+.two > *:first-child{border-right:1px solid var(--line)}
+.two > .prose{max-width:none}
+
+/* cortX (dark) */
+.dark{background:var(--ink);color:var(--cream);--line:rgba(255,0,106,.35);--muted:rgba(247,242,239,.55)}
+.dark .project-head h2 span{color:var(--pink)}
+.sensors{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);border-bottom:1px solid var(--line)}
+.sensors > div{padding:clamp(28px,4vw,56px) var(--gutter)}
+.sensors > div:first-child{border-right:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:18px 0}
+.tabs button{background:transparent;color:var(--cream);border:0;border-right:1px solid var(--line);padding:12px 4px;font-size:13px}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-pressed=true]{background:var(--pink);color:#fff}
+.readout{border:1px solid var(--line);padding:20px;min-height:200px}
+.readout h3{font-size:18px;margin-bottom:6px}
+.readout .where{font-size:12px;color:var(--pink);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.trace{width:100%;height:70px;margin-top:16px;display:block}
+.concepts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.concept{padding:28px var(--gutter);border-right:1px solid var(--line);font-size:13px}
+.concept:last-child{border-right:0}
+.concept b{font-family:var(--display);font-weight:400;display:block;font-size:15px;margin:8px 0}
+.concept.chosen{background:rgba(255,0,106,.08)}
+.tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;padding:2px 8px}
+.chosen .tag{color:var(--pink)}
+
+/* project playlists */
+.mix{margin-top:28px;max-width:560px}
+.mix-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.mix-frame{background:rgba(127,127,127,.15);min-height:152px}
+.mix iframe{display:block;width:100%;height:152px;border:0}
+
+/* dash */
+.dash{background:linear-gradient(110deg,#05070d 0%,#0b1a3a 55%,#1b2f6b 100%);color:#fff;padding:clamp(56px,9vw,120px) var(--gutter);border-bottom:1px solid var(--line)}
+.dash h2{font-size:clamp(40px,7vw,96px);letter-spacing:.04em}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
+.about > div{padding:clamp(32px,5vw,64px) var(--gutter)}
+.about > div:first-child{border-right:1px solid var(--line)}
+.cv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:36px;font-size:13px}
+.cv h3{font-size:13px;margin-bottom:10px;color:var(--pink)}
+.cv li{list-style:none;margin-bottom:10px}
+.cv li b{font-weight:500}
+
+/* contact */
+.contact{padding:clamp(56px,9vw,120px) var(--gutter);text-align:left}
+.contact a.mail{font-family:var(--display);font-size:clamp(20px,4vw,52px);text-decoration:none;word-break:break-all}
+.contact a.mail:hover{color:var(--pink)}
+/* influences */
+.influences{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,80px)}
+.inf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--line)}
+.inf-col{padding:24px 0 0}
+.inf-col + .inf-col{border-left:1px solid var(--line);padding-left:var(--gutter)}
+.inf-col h3{font-size:13px;color:var(--pink);margin-bottom:14px}
+.inf-col ol{list-style:none;counter-reset:inf}
+.inf-col li{counter-increment:inf;display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--display);font-size:clamp(18px,2.2vw,30px);line-height:1.2}
+.inf-col li:last-child{border-bottom:0}
+.inf-col li::before{content:counter(inf,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2ch}
+@media (max-width:640px){.inf-grid{grid-template-columns:1fr}.inf-col + .inf-col{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:24px}}
+footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (max-width:900px){
+  .hero,.project-head,.two,.grow,.sensors,.about{grid-template-columns:1fr}
+  .hero-text,.project-head>div:first-child,.two>*:first-child,.grow-ctrl,.sensors>div:first-child,.about>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .parts,.concepts{grid-template-columns:1fr}
+  .part,.concept{border-right:0;border-bottom:1px solid var(--line)}
+  .stage{min-height:460px}
+  .project-head h2{font-size:clamp(28px,9vw,56px)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.grow-view img{transition:none}}
+
+/* overgrwth: its own theme (Instrument Sans, #FFFAFA, blue/yellow/red/green) */
+.og{--ogb:#4569BE;--ogy:#FBCB44;--ogr:#D95942;--ogg:#2F7A4B;--ogp:#FFFAFA;--ogi:#1F2F5C;
+  background:var(--ogp);color:var(--ogi);font:400 16px/1.6 'Instrument Sans',system-ui,sans-serif;position:relative;overflow:hidden;
+  border-top:0;padding-bottom:clamp(40px,6vw,96px)}
+.og h2,.og h3{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:700;letter-spacing:-.02em}
+.og-wipe{position:absolute;inset:0 0 auto 0;height:14px;display:flex;pointer-events:none}
+.og-wipe i{flex:1;transform-origin:left;transform:scaleX(var(--p,0));transition:transform .2s linear}
+.og-wipe i:nth-child(1){background:var(--ogb)}.og-wipe i:nth-child(2){background:var(--ogy)}.og-wipe i:nth-child(3){background:var(--ogr)}.og-wipe i:nth-child(4){background:var(--ogg)}
+.og-head{padding:clamp(56px,8vw,120px) var(--gutter) 24px;background:
+  linear-gradient(var(--ogp),var(--ogp)) padding-box,
+  repeating-linear-gradient(90deg,rgba(69,105,190,.12) 0 1px,transparent 1px 96px),
+  repeating-linear-gradient(0deg,rgba(69,105,190,.12) 0 1px,transparent 1px 96px)}
+.og-head{background:repeating-linear-gradient(90deg,rgba(69,105,190,.10) 0 1px,transparent 1px 96px),repeating-linear-gradient(0deg,rgba(69,105,190,.10) 0 1px,transparent 1px 96px)}
+.og-eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ogb);font-weight:600}
+.og-word{font-size:clamp(64px,15vw,220px);line-height:1;color:var(--ogb);margin:12px 0 8px;white-space:nowrap;clip-path:inset(0 calc(100% - var(--p,0)*100%) 0 0)}
+.og-sub{font-size:clamp(18px,2vw,26px);font-weight:500;color:var(--ogb)}
+.og-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding:32px var(--gutter)}
+.og-quote{font-size:clamp(22px,2.6vw,34px);line-height:1.25;font-weight:600;color:var(--ogb);margin-bottom:16px}
+.og-facts{display:grid;gap:14px;align-self:start;border-left:6px solid var(--ogr);padding-left:20px}
+.og-facts dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ogb);font-weight:600}
+.og-facts dd{margin:0}
+.team{display:flex;flex-direction:column;gap:4px}
+.team span{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ico{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:50%;background:currentColor;flex:none}
+.ico svg{width:15px;height:15px;fill:var(--ico-fg,#fff)}
+.og .ico{color:var(--ogb)}
+.og-mix{margin:0 var(--gutter) 24px}
+.og-fig{margin:0}
+.og-fig img{width:100%;background:#EEECE9}
+.og-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--ogi)}
+.og-fig figcaption span{color:var(--ogb);font-weight:600;white-space:nowrap}
+.og > .og-fig{padding:16px var(--gutter) 0}
+.og-block{padding:clamp(40px,6vw,88px) var(--gutter) 0;display:grid;gap:24px}
+.og-out{font-size:clamp(48px,8vw,112px);line-height:1;color:transparent;-webkit-text-stroke:2px var(--ogb);text-transform:lowercase}
+.og-lead{font-size:clamp(20px,2.2vw,30px);line-height:1.3;font-weight:500;max-width:34ch;color:var(--ogi)}
+.og-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-cards div{padding:24px;font-size:15px}
+.og-cards b{display:block;font-size:22px;margin-bottom:8px}
+.c-blue{background:var(--ogb);color:var(--ogp)}.c-yellow{background:var(--ogy);color:var(--ogi)}.c-red{background:var(--ogr);color:var(--ogp)}
+.og-note{max-width:60ch}
+.og-two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding:clamp(40px,6vw,88px) var(--gutter) 0;align-items:center}
+.og-two p+p{margin-top:12px}
+.og-two h3{margin-bottom:16px}
+.og-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.og-stack{display:grid;gap:16px}
+.og-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:1.414;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#ECE8E4 0 8px,#F3F0EC 8px 16px);border:1px dashed #B9B2AC;color:var(--ogi);font-size:13px}
+.og-block > .og-uc{max-width:640px}
+.og-uc b{font-family:var(--mono,monospace);font-weight:400;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+.og-rules{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.og-rules li{border-top:6px solid var(--ogy);padding-top:12px}
+.og-rules b{display:block;color:var(--ogb)}
+.og-build{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.8fr);margin:clamp(40px,6vw,88px) var(--gutter) 0;background:var(--ogb);color:var(--ogp)}
+.og-build-ctrl{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:18px}
+.og-build .og-out{-webkit-text-stroke-color:var(--ogp)}
+.og-presets,.og-toggles{display:flex;flex-wrap:wrap;gap:8px}
+.og-build button{font:600 14px/1 'Instrument Sans',system-ui,sans-serif;padding:10px 14px;border:0;border-radius:999px;background:rgba(255,250,250,.16);color:var(--ogp);cursor:pointer;min-height:40px}
+.og-presets button[aria-pressed=true]{background:var(--ogy);color:var(--ogi)}
+.og-toggles button{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;font-weight:500}
+.og-toggles button i{width:12px;height:12px;border-radius:50%;background:var(--sw);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+.og-toggles button[aria-pressed=false]{opacity:.45}
+.og-toggles button[aria-pressed=false] i{background:transparent;box-shadow:0 0 0 1px var(--ogp)}
+.og-build-view{position:relative;background:var(--ogp);min-height:420px;aspect-ratio:16/11}
+.og-build-view canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.og-build-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.og-build-view.ready img,.og-build-view.ready .og-loading{display:none}
+.og-build-view:not(.ready) canvas{visibility:hidden}
+.og-loading{position:absolute;left:16px;bottom:12px;font-size:13px;color:var(--ogb);background:var(--ogp);padding:4px 10px}
+.og-swatches{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;font-size:13px}
+.og-swatches i{display:block;aspect-ratio:1;box-shadow:inset 0 0 0 1px rgba(31,47,92,.18);margin-bottom:8px}
+.og-swatches b{display:block;color:var(--ogb)}
+.og-close{margin:clamp(40px,6vw,88px) var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ogb);color:var(--ogp);font-size:clamp(22px,2.8vw,40px);line-height:1.25;font-weight:600;border-right:24px solid var(--ogr)}
+.og-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.og-in.seen{opacity:1;transform:none}
+html.in-og header{background:#FFFAFA;color:#4569BE;transition:background .5s,color .5s}
+header{transition:background .5s,color .5s}
+@media (max-width:820px){
+  .og-intro,.og-two,.og-build,.og-grid2,.og-grid3,.og-cards,.og-rules{grid-template-columns:minmax(0,1fr)}
+  .og-swatches{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .og-build-view{aspect-ratio:1;min-height:0}
+  .og-close{border-right-width:12px}
+}
+@media (prefers-reduced-motion:reduce){.og-in{opacity:1;transform:none;transition:none}.og-wipe i{transition:none}}
+/* ---------- CortX: identity v0.3 (Void, Michroma display, IBM Plex Mono body + data) ---------- */
+/* CortX scroll sequence (pre-rendered frames scrubbed by scroll) */
+.cx-sc{position:relative;height:820vh;margin-top:clamp(32px,5vw,72px)}
+.cx-sc-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.cx-sc canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cx-sc-logo{position:absolute;left:50%;top:44%;width:min(84vw,1300px);opacity:0;transform:translate(-50%,-50%) scale(.92);will-change:opacity,transform}
+.cx-sc-logo img{width:100%;height:auto;display:block}
+.cx-sc-cap{position:absolute;left:var(--gutter);bottom:clamp(28px,5vh,56px);max-width:min(420px,calc(100% - 2*var(--gutter)));opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
+.cx-sc.has-cap .cx-sc-cap{opacity:1;transform:none}
+.cx-sc-cap .n{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
+.cx-sc-cap h3{font-size:clamp(17px,1.9vw,25px);line-height:1.2;margin:4px 0}
+.cx-sc-cap p{color:var(--cxm);font-size:15px;line-height:1.45}
+.cx-sc-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--cxl)}
+.cx-sc-bar i{display:block;height:100%;width:0;background:var(--red)}
+@media print{.cx-sc{display:none}}
+
+.cx{--void:#0D031E;--paper:#F4F2F8;--ind:#4527A1;--red:#FF190F;--cxl:rgba(244,242,248,.14);--cxm:rgba(244,242,248,.62);
+  background:var(--void);color:var(--paper);font-family:'IBM Plex Mono',ui-monospace,monospace;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
+.cx h2,.cx h3{font-family:'Michroma',system-ui,sans-serif;font-weight:400;letter-spacing:0}
+.cx-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:center;gap:clamp(16px,3vw,48px);padding:clamp(48px,7vw,104px) var(--gutter) 0}
+.cx-eyebrow{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-logo{margin:18px 0 18px}
+.cx-logo img{width:min(100%,300px);height:auto}
+.cx-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:34ch}
+.cx-fig{margin:0}
+.cx-fig img{width:100%;display:block;background:#1a1230}
+.cx-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--cxm)}
+.cx-fig figcaption span{font-family:'IBM Plex Mono',monospace;color:var(--paper);white-space:nowrap}
+.cx-block{padding:clamp(48px,7vw,96px) var(--gutter) 0;display:grid;gap:24px}
+.cx-h{font-size:clamp(24px,3.2vw,46px);line-height:1.12}
+.cx-quote{font-family:'Michroma',system-ui,sans-serif;font-size:clamp(20px,2.6vw,36px);line-height:1.3;font-weight:400;max-width:26ch}
+.cx-lead{font-size:clamp(19px,1.9vw,26px);line-height:1.3;font-weight:500;max-width:36ch;margin-bottom:12px}
+.cx-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
+.cx-cols p+p{margin-top:12px}
+.cx-facts{display:grid;gap:14px;border-left:4px solid var(--ind);padding-left:20px}
+.cx-facts dt{font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-facts dd{margin:2px 0 0}
+.cx .ico{color:var(--paper)}
+.cx-barriers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cx-barriers div{border-top:1px solid var(--cxl);padding-top:14px;font-size:15px;color:var(--cxm)}
+.cx-barriers b{display:block;font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
+.cx-mix{margin-top:8px}
+.cx-concepts{display:grid;gap:10px;margin-top:20px}
+.cx-concepts div{padding:14px 16px;border:1px solid var(--cxl);font-size:14px;color:var(--cxm)}
+.cx-concepts .chosen{border-color:var(--ind);background:rgba(69,39,161,.22);color:var(--paper)}
+.cx-concepts span{display:block;font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.cx-concepts b{display:block;font-size:17px;color:var(--paper);margin:4px 0}
+.cx-system{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--cxl);border:1px solid var(--cxl)}
+.cx-system li{background:var(--void);padding:20px;font-size:14px;color:var(--cxm)}
+.cx-system i,.cx-day i{display:block;font:500 12px/1 'IBM Plex Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
+.cx-system b,.cx-day b{display:block;font-size:19px;color:var(--paper);margin-bottom:6px}
+.cx-rule{font-size:clamp(18px,1.6vw,22px);font-weight:600;padding-left:16px;border-left:4px solid var(--red)}
+.cx-sense{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);padding:clamp(48px,7vw,96px) var(--gutter) 0;align-items:center}
+.cx-sense > div > p{margin-top:14px;max-width:46ch}
+.cx .tabs{grid-template-columns:repeat(5,1fr);border-color:var(--cxl)}
+.cx .tabs button{font-family:'IBM Plex Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
+.cx .tabs button[aria-pressed=true]{background:var(--sc,#9101B1);color:#fff}
+.cx .readout{border-color:var(--cxl)}
+.cx .readout .where{font-family:'IBM Plex Mono',monospace;color:var(--sc,#9101B1)}
+.cx .caption{font-size:12px;color:var(--cxm);margin-top:8px}
+.cx-cite{font-size:13px;color:var(--cxm)}
+.cx-cite a{color:var(--paper)}
+.cx-body{margin:0;align-self:start;position:sticky;top:96px}
+.cx-body svg{width:100%;height:auto;display:block;overflow:visible}
+.cx-body figcaption{font-size:13px;color:var(--cxm);margin-top:8px;text-align:center}
+.cx-body .b-body{fill:#1d1336;stroke:rgba(244,242,248,.5);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.cx-body .b-arm{fill:#241843}
+.cx-body .b-line{fill:none;stroke:rgba(244,242,248,.35);stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-vest{fill:rgba(69,39,161,.55);stroke:rgba(244,242,248,.3);stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-shell{fill:#D9D6E0;stroke:#9a96a8;stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-bu{fill:#D9D6E0;stroke:#9a96a8;stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-cable{fill:none;stroke:#9a96a8;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.cx-body .b-spot{fill:none;stroke:var(--sc);stroke-width:2;transition:all .4s ease}
+.cx-body .b-lead{stroke:var(--sc);stroke-width:1;stroke-dasharray:4 4;opacity:.8}
+.cx-body .b-lens{fill:#120828;stroke:var(--sc);stroke-width:2}
+.cx-body .b-d,.cx-body .b-lab,.cx-body [data-only]{opacity:0;transition:opacity .35s ease;pointer-events:none}
+.cx-body[data-k=eeg] [data-k=eeg],.cx-body[data-k=fnirs] [data-k=fnirs],.cx-body[data-k=imu] [data-k=imu],.cx-body[data-k=hr] [data-k=hr],.cx-body[data-k=gps] [data-k=gps],.cx-body[data-k=gps] [data-only=gps]{opacity:1}
+.cx-body .b-brain{fill:rgba(145,1,177,.12);stroke:rgba(244,242,248,.55);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.cx-body [data-k=fnirs] .b-brain{fill:none;stroke-dasharray:6 4}
+.cx-body .b-layer{fill:none;stroke:rgba(244,242,248,.35);stroke-width:1;stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
+.cx-body .b-gyri{fill:none;stroke:rgba(244,242,248,.3);stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-sig path{stroke:var(--sc);stroke-width:1.5;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;animation:cxDash 1s linear infinite}
+.cx-body .b-el circle,.cx-body .b-spark circle,.cx-body .b-ph,.cx-body .b-me{fill:var(--sc)}
+.cx-body .b-spark circle{animation:cxBlink 1.2s ease-in-out infinite}
+.cx-body .b-spark circle:nth-child(2){animation-delay:.3s}.cx-body .b-spark circle:nth-child(3){animation-delay:.6s}.cx-body .b-spark circle:nth-child(4){animation-delay:.9s}
+.cx-body .b-path{fill:none;stroke:var(--sc);stroke-width:10;opacity:.22;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.cx-body .b-path2{stroke-width:2;opacity:.9;stroke-dasharray:4 4}
+.cx-body .b-opt{fill:#fff;stroke:var(--sc);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.cx-body .b-det{fill:var(--sc)}
+.cx-body .b-chip{fill:var(--sc)}
+.cx-body .b-axis{stroke:rgba(244,242,248,.25);stroke-width:1;stroke-dasharray:2 5}
+.cx-body .b-rot{fill:none;stroke:var(--sc);stroke-width:2}
+.cx-body .b-heart{fill:rgba(0,194,168,.25);stroke:var(--sc);stroke-width:1.5;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:cxBeat 1s ease-in-out infinite}
+.cx-body .b-pulse{fill:none;stroke:var(--sc);stroke-width:1.5;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;animation:cxDash 1s linear infinite reverse}
+.cx-body .b-pitch *{fill:none;stroke:rgba(244,242,248,.45);stroke-width:1.5}
+.cx-body .b-track{fill:none;stroke:#fff;stroke-width:1.5;stroke-dasharray:4 4;opacity:.8}
+.cx-body .b-me{stroke:#fff;stroke-width:2}
+.cx-body .b-sats path{fill:none;stroke:var(--sc);stroke-width:2;stroke-linecap:round}
+.cx-body .b-sats .b-ray{stroke-width:1;stroke-dasharray:3 5;opacity:.7}
+.cx-body text{font:500 13px 'IBM Plex Mono',monospace;fill:var(--paper)}
+.cx-body text.s{font-weight:400;fill:var(--cxm);font-size:12px}
+.cx-body text.r{text-anchor:end}.cx-body text.m{text-anchor:middle}
+@keyframes cxDash{to{stroke-dashoffset:-12}}
+@keyframes cxBlink{50%{opacity:.2}}
+@keyframes cxBeat{15%{transform:scale(1.12)}30%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.cx-body *{animation:none!important}}
+.cx-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cx-cmf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;font-size:13px;color:var(--cxm)}
+.cx-cmf i{display:block;height:56px;margin-bottom:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.cx-cmf b{display:block;color:var(--paper)}
+.cx-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:16/9;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#150a2b 0 8px,#1b1035 8px 16px);border:1px dashed rgba(244,242,248,.25);color:var(--cxm);font-size:13px}
+.cx-block > .cx-uc{max-width:720px}
+.cx-uc b{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
+.cx-day{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:d}
+.cx-day li{border-top:2px solid var(--ind);padding-top:14px;font-size:14px;color:var(--cxm)}
+.cx-day i{color:var(--paper);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.cx-lockups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cx-lockups div{display:flex;align-items:center;justify-content:center;aspect-ratio:2/1;border:1px solid var(--cxl)}
+.cx-lockups .paper{background:var(--paper);border-color:var(--paper)}
+.cx-lockups img{width:min(60%,300px);height:auto}
+.cx-sensors-key{display:flex;flex-wrap:wrap;gap:8px}
+.cx-sensors-key span{font:500 12px/1 'IBM Plex Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
+.cx-identity > p{max-width:56ch;color:var(--cxm)}
+.cx > .cx-closing{padding:clamp(48px,7vw,96px) var(--gutter) 0}
+.cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(17px,2vw,28px);line-height:1.35;font-family:'Michroma',system-ui,sans-serif;font-weight:400;border-right:16px solid var(--red)}
+.cx-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.cx-in.seen{opacity:1;transform:none}
+html.in-cx header{background:#0D031E;color:#F4F2F8}
+@media (max-width:900px){
+  .cx-head,.cx-cols,.cx-sense,.cx-grid2,.cx-lockups,.cx-barriers{grid-template-columns:minmax(0,1fr)}
+  .cx-system{grid-template-columns:minmax(0,1fr)}
+  .cx-body{position:static}
+  .cx-sense > div:first-child{display:contents}
+  .cx-sense .cx-cite{order:2}.cx-sense .cx-body{order:1}
+  .cx-body text{font-size:19px}.cx-body text.s{display:none}
+  .cx-day{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cx-cmf{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cx-close{border-right-width:8px}
+}
+@media (prefers-reduced-motion:reduce){.cx-in{opacity:1;transform:none;transition:none}}
+/* site-wide social icons */
+.socials{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px}
+.socials .ico{color:var(--ink)}
+footer .socials .ico{width:24px;height:24px}
+footer .socials .ico svg{width:13px;height:13px}
+.dark .ico{color:var(--pink)}
+</style>
+<link rel="stylesheet" href="css/engine.css">
+<style>
+.bank-stub{padding:64px var(--gutter)}
+/* gallery hero: the work first */
+.gallery{padding:28px var(--gutter) 40px}
+.g-line{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.g-line h1{font-size:clamp(20px,2.4vw,30px);line-height:1.2;margin:0;max-width:34ch}
+.g-line .eyebrow{white-space:nowrap}
+@media(max-width:600px){.g-line .eyebrow{white-space:normal;line-height:1.6}}
+.g-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.g-grid a{position:relative;display:block;overflow:hidden;background:var(--ink);aspect-ratio:3/2;text-decoration:none}
+.g-grid a.wide{grid-column:span 2;grid-row:span 2}
+.g-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.g-grid a:hover img{transform:scale(1.04)}
+.g-grid span{position:absolute;left:10px;bottom:8px;font-size:12px;color:var(--cream);background:rgba(10,10,10,.6);padding:3px 8px}
+@media (max-width:760px){.g-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g-grid a.wide{grid-row:span 1}}
+</style>
+</head>
+<body id="top">
+<div id="archive-bar" style="position:sticky;top:0;z-index:2147483647;display:flex;flex-wrap:wrap;gap:.4em 1.2em;align-items:center;padding:8px 16px;background:#0A0A0A;color:#F7F2EF;font:500 12px/1.4 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.02em"><span>Archived version v12 &middot; 2026-11-13 &middot; Set positioning line to &quot;abhik gupta: industrial &amp; experiential design&quot;; CortX: body diagrams for each sensor in &quot;What it reads&quot;; CortX type: Michroma headlines, IBM Plex Mono body and data</span><span style="opacity:.6">This is the latest archived version.</span><span style="margin-left:auto;display:flex;gap:1.2em"><a href="../" style="color:#FF006A">All versions</a><a href="../../" style="color:#FF006A">Live site</a></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-in" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 2.2c-2.7 0-3 0-4 .1C3.6 2.5 2.5 4.6 2.3 8c-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.4 1.3 5.5 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.4-.2 5.5-1.3 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.4-1.3-5.5-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.4.1 3.6 1.2 3.7 3.7.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.4-1.2 3.6-3.7 3.7-1 .1-1.4.1-4 .1s-2.9 0-4-.1c-2.5-.1-3.6-1.3-3.7-3.7-.1-1-.1-1.4-.1-4s0-2.9.1-4C4.4 5.3 5.5 4.2 8 4.1c1-.1 1.4-.1 4-.1z"/></symbol>
+<symbol id="i-be" viewBox="0 0 24 24"><path d="M8.2 11.3c.9-.4 1.4-1.1 1.4-2.2C9.6 7 8 6 6 6H1v12h5.2c2.1 0 4.1-1 4.1-3.4 0-1.5-.7-2.6-2.1-3.3zM3.4 8h2.2c.8 0 1.6.2 1.6 1.2 0 .9-.6 1.2-1.4 1.2H3.4zm2.5 8H3.4v-3.3h2.6c1 0 1.7.4 1.7 1.6 0 1.2-.8 1.7-1.8 1.7zM15.5 7h5V8.3h-5zM23 13.6c0-2.6-1.5-4.7-4.2-4.7-2.6 0-4.4 2-4.4 4.6 0 2.7 1.7 4.6 4.4 4.6 2 0 3.4-.9 4-3h-2.1c-.2.8-1.1 1.2-1.9 1.2-1.3 0-2-.7-2-2zm-6.2-1.3c.1-1 .8-1.7 1.9-1.7 1 0 1.6.7 1.8 1.7z"/></symbol>
+<symbol id="i-web" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-3a15 15 0 0 0-1.3-3.9A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4zM4.3 14a8 8 0 0 1 0-4h3.4a16 16 0 0 0 0 4zm.8 2h3a15 15 0 0 0 1.3 3.9A8 8 0 0 1 5.1 16zm3-8h-3a8 8 0 0 1 4.3-3.9C8.9 5.3 8.4 6.6 8.1 8zM12 20c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4zm2.3-6H9.7a14 14 0 0 1 0-4h4.6a14 14 0 0 1 0 4zm.3 5.9c.6-1.2 1-2.5 1.3-3.9h3a8 8 0 0 1-4.3 3.9zm1.7-5.9a16 16 0 0 0 0-4h3.4a8 8 0 0 1 0 4z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 2.8-8 5-8-5V17h16z"/></symbol>
+</svg>
+
+
+<div class="wip" role="note"><b>Under construction</b><span>This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span></div>
+
+<header>
+  <div class="wrap">
+    <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
+    <nav>
+      <a href="#overgrwth">overgrwth</a>
+      <a href="#cortx">CortX</a>
+      <a class="opt" href="#dash">DASH</a>
+      <a class="opt" href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
+    </nav>
+  </div>
+</header>
+
+
+<!-- ============ GALLERY (hero) ============ -->
+<section id="gallery" class="gallery">
+  <div class="g-line">
+    <h1>Abhik Gupta designs products end to end: form, CMF, systems and the electronics inside.</h1>
+    <div class="eyebrow">abhik gupta: <span class="pink">industrial &amp; experiential design</span></div>
+  </div>
+  <div class="g-grid">
+    <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
+    <a href="#cortx" data-for="cortx" class="wide"><img src="img/cx3-hero.jpg" alt="The CortX headset beside its back unit" loading="eager"><span>CortX</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-exploded.jpg" alt="The overgrwth system exploded part by part" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-socket.jpg" alt="Close-up of the plus-shaped socket inside an overgrwth post" loading="lazy"><span>overgrwth</span></a>
+    <a href="#cortx" data-for="cortx"><img src="img/cx2-dial.jpg" alt="The red Boa dial on the back of the CortX headset" loading="lazy"><span>CortX</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-power.jpg" alt="An overgrwth setup with the power path traced in yellow" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-clamp.jpg" alt="overgrwth panels, shelf and planter modules" loading="lazy"><span>overgrwth</span></a>
+    <a href="#cortx" data-for="cortx"><img src="img/cx2-exploded.jpg" alt="The CortX headset exploded part by part" loading="lazy"><span>CortX</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-grow.jpg" alt="The overgrwth grow light over a planter" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-attach.jpg" alt="overgrwth powered attachments: spotlight, clock and speaker" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og-sketches.jpg" alt="overgrwth ideation sketches" loading="lazy"><span>overgrwth</span></a>
+    <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-growth.jpg" alt="Three overgrwth setups growing from bare frames to full stacks" loading="lazy"><span>overgrwth</span></a>
+  </div>
+</section>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero-text">
+    <span class="prepared" id="prepared"></span>
+    <div class="eyebrow">portfolio.27 · <span class="pink">industrial &amp; experiential design</span></div>
+    <h2 class="hero-h">Understanding the rules to break them better.</h2>
+    <p class="lede">I'm Abhik, an industrial and experiential designer. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
+    <div class="hero-meta">
+      <div><b>Based in</b>Pune, India</div>
+      <div><b>Studying</b>B.Des Product Design, 2027</div>
+      <div><b>Tools</b>Rhino, Plasticity, KeyShot</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="cta" href="#overgrwth">See the work ↓</a>
+      <a class="cta alt" href="#contact">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="stage" aria-label="Talking avatar">
+    <div class="stage-top"><span><span class="dot" id="agentDot"></span><span id="agentStatus">Avatar idle</span></span><span id="ptCount"></span></div>
+    <canvas id="head" aria-hidden="true"></canvas>
+    <canvas id="head3d" aria-hidden="true" hidden></canvas>
+
+    <!-- =====================================================================
+         VOICE AGENT MOUNT
+         1. In the Blue Machines dashboard, find the embed / web-widget snippet
+            for your agent and paste it inside the div below.
+         2. Set AGENT_READY = true near the bottom of this file.
+         3. If the dashboard asks for allowed domains, add abkgpta.github.io
+         4. If their widget fires start/stop-speaking events, call
+            setSpeaking(true) / setSpeaking(false) from them so the head talks.
+         Until then, "Hear my intro" uses the browser's own voice as a fallback.
+         ===================================================================== -->
+    <div id="voice-agent-mount"></div>
+
+    <div class="stage-bottom">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="cta" id="talkBtn">Talk to me</button>
+        <button class="cta alt" id="introBtn">Hear my intro</button>
+      </div>
+      <span class="caption" id="stageNote">Early 3D head. A sharper one from a full scan is on the way.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OVERGRWTH ============ -->
+<section id="overgrwth" class="og" data-project="overgrwth" data-type="concept">
+  <div class="og-wipe" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="og-head" data-slide="og-cover" data-tiers="preview overview full" data-base="3" data-skills="systems" data-required>
+    <div class="og-eyebrow"><span data-num>01</span> · Modular Design · 2025</div>
+    <h2 class="og-word">overgrwth</h2>
+    <p class="og-sub">A modular workspace system for creative spaces.</p>
+  </div>
+  <div class="og-intro og-in" data-slide="og-intro" data-tiers="overview full" data-base="3" data-skills="systems,research" data-required>
+    <div>
+      <p class="og-quote">A creative's work is never over. There's always something to change, to add, or to remove.</p>
+      <p>overgrwth is built around that cycle. The whole system is two kinds of part: H-frames and modules. Every frame you add opens up new formations, and modules clip on only when you need them. Home or office, solo or studio, artist or architect, it grows with you, your space and what you make.</p>
+    </div>
+    <dl class="og-facts">
+      <div><dt>For</dt><dd>Designers, artists, content creators, engineers and architects</dd></div>
+      <div><dt>Focus</dt><dd>Space adaptability, physical and digital work in one place, keeping tools in reach</dd></div>
+      <div><dt>Team</dt><dd class="team">
+        <span>Abhik Gupta</span>
+        <span>Abhishek Vishwakarma <a class="ico" href="https://www.linkedin.com/in/abhishek-vishwakarma-03839b340/" target="_blank" rel="noopener" aria-label="Abhishek Vishwakarma on LinkedIn"><svg><use href="#i-in"/></svg></a></span>
+        <span>Dhawal Musale <a class="ico" href="https://www.linkedin.com/in/dhawal-m-380097228/" target="_blank" rel="noopener" aria-label="Dhawal Musale on LinkedIn"><svg><use href="#i-in"/></svg></a><a class="ico" href="https://www.behance.net/963e1d2a" target="_blank" rel="noopener" aria-label="Dhawal Musale on Behance"><svg><use href="#i-be"/></svg></a><a class="ico" href="https://www.instagram.com/dhawal_musale/" target="_blank" rel="noopener" aria-label="Dhawal Musale on Instagram"><svg><use href="#i-ig"/></svg></a></span>
+      </dd></div>
+    </dl>
+  </div>
+  <div class="mix og-mix" data-playlist="overgrwth" hidden><div class="mix-label">What I listened to while making overgrwth</div><div class="mix-frame"></div></div>
+
+  <figure class="og-fig og-in" data-slide="og-hero" data-tiers="preview overview full" data-card="hero" data-base="3" data-skills="rendering,cmf">
+    <img src="img/og4-hero.jpg" alt="A large overgrwth lattice in a studio: white H-frames stacked at different heights carrying shelves, planters, panels, grow lights and spotlights" width="2000" height="1414" loading="lazy">
+    <figcaption><span>Fig. 01</span>The full system, every attachment on</figcaption>
+  </figure>
+
+  <div class="og-block og-in" data-slide="og-brief" data-tiers="preview overview full" data-card="hook" data-base="2" data-skills="research">
+    <p class="og-quote" data-len="short">A creative's work is never over. There's always something to change, to add, or to remove.</p>
+    <h3 class="og-out" data-len="long">brief</h3>
+    <p class="og-lead" data-len="long">Design a modular system for professional creative spaces that helps people manage their things and builds a connection with the workspace.</p>
+    <div class="og-cards" data-len="long">
+      <div class="c-blue"><b>Space</b>Studios change size, shape and use. The system has to fit whatever room it lands in.</div>
+      <div class="c-yellow"><b>Physical + digital</b>Creatives move between physical, digital and paper-based work all day. A workspace has to hold all three.</div>
+      <div class="c-red"><b>Organisation</b>Tools, materials and references need a place close at hand, and that place keeps changing.</div>
+    </div>
+    <p class="og-note" data-len="long">Research started with interviews and observation at Oro Innovations, then case studies of modular walls and workstations already on the market.</p>
+  </div>
+
+  <div class="og-two og-in" data-slide="og-ideation" data-tiers="overview full" data-base="2" data-skills="sketching,research">
+    <img src="img/og-sketches.jpg" alt="Grid of black-pen ideation sketches exploring frames, joints and surfaces" loading="lazy">
+    <div>
+      <h3 class="og-out">ideation</h3>
+      <p>Rounds of sketching explored H-frames with rows of holes, slotting joints, pegboards, magnetic boards and toolboxes.</p>
+      <p>The name comes from the way flora grows over a landscape: serendipitously, a piece at a time, following what is around it. The system grows the same way.</p>
+    </div>
+  </div>
+
+  <div class="og-block og-in" data-slide="og-concept" data-tiers="overview full" data-base="2" data-skills="sketching,systems">
+    <h3 class="og-out">concept</h3>
+    <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span></div>
+  </div>
+
+  <div class="og-block og-in" data-slide="og-system" data-tiers="overview full" data-base="3" data-skills="systems,cad">
+    <h3 class="og-out">system</h3>
+    <p class="og-lead">One H-frame, repeated. A 3 in tube with one tall and one short post, 24 by 24 in overall.</p>
+    <div class="og-grid2">
+      <figure class="og-fig"><img src="img/og4-exploded.jpg" alt="The system exploded: H-frame, connector, cross foot, clamps, shelf and pegboard panel" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 02</span>One frame, one connector, one clamp</figcaption></figure>
+      <figure class="og-fig"><img src="img/og4-socket.jpg" alt="Close-up of the plus-shaped socket inside the open end of a post" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 03</span>Plus-shaped sockets lock frames at 90°</figcaption></figure>
+    </div>
+    <ul class="og-rules">
+      <li><b>Flip and stack.</b> Two short posts equal one tall post, so a flipped frame drops onto its neighbour and the lattice steps up 12 in at a time.</li>
+      <li><b>Grid.</b> Posts sit on a 20 in square grid. Every horizontal module fills one cell.</li>
+      <li><b>No anchoring.</b> Frames stand by interlocking, with no floor or ceiling fixings. The uneven lattice is kept on purpose to invite serendipity.</li>
+    </ul>
+  </div>
+
+  <div class="og-build og-in" id="ogBuild" data-slide="og-build" data-tiers="overview full" data-base="3" data-skills="cad,interaction">
+    <img src="img/og4-build.jpg" alt="Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light" loading="lazy" style="width:100%;display:block">
+  </div>
+
+  <div class="og-block og-in" data-slide="og-modules" data-tiers="overview full" data-base="2" data-skills="systems,cmf">
+    <h3 class="og-out">modules</h3>
+    <p class="og-lead">One universal post clamp carries everything that hangs or sits: panels, shelves and the planter, at any height.</p>
+    <figure class="og-fig"><img src="img/og4-clamp.jpg" alt="Close-up of the green universal clamp holding a blue panel to a post" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 04</span>One clamp carries every module, at any height</figcaption></figure>
+    <div class="og-grid2">
+      <figure class="og-fig"><img src="img/og4-attach.jpg" alt="Six post-top attachments in a row: grow light, spotlight, power hub, pen stand, clock and speaker" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 05</span>Grow light, spotlight, power hub, pen stand, clock, speaker</figcaption></figure>
+      <figure class="og-fig"><img src="img/og4-grow.jpg" alt="Red donut grow light on a post top over a planter tray with a plant" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 06</span>The grow light makes the name literal</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="og-two og-in og-power" data-slide="og-power" data-tiers="overview full" data-base="2" data-skills="electronics,systems">
+    <div class="og-stack">
+    <figure class="og-fig"><img src="img/og4-power.jpg" alt="A frame setup with the 24 volt power path traced from the power-in foot up through the posts to the attachments" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 07</span>Power path</figcaption></figure>
+    <figure class="og-fig"><img src="img/og4-foot.jpg" alt="Close-up of the red cross-shaped power-in foot with its cable" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 08</span>24 V comes in through the foot</figcaption></figure>
+    </div>
+    <div>
+      <h3 class="og-out">power</h3>
+      <p>24 V DC comes in at one power-in foot and runs up through the frames, carried by concentric pogo-pin contacts that work at any rotation.</p>
+      <p>Powered attachments plug into free post tops only. Nothing powered mounts partway up a post and no cables run down the tubes. The power hub turns one post top into three USB-C outlets and a Qi pad.</p>
+    </div>
+  </div>
+
+  <div class="og-block og-in" data-slide="og-cmf" data-tiers="overview full" data-base="2" data-skills="cmf">
+    <h3 class="og-out">colour</h3>
+    <p class="og-lead">Colour tells you what a module does. Structure stays neutral.</p>
+    <div class="og-swatches">
+      <div><i style="background:#FFFAFA"></i><b>Structure</b>Frames, connectors, clamps</div>
+      <div><i style="background:#2F7A4B"></i><b>Set down</b>Shelves</div>
+      <div><i style="background:#D95942"></i><b>Water and soil</b>Planter</div>
+      <div><i style="background:#FBCB44"></i><b>Hang</b>Pegboard</div>
+      <div><i style="background:#4569BE"></i><b>Pin</b>Softboard</div>
+      <div><i style="background:#fff"></i><b>Write</b>Whiteboard</div>
+    </div>
+    <div class="og-grid2"><figure class="og-fig"><img src="img/og4-material.jpg" alt="Material and colour samples for every part" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 09</span>Materials and finishes</figcaption></figure><figure class="og-fig"><img src="img/og4-growth.jpg" alt="One frame growing step by step into a full lattice" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 10</span>It grows with your workspace</figcaption></figure></div>
+  </div>
+
+  <div class="og-block og-in" data-slide="og-scenes" data-tiers="overview full" data-base="3" data-skills="rendering">
+    <h3 class="og-out">in use</h3>
+    <p class="og-lead">Three spaces, one system.</p>
+    <figure class="og-fig"><img src="img/og4-studio.jpg" alt="overgrwth frames with panels and lights beside a desk in a design studio" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 11</span>The centrepiece of a design studio</figcaption></figure>
+    <div class="og-grid2"><figure class="og-fig"><img src="img/og4-plant.jpg" alt="A tall overgrwth stack with plants and books beside a lounge chair" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 12</span>A plant corner in a rest area</figcaption></figure><figure class="og-fig"><img src="img/og4-workshop.jpg" alt="overgrwth frames with pegboards along a workbench in a design workshop" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 13</span>A utility wall in a workshop</figcaption></figure></div>
+  </div>
+
+  <div class="og-block og-in" data-slide="og-identity" data-tiers="overview full" data-base="2" data-skills="branding">
+    <h3 class="og-out">identity</h3>
+    <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span></div><div class="og-uc"><b>Under construction</b><span>Part tags</span></div></div>
+  </div>
+
+  <figure class="og-fig og-in" data-slide="og-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/og4-closing.jpg" alt="The overgrwth lattice from a new angle" width="2000" height="1414" loading="lazy"></figure>
+
+  <div class="og-close og-in" data-slide="og-outcome" data-tiers="overview full" data-base="1" data-skills="systems">
+    <p>There's no final form. Every arrangement is a different picture of the people using it.</p>
+  </div>
+</section>
+
+<!-- ============ CORTX ============ -->
+<section id="cortx" class="cx" data-project="cortx" data-type="concept">
+  <div class="cx-head" data-slide="cx-hero" data-tiers="preview overview full" data-card="hero" data-base="3" data-skills="rendering,systems" data-required>
+    <div class="cx-head-text">
+      <div class="cx-eyebrow"><span data-num>02</span> · Neuro-performance system</div>
+      <h2 class="cx-logo"><img src="img/cx-logo-void.png" alt="CortX" width="351" height="107"></h2>
+      <p class="cx-sub">A headset and back unit that read the brain and body in real training, and a pitch-side app that turns it into something a coach can act on today.</p>
+    </div>
+    <figure class="cx-fig cx-hero"><img src="img/cx3-hero.jpg" alt="The CortX headset in a pale grey shell with a graphite side and an indigo liner, linked by a thin cable to the egg-shaped back unit lying in front of it" width="1920" height="1080" loading="lazy"></figure>
+  </div>
+
+
+  <div class="cx-sc" data-frames="420" data-src="img/cx-scroll/{w}/f_{n}.webp" aria-label="The CortX headset taking itself apart and going back together as you scroll, then worn by a player who runs off">
+    <script type="application/json">[[1,36,"01","Side on","The headset as it sits on the pitch."],[37,90,"02","Every layer, apart","Shell, liner, sensors, pads, frame."],[91,118,"03.1","Top shell","The Mist shell you see from the stands."],[119,146,"03.2","Side shell and Boa dial","One turn of the dial sets the fit."],[147,174,"03.3","Hard liner","The indigo structure that carries every sensor."],[175,206,"03.4","EEG electrodes","Ag/AgCl contacts read brain activity during play."],[207,232,"03.5","Knit pads","Soft where it touches the head."],[233,260,"03.6","Webbing and frame","Holds everything at the right pressure."],[261,300,"04","Back together","Every part back in place."],[301,360,"05","Worn like part of the kit","Headset on, back unit high between the shoulder blades."],[361,420,"06","Now it's time to measure the mind.",""]]</script>
+    <div class="cx-sc-pin">
+      <div class="cx-sc-logo" aria-hidden="true"><img src="img/cx-logo-traced.svg" alt=""></div>
+      <canvas></canvas>
+      <div class="cx-sc-cap"><div class="n"></div><h3></h3><p></p></div>
+      <div class="cx-sc-bar"><i></i></div>
+    </div>
+  </div>
+
+  <div class="cx-block cx-in cx-brief" data-slide="cx-brief" data-tiers="preview overview full" data-card="hook" data-base="3" data-skills="research,systems" data-required>
+    <p class="cx-quote">Until now, we've only measured the body. Now it's time to measure the mind.</p>
+    <div class="cx-cols" data-len="long">
+      <div>
+        <p class="cx-lead">Clubs track almost everything about a player's body and nothing about their mind.</p>
+        <p>Mental fatigue hurts decisions and motor control before it shows up physically. The tools that could see it are wired lab caps with 64 channels, and nobody can sprint in one.</p>
+      </div>
+      <dl class="cx-facts">
+        <div><dt>For</dt><dd>The lead data analyst and head coach at a top club or performance centre</dd></div>
+        <div><dt>Reads</dt><dd>EEG, fNIRS, head motion, heart rate and GPS</dd></div>
+        <div><dt>Team</dt><dd class="team"><span>Abhik Gupta</span><span>Ansha Gawande <a class="ico" href="https://anshawtydesigns.framer.website/" target="_blank" rel="noopener" aria-label="Ansha Gawande's portfolio"><svg><use href="#i-web"/></svg></a><a class="ico" href="https://www.linkedin.com/in/ansha-gawande-954812283/" target="_blank" rel="noopener" aria-label="Ansha Gawande on LinkedIn"><svg><use href="#i-in"/></svg></a></span></dd></div>
+      </dl>
+    </div>
+    <div class="cx-barriers" data-len="long">
+      <div><b>01 · Hardware</b>Brain-sensing kit is heavy, wired and slow to put on.</div>
+      <div><b>02 · Trust</b>Coaches trust the eye test over a new kind of data.</div>
+      <div><b>03 · Friction</b>It needs outside specialists, which adds cost and delay.</div>
+    </div>
+    <div class="mix cx-mix" data-playlist="cortx" hidden><div class="mix-label">What I listened to while making CortX</div><div class="mix-frame"></div></div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-research" data-tiers="full" data-base="1" data-skills="research,prototyping">
+    <h3 class="cx-h">Research</h3>
+    <div class="cx-cols">
+      <div>
+        <p>Research ran from liveable spaces, through neurodiversity and sensory-centred design, to Sensory Intelligence Optimisation: taking someone from baseline to far above it. We studied the Red Bull Athlete Performance Centre and P3 along the way.</p>
+        <p>Before refining the shell, we built a fit mock-up of the liner in translucent plastic straps and foam pads to see how it actually sits on a head.</p>
+        <div class="cx-concepts">
+          <div class="chosen"><span>Taken forward</span><b>Brain-imaging headset</b>Worn in training to measure, not guess.</div>
+          <div><span>Concept</span><b>Blind-spot wristband</b>A haptic band that cues a player when someone enters their blind spot.</div>
+          <div><span>Concept</span><b>Game disruptor</b>A robotic unit that breaks a player's rhythm to force decisions under pressure.</div>
+        </div>
+      </div>
+      <figure class="cx-fig"><img src="img/cx-mockup.jpg" alt="Hand holding the translucent plastic and pink foam fit mock-up of the headset liner" loading="lazy"></figure>
+    </div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-concept" data-tiers="preview overview full" data-card="sketch" data-base="2" data-skills="sketching">
+    <h3 class="cx-h">Concept</h3>
+    <figure class="cx-fig"><img src="img/cx3-sketch.jpg" alt="Line sketches on a dark background: a player wearing the headset with the back unit high on the upper back, and the back unit from the front, an egg shape, and from the side, a lens shape" width="1920" height="1080" loading="lazy"><figcaption><span>Sketch</span>Where it sits on the body, and the back unit from the front and side</figcaption></figure>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-system" data-tiers="overview full" data-base="3" data-skills="systems">
+    <h3 class="cx-h">The system</h3>
+    <p class="cx-lead">It fits the club's routine instead of asking the club to change.</p>
+    <ol class="cx-system">
+      <li><i>01</i><b>Headset</b>Dry EEG electrodes and fNIRS sensors in a light shell. One Boa dial fits many head sizes.</li>
+      <li><i>02</i><b>Back unit</b>Amplifier, battery, GPS and Bluetooth in an egg-shaped 52 × 92 × 24 mm unit. It slides into a plate in the vest, between the shoulder blades, and a magnetic cable runs up to the headset.</li>
+      <li><i>03</i><b>Charging dock</b>A bench station where a squad of 25 headsets and back units charge and sync together.</li>
+      <li><i>04</i><b>Pitch-side app</b>Live focus, load and fatigue per player on a tablet. No laptop, no waiting for the report.</li>
+      <li><i>05</i><b>Analyst dashboard</b>Sessions over time, joined with positional and event data through Catapult and STATSports APIs.</li>
+    </ol>
+    <p class="cx-rule">CortX assists the coach's judgement. It never overrides it.</p>
+  </div>
+
+  <div class="cx-sense cx-in" data-slide="cx-science" data-tiers="overview full" data-base="3" data-skills="electronics,interaction">
+    <div>
+      <h3 class="cx-h">What it reads</h3>
+      <p>The headset carries the brain and head sensors. The back unit holds the analog front end, heart rate, GPS, Bluetooth and battery, and streams it all to the pitch-side app.</p>
+      <div class="tabs" role="group" aria-label="Sensor">
+        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="hr">HR</button><button data-k="gps">GPS</button>
+      </div>
+      <div class="readout" aria-live="polite">
+        <div class="where" id="sWhere"></div>
+        <h3 id="sName"></h3>
+        <p id="sText"></p>
+        <canvas class="trace" id="trace"></canvas>
+        <p class="caption">Illustrative signal, not recorded data.</p>
+      </div>
+      <p class="cx-cite">Why it matters: EEG neurofeedback training improved sport motor performance with a large effect (Hedges' g 0.78) across 21 randomised trials. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12019780/" target="_blank" rel="noopener">Yu et al. 2025 ↗</a></p>
+    </div>
+    <figure class="cx-body" id="cxBody" data-k="eeg">
+      <svg viewBox="0 0 720 540" role="img" aria-labelledby="cxBodyT cxBodyD">
+        <title id="cxBodyT">How CortX captures each signal</title>
+        <desc id="cxBodyD">A side view of a player wearing the CortX headset and back unit. The selected sensor is circled on the body and magnified on the right to show how it reads the signal.</desc>
+        <defs>
+          <g id="cxFig">
+            <path fill="#1d1336" stroke="rgba(244,242,248,.5)" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M108,112 C99,106 91,94 91,79 C91,57 105,40 123,40 C140,40 150,52 151,66 L152,74 C154,78 157,82 158,85 C157,87 154,88 152,88 L153,93 C152,95 151,96 150,97 C151,100 150,104 147,106 C142,109 137,109 134,109 L135,124 C146,130 154,146 155,166 C156,186 150,204 146,224 C144,240 148,256 148,272 C150,300 146,340 142,378 C141,388 142,396 140,404 C137,440 136,462 136,484 C142,488 156,492 166,496 C170,498 170,504 164,505 L116,505 C110,505 108,500 110,494 C112,470 110,450 112,430 C114,412 116,400 114,388 C112,370 108,330 104,300 C96,290 92,272 96,256 C100,240 104,226 102,210 C98,190 92,170 94,150 C96,136 104,126 106,120 Z"/>
+            <path fill="#241843" stroke="rgba(244,242,248,.5)" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M112,146 C110,132 134,128 136,144 L137,214 C139,240 141,266 142,292 C143,304 141,318 133,319 C125,320 123,310 123,300 C120,274 117,246 115,218 Z"/>
+            <ellipse fill="none" stroke="rgba(244,242,248,.35)" stroke-width="1" vector-effect="non-scaling-stroke" cx="111" cy="77" rx="4" ry="6"/>
+            <path fill="rgba(69,39,161,.55)" stroke="rgba(244,242,248,.3)" stroke-width="1" vector-effect="non-scaling-stroke" d="M93,166 L155,168 L155,184 L95,182 Z"/>
+            <path fill="none" stroke="#9a96a8" stroke-width="1.5" vector-effect="non-scaling-stroke" d="M97,90 C101,110 93,124 89,140"/>
+            <rect fill="#D9D6E0" stroke="#9a96a8" stroke-width="1" vector-effect="non-scaling-stroke" x="82" y="138" width="12" height="36" rx="5"/>
+            <path fill="#D9D6E0" stroke="#9a96a8" stroke-width="1" vector-effect="non-scaling-stroke" d="M92,90 C83,60 100,31 123,31 C146,31 159,46 158,64 L156,74 L152,72 C151,52 140,40 123,40 C105,40 91,57 91,79 C91,83 92,87 94,90 Z"/>
+            <circle fill="#FF190F" cx="96" cy="76" r="3.2"/>
+          </g>
+          <clipPath id="cxLens"><circle cx="480" cy="270" r="196"/></clipPath>
+          <radialGradient id="cxHeat"><stop offset="0" stop-color="#F46C02" stop-opacity=".9"/><stop offset="1" stop-color="#F46C02" stop-opacity="0"/></radialGradient>
+        </defs>
+
+        <!-- context figure -->
+        <use href="#cxFig" transform="translate(16,14)"/>
+        <g class="b-sats" data-only="gps">
+          <path d="M40,40 l10,-10 m-14,6 l8,8 m4,-18 l8,8" /><path d="M200,22 l10,-10 m-14,6 l8,8 m4,-18 l8,8"/>
+          <path class="b-ray" d="M48,40 L101,166 M206,22 L108,160"/>
+        </g>
+        <circle class="b-spot" id="cxSpot" cx="138" cy="54" r="16"/>
+        <line class="b-lead" id="cxLeadA"/><line class="b-lead" id="cxLeadB"/>
+
+        <!-- lens -->
+        <circle class="b-lens" cx="480" cy="270" r="196"/>
+        <g clip-path="url(#cxLens)">
+          <!-- EEG -->
+          <g class="b-d" data-k="eeg">
+            <g transform="translate(68.6,32) scale(3.4)">
+              <use href="#cxFig"/>
+              <path class="b-brain" d="M100,74 C96,62 104,49 120,48 C136,47 146,56 147,66 C148,75 141,80 132,80 L110,80 C104,81 101,79 100,74 Z M104,83 C106,88 114,90 118,86"/>
+              <path class="b-gyri" d="M106,66 c4,-6 8,2 12,-4 s8,4 12,-2 s8,4 10,0 M108,74 c4,-4 8,2 12,-2 s8,3 12,0 M114,56 c4,-3 6,2 10,-1 s6,3 8,0"/>
+              <g class="b-sig"><path d="M107,60 L99,54 M116,53 L110,45 M128,52 L128,42 M139,57 L144,49"/></g>
+              <g class="b-el"><circle cx="98" cy="53" r="1.8"/><circle cx="109.5" cy="44" r="1.8"/><circle cx="128" cy="40.6" r="1.8"/><circle cx="145" cy="48" r="1.8"/></g>
+              <g class="b-spark"><circle cx="108" cy="60" r="1.2"/><circle cx="118" cy="54" r="1.2"/><circle cx="128" cy="54" r="1.2"/><circle cx="138" cy="58" r="1.2"/></g>
+            </g>
+          </g>
+          <!-- fNIRS -->
+          <g class="b-d" data-k="fnirs">
+            <g transform="translate(-396,-102) scale(6)">
+              <use href="#cxFig"/>
+              <path class="b-layer" d="M141,44 C146,50 148,58 148,70"/>
+              <path class="b-brain" d="M136,47 C141,53 143,60 142.5,72"/>
+              <path id="cxBanana" class="b-path" d="M147.2,52.5 C137.5,55 137.5,64 150.8,67"/>
+              <path class="b-path b-path2" d="M147.2,52.5 C139.5,55.5 139.5,63 150.8,67"/>
+              <rect class="b-opt" x="147" y="50.6" width="3" height="3.4" rx=".6" transform="rotate(-58 148.5 52.3)"/>
+              <rect class="b-opt b-det" x="150.2" y="65.2" width="3" height="3.4" rx=".6" transform="rotate(-80 151.7 66.9)"/>
+              <circle class="b-ph" r=".7"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#cxBanana"/></animateMotion></circle>
+              <circle class="b-ph" r=".7"><animateMotion dur="1.8s" begin="-.6s" repeatCount="indefinite"><mpath href="#cxBanana"/></animateMotion></circle>
+              <circle class="b-ph" r=".7"><animateMotion dur="1.8s" begin="-1.2s" repeatCount="indefinite"><mpath href="#cxBanana"/></animateMotion></circle>
+            </g>
+          </g>
+          <!-- IMU -->
+          <g class="b-d" data-k="imu">
+            <g transform="translate(114,60) scale(3)">
+              <use href="#cxFig"/>
+              <rect class="b-chip" x="118" y="35" width="8" height="5" rx="1"/>
+            </g>
+            <line class="b-axis" x1="480" y1="60" x2="480" y2="470"/>
+            <line class="b-axis" x1="290" y1="270" x2="680" y2="270"/>
+            <path class="b-rot" d="M432,112 A54,14 0 1,0 528,112" marker-end="url(#cxArr)"/>
+            <path class="b-rot" d="M352,186 A150,150 0 0,0 350,350" marker-end="url(#cxArr)"/>
+            <path class="b-rot" d="M640,226 A16,46 0 1,1 640,314" marker-end="url(#cxArr)"/>
+            <path class="b-rot b-impact" d="M650,150 L590,214" marker-end="url(#cxArr)"/>
+          </g>
+          <!-- HR -->
+          <g class="b-d" data-k="hr">
+            <g transform="translate(80,-290) scale(3.2)">
+              <use href="#cxFig"/>
+              <path class="b-heart" d="M134,170 c-4,-6 -12,-2 -9,6 c2,5 9,9 12,11 c3,-3 8,-8 8,-13 c0,-7 -8,-9 -11,-4 Z"/>
+              <path class="b-pulse" d="M95,175 L112,175 L114,170 L116,180 L118,173 L121,175 L150,175"/>
+              <g class="b-el"><circle cx="154" cy="172" r="1.6"/><circle cx="153.6" cy="180" r="1.6"/></g>
+            </g>
+          </g>
+          <!-- GPS: position on the pitch -->
+          <g class="b-d" data-k="gps">
+            <rect x="284" y="74" width="392" height="392" fill="#0f2a14"/>
+            <g class="b-pitch" transform="translate(330,150)">
+              <rect width="300" height="240"/><line x1="150" y1="0" x2="150" y2="240"/><circle cx="150" cy="120" r="30"/>
+              <rect x="0" y="66" width="44" height="108"/><rect x="256" y="66" width="44" height="108"/>
+              <rect x="0" y="96" width="16" height="48"/><rect x="284" y="96" width="16" height="48"/>
+            </g>
+            <g class="b-heat" transform="translate(330,150)">
+              <circle cx="186" cy="70" r="46" fill="url(#cxHeat)"/><circle cx="214" cy="96" r="38" fill="url(#cxHeat)"/>
+              <circle cx="160" cy="62" r="34" fill="url(#cxHeat)" opacity=".7"/><circle cx="236" cy="54" r="30" fill="url(#cxHeat)" opacity=".8"/>
+              <circle cx="128" cy="110" r="28" fill="url(#cxHeat)" opacity=".5"/><circle cx="246" cy="140" r="26" fill="url(#cxHeat)" opacity=".45"/>
+              <path class="b-track" d="M120,118 C140,90 170,96 182,70 C196,44 232,40 240,60 C248,80 214,92 210,110 C206,128 240,138 248,146"/>
+              <circle class="b-me" cx="248" cy="146" r="5"/>
+            </g>
+          </g>
+        </g>
+        <defs><marker id="cxArr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="var(--sc)"/></marker></defs>
+
+        <!-- labels, screen coords -->
+        <g class="b-lab" data-k="eeg">
+          <text x="300" y="100">Dry electrodes</text><text x="300" y="116" class="s">touch the scalp</text>
+          <text x="560" y="330" class="r">Cortex</text><text x="560" y="346" class="r s">neurons fire together</text>
+          <text x="480" y="430" class="m">Microvolt waves, through the skull</text>
+        </g>
+        <g class="b-lab" data-k="fnirs">
+          <text x="466" y="196" class="r">Emitter</text><text x="466" y="212" class="r s">near-infrared light</text>
+          <text x="500" y="344" class="r">Detector</text><text x="500" y="360" class="r s">about 3 cm away</text>
+          <text x="306" y="280">Blood oxygen</text><text x="306" y="296" class="s">absorbs the light</text>
+        </g>
+        <g class="b-lab" data-k="imu">
+          <text x="546" y="92">Yaw</text><text x="546" y="108" class="s">scanning</text>
+          <text x="360" y="394">Pitch</text><text x="360" y="410" class="s">heading, nodding</text>
+          <text x="634" y="372" class="r">Roll</text>
+          <text x="640" y="140" class="r">Impact</text>
+          <text x="480" y="440" class="m">IMU in the crown, 3 axes</text>
+        </g>
+        <g class="b-lab" data-k="hr">
+          <text x="660" y="190" class="r">Vest electrodes</text><text x="660" y="206" class="r s">on the chest</text>
+          <text x="520" y="330" class="r">Heart</text>
+          <text x="300" y="320">Back unit</text><text x="300" y="336" class="s">reads each beat</text>
+        </g>
+        <g class="b-lab" data-k="gps">
+          <text x="480" y="122" class="m">One match, one player</text>
+          <text x="480" y="424" class="m">Where they played, as a heatmap</text>
+        </g>
+      </svg>
+      <figcaption id="cxBodyCap"></figcaption>
+    </figure>
+  </div>
+
+  <div class="cx-block cx-in cx-flow" data-slide="cx-flow" data-tiers="overview full" data-base="3" data-skills="systems,interaction">
+    <h3 class="cx-h">How the data moves</h3>
+    <p class="cx-lead">The back unit does the hard work, so the tablet only gets answers.</p>
+    <div class="cx-flow-wrap"><svg class="cx-flow-svg" viewBox="0 0 1200 520" role="img" aria-labelledby="cxFlowT cxFlowD">
+<title id="cxFlowT">How CortX data moves</title><desc id="cxFlowD">Five sensors in the headset and back unit feed the back unit, which cleans the signals and turns them into focus, load and fatigue. It streams those over Bluetooth to the pitch-side tablet during training, and after the session the dock syncs everything to the analyst dashboard, where it is joined with GPS and event data.</desc>
+<text x="60" y="40" class="f-n">01</text><text x="60" y="70" class="f-h">Collect</text><text x="60" y="94" class="f-s">5 sensors, 2 devices</text>
+<text x="380" y="40" class="f-n">02</text><text x="380" y="70" class="f-h">Process</text><text x="380" y="94" class="f-s">On the back unit</text>
+<text x="690" y="40" class="f-n">03</text><text x="690" y="70" class="f-h">Stream</text><text x="690" y="94" class="f-s">Bluetooth, under 1 s</text>
+<text x="960" y="40" class="f-n">04</text><text x="960" y="70" class="f-h">Visualise</text><text x="960" y="94" class="f-s">Tablet now, dashboard later</text>
+<g><rect x="60" y="130" width="196" height="40" rx="20" fill="none" stroke="#9101B1" stroke-width="1.5"/><circle cx="82" cy="150" r="5" fill="#9101B1"/><text x="98" y="155" class="f-c">EEG</text><text x="242" y="155" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="190" width="196" height="40" rx="20" fill="none" stroke="#0098F6" stroke-width="1.5"/><circle cx="82" cy="210" r="5" fill="#0098F6"/><text x="98" y="215" class="f-c">fNIRS</text><text x="242" y="215" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="250" width="196" height="40" rx="20" fill="none" stroke="#AEC959" stroke-width="1.5"/><circle cx="82" cy="270" r="5" fill="#AEC959"/><text x="98" y="275" class="f-c">IMU</text><text x="242" y="275" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="310" width="196" height="40" rx="20" fill="none" stroke="#00C2A8" stroke-width="1.5"/><circle cx="82" cy="330" r="5" fill="#00C2A8"/><text x="98" y="335" class="f-c">HR</text><text x="242" y="335" class="f-d" text-anchor="end">Back unit</text></g>
+<g><rect x="60" y="370" width="196" height="40" rx="20" fill="none" stroke="#F46C02" stroke-width="1.5"/><circle cx="82" cy="390" r="5" fill="#F46C02"/><text x="98" y="395" class="f-c">GPS</text><text x="242" y="395" class="f-d" text-anchor="end">Back unit</text></g>
+<path d="M256,150 C330,150 310,190 380,190" class="f-line" stroke="#9101B1"/>
+<path d="M256,210 C330,210 310,230 380,230" class="f-line" stroke="#0098F6"/>
+<path d="M256,270 C330,270 310,270 380,270" class="f-line" stroke="#AEC959"/>
+<path d="M256,330 C330,330 310,310 380,310" class="f-line" stroke="#00C2A8"/>
+<path d="M256,390 C330,390 310,350 380,350" class="f-line" stroke="#F46C02"/>
+<rect x="380" y="150" width="230" height="240" rx="14" class="f-box"/>
+<text x="402" y="198" class="f-step">Filter noise</text>
+<line x1="402" x2="588" y1="220" y2="220" class="f-sep"/>
+<text x="402" y="250" class="f-step">Remove motion using IMU</text>
+<line x1="402" x2="588" y1="272" y2="272" class="f-sep"/>
+<text x="402" y="302" class="f-step">Check against baseline</text>
+<line x1="402" x2="588" y1="324" y2="324" class="f-sep"/>
+<text x="402" y="354" class="f-step last">Focus · Load · Fatigue</text>
+<path d="M610,270.0 C730,270.0 840,205.0 960,205.0" class="f-line f-main"/>
+<text x="785.0" y="314.0" class="f-d" text-anchor="middle">3 numbers per player,</text><text x="785.0" y="334.0" class="f-d" text-anchor="middle">every second</text>
+<rect x="960" y="140" width="200" height="130" rx="12" class="f-box"/>
+<text x="978" y="172" class="f-c">Pitch-side tablet</text><text x="978" y="194" class="f-d">Live, during training</text>
+<rect x="978" y="216" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="216" width="118.08" height="6" rx="3" fill="#9101B1" class="f-bar" style="--w:0.72"/>
+<rect x="978" y="232" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="232" width="98.39999999999999" height="6" rx="3" fill="#0098F6" class="f-bar" style="--w:0.6"/>
+<rect x="978" y="248" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="248" width="62.32" height="6" rx="3" fill="#F46C02" class="f-bar" style="--w:0.38"/>
+<path d="M495.0,390 C495.0,417.0 610,417.0 690,417.0" class="f-line f-dash"/><path d="M860,417.0 C900,417.0 920,405.0 960,405.0" class="f-line f-dash"/>
+<rect x="690" y="380" width="170" height="74" rx="12" class="f-box"/><text x="708" y="412" class="f-c">Dock</text><text x="708" y="434" class="f-d">Full session syncs</text>
+<rect x="960" y="330" width="200" height="150" rx="12" class="f-box"/><text x="978" y="362" class="f-c">Analyst dashboard</text><text x="978" y="384" class="f-d">After the session</text>
+<text x="978" y="414" class="f-d" fill="#F46C02">+ Catapult GPS</text>
+<text x="978" y="434" class="f-d" fill="#F46C02">+ STATSports</text>
+<text x="978" y="454" class="f-d" fill="#F4F2F8">+ Event data</text>
+<circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="0.00s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
+<circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="1.20s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
+<circle r="4" fill="#0098F6" class="f-dot"><animateMotion dur="2.4s" begin="0.37s" repeatCount="indefinite" path="M256,210 C330,210 310,230 380,230"/></circle>
+<circle r="4" fill="#0098F6" class="f-dot"><animateMotion dur="2.4s" begin="1.57s" repeatCount="indefinite" path="M256,210 C330,210 310,230 380,230"/></circle>
+<circle r="4" fill="#AEC959" class="f-dot"><animateMotion dur="2.4s" begin="0.74s" repeatCount="indefinite" path="M256,270 C330,270 310,270 380,270"/></circle>
+<circle r="4" fill="#AEC959" class="f-dot"><animateMotion dur="2.4s" begin="1.94s" repeatCount="indefinite" path="M256,270 C330,270 310,270 380,270"/></circle>
+<circle r="4" fill="#00C2A8" class="f-dot"><animateMotion dur="2.4s" begin="1.11s" repeatCount="indefinite" path="M256,330 C330,330 310,310 380,310"/></circle>
+<circle r="4" fill="#00C2A8" class="f-dot"><animateMotion dur="2.4s" begin="2.31s" repeatCount="indefinite" path="M256,330 C330,330 310,310 380,310"/></circle>
+<circle r="4" fill="#F46C02" class="f-dot"><animateMotion dur="2.4s" begin="1.48s" repeatCount="indefinite" path="M256,390 C330,390 310,350 380,350"/></circle>
+<circle r="4" fill="#F46C02" class="f-dot"><animateMotion dur="2.4s" begin="2.68s" repeatCount="indefinite" path="M256,390 C330,390 310,350 380,350"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="0.0s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="4" fill="rgba(244,242,248,.6)" class="f-dot"><animateMotion dur="4s" begin="0s" repeatCount="indefinite" path="M495.0,390 C495.0,417.0 610,417.0 690,417.0"/></circle>
+<circle r="4" fill="rgba(244,242,248,.6)" class="f-dot"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M860,417.0 C900,417.0 920,405.0 960,405.0"/></circle>
+</svg></div>
+  </div>
+  <div class="cx-block cx-in" data-slide="cx-exploded" data-tiers="overview full" data-base="3" data-skills="cad,rendering">
+    <h3 class="cx-h">Inside the headset</h3>
+    <figure class="cx-fig"><img src="img/cx2-exploded.jpg" alt="The CortX headset exploded vertically: top shell, side shell, indigo hard liner, electrodes, knit pads and webbing, with the Boa dial and frame pulled back" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 01</span>Top shell, side shell, liner, electrodes, pads, webbing, dial</figcaption></figure>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-detail" data-tiers="overview full" data-base="2" data-skills="cmf,cad">
+    <h3 class="cx-h">Details</h3>
+    <div class="cx-grid2">
+      <figure class="cx-fig"><img src="img/cx2-dial.jpg" alt="Close-up of the red Boa dial embossed with the cortX mark on the graphite back of the headset" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 02</span>The only colour on the headset is the dial</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx2-inside.jpg" alt="The headset upside down showing the indigo liner with electrode pods and oval pads" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 03</span>Indigo liner, dry electrode pods</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-bu-front.jpg" alt="The back unit: a pale grey egg shape, wider at the top, with a round button near the top and a thin status light" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 04</span>Back unit: an egg from the front, a lens from the side</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-bu-exploded.jpg" alt="The back unit exploded: button, light pipe, front cover with four snap hooks, indigo silicone seal, graphite rear base, gold charging pads and the magnetic cable plug above" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 05</span>Snap-fit shell with a silicone seal. No screws, and sweat stays out.</figcaption></figure>
+    </div>
+    <div class="cx-cmf">
+      <div><i style="background:#D9D9D9"></i><b>Mist</b>Shell top, back unit</div>
+      <div><i style="background:#9A9AA0"></i><b>Mist side</b>Shell side</div>
+      <div><i style="background:#2B2E36"></i><b>Graphite</b>Frame, rear base</div>
+      <div><i style="background:#4527A1"></i><b>Indigo</b>Liner</div>
+      <div><i style="background:#FF190F"></i><b>Signal red</b>Boa dial only</div>
+    </div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-family" data-tiers="overview full" data-base="2" data-skills="rendering">
+    <h3 class="cx-h">The family</h3>
+    <div class="cx-grid2">
+      <figure class="cx-fig"><img src="img/cx2-side.jpg" alt="The CortX headset in profile, showing the long top shell and the red dial at the back" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 06</span>Headset, profile</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-bu-plate.jpg" alt="The back unit sitting in its dark receiver plate, the magnetic cable plug on top" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 07</span>It slides down into a plate in the vest. The cable clicks on with magnets and breaks away in a tackle.</figcaption></figure>
+    </div>
+    <figure class="cx-fig"><img src="img/cx3-family.jpg" alt="The whole kit together: headset, back unit in its receiver plate linked by a cable, and the pitch-side tablet showing the squad view" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 08</span>Headset, back unit and pitch-side tablet</figcaption></figure>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-day" data-tiers="overview full" data-base="2" data-skills="systems,research">
+    <h3 class="cx-h">A day at the club</h3>
+    <ol class="cx-day">
+      <li><i>Assess</i><b>Morning</b>Players put on the headset and vest. A short baseline sets today's starting point.</li>
+      <li><i>Train</i><b>Session</b>Focus, load and fatigue stream to the coach's tablet, live, player by player.</li>
+      <li><i>Profile</i><b>Afternoon</b>The analyst joins the session with GPS and event data and updates each player's profile.</li>
+      <li><i>Prepare</i><b>Matchday</b>Selection and warm-ups use what the week showed, with the coach making the call.</li>
+    </ol>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-app" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
+    <h3 class="cx-h">Pitch-side app</h3>
+    <p class="cx-lead">Three numbers per player, live. The coach sees who is fading before it shows on the pitch.</p>
+    <div class="cx-grid2">
+      <figure class="cx-fig"><img src="img/cx3-app-squad.jpg" alt="Squad view on the tablet: sixteen player tiles with focus, load and fatigue bars, two players flagged in orange, and a list of flags on the right" width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 09</span>Squad view. CortX flags, the coach decides.</figcaption></figure>
+      <figure class="cx-fig"><img src="img/cx3-app-player.jpg" alt="Player view for number 8: a focus ring at 58 and live traces for EEG, fNIRS, heart rate, head motion and GPS" width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 10</span>Player view. Every sensor in its own colour.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-dashboard" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
+    <h3 class="cx-h">Analyst dashboard</h3>
+    <figure class="cx-fig"><img src="img/cx3-dashboard.jpg" alt="Analyst dashboard for the season: four headline numbers, a chart of mental load against high-speed running by week, a watch list and a heat map of focus by player and week" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 11</span>Season view, joined with Catapult, STATSports and event data</figcaption></figure>
+  </div>
+
+  <div class="cx-block cx-in" data-slide="cx-progress" data-tiers="overview full" data-base="2" data-skills="interaction,research">
+    <h3 class="cx-h">One player, one season</h3>
+    <p class="cx-lead">The point isn't one session. It's seeing a player get sharper week by week, and knowing the training did it.</p>
+    <div class="cx-progs">
+<figure class="cx-prog"><figcaption><b>Focus late in matches</b><span>Last 15 minutes, match days</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Focus late in matches. Up from 58 to 74 over 18 weeks"><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">50</text><line x1="44" x2="486" y1="184.0" y2="184.0" class="p-grid"/><text x="36" y="188.0" class="p-ax" text-anchor="end">60</text><line x1="44" x2="486" y1="102.0" y2="102.0" class="p-grid"/><text x="36" y="106.0" class="p-ax" text-anchor="end">70</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">80</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">W1</text><text x="174.0" y="290" class="p-ax" text-anchor="middle">W6</text><text x="330.0" y="290" class="p-ax" text-anchor="middle">W12</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">W18</text><polyline points="44.0,200.4 70.0,208.6 96.0,184.0 122.0,192.2 148.0,167.6 174.0,175.8 200.0,151.2 226.0,159.4 252.0,134.8 278.0,143.0 304.0,118.4 330.0,126.6 356.0,102.0 382.0,110.2 408.0,93.8 434.0,85.6 460.0,77.4 486.0,69.2" fill="none" stroke="#9101B1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="69.2" r="4" fill="#9101B1"/><text x="494.0" y="73.2" class="p-lab" fill="#9101B1">74</text></svg><p class="p-note">Up from 58 to 74 over 18 weeks</p></figure>
+<figure class="cx-prog"><figcaption><b>Decision time when tired</b><span>Small-sided games, after minute 60</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Decision time when tired. Down from 820 to 655 ms"><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">600</text><line x1="44" x2="486" y1="216.8" y2="216.8" class="p-grid"/><text x="36" y="220.8" class="p-ax" text-anchor="end">650</text><line x1="44" x2="486" y1="167.6" y2="167.6" class="p-grid"/><text x="36" y="171.6" class="p-ax" text-anchor="end">700</text><line x1="44" x2="486" y1="118.4" y2="118.4" class="p-grid"/><text x="36" y="122.4" class="p-ax" text-anchor="end">750</text><line x1="44" x2="486" y1="69.2" y2="69.2" class="p-grid"/><text x="36" y="73.2" class="p-ax" text-anchor="end">800</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">850</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">W1</text><text x="174.0" y="290" class="p-ax" text-anchor="middle">W6</text><text x="330.0" y="290" class="p-ax" text-anchor="middle">W12</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">W18</text><polyline points="44.0,49.5 70.0,57.4 96.0,71.2 122.0,64.3 148.0,88.9 174.0,98.7 200.0,96.8 226.0,118.4 252.0,127.3 278.0,133.2 304.0,147.9 330.0,151.9 356.0,165.6 382.0,169.6 408.0,177.4 434.0,191.2 460.0,199.1 486.0,211.9" fill="none" stroke="#0098F6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="211.9" r="4" fill="#0098F6"/><text x="494.0" y="215.9" class="p-lab" fill="#0098F6">655 ms</text></svg><p class="p-note">Down from 820 to 655 ms</p></figure>
+<figure class="cx-prog"><figcaption><b>Same session, two months apart</b><span>Focus across 90 minutes</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Same session, two months apart. In July focus fell away after the hour. By November it holds."><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">40</text><line x1="44" x2="486" y1="184.0" y2="184.0" class="p-grid"/><text x="36" y="188.0" class="p-ax" text-anchor="end">55</text><line x1="44" x2="486" y1="102.0" y2="102.0" class="p-grid"/><text x="36" y="106.0" class="p-ax" text-anchor="end">70</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">85</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">0′</text><text x="191.3" y="290" class="p-ax" text-anchor="middle">30′</text><text x="338.7" y="290" class="p-ax" text-anchor="middle">60′</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">90′</text><polyline points="44.0,58.3 68.6,63.7 93.1,63.7 117.7,69.2 142.2,74.7 166.8,74.7 191.3,80.1 215.9,85.6 240.4,91.1 265.0,102.0 289.6,112.9 314.1,134.8 338.7,156.7 363.2,173.1 387.8,189.5 412.3,200.4 436.9,211.3 461.4,216.8 486.0,222.3" fill="none" stroke="rgba(244,242,248,.6)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 5" class="p-line"/><circle cx="486.0" cy="222.3" r="4" fill="rgba(244,242,248,.6)"/><text x="494.0" y="226.3" class="p-lab" fill="rgba(244,242,248,.6)">July</text><polyline points="44.0,47.3 68.6,47.3 93.1,52.8 117.7,52.8 142.2,52.8 166.8,58.3 191.3,58.3 215.9,58.3 240.4,63.7 265.0,63.7 289.6,69.2 314.1,69.2 338.7,74.7 363.2,74.7 387.8,80.1 412.3,80.1 436.9,85.6 461.4,85.6 486.0,91.1" fill="none" stroke="#9101B1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="91.1" r="4" fill="#9101B1"/><text x="494.0" y="95.1" class="p-lab" fill="#9101B1">Nov</text></svg><p class="p-note">In July focus fell away after the hour. By November it holds.</p></figure>
+</div>
+    <p class="caption">Illustrative data for one player, not recorded.</p>
+  </div>
+  <div class="cx-block cx-in cx-identity" data-slide="cx-identity" data-tiers="preview overview full" data-card="logo" data-base="2" data-skills="branding">
+    <h3 class="cx-h">Identity</h3>
+    <div class="cx-lockups">
+      <div class="paper"><img src="img/cx-logo.png" alt="CortX logo: indigo cort with a slanted red X" width="351" height="107" loading="lazy"></div>
+      <div><img src="img/cx-logo-void.png" alt="CortX logo on the dark Void background" width="351" height="107" loading="lazy"></div>
+    </div>
+    <div class="cx-sensors-key">
+      <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">GPS</span>
+    </div>
+    <p>Dark first, on Void. Michroma for headlines, IBM Plex Mono for words and numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
+  </div>
+
+  <figure class="cx-fig cx-in cx-closing" data-slide="cx-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/cx2-back34.jpg" alt="The CortX headset from behind, the red dial catching the light" width="1920" height="1080" loading="lazy"></figure>
+
+  <div class="cx-close cx-in" data-slide="cx-outcome" data-tiers="overview full" data-base="1" data-skills="systems">
+    <p>Clubs already know how far a player ran. CortX tells them how the player was thinking while they ran it.</p>
+  </div>
+</section>
+
+<!-- ============ DASH ============ -->
+<section id="dash" class="dash" data-project="dash" data-type="concept">
+  <div class="eyebrow" style="color:rgba(255,255,255,.6)"><span data-num>03</span> · Solo concept</div>
+  <h2 style="margin:12px 0 16px">DASH</h2>
+  <p style="max-width:52ch;color:rgba(255,255,255,.8)" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>Under construction. The case study is coming soon.</p>
+  <div class="mix" data-playlist="dash" hidden><div class="mix-label">What I listened to while making DASH</div><div class="mix-frame"></div></div>
+</section>
+
+<!-- ============ PROJECT BANK: industry + misc (content to come) ============ -->
+<section id="evoluir" class="bank-stub" data-draft data-project="evoluir" data-type="industry">
+  <div data-slide="evoluir-cover" data-tiers="preview overview full" data-base="1" data-skills="branding,packaging" data-required>
+    <div class="eyebrow"><span data-num>0</span> · Branding, product and packaging · 2024 to 2025</div>
+    <h2>Evoluir</h2>
+    <p>Case study coming soon.</p>
+  </div>
+</section>
+
+<section id="goodknocks" class="bank-stub" data-draft data-project="goodknocks" data-type="industry">
+  <div data-slide="goodknocks-cover" data-tiers="preview overview full" data-base="1" data-skills="branding,packaging" data-required>
+    <div class="eyebrow"><span data-num>0</span> · Product and brand · 2026</div>
+    <h2>Goodknocks</h2>
+    <p>Case study coming soon.</p>
+  </div>
+</section>
+
+<section id="nnode" class="bank-stub" data-draft data-project="nnode" data-type="industry">
+  <div data-slide="nnode-cover" data-tiers="preview overview full" data-base="1" data-skills="branding,packaging" data-required>
+    <div class="eyebrow"><span data-num>0</span> · Product and brand · 2026</div>
+    <h2>nnode</h2>
+    <p>Case study coming soon.</p>
+  </div>
+</section>
+
+<section id="misc" class="bank-stub" data-draft data-project="misc" data-type="misc">
+  <div data-slide="misc-cover" data-tiers="preview overview full" data-base="1" data-skills="branding,packaging" data-required>
+    <div class="eyebrow"><span data-num>0</span> · Smaller pieces</div>
+    <h2>Miscellaneous</h2>
+    <p>Case study coming soon.</p>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div>
+    <img src="img/p-about.jpg" alt="Abhik standing on a path at dusk in a lavender hoodie" width="396" height="308" style="width:100%;max-width:420px">
+  </div>
+  <div>
+    <div class="eyebrow">About</div>
+    <div class="prose" style="margin-top:14px">
+      <p>Sketching sneakers was my escape in school. I didn't take notes, I carved lines into paper, and I watched more football boot reviews than I played football.</p>
+      <p>Design school is where I fell for all of it: how lines move, how surfaces converge, the stance of a silhouette, how materials and colours meet. It didn't take long to see that design goes much further than visuals. Electronics, systems and mechanisms got me just as hooked.</p>
+    </div>
+    <div class="cv">
+      <div>
+        <h3>Experience</h3>
+        <ul>
+          <li><b>Evoluir</b>, Ahmedabad<br>Freelance industrial designer, Aug 2024 to May 2025. Designed the pilot product, Evoluir Air (form, CMF, detailing), plus brand identity, packaging and pitch decks.</li>
+          <li><b>Oro Innovations</b>, Ahmedabad<br>Industrial design apprentice, May to Jun 2025. An assistive accessory for a medtech client, and the studio's visual identity.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Education</h3>
+        <ul><li><b>B.Des (Hons.) Product Design</b><br>2023 to 2027</li></ul>
+        <h3 style="margin-top:20px">Skills</h3>
+        <ul><li>Design research, product thinking, sketching, UX methods. Rhino, Plasticity, KeyShot, Figma, Adobe CC.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="eyebrow">Open to studio roles and internships</div>
+  <p style="margin:18px 0 10px"><a class="mail" href="mailto:abhikthegupta@gmail.com">abhikthegupta@gmail.com</a></p>
+<div class="socials"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div>
+</section>
+
+<!-- ============ INFLUENCES ============ -->
+<section id="influences" class="influences" aria-labelledby="inf-h">
+  <div class="eyebrow" id="inf-h">Influences</div>
+  <div class="inf-grid">
+    <div class="inf-col">
+      <h3>People</h3>
+      <ol><li>Rick Rubin</li><li>Peter Yee</li><li>Naval Ravikant</li></ol>
+    </div>
+    <div class="inf-col">
+      <h3>Brands</h3>
+      <ol><li>BMW</li><li>KTM</li><li>Dyson</li></ol>
+    </div>
+  </div>
+</section>
+
+<footer><span>abhik gupta: industrial &amp; experiential design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
+
+<script src="js/engine.js"></script>
+<script src="js/cx-scroll.js" defer></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script>
+/* per-studio versions now live in js/engine.js and profiles/*.json */
+
+/* ---------- point-cloud head ---------- */
+const cv=document.getElementById('head'),ctx=cv.getContext('2d');
+let speaking=false,mouth=0,t=0;
+const pts=[];
+(function build(){
+  // head: ellipsoid sampled on a golden spiral, plus nose, brow and neck
+  const N=2600;
+  for(let i=0;i<N;i++){
+    const y=1-2*(i+.5)/N, r=Math.sqrt(1-y*y), a=i*2.39996;
+    let x=Math.cos(a)*r, z=Math.sin(a)*r, yy=y*1.28;
+    if(yy<-.55){x*=.82+.18*((yy+1.28)/.73);}           // narrow the jaw
+    if(z>.55&&Math.abs(x)<.18&&yy>-.35&&yy<.15){z+=.16*(1-Math.abs(x)/.18)*(1-Math.abs(yy+.1)/.25);} // nose
+    const isMouth=z>.6&&Math.abs(x)<.28&&yy>-.66&&yy<-.42;
+    const isEye=z>.55&&Math.abs(Math.abs(x)-.32)<.1&&Math.abs(yy-.12)<.06;
+    pts.push({x,y:yy,z,m:isMouth?(yy<-.54?-1:1):0,e:isEye});
+  }
+  for(let i=0;i<500;i++){ // neck
+    const a=Math.random()*Math.PI*2,h=Math.random();
+    pts.push({x:Math.cos(a)*.48,y:-1.25-h*.6,z:Math.sin(a)*.42,m:0,e:false});
+  }
+  document.getElementById('ptCount').textContent=pts.length.toLocaleString()+' pts';
+})();
+function resize(){const d=devicePixelRatio||1;cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d;}
+addEventListener('resize',resize);resize();
+let mx=0,my=0;
+cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;});
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function frame(){
+  if(cv.hidden)return;
+  t+=reduce?0:.01;
+  const target=speaking?(.35+.65*Math.abs(Math.sin(t*9)*Math.sin(t*3.7))):0;
+  mouth+=(target-mouth)*.35;
+  const W=cv.width,H=cv.height,S=Math.min(W,H)*.27,cx=W/2,cy=H*.46;
+  ctx.clearRect(0,0,W,H);
+  const ry=Math.sin(t*.6)*.5+mx*.8,rx=my*.3;
+  const cy_=Math.cos(ry),sy=Math.sin(ry),cx_=Math.cos(rx),sx=Math.sin(rx);
+  const d=devicePixelRatio||1;
+  for(const p of pts){
+    let y=p.y+(p.m===-1?-mouth*.12:0);
+    let x=p.x*cy_+p.z*sy, z=-p.x*sy+p.z*cy_;
+    let y2=y*cx_-z*sx; z=y*sx+z*cx_;
+    const k=3/(3-z), px=cx+x*S*k, py=cy-y2*S*k;
+    const lit=(z+1)/2;
+    if(p.m&&speaking)ctx.fillStyle=`rgba(255,0,106,${.5+lit*.5})`;
+    else if(p.e)ctx.fillStyle=`rgba(255,0,106,${.25+lit*.6})`;
+    else ctx.fillStyle=`rgba(247,242,239,${.06+lit*.6})`;
+    const s=(.6+lit*1.1)*d;ctx.fillRect(px,py,s,s);
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+function setSpeaking(on){
+  speaking=!!on;
+  if(window.avatar3d)window.avatar3d.setSpeaking(speaking);
+  document.getElementById('agentDot').classList.toggle('live',speaking);
+  document.getElementById('agentStatus').textContent=speaking?'Speaking':(AGENT_READY?'Agent ready':'Avatar idle');
+}
+window.setSpeaking=setSpeaking;
+
+/* ---------- voice ---------- */
+const AGENT_READY=false; // flip to true once the Blue Machines snippet is pasted into #voice-agent-mount
+const introText=()=>"Hi, I'm Abhik, an industrial and experiential designer. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
+document.getElementById('introBtn').onclick=()=>{
+  if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
+  speechSynthesis.cancel();
+  if(window.avatar3d){
+    setSpeaking(true);
+    window.avatar3d.speakScript(introText()).catch(()=>{}).finally(()=>setSpeaking(false));
+    return;
+  }
+  const u=new SpeechSynthesisUtterance(introText());u.rate=1.02;
+  u.onstart=()=>setSpeaking(true);u.onend=u.onerror=()=>setSpeaking(false);
+  speechSynthesis.speak(u);
+};
+document.getElementById('talkBtn').onclick=()=>{
+  if(AGENT_READY){document.getElementById('voice-agent-mount').scrollIntoView({block:'nearest'});return;}
+  document.getElementById('stageNote').textContent='The live voice agent is under construction. Try "Hear my intro" for now.';
+};
+if(AGENT_READY)setSpeaking(false);
+
+/* ---------- project playlists: paste each Spotify playlist link here ---------- */
+const PLAYLISTS={
+  overgrwth:'https://open.spotify.com/playlist/53EsNRr8eb2gWstUWnXea7',
+  cortx:'https://open.spotify.com/playlist/2hw26JndxXsr3pwU92JWDa',
+  dash:'https://open.spotify.com/playlist/1T2OlLzVH50fTQfLUuUgzh'
+};
+document.querySelectorAll('.mix').forEach(el=>{
+  const m=(PLAYLISTS[el.dataset.playlist]||'').match(/playlist\/([A-Za-z0-9]+)/);
+  if(!m)return;
+  const f=document.createElement('iframe');
+  f.src='https://open.spotify.com/embed/playlist/'+m[1]+'?utm_source=generator&theme=0';
+  f.loading='lazy';f.title='Spotify playlist for '+el.dataset.playlist;
+  f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  el.querySelector('.mix-frame').appendChild(f);el.hidden=false;
+});
+
+/* ---------- CortX sensor readout ---------- */
+const S={
+  eeg:{c:'#9101B1',where:'Headset',name:'EEG',text:'Electroencephalography. Reads alpha, beta and gamma brain waves from the cerebral cortex.',f:t=>Math.sin(t*.5)*.5+Math.sin(t*1.7)*.3+Math.sin(t*4.3)*.2},
+  fnirs:{c:'#0098F6',where:'Headset',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
+  imu:{c:'#AEC959',where:'Headset',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
+  hr:{c:'#00C2A8',where:'Back unit',name:'Heart rate',text:'Tracks heart rate through the vest, so mental load can be read against physical load.',f:t=>{const p=(t*.18)%1;return p<.08?Math.sin(p/.08*Math.PI)*.9:(p<.16?-Math.sin((p-.08)/.08*Math.PI)*.25:Math.sin(t*.3)*.05)}},
+  gps:{c:'#F46C02',where:'Back unit',name:'GPS position',text:'Tracks where the player is on the pitch and builds a positional heatmap, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
+};
+let sk='eeg';const tr=document.getElementById('trace'),tc=tr.getContext('2d');let tt=0;
+function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.getElementById('cortx').style.setProperty('--sc',s.c);document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
+/* body diagram: circle the sensor on the figure and magnify it in the lens */
+const BODY={eeg:[137,62,28,'EEG: dry electrodes in the headset pick up the brain’s electrical activity through the scalp.'],
+  fnirs:[166,72,14,'fNIRS: light goes in at the forehead and the detector reads how much the blood absorbed.'],
+  imu:[138,56,30,'IMU: a motion sensor in the crown tracks every turn, nod and impact of the head.'],
+  hr:[146,192,36,'Heart rate: vest electrodes on the chest, read by the back unit.'],
+  gps:[104,170,20,'Position: the back unit logs where the player is, built up into a heatmap.']};
+function setBody(k){const fb=document.getElementById('cxBody');if(!fb)return;const [x,y,r,cap]=BODY[k];fb.dataset.k=k;
+  const sp=document.getElementById('cxSpot');sp.setAttribute('cx',x);sp.setAttribute('cy',y);sp.setAttribute('r',r);
+  const X=480,Y=270,R=196,dx=X-x,dy=Y-y,d=Math.hypot(dx,dy),ux=dx/d,uy=dy/d,c=(r-R)/d,sn=Math.sqrt(1-c*c);
+  [[1,'cxLeadA'],[-1,'cxLeadB']].forEach(([g,id])=>{const nx=ux*c-g*uy*sn,ny=uy*c+g*ux*sn,l=document.getElementById(id);
+    l.setAttribute('x1',x+r*nx);l.setAttribute('y1',y+r*ny);l.setAttribute('x2',X+R*nx);l.setAttribute('y2',Y+R*ny);});
+  document.getElementById('cxBodyCap').textContent=cap;}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{setSensor(b.dataset.k);setBody(b.dataset.k);});setSensor('eeg');setBody('eeg');
+if(reduce){const sv=document.querySelector('#cxBody svg');sv&&sv.pauseAnimations&&sv.pauseAnimations();}
+function drawTrace(){
+  const d=devicePixelRatio||1;if(tr.width!==tr.clientWidth*d){tr.width=tr.clientWidth*d;tr.height=tr.clientHeight*d;}
+  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);
+  if(sk==='gps'){const pw=H*1.5,px=(W-pw)/2;tc.strokeStyle='rgba(244,242,248,.35)';tc.lineWidth=d;tc.strokeRect(px+.5,.5,pw-1,H-1);tc.beginPath();tc.moveTo(px+pw/2,0);tc.lineTo(px+pw/2,H);tc.stroke();
+    for(let i=0;i<60;i++){const q=tt*.3-i*.06,gx=px+pw*(.62+.22*Math.sin(q*1.3)),gy=H*(.42+.32*Math.sin(q*.9+1));tc.fillStyle='rgba(244,108,2,'+(1-i/60)*.5+')';tc.beginPath();tc.arc(gx,gy,(i?2:4)*d,0,7);tc.fill();}
+    tt+=reduce?0:.08;requestAnimationFrame(drawTrace);return;}
+  tc.strokeStyle=S[sk].c;tc.lineWidth=1.5*d;tc.beginPath();
+  for(let x=0;x<W;x+=2){const v=S[sk].f((x/d)*.15+tt);x?tc.lineTo(x,H/2-v*H*.4):tc.moveTo(x,H/2-v*H*.4);}
+  tc.stroke();tt+=reduce?0:.08;requestAnimationFrame(drawTrace);
+}
+drawTrace();
+</script>
+<script type="module">
+/* 3D head: loads over the point-cloud stand-in; if anything fails the point cloud stays */
+try{
+  await import('./avatar/head-avatar.js');
+  const c=document.getElementById('head3d');
+  c.hidden=false;
+  const a=await window.AbhikHead.mount(c,{src:'avatar/abhik_head.glb',orbit:false});
+  window.avatar3d=a;
+  document.getElementById('head').hidden=true;
+  document.getElementById('ptCount').textContent='';
+}catch(e){
+  console.warn('3D head unavailable, keeping point cloud',e);
+  document.getElementById('head3d').hidden=true;
+}
+</script>
+
+<script>
+/* ---------- overgrwth: scroll-in transition ---------- */
+(()=>{
+  const og=document.getElementById('overgrwth');if(!og)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  og.querySelectorAll('.og-in').forEach(el=>io.observe(el));
+  const tick=()=>{
+    const r=og.getBoundingClientRect(),vh=innerHeight;
+    const p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.85)));
+    og.style.setProperty('--p',p.toFixed(3));
+    document.documentElement.classList.toggle('in-og',r.top<80&&r.bottom>80);
+  };
+  addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);tick();
+})();
+</script>
+<script>
+/* ---------- CortX: scroll-in ---------- */
+(()=>{const cx=document.getElementById('cortx');if(!cx)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  cx.querySelectorAll('.cx-in').forEach(el=>io.observe(el));
+  const tick=()=>{const r=cx.getBoundingClientRect();document.documentElement.classList.toggle('in-cx',r.top<80&&r.bottom>80);};
+  addEventListener('scroll',tick,{passive:true});tick();})();
+</script>
+<script type="module">
+/* ---------- overgrwth: build viewer (og-viewer/og-viewer.js) ---------- */
+const ogEl=document.getElementById('ogBuild');
+const ogIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting)return;ogIO.disconnect();
+  try{const {mountOgViewer}=await import('./og-viewer/og-viewer.js');mountOgViewer(ogEl,{fallback:'img/og4-build.jpg',fallbackAlt:'Three overgrwth setups growing from bare frames to frames with shelves, planter and grow light'});}
+  catch(e){console.warn('overgrwth viewer unavailable',e);}},{rootMargin:'600px'});
+ogIO.observe(ogEl);
+</script>
+</body>
+</html>
