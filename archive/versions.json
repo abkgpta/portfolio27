@@ -127,5 +127,14 @@
     "pr": [
       23
     ]
+  },
+  {
+    "v": 16,
+    "commit": "f83ca7fe0816ffc2cdad5bff7c9aeb70b176037b",
+    "date": "2026-11-13",
+    "title": "CortX coach app: cleaner UI, 2007-08 United squad, deeper insights, no Catapult",
+    "pr": [
+      22
+    ]
   }
 ]
