@@ -202,3 +202,8 @@ p + p, p + h3, dl + p { margin-top: 3mm; }
 .cx-a4-prog .p-lab { font: 600 13px 'IBM Plex Mono', monospace; }
 .cx-a4-prog .p-note { font-size: 9pt; margin: 1mm 0 0; }
 .cx-a4-prog > .note { margin-top: 2mm; }
+
+.cx-stat-a4 { display: grid; grid-template-columns: auto 1fr; gap: 5mm; align-items: center; border-top: 1px solid rgba(244,242,248,.18); border-bottom: 1px solid rgba(244,242,248,.18); padding: 3mm 0; margin-bottom: 3mm; }
+.cx-stat-a4 b { font: 700 30pt/1 'JetBrains Mono', monospace; }
+.cx-stat-a4 p { margin: 0; font-size: 9.5pt; }
+.cx-stat-a4.big b { font-size: 40pt; }
