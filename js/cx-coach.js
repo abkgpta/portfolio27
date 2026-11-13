@@ -293,7 +293,7 @@
     root.dataset.view = ui.view;
     root.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-selected', b.dataset.view === ui.view));
     root.querySelector('.cxa-ctx').textContent = ui.view === 'season' ? 'Season 2026/27' : 'Live';
-    root.querySelector('.cxa-sess').textContent = ui.view === 'season' ? 'First team · 18 weeks · Catapult and event data joined' : 'Session 2 · Small-sided games';
+    root.querySelector('.cxa-sess').textContent = ui.view === 'season' ? 'First team · 18 weeks · CortX position and event data' : 'Session 2 · Small-sided games';
     clockEl.textContent = ui.view === 'season' ? '' : fmtClock(ui.clock);
     if (keepScroll) body.scrollTop = y;
   }
