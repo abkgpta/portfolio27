@@ -79,5 +79,14 @@
       12,
       13
     ]
+  },
+  {
+    "v": 11,
+    "commit": "d690730a0b831779f21a8ac280025b93c5567403",
+    "date": "2026-11-13",
+    "title": "CortX: scroll-driven render sequence",
+    "pr": [
+      15
+    ]
   }
 ]
