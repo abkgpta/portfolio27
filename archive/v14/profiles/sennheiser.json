@@ -1,0 +1,29 @@
+{
+  "name": "Sennheiser",
+  "gunj": "GUNJ-048",
+  "wave": 1,
+  "greeting": "Prepared for Sennheiser",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "dash",
+  "multipliers": {
+    "electronics": 1.4,
+    "interaction": 1.3,
+    "research": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.0,
+    "dash": 1.3
+  },
+  "pitch": {
+    "title": "Why Sennheiser",
+    "lines": [
+      "Sennheiser shows what engineering-led audio design looks like.",
+      "DASH is an audio player for runners: one button, a dot-matrix screen and mounts for the body.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}

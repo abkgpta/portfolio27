@@ -109,5 +109,14 @@
       19,
       20
     ]
+  },
+  {
+    "v": 14,
+    "commit": "4a48765b3728cfc9ba23a034d4f262fdcf8d58c5",
+    "date": "2026-11-13",
+    "title": "CortX: one interactive coach app for the pitch-side app and dashboard",
+    "pr": [
+      21
+    ]
   }
 ]
