@@ -486,7 +486,7 @@ export function mountCxBrain(root, opts = {}) {
       else { line(sig.a, '#AEC959', H * .3, H * .5, H, W, 1.8 * dpr); line(sig.b, '#D6EBA0', H * .3, H * .5, H, W, 1.2 * dpr, .8); line(sig.c, '#7E9A30', H * .3, H * .5, H, W, 1.2 * dpr, .8); legend([['#AEC959', 'Turn'], ['#D6EBA0', 'Nod'], ['#7E9A30', 'Tilt']]); }
     } else {
       const names = ['Focus', 'Load', 'Fatigue'], cols = ['#B45CF0', '#3DB4FF', COL.fat], rowH = H / 3;
-      tx.font = `500 ${11 * dpr}px "IBM Plex Mono", monospace`; tx.textBaseline = 'middle';
+      tx.font = `500 ${11 * dpr}px "Manrope", sans-serif`; tx.textBaseline = 'middle';
       for (let i = 0; i < 3; i++) {
         const y = rowH * i + rowH / 2, v = Math.max(0, Math.min(1, outs[i])), x0 = 76 * dpr, bw = W - x0 - 44 * dpr;
         tx.fillStyle = 'rgba(244,242,248,.62)'; tx.fillText(names[i], 0, y);
