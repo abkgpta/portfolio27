@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Abhik Gupta · Industrial Design</title>
-<meta name="description" content="Abhik Gupta, industrial designer. portfolio.27: overgrwth, cortX, DASH.">
+<title>abhik gupta: industrial &amp; experiential design</title>
+<meta name="description" content="abhik gupta: industrial &amp; experiential design. portfolio.27: overgrwth, cortX, DASH.">
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -379,6 +379,7 @@ footer .socials .ico svg{width:13px;height:13px}
 .g-line{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
 .g-line h1{font-size:clamp(20px,2.4vw,30px);line-height:1.2;margin:0;max-width:34ch}
 .g-line .eyebrow{white-space:nowrap}
+@media(max-width:600px){.g-line .eyebrow{white-space:normal;line-height:1.6}}
 .g-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .g-grid a{position:relative;display:block;overflow:hidden;background:var(--ink);aspect-ratio:3/2;text-decoration:none}
 .g-grid a.wide{grid-column:span 2;grid-row:span 2}
@@ -419,7 +420,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <section id="gallery" class="gallery">
   <div class="g-line">
     <h1>Abhik Gupta designs products end to end: form, CMF, systems and the electronics inside.</h1>
-    <div class="eyebrow">portfolio.27 · <span class="pink">product design</span></div>
+    <div class="eyebrow">abhik gupta: <span class="pink">industrial &amp; experiential design</span></div>
   </div>
   <div class="g-grid">
     <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
@@ -441,9 +442,9 @@ footer .socials .ico svg{width:13px;height:13px}
 <div class="hero">
   <div class="hero-text">
     <span class="prepared" id="prepared"></span>
-    <div class="eyebrow">portfolio.27 · <span class="pink">industrial design</span></div>
+    <div class="eyebrow">portfolio.27 · <span class="pink">industrial &amp; experiential design</span></div>
     <h2 class="hero-h">Understanding the rules to break them better.</h2>
-    <p class="lede">I'm Abhik, a product design student. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
+    <p class="lede">I'm Abhik, an industrial and experiential designer. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
     <div class="hero-meta">
       <div><b>Based in</b>Pune, India</div>
       <div><b>Studying</b>B.Des Product Design, 2027</div>
@@ -940,7 +941,7 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
 </section>
 
-<footer><span>Abhik Gupta · Industrial design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
+<footer><span>abhik gupta: industrial &amp; experiential design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
 
 <script src="js/engine.js"></script>
 <script src="js/cx-scroll.js" defer></script>
@@ -1009,7 +1010,7 @@ window.setSpeaking=setSpeaking;
 
 /* ---------- voice ---------- */
 const AGENT_READY=false; // flip to true once the Blue Machines snippet is pasted into #voice-agent-mount
-const introText=()=>"Hi, I'm Abhik, a product design student. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
+const introText=()=>"Hi, I'm Abhik, an industrial and experiential designer. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
 document.getElementById('introBtn').onclick=()=>{
   if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
   speechSynthesis.cancel();
