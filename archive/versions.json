@@ -154,5 +154,14 @@
     "pr": [
       24
     ]
+  },
+  {
+    "v": 19,
+    "commit": "1d350ad4dd958b92661877e1f552cd58a0a1d04a",
+    "date": "2026-11-13",
+    "title": "CortX coach app v5: one screen, expanding panels, Reports tab, halftone background",
+    "pr": [
+      25
+    ]
   }
 ]
