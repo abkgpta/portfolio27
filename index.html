@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Abhik Gupta · Industrial Design</title>
-<meta name="description" content="Abhik Gupta, industrial designer. portfolio.27: overgrwth, cortX, DASH.">
+<title>abhik gupta: industrial &amp; experiential design</title>
+<meta name="description" content="abhik gupta: industrial &amp; experiential design. portfolio.27: overgrwth, cortX, DASH.">
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=K2D:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <style>
 :root{
   --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
@@ -31,10 +31,10 @@ button{font:inherit;cursor:pointer}
 /* CortX: data flow + progress */
 .cx-flow-wrap{border:1px solid var(--cxl);border-radius:14px;padding:clamp(12px,2vw,28px);overflow:hidden}
 .cx-flow-svg{width:100%;height:auto;display:block}
-.cx-flow-svg text{font-family:'K2D',sans-serif;fill:var(--paper)}
-.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg text{font-family:'IBM Plex Mono',monospace;fill:var(--paper)}
+.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
 .cx-flow-svg .f-h{font-size:24px;font-weight:700}
-.cx-flow-svg .f-s{font:500 13px 'JetBrains Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-s{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
 .cx-flow-svg .f-c{font-size:16px;font-weight:600}
 .cx-flow-svg .f-step{font-size:16px;fill:var(--cxm)}.cx-flow-svg .f-step.last{fill:var(--paper);font-weight:700}
 .cx-flow-svg .f-box{fill:#150A2B;stroke:var(--cxl)}
@@ -45,11 +45,11 @@ button{font:inherit;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.cx-flow-svg .f-dot{display:none}}
 .cx-progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-prog{margin:0;border:1px solid var(--cxl);border-radius:14px;padding:18px 18px 14px;display:grid;gap:10px}
-.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'JetBrains Mono',monospace;color:var(--cxm)}
+.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'IBM Plex Mono',monospace;color:var(--cxm)}
 .cx-prog-svg{width:100%;height:auto;display:block}
 .cx-prog-svg .p-grid{stroke:var(--cxl)}
-.cx-prog-svg .p-ax{font:500 12px 'JetBrains Mono',monospace;fill:var(--cxm)}
-.cx-prog-svg .p-lab{font:600 13px 'JetBrains Mono',monospace}
+.cx-prog-svg .p-ax{font:500 12px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-prog-svg .p-lab{font:600 13px 'IBM Plex Mono',monospace}
 .cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
 @media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
 /* under construction strip */
@@ -317,7 +317,7 @@ header{transition:background .5s,color .5s}
 .cb-note{font-size:12px;color:var(--cxm)}
 @media (max-width:900px){.cb{grid-template-columns:minmax(0,1fr)}.cb-stage{aspect-ratio:1/1;min-height:0}.cb-panel{border-left:0;border-top:1px solid var(--cxl)}}
 @media print{.cb-gl,.cb-hint,.cb-toggle,.cb-labels{display:none}.cb-fallback{display:block}}
-/* ---------- CortX: identity v0.2 (Void, K2D, JetBrains Mono) ---------- */
+/* ---------- CortX: identity v0.3 (Void, Michroma display, IBM Plex Mono body + data) ---------- */
 /* CortX scroll sequence (pre-rendered frames scrubbed by scroll) */
 .cx-sc{position:relative;height:820vh;margin-top:clamp(32px,5vw,72px)}
 .cx-sc-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
@@ -326,66 +326,110 @@ header{transition:background .5s,color .5s}
 .cx-sc-logo img{width:100%;height:auto;display:block}
 .cx-sc-cap{position:absolute;left:var(--gutter);bottom:clamp(28px,5vh,56px);max-width:min(420px,calc(100% - 2*var(--gutter)));opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
 .cx-sc.has-cap .cx-sc-cap{opacity:1;transform:none}
-.cx-sc-cap .n{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
-.cx-sc-cap h3{font-size:clamp(22px,2.6vw,34px);line-height:1.1;margin:4px 0}
+.cx-sc-cap .n{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
+.cx-sc-cap h3{font-size:clamp(17px,1.9vw,25px);line-height:1.2;margin:4px 0}
 .cx-sc-cap p{color:var(--cxm);font-size:15px;line-height:1.45}
 .cx-sc-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--cxl)}
 .cx-sc-bar i{display:block;height:100%;width:0;background:var(--red)}
 @media print{.cx-sc{display:none}}
 
 .cx{--void:#0D031E;--paper:#F4F2F8;--ind:#4527A1;--red:#FF190F;--cxl:rgba(244,242,248,.14);--cxm:rgba(244,242,248,.62);
-  background:var(--void);color:var(--paper);font-family:'K2D',system-ui,sans-serif;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
-.cx h2,.cx h3{font-family:'K2D',system-ui,sans-serif;font-weight:700;letter-spacing:-.01em}
+  background:var(--void);color:var(--paper);font-family:'IBM Plex Mono',ui-monospace,monospace;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
+.cx h2,.cx h3{font-family:'Michroma',system-ui,sans-serif;font-weight:400;letter-spacing:0}
 .cx-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:center;gap:clamp(16px,3vw,48px);padding:clamp(48px,7vw,104px) var(--gutter) 0}
-.cx-eyebrow{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-eyebrow{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-logo{margin:18px 0 18px}
 .cx-logo img{width:min(100%,300px);height:auto}
 .cx-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:34ch}
 .cx-fig{margin:0}
 .cx-fig img{width:100%;display:block;background:#1a1230}
 .cx-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--cxm)}
-.cx-fig figcaption span{font-family:'JetBrains Mono',monospace;color:var(--paper);white-space:nowrap}
+.cx-fig figcaption span{font-family:'IBM Plex Mono',monospace;color:var(--paper);white-space:nowrap}
 .cx-block{padding:clamp(48px,7vw,96px) var(--gutter) 0;display:grid;gap:24px}
-.cx-h{font-size:clamp(32px,4.4vw,64px);line-height:1}
-.cx-quote{font-size:clamp(28px,3.6vw,52px);line-height:1.12;font-weight:700;max-width:22ch}
+.cx-h{font-size:clamp(24px,3.2vw,46px);line-height:1.12}
+.cx-quote{font-family:'Michroma',system-ui,sans-serif;font-size:clamp(20px,2.6vw,36px);line-height:1.3;font-weight:400;max-width:26ch}
 .cx-lead{font-size:clamp(19px,1.9vw,26px);line-height:1.3;font-weight:500;max-width:36ch;margin-bottom:12px}
 .cx-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
 .cx-cols p+p{margin-top:12px}
 .cx-facts{display:grid;gap:14px;border-left:4px solid var(--ind);padding-left:20px}
-.cx-facts dt{font:500 11px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-facts dt{font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-facts dd{margin:2px 0 0}
 .cx .ico{color:var(--paper)}
 .cx-barriers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-barriers div{border-top:1px solid var(--cxl);padding-top:14px;font-size:15px;color:var(--cxm)}
-.cx-barriers b{display:block;font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
+.cx-barriers b{display:block;font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
 .cx-mix{margin-top:8px}
 .cx-concepts{display:grid;gap:10px;margin-top:20px}
 .cx-concepts div{padding:14px 16px;border:1px solid var(--cxl);font-size:14px;color:var(--cxm)}
 .cx-concepts .chosen{border-color:var(--ind);background:rgba(69,39,161,.22);color:var(--paper)}
-.cx-concepts span{display:block;font:500 11px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.cx-concepts span{display:block;font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
 .cx-concepts b{display:block;font-size:17px;color:var(--paper);margin:4px 0}
 .cx-system{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--cxl);border:1px solid var(--cxl)}
 .cx-system li{background:var(--void);padding:20px;font-size:14px;color:var(--cxm)}
-.cx-system i,.cx-day i{display:block;font:500 12px/1 'JetBrains Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
+.cx-system i,.cx-day i{display:block;font:500 12px/1 'IBM Plex Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
 .cx-system b,.cx-day b{display:block;font-size:19px;color:var(--paper);margin-bottom:6px}
 .cx-rule{font-size:clamp(18px,1.6vw,22px);font-weight:600;padding-left:16px;border-left:4px solid var(--red)}
 .cx-sense{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);padding:clamp(48px,7vw,96px) var(--gutter) 0;align-items:center}
 .cx-sense > div > p{margin-top:14px;max-width:46ch}
 .cx .tabs{grid-template-columns:repeat(5,1fr);border-color:var(--cxl)}
-.cx .tabs button{font-family:'JetBrains Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
+.cx .tabs button{font-family:'IBM Plex Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
 .cx .tabs button[aria-pressed=true]{background:var(--sc,#9101B1);color:#fff}
 .cx .readout{border-color:var(--cxl)}
-.cx .readout .where{font-family:'JetBrains Mono',monospace;color:var(--sc,#9101B1)}
+.cx .readout .where{font-family:'IBM Plex Mono',monospace;color:var(--sc,#9101B1)}
 .cx .caption{font-size:12px;color:var(--cxm);margin-top:8px}
 .cx-cite{font-size:13px;color:var(--cxm)}
 .cx-cite a{color:var(--paper)}
+.cx-body{margin:0;align-self:start;position:sticky;top:96px}
+.cx-body svg{width:100%;height:auto;display:block;overflow:visible}
+.cx-body figcaption{font-size:13px;color:var(--cxm);margin-top:8px;text-align:center}
+.cx-body .b-body{fill:#1d1336;stroke:rgba(244,242,248,.5);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.cx-body .b-arm{fill:#241843}
+.cx-body .b-line{fill:none;stroke:rgba(244,242,248,.35);stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-vest{fill:rgba(69,39,161,.55);stroke:rgba(244,242,248,.3);stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-shell{fill:#D9D6E0;stroke:#9a96a8;stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-bu{fill:#D9D6E0;stroke:#9a96a8;stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-cable{fill:none;stroke:#9a96a8;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.cx-body .b-spot{fill:none;stroke:var(--sc);stroke-width:2;transition:all .4s ease}
+.cx-body .b-lead{stroke:var(--sc);stroke-width:1;stroke-dasharray:4 4;opacity:.8}
+.cx-body .b-lens{fill:#120828;stroke:var(--sc);stroke-width:2}
+.cx-body .b-d,.cx-body .b-lab,.cx-body [data-only]{opacity:0;transition:opacity .35s ease;pointer-events:none}
+.cx-body[data-k=eeg] [data-k=eeg],.cx-body[data-k=fnirs] [data-k=fnirs],.cx-body[data-k=imu] [data-k=imu],.cx-body[data-k=hr] [data-k=hr],.cx-body[data-k=gps] [data-k=gps],.cx-body[data-k=gps] [data-only=gps]{opacity:1}
+.cx-body .b-brain{fill:rgba(145,1,177,.12);stroke:rgba(244,242,248,.55);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.cx-body [data-k=fnirs] .b-brain{fill:none;stroke-dasharray:6 4}
+.cx-body .b-layer{fill:none;stroke:rgba(244,242,248,.35);stroke-width:1;stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
+.cx-body .b-gyri{fill:none;stroke:rgba(244,242,248,.3);stroke-width:1;vector-effect:non-scaling-stroke}
+.cx-body .b-sig path{stroke:var(--sc);stroke-width:1.5;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;animation:cxDash 1s linear infinite}
+.cx-body .b-el circle,.cx-body .b-spark circle,.cx-body .b-ph,.cx-body .b-me{fill:var(--sc)}
+.cx-body .b-spark circle{animation:cxBlink 1.2s ease-in-out infinite}
+.cx-body .b-spark circle:nth-child(2){animation-delay:.3s}.cx-body .b-spark circle:nth-child(3){animation-delay:.6s}.cx-body .b-spark circle:nth-child(4){animation-delay:.9s}
+.cx-body .b-path{fill:none;stroke:var(--sc);stroke-width:10;opacity:.22;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.cx-body .b-path2{stroke-width:2;opacity:.9;stroke-dasharray:4 4}
+.cx-body .b-opt{fill:#fff;stroke:var(--sc);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.cx-body .b-det{fill:var(--sc)}
+.cx-body .b-chip{fill:var(--sc)}
+.cx-body .b-axis{stroke:rgba(244,242,248,.25);stroke-width:1;stroke-dasharray:2 5}
+.cx-body .b-rot{fill:none;stroke:var(--sc);stroke-width:2}
+.cx-body .b-heart{fill:rgba(0,194,168,.25);stroke:var(--sc);stroke-width:1.5;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:cxBeat 1s ease-in-out infinite}
+.cx-body .b-pulse{fill:none;stroke:var(--sc);stroke-width:1.5;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;animation:cxDash 1s linear infinite reverse}
+.cx-body .b-pitch *{fill:none;stroke:rgba(244,242,248,.45);stroke-width:1.5}
+.cx-body .b-track{fill:none;stroke:#fff;stroke-width:1.5;stroke-dasharray:4 4;opacity:.8}
+.cx-body .b-me{stroke:#fff;stroke-width:2}
+.cx-body .b-sats path{fill:none;stroke:var(--sc);stroke-width:2;stroke-linecap:round}
+.cx-body .b-sats .b-ray{stroke-width:1;stroke-dasharray:3 5;opacity:.7}
+.cx-body text{font:500 13px 'IBM Plex Mono',monospace;fill:var(--paper)}
+.cx-body text.s{font-weight:400;fill:var(--cxm);font-size:12px}
+.cx-body text.r{text-anchor:end}.cx-body text.m{text-anchor:middle}
+@keyframes cxDash{to{stroke-dashoffset:-12}}
+@keyframes cxBlink{50%{opacity:.2}}
+@keyframes cxBeat{15%{transform:scale(1.12)}30%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.cx-body *{animation:none!important}}
 .cx-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .cx-cmf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;font-size:13px;color:var(--cxm)}
 .cx-cmf i{display:block;height:56px;margin-bottom:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
 .cx-cmf b{display:block;color:var(--paper)}
 .cx-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:16/9;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#150a2b 0 8px,#1b1035 8px 16px);border:1px dashed rgba(244,242,248,.25);color:var(--cxm);font-size:13px}
 .cx-block > .cx-uc{max-width:720px}
-.cx-uc b{font:500 12px/1.4 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
+.cx-uc b{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
 .cx-day{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:d}
 .cx-day li{border-top:2px solid var(--ind);padding-top:14px;font-size:14px;color:var(--cxm)}
 .cx-day i{color:var(--paper);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
@@ -394,16 +438,20 @@ header{transition:background .5s,color .5s}
 .cx-lockups .paper{background:var(--paper);border-color:var(--paper)}
 .cx-lockups img{width:min(60%,300px);height:auto}
 .cx-sensors-key{display:flex;flex-wrap:wrap;gap:8px}
-.cx-sensors-key span{font:500 12px/1 'JetBrains Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
+.cx-sensors-key span{font:500 12px/1 'IBM Plex Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
 .cx-identity > p{max-width:56ch;color:var(--cxm)}
 .cx > .cx-closing{padding:clamp(48px,7vw,96px) var(--gutter) 0}
-.cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(22px,2.6vw,38px);line-height:1.25;font-weight:600;border-right:16px solid var(--red)}
+.cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(17px,2vw,28px);line-height:1.35;font-family:'Michroma',system-ui,sans-serif;font-weight:400;border-right:16px solid var(--red)}
 .cx-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .cx-in.seen{opacity:1;transform:none}
 html.in-cx header{background:#0D031E;color:#F4F2F8}
 @media (max-width:900px){
   .cx-head,.cx-cols,.cx-sense,.cx-grid2,.cx-lockups,.cx-barriers{grid-template-columns:minmax(0,1fr)}
   .cx-system{grid-template-columns:minmax(0,1fr)}
+  .cx-body{position:static}
+  .cx-sense > div:first-child{display:contents}
+  .cx-sense .cx-cite{order:2}.cx-sense .cx-body{order:1}
+  .cx-body text{font-size:19px}.cx-body text.s{display:none}
   .cx-day{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cx-cmf{grid-template-columns:repeat(3,minmax(0,1fr))}
   .cx-close{border-right-width:8px}
@@ -425,6 +473,7 @@ footer .socials .ico svg{width:13px;height:13px}
 .g-line{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
 .g-line h1{font-size:clamp(20px,2.4vw,30px);line-height:1.2;margin:0;max-width:34ch}
 .g-line .eyebrow{white-space:nowrap}
+@media(max-width:600px){.g-line .eyebrow{white-space:normal;line-height:1.6}}
 .g-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .g-grid a{position:relative;display:block;overflow:hidden;background:var(--ink);aspect-ratio:3/2;text-decoration:none}
 .g-grid a.wide{grid-column:span 2;grid-row:span 2}
@@ -465,7 +514,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <section id="gallery" class="gallery">
   <div class="g-line">
     <h1>Abhik Gupta designs products end to end: form, CMF, systems and the electronics inside.</h1>
-    <div class="eyebrow">portfolio.27 · <span class="pink">product design</span></div>
+    <div class="eyebrow">abhik gupta: <span class="pink">industrial &amp; experiential design</span></div>
   </div>
   <div class="g-grid">
     <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
@@ -487,9 +536,9 @@ footer .socials .ico svg{width:13px;height:13px}
 <div class="hero">
   <div class="hero-text">
     <span class="prepared" id="prepared"></span>
-    <div class="eyebrow">portfolio.27 · <span class="pink">industrial design</span></div>
+    <div class="eyebrow">portfolio.27 · <span class="pink">industrial &amp; experiential design</span></div>
     <h2 class="hero-h">Understanding the rules to break them better.</h2>
-    <p class="lede">I'm Abhik, a product design student. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
+    <p class="lede">I'm Abhik, an industrial and experiential designer. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
     <div class="hero-meta">
       <div><b>Based in</b>Pune, India</div>
       <div><b>Studying</b>B.Des Product Design, 2027</div>
@@ -750,7 +799,134 @@ footer .socials .ico svg{width:13px;height:13px}
       </div>
       <p class="cx-cite">Why it matters: EEG neurofeedback training improved sport motor performance with a large effect (Hedges' g 0.78) across 21 randomised trials. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12019780/" target="_blank" rel="noopener">Yu et al. 2025 ↗</a></p>
     </div>
-    <figure class="cx-fig"><img src="img/cx2-top.jpg" alt="The CortX headset from directly above: a pale grey top shell over the graphite side" width="1920" height="1080" loading="lazy"></figure>
+    <figure class="cx-body" id="cxBody" data-k="eeg">
+      <svg viewBox="0 0 720 540" role="img" aria-labelledby="cxBodyT cxBodyD">
+        <title id="cxBodyT">How CortX captures each signal</title>
+        <desc id="cxBodyD">A side view of a player wearing the CortX headset and back unit. The selected sensor is circled on the body and magnified on the right to show how it reads the signal.</desc>
+        <defs>
+          <g id="cxFig">
+            <path fill="#1d1336" stroke="rgba(244,242,248,.5)" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M108,112 C99,106 91,94 91,79 C91,57 105,40 123,40 C140,40 150,52 151,66 L152,74 C154,78 157,82 158,85 C157,87 154,88 152,88 L153,93 C152,95 151,96 150,97 C151,100 150,104 147,106 C142,109 137,109 134,109 L135,124 C146,130 154,146 155,166 C156,186 150,204 146,224 C144,240 148,256 148,272 C150,300 146,340 142,378 C141,388 142,396 140,404 C137,440 136,462 136,484 C142,488 156,492 166,496 C170,498 170,504 164,505 L116,505 C110,505 108,500 110,494 C112,470 110,450 112,430 C114,412 116,400 114,388 C112,370 108,330 104,300 C96,290 92,272 96,256 C100,240 104,226 102,210 C98,190 92,170 94,150 C96,136 104,126 106,120 Z"/>
+            <path fill="#241843" stroke="rgba(244,242,248,.5)" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M112,146 C110,132 134,128 136,144 L137,214 C139,240 141,266 142,292 C143,304 141,318 133,319 C125,320 123,310 123,300 C120,274 117,246 115,218 Z"/>
+            <ellipse fill="none" stroke="rgba(244,242,248,.35)" stroke-width="1" vector-effect="non-scaling-stroke" cx="111" cy="77" rx="4" ry="6"/>
+            <path fill="rgba(69,39,161,.55)" stroke="rgba(244,242,248,.3)" stroke-width="1" vector-effect="non-scaling-stroke" d="M93,166 L155,168 L155,184 L95,182 Z"/>
+            <path fill="none" stroke="#9a96a8" stroke-width="1.5" vector-effect="non-scaling-stroke" d="M97,90 C101,110 93,124 89,140"/>
+            <rect fill="#D9D6E0" stroke="#9a96a8" stroke-width="1" vector-effect="non-scaling-stroke" x="82" y="138" width="12" height="36" rx="5"/>
+            <path fill="#D9D6E0" stroke="#9a96a8" stroke-width="1" vector-effect="non-scaling-stroke" d="M92,90 C83,60 100,31 123,31 C146,31 159,46 158,64 L156,74 L152,72 C151,52 140,40 123,40 C105,40 91,57 91,79 C91,83 92,87 94,90 Z"/>
+            <circle fill="#FF190F" cx="96" cy="76" r="3.2"/>
+          </g>
+          <clipPath id="cxLens"><circle cx="480" cy="270" r="196"/></clipPath>
+          <radialGradient id="cxHeat"><stop offset="0" stop-color="#F46C02" stop-opacity=".9"/><stop offset="1" stop-color="#F46C02" stop-opacity="0"/></radialGradient>
+        </defs>
+
+        <!-- context figure -->
+        <use href="#cxFig" transform="translate(16,14)"/>
+        <g class="b-sats" data-only="gps">
+          <path d="M40,40 l10,-10 m-14,6 l8,8 m4,-18 l8,8" /><path d="M200,22 l10,-10 m-14,6 l8,8 m4,-18 l8,8"/>
+          <path class="b-ray" d="M48,40 L101,166 M206,22 L108,160"/>
+        </g>
+        <circle class="b-spot" id="cxSpot" cx="138" cy="54" r="16"/>
+        <line class="b-lead" id="cxLeadA"/><line class="b-lead" id="cxLeadB"/>
+
+        <!-- lens -->
+        <circle class="b-lens" cx="480" cy="270" r="196"/>
+        <g clip-path="url(#cxLens)">
+          <!-- EEG -->
+          <g class="b-d" data-k="eeg">
+            <g transform="translate(68.6,32) scale(3.4)">
+              <use href="#cxFig"/>
+              <path class="b-brain" d="M100,74 C96,62 104,49 120,48 C136,47 146,56 147,66 C148,75 141,80 132,80 L110,80 C104,81 101,79 100,74 Z M104,83 C106,88 114,90 118,86"/>
+              <path class="b-gyri" d="M106,66 c4,-6 8,2 12,-4 s8,4 12,-2 s8,4 10,0 M108,74 c4,-4 8,2 12,-2 s8,3 12,0 M114,56 c4,-3 6,2 10,-1 s6,3 8,0"/>
+              <g class="b-sig"><path d="M107,60 L99,54 M116,53 L110,45 M128,52 L128,42 M139,57 L144,49"/></g>
+              <g class="b-el"><circle cx="98" cy="53" r="1.8"/><circle cx="109.5" cy="44" r="1.8"/><circle cx="128" cy="40.6" r="1.8"/><circle cx="145" cy="48" r="1.8"/></g>
+              <g class="b-spark"><circle cx="108" cy="60" r="1.2"/><circle cx="118" cy="54" r="1.2"/><circle cx="128" cy="54" r="1.2"/><circle cx="138" cy="58" r="1.2"/></g>
+            </g>
+          </g>
+          <!-- fNIRS -->
+          <g class="b-d" data-k="fnirs">
+            <g transform="translate(-396,-102) scale(6)">
+              <use href="#cxFig"/>
+              <path class="b-layer" d="M141,44 C146,50 148,58 148,70"/>
+              <path class="b-brain" d="M136,47 C141,53 143,60 142.5,72"/>
+              <path id="cxBanana" class="b-path" d="M147.2,52.5 C137.5,55 137.5,64 150.8,67"/>
+              <path class="b-path b-path2" d="M147.2,52.5 C139.5,55.5 139.5,63 150.8,67"/>
+              <rect class="b-opt" x="147" y="50.6" width="3" height="3.4" rx=".6" transform="rotate(-58 148.5 52.3)"/>
+              <rect class="b-opt b-det" x="150.2" y="65.2" width="3" height="3.4" rx=".6" transform="rotate(-80 151.7 66.9)"/>
+              <circle class="b-ph" r=".7"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#cxBanana"/></animateMotion></circle>
+              <circle class="b-ph" r=".7"><animateMotion dur="1.8s" begin="-.6s" repeatCount="indefinite"><mpath href="#cxBanana"/></animateMotion></circle>
+              <circle class="b-ph" r=".7"><animateMotion dur="1.8s" begin="-1.2s" repeatCount="indefinite"><mpath href="#cxBanana"/></animateMotion></circle>
+            </g>
+          </g>
+          <!-- IMU -->
+          <g class="b-d" data-k="imu">
+            <g transform="translate(114,60) scale(3)">
+              <use href="#cxFig"/>
+              <rect class="b-chip" x="118" y="35" width="8" height="5" rx="1"/>
+            </g>
+            <line class="b-axis" x1="480" y1="60" x2="480" y2="470"/>
+            <line class="b-axis" x1="290" y1="270" x2="680" y2="270"/>
+            <path class="b-rot" d="M432,112 A54,14 0 1,0 528,112" marker-end="url(#cxArr)"/>
+            <path class="b-rot" d="M352,186 A150,150 0 0,0 350,350" marker-end="url(#cxArr)"/>
+            <path class="b-rot" d="M640,226 A16,46 0 1,1 640,314" marker-end="url(#cxArr)"/>
+            <path class="b-rot b-impact" d="M650,150 L590,214" marker-end="url(#cxArr)"/>
+          </g>
+          <!-- HR -->
+          <g class="b-d" data-k="hr">
+            <g transform="translate(80,-290) scale(3.2)">
+              <use href="#cxFig"/>
+              <path class="b-heart" d="M134,170 c-4,-6 -12,-2 -9,6 c2,5 9,9 12,11 c3,-3 8,-8 8,-13 c0,-7 -8,-9 -11,-4 Z"/>
+              <path class="b-pulse" d="M95,175 L112,175 L114,170 L116,180 L118,173 L121,175 L150,175"/>
+              <g class="b-el"><circle cx="154" cy="172" r="1.6"/><circle cx="153.6" cy="180" r="1.6"/></g>
+            </g>
+          </g>
+          <!-- GPS: position on the pitch -->
+          <g class="b-d" data-k="gps">
+            <rect x="284" y="74" width="392" height="392" fill="#0f2a14"/>
+            <g class="b-pitch" transform="translate(330,150)">
+              <rect width="300" height="240"/><line x1="150" y1="0" x2="150" y2="240"/><circle cx="150" cy="120" r="30"/>
+              <rect x="0" y="66" width="44" height="108"/><rect x="256" y="66" width="44" height="108"/>
+              <rect x="0" y="96" width="16" height="48"/><rect x="284" y="96" width="16" height="48"/>
+            </g>
+            <g class="b-heat" transform="translate(330,150)">
+              <circle cx="186" cy="70" r="46" fill="url(#cxHeat)"/><circle cx="214" cy="96" r="38" fill="url(#cxHeat)"/>
+              <circle cx="160" cy="62" r="34" fill="url(#cxHeat)" opacity=".7"/><circle cx="236" cy="54" r="30" fill="url(#cxHeat)" opacity=".8"/>
+              <circle cx="128" cy="110" r="28" fill="url(#cxHeat)" opacity=".5"/><circle cx="246" cy="140" r="26" fill="url(#cxHeat)" opacity=".45"/>
+              <path class="b-track" d="M120,118 C140,90 170,96 182,70 C196,44 232,40 240,60 C248,80 214,92 210,110 C206,128 240,138 248,146"/>
+              <circle class="b-me" cx="248" cy="146" r="5"/>
+            </g>
+          </g>
+        </g>
+        <defs><marker id="cxArr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="var(--sc)"/></marker></defs>
+
+        <!-- labels, screen coords -->
+        <g class="b-lab" data-k="eeg">
+          <text x="300" y="100">Dry electrodes</text><text x="300" y="116" class="s">touch the scalp</text>
+          <text x="560" y="330" class="r">Cortex</text><text x="560" y="346" class="r s">neurons fire together</text>
+          <text x="480" y="430" class="m">Microvolt waves, through the skull</text>
+        </g>
+        <g class="b-lab" data-k="fnirs">
+          <text x="466" y="196" class="r">Emitter</text><text x="466" y="212" class="r s">near-infrared light</text>
+          <text x="500" y="344" class="r">Detector</text><text x="500" y="360" class="r s">about 3 cm away</text>
+          <text x="306" y="280">Blood oxygen</text><text x="306" y="296" class="s">absorbs the light</text>
+        </g>
+        <g class="b-lab" data-k="imu">
+          <text x="546" y="92">Yaw</text><text x="546" y="108" class="s">scanning</text>
+          <text x="360" y="394">Pitch</text><text x="360" y="410" class="s">heading, nodding</text>
+          <text x="634" y="372" class="r">Roll</text>
+          <text x="640" y="140" class="r">Impact</text>
+          <text x="480" y="440" class="m">IMU in the crown, 3 axes</text>
+        </g>
+        <g class="b-lab" data-k="hr">
+          <text x="660" y="190" class="r">Vest electrodes</text><text x="660" y="206" class="r s">on the chest</text>
+          <text x="520" y="330" class="r">Heart</text>
+          <text x="300" y="320">Back unit</text><text x="300" y="336" class="s">reads each beat</text>
+        </g>
+        <g class="b-lab" data-k="gps">
+          <text x="480" y="122" class="m">One match, one player</text>
+          <text x="480" y="424" class="m">Where they played, as a heatmap</text>
+        </g>
+      </svg>
+      <figcaption id="cxBodyCap"></figcaption>
+    </figure>
   </div>
 
   <div class="cx-block cx-in cx-brain" id="cxBrain" data-slide="cx-brain" data-tiers="overview full" data-base="3" data-skills="electronics,interaction,systems">
@@ -909,7 +1085,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <div class="cx-sensors-key">
       <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">GPS</span>
     </div>
-    <p>Dark first, on Void. K2D for words, JetBrains Mono for numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
+    <p>Dark first, on Void. Michroma for headlines, IBM Plex Mono for words and numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
   </div>
 
   <figure class="cx-fig cx-in cx-closing" data-slide="cx-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/cx2-back34.jpg" alt="The CortX headset from behind, the red dial catching the light" width="1920" height="1080" loading="lazy"></figure>
@@ -1011,7 +1187,7 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
 </section>
 
-<footer><span>Abhik Gupta · Industrial design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
+<footer><span>abhik gupta: industrial &amp; experiential design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
 
 <script src="js/engine.js"></script>
 <script src="js/cx-scroll.js" defer></script>
@@ -1080,7 +1256,7 @@ window.setSpeaking=setSpeaking;
 
 /* ---------- voice ---------- */
 const AGENT_READY=false; // flip to true once the Blue Machines snippet is pasted into #voice-agent-mount
-const introText=()=>"Hi, I'm Abhik, a product design student. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
+const introText=()=>"Hi, I'm Abhik, an industrial and experiential designer. This is portfolio twenty-seven. Scroll down for overgrwth, a modular system for creative workspaces, and cortX, a brain-imaging headset for elite football training."+(window.STUDIO?" I put this together with "+window.STUDIO+" in mind.":"");
 document.getElementById('introBtn').onclick=()=>{
   if(!('speechSynthesis' in window)){document.getElementById('stageNote').textContent='This browser has no speech support.';return;}
   speechSynthesis.cancel();
@@ -1121,14 +1297,31 @@ const S={
   fnirs:{c:'#0098F6',where:'Headset',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
   imu:{c:'#AEC959',where:'Headset',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
   hr:{c:'#00C2A8',where:'Back unit',name:'Heart rate',text:'Tracks heart rate through the vest, so mental load can be read against physical load.',f:t=>{const p=(t*.18)%1;return p<.08?Math.sin(p/.08*Math.PI)*.9:(p<.16?-Math.sin((p-.08)/.08*Math.PI)*.25:Math.sin(t*.3)*.05)}},
-  gps:{c:'#F46C02',where:'Back unit',name:'GPS',text:'Tracks the player’s position on the pitch, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
+  gps:{c:'#F46C02',where:'Back unit',name:'GPS position',text:'Tracks where the player is on the pitch and builds a positional heatmap, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
 };
 let sk='eeg';const tr=document.getElementById('trace'),tc=tr.getContext('2d');let tt=0;
 function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.getElementById('cortx').style.setProperty('--sc',s.c);document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>setSensor(b.dataset.k));setSensor('eeg');
+/* body diagram: circle the sensor on the figure and magnify it in the lens */
+const BODY={eeg:[137,62,28,'EEG: dry electrodes in the headset pick up the brain’s electrical activity through the scalp.'],
+  fnirs:[166,72,14,'fNIRS: light goes in at the forehead and the detector reads how much the blood absorbed.'],
+  imu:[138,56,30,'IMU: a motion sensor in the crown tracks every turn, nod and impact of the head.'],
+  hr:[146,192,36,'Heart rate: vest electrodes on the chest, read by the back unit.'],
+  gps:[104,170,20,'Position: the back unit logs where the player is, built up into a heatmap.']};
+function setBody(k){const fb=document.getElementById('cxBody');if(!fb)return;const [x,y,r,cap]=BODY[k];fb.dataset.k=k;
+  const sp=document.getElementById('cxSpot');sp.setAttribute('cx',x);sp.setAttribute('cy',y);sp.setAttribute('r',r);
+  const X=480,Y=270,R=196,dx=X-x,dy=Y-y,d=Math.hypot(dx,dy),ux=dx/d,uy=dy/d,c=(r-R)/d,sn=Math.sqrt(1-c*c);
+  [[1,'cxLeadA'],[-1,'cxLeadB']].forEach(([g,id])=>{const nx=ux*c-g*uy*sn,ny=uy*c+g*ux*sn,l=document.getElementById(id);
+    l.setAttribute('x1',x+r*nx);l.setAttribute('y1',y+r*ny);l.setAttribute('x2',X+R*nx);l.setAttribute('y2',Y+R*ny);});
+  document.getElementById('cxBodyCap').textContent=cap;}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{setSensor(b.dataset.k);setBody(b.dataset.k);});setSensor('eeg');setBody('eeg');
+if(reduce){const sv=document.querySelector('#cxBody svg');sv&&sv.pauseAnimations&&sv.pauseAnimations();}
 function drawTrace(){
   const d=devicePixelRatio||1;if(tr.width!==tr.clientWidth*d){tr.width=tr.clientWidth*d;tr.height=tr.clientHeight*d;}
-  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);tc.strokeStyle=S[sk].c;tc.lineWidth=1.5*d;tc.beginPath();
+  const W=tr.width,H=tr.height;tc.clearRect(0,0,W,H);
+  if(sk==='gps'){const pw=H*1.5,px=(W-pw)/2;tc.strokeStyle='rgba(244,242,248,.35)';tc.lineWidth=d;tc.strokeRect(px+.5,.5,pw-1,H-1);tc.beginPath();tc.moveTo(px+pw/2,0);tc.lineTo(px+pw/2,H);tc.stroke();
+    for(let i=0;i<60;i++){const q=tt*.3-i*.06,gx=px+pw*(.62+.22*Math.sin(q*1.3)),gy=H*(.42+.32*Math.sin(q*.9+1));tc.fillStyle='rgba(244,108,2,'+(1-i/60)*.5+')';tc.beginPath();tc.arc(gx,gy,(i?2:4)*d,0,7);tc.fill();}
+    tt+=reduce?0:.08;requestAnimationFrame(drawTrace);return;}
+  tc.strokeStyle=S[sk].c;tc.lineWidth=1.5*d;tc.beginPath();
   for(let x=0;x<W;x+=2){const v=S[sk].f((x/d)*.15+tt);x?tc.lineTo(x,H/2-v*H*.4):tc.moveTo(x,H/2-v*H*.4);}
   tc.stroke();tt+=reduce?0:.08;requestAnimationFrame(drawTrace);
 }
