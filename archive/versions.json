@@ -145,5 +145,14 @@
     "pr": [
       14
     ]
+  },
+  {
+    "v": 18,
+    "commit": "8b99aedb2153b6365045aee34e5323cce1307449",
+    "date": "2026-11-13",
+    "title": "Figma sync: target the website page in the main portfolio.27 file",
+    "pr": [
+      24
+    ]
   }
 ]
