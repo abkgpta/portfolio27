@@ -166,7 +166,7 @@
   }
 
   /* ---------- state ---------- */
-  const ui = { dismissed: new Set(), confirmed: new Set(), view: 'squad', player: 8, mode: 'focus', seasonPick: 0, seasonMode: 'focus', clock: 38 * 60 + 12 };
+  const ui = { deep: 'f', dismissed: new Set(), confirmed: new Set(), view: 'squad', player: 8, mode: 'focus', seasonPick: 0, seasonMode: 'focus', clock: 38 * 60 + 12 };
   const fmtClock = s => `${pad(s / 60 | 0)}:${pad(s % 60)}`;
 
   /* ---------- views ---------- */
@@ -218,6 +218,24 @@
     return g + '</svg>';
   }
 
+  // tap a state to go past the briefing: more readings behind each of the four
+  function deeper(p) {
+    const r = rng(p.n * 71 + 3), d = k => Math.round(p.now[k] - p.base[k]), n = (a, b) => a + Math.floor(r() * (b - a + 1));
+    const lapses = Math.max(0, Math.round(-d('f') / 4)) + n(0, 1);
+    return {
+      f: [['Attention lapses, last 10 min', lapses], ['Longest focused spell', n(4, 9) + ' min'], ['Back on task after a mistake', n(20, 60) + ' s'], ['Focus when tracking back', (p.n === 8 ? '−18' : '−' + n(2, 7)) + ' vs going forward']],
+      c: [['Stress spikes this session', Math.max(0, Math.round(-d('c') / 3)) + n(0, 1)], ['Heart rate against the work', (d('c') < -6 ? '+9%' : '+' + n(0, 4) + '%')], ['Calm again after a spike', n(30, 90) + ' s'], ['Most tense after', ['turnovers', 'set pieces', 'pressing', 'losing a duel'][n(0, 3)]]],
+      fr: [['Mental fatigue onset', d('fr') < -6 ? 'Minute ' + n(26, 33) : 'Not yet'], ['Prefrontal oxygen vs morning', (d('fr') < -6 ? '−' + n(5, 8) : '−' + n(0, 3)) + '%'], ['Brain vs legs', d('fr') < -6 ? 'Brain tiring first' : 'In step'], ['Recovery at water breaks', n(55, 95) + '%']],
+      r: [['Response time', (300 + n(0, 30) - d('r') * 3) + ' ms'], ['Change vs morning', '+' + Math.max(0, -d('r') * 3 + n(0, 6)) + ' ms'], ['Slowest after', ['sprints', 'long passes', 'pressing'][n(0, 2)]], ['Scanning before receiving', n(2, 5) + ' looks']]
+    };
+  }
+  function medical(p) {
+    const r = rng(p.n * 13 + 1), rows = p.knocks.map(([x], i) => [`Header · ${pad(12 + i * 9 + Math.floor(r() * 6))}:${pad(Math.floor(r() * 60))}`, `${(18 + r() * 22).toFixed(0)} g`, x > 52 ? 'Attacking half' : 'Own half']);
+    if (read(p).state !== 'ok') rows.push(['Fatigue flag', STATE_WORD(p), 'Pitch-side']);
+    return rows;
+  }
+  const STATE_WORD = p => word(p);
+
   function playerView() {
     const p = byN[ui.player], { state, worst, drop } = read(p), i = SQUAD.indexOf(p);
     const prev = SQUAD[(i + SQUAD.length - 1) % SQUAD.length], next = SQUAD[(i + 1) % SQUAD.length];
@@ -238,6 +256,8 @@
           ${heat(SESSION[p.n], ui.mode, p.knocks)}
           <div class="cxa-foot">${legend(ui.mode)}${p.knocks.length ? '<span class="cxa-note"><b class="kn">H</b> header</span>' : ''}</div>
         </div>
+        <div class="cxa-panel cxa-deep"><h5>Go deeper</h5>${AX.map(a => { const open = ui.deep === a.k, dd = Math.round(p.now[a.k] - p.base[a.k]); return `<div class="cxa-acc${open ? ' open' : ''}"><button data-deep="${a.k}" aria-expanded="${open}"><span>${a.name}</span><b>${Math.round(p.now[a.k])} <em class="${dd <= -6 ? 'dn' : ''}">${dd > 0 ? '+' : ''}${dd}</em></b><i>${open ? '−' : '+'}</i></button>${open ? `<div class="cxa-acc-b"><p class="cxa-note">${a.what}</p><dl>${deeper(p)[a.k].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div>` : ''}</div>`; }).join('')}</div>
+        <div class="cxa-panel cxa-deep"><h5>Medical log</h5>${medical(p).length ? `<dl class="cxa-med">${medical(p).map(([a, b, c]) => `<div><dt>${a}</dt><dd>${b}<span>${c}</span></dd></div>`).join('')}</dl>` : '<p class="cxa-note">Nothing logged this session.</p>'}<p class="cxa-note">Shared with the medical team. Players see their own data after the session, never live.</p></div>
       </div>
     </div>`;
   }
@@ -307,6 +327,7 @@
     else if (d.mode) ui.mode = d.mode;
     else if (d.smode) ui.seasonMode = d.smode;
     else if (d.close) ui.alert = false;
+    else if (d.deep) ui.deep = ui.deep === d.deep ? '' : d.deep;
     else if (d.confirm) ui.confirmed.add(+d.confirm);
     else if (d.dismiss) ui.dismissed.add(+d.dismiss);
     else if (d.pick !== undefined) ui.seasonPick = +d.pick === ui.seasonPick ? 0 : +d.pick;
@@ -347,7 +368,7 @@
         SQUAD.forEach(p => AX.forEach(a => { p.now[a.k] += (p.target[a.k] - p.now[a.k]) * .3 + (r() - .5) * 2.4; }));
         byN[8].target.f = Math.max(54, byN[8].target.f - .15);
         if (ui.view !== 'season') {
-          const a = document.activeElement, keyAttr = a && root.contains(a) && ['open', 'mode', 'view', 'pick', 'smode'].find(k => a.dataset[k] !== undefined);
+          const a = document.activeElement, keyAttr = a && root.contains(a) && ['open', 'mode', 'view', 'pick', 'smode', 'deep'].find(k => a.dataset[k] !== undefined);
           const sel = keyAttr && `[data-${keyAttr}="${a.dataset[keyAttr]}"]`;
           render(true);
           if (sel) root.querySelector(sel)?.focus({ preventScroll: true });
