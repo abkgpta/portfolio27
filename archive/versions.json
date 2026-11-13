@@ -163,5 +163,14 @@
     "pr": [
       25
     ]
+  },
+  {
+    "v": 20,
+    "commit": "614295c7103142ee51edbe7809b3fbee5ed43619",
+    "date": "2026-11-13",
+    "title": "CortX type: Manrope replaces IBM Plex Mono for body and data",
+    "pr": [
+      26
+    ]
   }
 ]
