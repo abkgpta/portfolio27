@@ -20,18 +20,18 @@
   ];
   // n, name, position, home spot on a 105 x 68 pitch (attacking right), spread, baseline, now, headers
   const SQUAD = [
-    [1, 'Ward', 'GK', [7, 34], [4, 7], [72, 80, 84, 76], [70, 79, 81, 75], []],
-    [2, 'Ito', 'RB', [36, 58], [12, 6], [75, 74, 80, 78], [73, 72, 74, 77], []],
-    [4, 'Hale', 'CB', [26, 44], [9, 7], [78, 82, 80, 74], [77, 80, 76, 73], [[22, 40]]],
-    [5, 'Mensah', 'CB', [26, 24], [9, 7], [80, 78, 82, 72], [78, 77, 78, 70], [[30, 22]]],
-    [3, 'Duarte', 'LB', [36, 10], [12, 6], [84, 76, 78, 80], [83, 74, 73, 79], []],
-    [6, 'Kovač', 'DM', [42, 34], [11, 9], [82, 80, 76, 82], [80, 79, 72, 80], []],
-    [8, 'Okafor', 'CM', [54, 44], [15, 10], [74, 76, 78, 80], [58, 71, 66, 72], []],
-    [14, 'Novak', 'CM', [54, 24], [15, 10], [76, 78, 80, 76], [72, 67, 74, 73], []],
-    [10, 'Silva', 'AM', [67, 34], [13, 11], [86, 74, 80, 84], [85, 73, 77, 83], []],
-    [7, 'Brandt', 'RW', [78, 58], [13, 6], [88, 72, 82, 80], [85, 70, 71, 78], []],
-    [11, 'Achebe', 'LW', [78, 10], [13, 6], [78, 76, 80, 82], [77, 75, 76, 80], []],
-    [9, 'Lund', 'ST', [89, 34], [9, 9], [76, 74, 78, 84], [74, 72, 74, 73], [[96, 30], [92, 40]]]
+    [1, 'Van der Sar', 'GK', [7, 34], [4, 7], [72, 80, 84, 76], [70, 79, 81, 75], []],
+    [6, 'Brown', 'RB', [36, 58], [12, 6], [75, 74, 80, 78], [73, 72, 74, 77], []],
+    [5, 'Ferdinand', 'CB', [26, 44], [9, 7], [78, 82, 80, 74], [77, 80, 76, 73], [[22, 40]]],
+    [15, 'Vidić', 'CB', [26, 24], [9, 7], [80, 78, 82, 72], [78, 77, 78, 70], [[30, 22]]],
+    [3, 'Evra', 'LB', [36, 10], [12, 6], [84, 76, 78, 80], [83, 74, 73, 79], []],
+    [4, 'Hargreaves', 'DM', [42, 34], [11, 9], [82, 80, 76, 82], [80, 79, 72, 80], []],
+    [18, 'Scholes', 'CM', [54, 44], [15, 10], [74, 76, 78, 80], [58, 71, 66, 72], []],
+    [16, 'Carrick', 'CM', [54, 24], [15, 10], [76, 78, 80, 76], [72, 67, 74, 73], []],
+    [32, 'Tevez', 'ST', [80, 42], [13, 11], [86, 74, 80, 84], [85, 73, 77, 83], []],
+    [7, 'Ronaldo', 'RW', [78, 58], [13, 6], [88, 72, 82, 80], [85, 70, 71, 78], []],
+    [11, 'Giggs', 'LW', [78, 10], [13, 6], [78, 76, 80, 82], [77, 75, 76, 80], []],
+    [10, 'Rooney', 'ST', [86, 28], [9, 9], [76, 74, 78, 84], [74, 72, 74, 73], [[96, 30], [92, 40]]]
   ].map(([n, name, pos, home, spread, b, now, knocks]) => {
     const keys = ['f', 'c', 'fr', 'r'];
     const o = { n, name, pos, home, spread, knocks, base: {}, now: {}, target: {} };
@@ -67,8 +67,8 @@
       const y = Math.min(67.5, Math.max(.5, p.home[1] + gauss(r) * p.spread[1]));
       // focus dips when a player is pulled back from their spot, more so late on
       let f = (late ? p.now.f : p.base.f) + gauss(r) * 4 - Math.max(0, p.home[0] - x) * .35;
-      if (p.n === 8 && x < 46) f -= late ? 14 : 6;   // No. 8 fades when tracking back
-      if (p.n === 14 && y > 40) f -= 6;
+      if (p.n === 18 && x < 46) f -= late ? 14 : 6;   // No. 18 fades when tracking back
+      if (p.n === 16 && y > 40) f -= 6;
       out.push([x, y, f]);
     }
     return out;
@@ -95,8 +95,8 @@
     const r = rng(p.n * 53 + 11), out = [];
     for (let w = 0; w < WEEKS; w++) {
       let v = p.base.f - 9 + w * .62 + gauss(r) * 2.4;
-      if (p.n === 8 && w >= 15) v -= (w - 14) * 5;
-      if (p.n === 14 && w >= 16) v -= 4;
+      if (p.n === 18 && w >= 15) v -= (w - 14) * 5;
+      if (p.n === 16 && w >= 16) v -= 4;
       out.push(Math.round(Math.max(45, Math.min(95, v))));
     }
     return [p.n, out];
@@ -161,40 +161,45 @@
   const mini = p => MINI[p.n] || (MINI[p.n] = heat(SESSION[p.n], 'time').replace('class="cxa-pitch"', 'class="cxa-pitch mini" aria-hidden="true"'));
   function legend(mode) {
     return mode === 'focus'
-      ? `<div class="cxa-leg"><span>Focus low</span><i style="background:linear-gradient(90deg,${focusColour(52)},${focusColour(86)})"></i><span>high</span></div>`
-      : `<div class="cxa-leg"><span>Less time</span><i style="background:linear-gradient(90deg,rgba(244,108,2,.1),#F46C02)"></i><span>more</span></div>`;
+      ? `<div class="cxa-leg"><span>Focus low</span><i>${[52, 60, 69, 77, 86].map(v => `<b style="background:${focusColour(v)}"></b>`).join('')}</i><span>high</span></div>`
+      : `<div class="cxa-leg"><span>Less time</span><i>${[.15, .35, .55, .75, .95].map(o => `<b style="background:#F46C02;opacity:${o}"></b>`).join('')}</i><span>more</span></div>`;
   }
 
   /* ---------- state ---------- */
-  const ui = { dismissed: new Set(), confirmed: new Set(), view: 'squad', player: 8, mode: 'focus', seasonPick: 0, seasonMode: 'focus', clock: 38 * 60 + 12 };
+  const ui = { deep: 'f', dismissed: new Set(), confirmed: new Set(), view: 'squad', player: 18, mode: 'focus', seasonPick: 0, seasonMode: 'focus', clock: 38 * 60 + 12 };
   const fmtClock = s => `${pad(s / 60 | 0)}:${pad(s % 60)}`;
 
   /* ---------- views ---------- */
+  const dot = st => `<i class="cxa-dot s-${st}" aria-hidden="true"></i>`;
+  const titleRow = (h, sub, actions) => `<div class="cxa-title"><div><h3>${h}</h3><p>${sub}</p></div><div class="cxa-title-acts">${actions || ''}</div></div>`;
+  const worstP = () => [...SQUAD].sort((a, b) => read(b).drop - read(a).drop)[0];
   function squadView() {
     const cards = [...SQUAD].sort((a, b) => read(b).drop - read(a).drop).map(p => {
       const { state, worst } = read(p), t = trend10(p);
       const head = state === 'ok' ? 'Matching this morning' : ADVICE[worst][0];
       return `<button class="cxa-card s-${state}" data-open="${p.n}" aria-label="Open ${p.name}, ${word(p)}">
-        <span class="c-top"><b>${pad(p.n)}</b><span>${p.name}</span><em>${p.pos}</em></span>
-        <span class="c-body">${glyph(p)}${mini(p)}</span><span class="c-read"><i>${word(p)} <span class="c-tick ${t <= -3 ? 'dn' : t >= 3 ? 'up' : ''}" title="Change over the last 10 minutes">${Math.abs(t) < 3 ? '▬' : (t < 0 ? '▼' : '▲') + Math.abs(t)}</span></i><span>${head}</span>${p.knocks.length ? `<span class="c-knock">${p.knocks.length} header${p.knocks.length > 1 ? 's' : ''}</span>` : ''}</span>
+        <span class="c-top"><b class="num">${p.n}</b><span>${p.name}</span><em>${p.pos}</em></span>
+        <span class="c-body">${glyph(p)}${mini(p)}</span><span class="c-read"><i>${dot(state)}${word(p)} <span class="c-tick ${t <= -3 ? 'dn' : t >= 3 ? 'up' : ''}" title="Change over the last 10 minutes">${Math.abs(t) < 3 ? '▬' : (t < 0 ? '▼' : '▲') + Math.abs(t)}</span></i><span>${head}</span>${p.knocks.length ? `<span class="c-knock">${p.knocks.length} header${p.knocks.length > 1 ? 's' : ''}</span>` : ''}</span>
       </button>`;
     }).join('');
     const live = SQUAD.map((p, i) => {
       const t = ui.clock / 9 + i * 1.7, x = p.home[0] + Math.sin(t) * p.spread[0] * .35, y = p.home[1] + Math.cos(t * .8) * p.spread[1] * .35;
       return `<g class="p-pl s-${read(p).state}" data-open="${p.n}" tabindex="0" role="button" aria-label="${p.name}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4"/><text x="${x.toFixed(1)}" y="${(y + 1.3).toFixed(1)}" text-anchor="middle">${p.n}</text></g>`;
     }).join('');
-    const flags = SQUAD.filter(p => read(p).state !== 'ok' && !ui.dismissed.has(p.n)).sort((a, b) => read(b).drop - read(a).drop).map(p => {
+    const flagged = SQUAD.filter(p => read(p).state !== 'ok' && !ui.dismissed.has(p.n)).sort((a, b) => read(b).drop - read(a).drop);
+    const flags = flagged.map(p => {
       const { state, worst, drop } = read(p);
-      return `<button class="cxa-flag s-${state}" data-open="${p.n}"><i>${word(p)}${ui.confirmed.has(p.n) ? ' · confirmed' : ''}</i><b>No. ${p.n} · ${AX.find(a => a.k === worst).name} down ${Math.round(drop * 100)}%</b><span>${ADVICE[worst][1]}</span></button>`;
+      return `<button class="cxa-flag" data-open="${p.n}">${dot(state)}<b>${p.name} · ${AX.find(a => a.k === worst).name.toLowerCase()} down ${Math.round(drop * 100)}%</b><span>${word(p)}${ui.confirmed.has(p.n) ? ', confirmed' : ''}. ${ADVICE[worst][1]}</span></button>`;
     }).join('');
-    return `<div class="cxa-squad">
+    const w = worstP(), wr = read(w);
+    return titleRow('Squad', wr.state === 'ok' ? 'Everyone is matching this morning’s check.' : `${w.name}’s ${AX.find(a => a.k === wr.worst).name.toLowerCase()} is down ${Math.round(wr.drop * 100)}% on this morning. ${flagged.length} of ${SQUAD.length} players need a look.`, `<button class="cxa-btn" data-open="${w.n}">Open ${w.name}</button>`) + `<div class="cxa-squad">
       <div class="cxa-cards">${cards}</div>
       <aside class="cxa-rail">
         <h4>On the pitch now</h4>
         <svg class="cxa-pitch live" viewBox="0 0 105 68" role="group" aria-label="Live positions, coloured by state">${PITCH}${live}</svg>
         <h4>Flags</h4>
         <div class="cxa-flags">${flags || '<p class="cxa-note">Nothing to flag right now.</p>'}
-          ${SQUAD.filter(p => p.knocks.length).map(p => `<button class="cxa-flag s-head" data-open="${p.n}"><i>Head</i><b>No. ${p.n} · ${p.knocks.length} header${p.knocks.length > 1 ? 's' : ''}</b><span>Logged by the headset.</span></button>`).join('')}
+          ${SQUAD.filter(p => p.knocks.length).map(p => `<button class="cxa-flag" data-open="${p.n}">${dot('head')}<b>${p.name} · ${p.knocks.length} header${p.knocks.length > 1 ? 's' : ''}</b><span>Logged by the headset.</span></button>`).join('')}
         </div>
         <p class="cxa-note">CortX flags. The coach decides.</p>
       </aside>
@@ -202,7 +207,7 @@
   }
 
   function lineChart(p) {
-    const m = ui.clock / 60 | 0, v = sessionLine(p, m), W = 560, H = 300, L = 30, B = 22;
+    const m = ui.clock / 60 | 0, v = sessionLine(p, m), W = 560, H = 400, L = 30, B = 22;
     const x = i => L + i / Math.max(1, m) * (W - L - 8), y = val => 8 + (1 - (val - 40) / 55) * (H - B - 8);
     const avgB = (p.base.f + p.base.c + p.base.fr + p.base.r) / 4;
     const path = v.map((val, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(val).toFixed(1)}`).join('');
@@ -218,26 +223,47 @@
     return g + '</svg>';
   }
 
+  // tap a state to go past the briefing: more readings behind each of the four
+  function deeper(p) {
+    const r = rng(p.n * 71 + 3), d = k => Math.round(p.now[k] - p.base[k]), n = (a, b) => a + Math.floor(r() * (b - a + 1));
+    const lapses = Math.max(0, Math.round(-d('f') / 4)) + n(0, 1);
+    return {
+      f: [['Attention lapses, last 10 min', lapses], ['Longest focused spell', n(4, 9) + ' min'], ['Back on task after a mistake', n(20, 60) + ' s'], ['Focus when tracking back', (p.n === 18 ? '−18' : '−' + n(2, 7)) + ' vs going forward']],
+      c: [['Stress spikes this session', Math.max(0, Math.round(-d('c') / 3)) + n(0, 1)], ['Heart rate against the work', (d('c') < -6 ? '+9%' : '+' + n(0, 4) + '%')], ['Calm again after a spike', n(30, 90) + ' s'], ['Most tense after', ['turnovers', 'set pieces', 'pressing', 'losing a duel'][n(0, 3)]]],
+      fr: [['Mental fatigue onset', d('fr') < -6 ? 'Minute ' + n(26, 33) : 'Not yet'], ['Prefrontal oxygen vs morning', (d('fr') < -6 ? '−' + n(5, 8) : '−' + n(0, 3)) + '%'], ['Brain vs legs', d('fr') < -6 ? 'Brain tiring first' : 'In step'], ['Recovery at water breaks', n(55, 95) + '%']],
+      r: [['Response time', (300 + n(0, 30) - d('r') * 3) + ' ms'], ['Change vs morning', '+' + Math.max(0, -d('r') * 3 + n(0, 6)) + ' ms'], ['Slowest after', ['sprints', 'long passes', 'pressing'][n(0, 2)]], ['Scanning before receiving', n(2, 5) + ' looks']]
+    };
+  }
+  function medical(p) {
+    const r = rng(p.n * 13 + 1), rows = p.knocks.map(([x], i) => [`Header · ${pad(12 + i * 9 + Math.floor(r() * 6))}:${pad(Math.floor(r() * 60))}`, `${(18 + r() * 22).toFixed(0)} g`, x > 52 ? 'Attacking half' : 'Own half']);
+    if (read(p).state !== 'ok') rows.push(['Fatigue flag', STATE_WORD(p), 'Pitch-side']);
+    return rows;
+  }
+  const STATE_WORD = p => word(p);
+
   function playerView() {
     const p = byN[ui.player], { state, worst, drop } = read(p), i = SQUAD.indexOf(p);
     const prev = SQUAD[(i + SQUAD.length - 1) % SQUAD.length], next = SQUAD[(i + 1) % SQUAD.length];
     const adv = state === 'ok' ? ['Matching this morning', 'Every reading is within 10% of the morning check.', 'Nothing to do.'] : ADVICE[worst];
-    return `<div class="cxa-player">
+    const POS = { GK: 'Goalkeeper', RB: 'Right back', CB: 'Centre back', LB: 'Left back', DM: 'Holding midfield', CM: 'Central midfield', RW: 'Right wing', LW: 'Left wing', ST: 'Striker' };
+    const decided = ui.dismissed.has(p.n) ? 'Dismissed' : ui.confirmed.has(p.n) ? 'Confirmed' : '';
+    const acts = `<div class="cxa-pl-nav"><button data-open="${prev.n}" aria-label="Previous player, ${prev.name}">←</button><span class="num">${i + 1} of ${SQUAD.length}</span><button data-open="${next.n}" aria-label="Next player, ${next.name}">→</button></div>` +
+      (state === 'ok' ? '' : decided ? `<span class="cxa-note">${decided}</span>` : `<button class="cxa-text" data-dismiss="${p.n}">Dismiss</button><button class="cxa-btn" data-confirm="${p.n}">Confirm flag</button>`);
+    return titleRow(`<span class="num">${p.n}</span> ${p.name}`, `${POS[p.pos]} · Session 2 · against the 08:40 morning check`, acts) + `<div class="cxa-player">
       <div class="cxa-pl-id">
-        <div class="cxa-pl-nav"><button data-open="${prev.n}" aria-label="Previous player, ${prev.name}">←</button><span>${i + 1} of ${SQUAD.length}</span><button data-open="${next.n}" aria-label="Next player, ${next.name}">→</button></div>
-        <p class="cxa-eyebrow">${p.pos} · Session 2</p>
-        <h4 class="cxa-num">${pad(p.n)} <span>${p.name}</span></h4>
         ${glyph(p, true)}
         <div class="cxa-key"><span><i class="k-now" style="--sc:${COL[state]}"></i>Now</span><span><i class="k-base"></i>This morning</span></div>
       </div>
       <div class="cxa-pl-main">
-        <div class="cxa-insight s-${state}"><i>${word(p)}${state !== 'ok' ? ` · ${AX.find(a => a.k === worst).name} down ${Math.round(drop * 100)}%` : ''}</i><b>${adv[0]}</b><p>${adv[1]}</p><p class="next">${adv[2]}</p>${state === 'ok' ? '' : ui.dismissed.has(p.n) ? '<p class="cxa-note">Dismissed. CortX will learn from it.</p>' : ui.confirmed.has(p.n) ? '<p class="cxa-note">Confirmed. Saved to the session notes.</p>' : `<div class="cxa-acts"><button class="cxa-btn" data-confirm="${p.n}">Confirm</button><button class="cxa-chip" data-dismiss="${p.n}">Dismiss</button></div>`}</div>
-        <div class="cxa-panel"><div class="cxa-ph"><h5>Readiness this session</h5><span class="cxa-note">All four, as one line</span></div>${lineChart(p)}</div>
+        <div class="cxa-insight"><i>${dot(state)}${word(p)}${state !== 'ok' ? ` · ${AX.find(a => a.k === worst).name.toLowerCase()} down ${Math.round(drop * 100)}%` : ''}</i><b>${adv[0]}</b><p>${adv[1]} ${adv[2]}</p></div>
+        <div class="cxa-panel"><div class="cxa-ph"><h5>Readiness this session</h5><span class="cxa-note">Average of the four, 0 to 100</span></div>${lineChart(p)}</div>
         <div class="cxa-panel"><div class="cxa-ph"><h5>Where on the pitch</h5>
           <div class="cxa-seg" role="group" aria-label="Pitch map shows"><button data-mode="focus" aria-pressed="${ui.mode === 'focus'}">Focus</button><button data-mode="time" aria-pressed="${ui.mode === 'time'}">Time</button></div></div>
           ${heat(SESSION[p.n], ui.mode, p.knocks)}
           <div class="cxa-foot">${legend(ui.mode)}${p.knocks.length ? '<span class="cxa-note"><b class="kn">H</b> header</span>' : ''}</div>
         </div>
+        <div class="cxa-panel cxa-deep"><h5>Go deeper</h5>${AX.map(a => { const open = ui.deep === a.k, dd = Math.round(p.now[a.k] - p.base[a.k]); return `<div class="cxa-acc${open ? ' open' : ''}"><button data-deep="${a.k}" aria-expanded="${open}"><span>${a.name}</span><b>${Math.round(p.now[a.k])} <em class="${dd <= -6 ? 'dn' : ''}">${dd > 0 ? '+' : ''}${dd}</em></b><i>${open ? '−' : '+'}</i></button>${open ? `<div class="cxa-acc-b"><p class="cxa-note">${a.what}</p><dl>${deeper(p)[a.k].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div>` : ''}</div>`; }).join('')}</div>
+        <div class="cxa-panel cxa-deep"><h5>Medical log</h5>${medical(p).length ? `<dl class="cxa-med">${medical(p).map(([a, b, c]) => `<div><dt>${a}</dt><dd>${b}<span>${c}</span></dd></div>`).join('')}</dl>` : '<p class="cxa-note">Nothing logged this session.</p>'}<p class="cxa-note">Shared with the medical team. Players see their own data after the session, never live.</p></div>
       </div>
     </div>`;
   }
@@ -247,28 +273,29 @@
     const pts = pick ? SEASON[pick.n] : SQUAD.flatMap(p => SEASON[p.n]);
     const watch = SQUAD.map(p => { const w = WEEKLY[p.n]; return { p, f: w[WEEKS - 1], d: w[WEEKS - 1] - w[WEEKS - 4] }; }).sort((a, b) => a.d - b.d).slice(0, 7);
     const cw = 100 / WEEKS;
-    const rows = SQUAD.map(p => `<div class="cxa-hrow${ui.seasonPick === p.n ? ' on' : ''}"><button data-pick="${p.n}">${pad(p.n)} ${p.name}</button><div class="cxa-hcells">${WEEKLY[p.n].map((v, w) => `<i data-tip="${pad(p.n)} ${p.name} · W${w + 1} · focus ${v}" style="--o:${(Math.max(0, v - 50) / 42).toFixed(2)}"></i>`).join('')}</div></div>`).join('');
-    return `<div class="cxa-season">
+    const rows = SQUAD.map(p => `<div class="cxa-hrow${ui.seasonPick === p.n ? ' on' : ''}"><button data-pick="${p.n}">${p.n} ${p.name}</button><div class="cxa-hcells">${WEEKLY[p.n].map((v, w) => `<i data-tip="${p.n} ${p.name} · W${w + 1} · focus ${v}" style="--o:${(Math.max(0, v - 50) / 42).toFixed(2)}"></i>`).join('')}</div></div>`).join('');
+    const wl = watch[0];
+    return titleRow('Season', `First team · 18 weeks · ${wl.p.name}’s focus is down ${Math.abs(wl.d)} in three weeks, the biggest drop in the squad.`, `<button class="cxa-btn" data-open="${(pick || wl.p).n}">Open ${(pick || wl.p).name} live</button>`) + `<div class="cxa-season">
       <div class="cxa-kpis">
-        <div><i>Squad focus, match days</i><b>76</b><span>+9 since July</span></div>
-        <div><i>Late-game decision drop</i><b>−11%</b><span>was −24% in July</span></div>
-        <div><i>Fatigue flags per session</i><b>1.8</b><span>was 4.1</span></div>
-        <div><i>Wear compliance</i><b>94%</b><span>112 of 119 sessions</span></div>
+        <div><i>Squad focus, match days</i><b class="num">76</b><span>+9 since July</span></div>
+        <div><i>Late-game decision drop</i><b class="num">−11%</b><span>was −24% in July</span></div>
+        <div><i>Fatigue flags per session</i><b class="num">1.8</b><span>was 4.1 in July</span></div>
+        <div><i>Wear compliance</i><b class="num">94%</b><span>112 of 119 sessions</span></div>
       </div>
       <div class="cxa-srow">
         <div class="cxa-panel"><div class="cxa-ph"><h5>Watch list</h5><span class="cxa-note">Focus, last 3 weeks</span></div>
-          <table class="cxa-table"><thead><tr><th>Player</th><th>Pos</th><th>Focus</th><th>Trend</th></tr></thead><tbody>
-          ${watch.map(({ p, f, d }) => `<tr class="${ui.seasonPick === p.n ? 'on' : ''}"><td><button data-pick="${p.n}">${pad(p.n)} ${p.name}</button></td><td>${p.pos}</td><td>${f}</td><td class="${d < 0 ? 'dn' : 'up'}">${d < 0 ? '▼' : '▲'} ${Math.abs(d)}</td></tr>`).join('')}
+          <table class="cxa-table"><thead><tr><th>Player</th><th>Pos</th><th>Focus</th><th>3-week change</th></tr></thead><tbody>
+          ${watch.map(({ p, f, d }) => `<tr class="${ui.seasonPick === p.n ? 'on' : ''}"><td><button data-pick="${p.n}">${p.n} ${p.name}</button></td><td>${p.pos}</td><td class="num">${f}</td><td class="num ${d < 0 ? 'dn' : 'up'}">${d === 0 ? '0' : (d < 0 ? '−' : '+') + Math.abs(d)}</td></tr>`).join('')}
           </tbody></table>
-          ${pick ? `<button class="cxa-btn" data-open="${pick.n}">Open ${pick.name} live</button>` : '<p class="cxa-note">Pick a player to see where their focus drops.</p>'}
+          ${pick ? '' : '<p class="cxa-note">Pick a player to see where their focus drops.</p>'}
         </div>
         <div class="cxa-panel"><div class="cxa-ph"><h5>${pick ? `Where ${pick.name}’s focus drops` : 'Where the squad’s focus drops'}</h5>
           <div class="cxa-seg" role="group" aria-label="Pitch map shows"><button data-smode="focus" aria-pressed="${ui.seasonMode === 'focus'}">Focus</button><button data-smode="time" aria-pressed="${ui.seasonMode === 'time'}">Time</button></div></div>
           ${heat(pts, ui.seasonMode)}
-          <div class="cxa-foot">${legend(ui.seasonMode)}${pick ? '<button class="cxa-chip" data-pick="0">Whole squad</button>' : ''}</div>
+          <div class="cxa-foot">${legend(ui.seasonMode)}${pick ? '<button class="cxa-text" data-pick="0">Whole squad</button>' : ''}</div>
         </div>
       </div>
-      <div class="cxa-panel"><div class="cxa-ph"><h5>Focus by player and week</h5><span class="cxa-note">Jul 7 to Nov 9 · tap a name</span></div>
+      <div class="cxa-panel"><div class="cxa-ph"><h5>Focus by player and week</h5><span class="cxa-note">Jul 7 to Nov 9</span></div>
         <div class="cxa-hgrid">${rows}<div class="cxa-hrow ax"><span></span><div class="cxa-hcells">${Array.from({ length: WEEKS }, (_, w) => `<b>${w % 3 === 0 ? 'W' + (w + 1) : ''}</b>`).join('')}</div></div><div class="cxa-tip" hidden></div></div>
       </div>
     </div>`;
@@ -280,22 +307,22 @@
       <div class="cxa-tabs" role="tablist" aria-label="App views">
         <button role="tab" data-view="squad">Squad</button><button role="tab" data-view="player">Player</button><button role="tab" data-view="season">Season</button>
       </div>
-      <span class="cxa-live"><i></i><span class="cxa-ctx">Live</span> <b class="cxa-clock"></b></span>
       <span class="cxa-sess">Session 2 · Small-sided games</span>
+      <span class="cxa-live"><i></i><span class="cxa-ctx">Live</span> <b class="cxa-clock num"></b></span>
     </div>
     <div class="cxa-body" role="tabpanel" aria-live="off"></div>`;
   const body = root.querySelector('.cxa-body'), clockEl = root.querySelector('.cxa-clock');
 
   function render(keepScroll) {
     const y = body.scrollTop;
-    const alert = ui.alert && ui.view !== 'season' ? `<div class="cxa-alert" role="alert"><i>Head impact</i><b>No. 9 Lund · header at ${fmtClock(ui.alertAt)}</b><span>Above the impact threshold. Check at the next stop.</span><button data-open="9" class="cxa-btn">Open Lund</button><button class="cxa-chip" data-close="1">Dismiss</button></div>` : '';
+    const alert = ui.alert && ui.view !== 'season' ? `<div class="cxa-alert" role="alert">${dot('head')}<b>Head impact · Rooney, header at ${fmtClock(ui.alertAt)}</b><span>Logged by the headset. Check at the next stop.</span><button class="cxa-text" data-close="1">Dismiss</button><button data-open="10" class="cxa-btn">Open Rooney</button></div>` : '';
     body.innerHTML = alert + (ui.view === 'squad' ? squadView() : ui.view === 'player' ? playerView() : seasonView());
     root.dataset.view = ui.view;
     root.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-selected', b.dataset.view === ui.view));
-    root.querySelector('.cxa-ctx').textContent = ui.view === 'season' ? 'Season 2026/27' : 'Live';
-    root.querySelector('.cxa-sess').textContent = ui.view === 'season' ? 'First team · 18 weeks · Catapult and event data joined' : 'Session 2 · Small-sided games';
+    root.querySelector('.cxa-ctx').textContent = ui.view === 'season' ? 'Season 2007–08' : 'Live';
+    root.querySelector('.cxa-sess').textContent = ui.view === 'season' ? 'CortX position and event data' : 'Session 2 · Small-sided games';
     clockEl.textContent = ui.view === 'season' ? '' : fmtClock(ui.clock);
-    if (keepScroll) body.scrollTop = y;
+    body.scrollTop = keepScroll ? y : 0;
   }
 
   root.addEventListener('click', e => {
@@ -303,10 +330,11 @@
     if (!t || !root.contains(t)) return;
     const d = t.dataset;
     if (d.view) ui.view = d.view;
-    else if (d.open) { ui.player = +d.open; ui.view = 'player'; if (+d.open === 9) ui.alert = false; }
+    else if (d.open) { ui.player = +d.open; ui.view = 'player'; if (+d.open === 10) ui.alert = false; }
     else if (d.mode) ui.mode = d.mode;
     else if (d.smode) ui.seasonMode = d.smode;
     else if (d.close) ui.alert = false;
+    else if (d.deep) ui.deep = ui.deep === d.deep ? '' : d.deep;
     else if (d.confirm) ui.confirmed.add(+d.confirm);
     else if (d.dismiss) ui.dismissed.add(+d.dismiss);
     else if (d.pick !== undefined) ui.seasonPick = +d.pick === ui.seasonPick ? 0 : +d.pick;
@@ -340,14 +368,14 @@
     if (!on) return;
     if (ts - last > 1000) {
       last = ts; ui.clock++;
-      if (!ui.alertDone && ui.clock >= 38 * 60 + 30) { ui.alertDone = ui.alert = true; ui.alertAt = ui.clock; byN[9].knocks.push([95, 36]); render(true); }
+      if (!ui.alertDone && ui.clock >= 38 * 60 + 30) { ui.alertDone = ui.alert = true; ui.alertAt = ui.clock; byN[10].knocks.push([95, 36]); render(true); }
       if (ui.view !== 'season') clockEl.textContent = fmtClock(ui.clock);
       if (ui.clock % 3 === 0) {
         const r = Math.random;
         SQUAD.forEach(p => AX.forEach(a => { p.now[a.k] += (p.target[a.k] - p.now[a.k]) * .3 + (r() - .5) * 2.4; }));
-        byN[8].target.f = Math.max(54, byN[8].target.f - .15);
+        byN[18].target.f = Math.max(54, byN[18].target.f - .15);
         if (ui.view !== 'season') {
-          const a = document.activeElement, keyAttr = a && root.contains(a) && ['open', 'mode', 'view', 'pick', 'smode'].find(k => a.dataset[k] !== undefined);
+          const a = document.activeElement, keyAttr = a && root.contains(a) && ['open', 'mode', 'view', 'pick', 'smode', 'deep'].find(k => a.dataset[k] !== undefined);
           const sel = keyAttr && `[data-${keyAttr}="${a.dataset[keyAttr]}"]`;
           render(true);
           if (sel) root.querySelector(sel)?.focus({ preventScroll: true });
