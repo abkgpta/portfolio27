@@ -8,6 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/cx-coach.css">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=K2D:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -642,7 +643,7 @@ footer .socials .ico svg{width:13px;height:13px}
       </div>
       <dl class="cx-facts">
         <div><dt>For</dt><dd>The lead data analyst and head coach at a top club or performance centre</dd></div>
-        <div><dt>Reads</dt><dd>EEG, fNIRS, head motion, heart rate and GPS</dd></div>
+        <div><dt>Reads</dt><dd>EEG, fNIRS, head motion, heart rate and position on the pitch</dd></div>
         <div><dt>Team</dt><dd class="team"><span>Abhik Gupta</span><span>Ansha Gawande <a class="ico" href="https://anshawtydesigns.framer.website/" target="_blank" rel="noopener" aria-label="Ansha Gawande's portfolio"><svg><use href="#i-web"/></svg></a><a class="ico" href="https://www.linkedin.com/in/ansha-gawande-954812283/" target="_blank" rel="noopener" aria-label="Ansha Gawande on LinkedIn"><svg><use href="#i-in"/></svg></a></span></dd></div>
       </dl>
     </div>
@@ -680,9 +681,9 @@ footer .socials .ico svg{width:13px;height:13px}
     <p class="cx-lead">It fits the club's routine instead of asking the club to change.</p>
     <ol class="cx-system">
       <li><i>01</i><b>Headset</b>Dry EEG electrodes and fNIRS sensors in a light shell. One Boa dial fits many head sizes.</li>
-      <li><i>02</i><b>Back unit</b>Amplifier, battery, GPS and Bluetooth in an egg-shaped 52 × 92 × 24 mm unit. It slides into a plate in the vest, between the shoulder blades, and a magnetic cable runs up to the headset.</li>
+      <li><i>02</i><b>Back unit</b>Amplifier, battery, positioning (GPS) and Bluetooth in an egg-shaped 52 × 92 × 24 mm unit. It slides into a plate in the vest, between the shoulder blades, and a magnetic cable runs up to the headset.</li>
       <li><i>03</i><b>Charging dock</b>A bench station where a squad of 25 headsets and back units charge and sync together.</li>
-      <li><i>04</i><b>Pitch-side app</b>Live focus, load and fatigue per player on a tablet. No laptop, no waiting for the report.</li>
+      <li><i>04</i><b>Pitch-side app</b>One state per player, live on a tablet: sharp, loaded, fading or rattled. No laptop, no waiting for the report.</li>
       <li><i>05</i><b>Analyst dashboard</b>Sessions over time, joined with positional and event data through Catapult and STATSports APIs.</li>
     </ol>
     <p class="cx-rule">CortX assists the coach's judgement. It never overrides it.</p>
@@ -691,9 +692,9 @@ footer .socials .ico svg{width:13px;height:13px}
   <div class="cx-sense cx-in" data-slide="cx-science" data-tiers="overview full" data-base="3" data-skills="electronics,interaction">
     <div>
       <h3 class="cx-h">What it reads</h3>
-      <p>The headset carries the brain and head sensors. The back unit holds the analog front end, heart rate, GPS, Bluetooth and battery, and streams it all to the pitch-side app.</p>
+      <p>The headset carries the brain and head sensors. The back unit holds the analog front end, heart rate, positioning, Bluetooth and battery, and streams it all to the pitch-side app.</p>
       <div class="tabs" role="group" aria-label="Sensor">
-        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="hr">HR</button><button data-k="gps">GPS</button>
+        <button data-k="eeg" aria-pressed="true">EEG</button><button data-k="fnirs">fNIRS</button><button data-k="imu">IMU</button><button data-k="hr">HR</button><button data-k="gps">Position</button>
       </div>
       <div class="readout" aria-live="polite">
         <div class="where" id="sWhere"></div>
@@ -711,7 +712,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <h3 class="cx-h">How the data moves</h3>
     <p class="cx-lead">The back unit does the hard work, so the tablet only gets answers.</p>
     <div class="cx-flow-wrap"><svg class="cx-flow-svg" viewBox="0 0 1200 520" role="img" aria-labelledby="cxFlowT cxFlowD">
-<title id="cxFlowT">How CortX data moves</title><desc id="cxFlowD">Five sensors in the headset and back unit feed the back unit, which cleans the signals and turns them into focus, load and fatigue. It streams those over Bluetooth to the pitch-side tablet during training, and after the session the dock syncs everything to the analyst dashboard, where it is joined with GPS and event data.</desc>
+<title id="cxFlowT">How CortX data moves</title><desc id="cxFlowD">Five sensors in the headset and back unit feed the back unit, which cleans the signals and turns them into focus, load and fatigue. It streams those over Bluetooth to the pitch-side tablet during training, and after the session the dock syncs everything to the analyst dashboard, where it is joined with positional and event data.</desc>
 <text x="60" y="40" class="f-n">01</text><text x="60" y="70" class="f-h">Collect</text><text x="60" y="94" class="f-s">5 sensors, 2 devices</text>
 <text x="380" y="40" class="f-n">02</text><text x="380" y="70" class="f-h">Process</text><text x="380" y="94" class="f-s">On the back unit</text>
 <text x="690" y="40" class="f-n">03</text><text x="690" y="70" class="f-h">Stream</text><text x="690" y="94" class="f-s">Bluetooth, under 1 s</text>
@@ -720,7 +721,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <g><rect x="60" y="190" width="196" height="40" rx="20" fill="none" stroke="#0098F6" stroke-width="1.5"/><circle cx="82" cy="210" r="5" fill="#0098F6"/><text x="98" y="215" class="f-c">fNIRS</text><text x="242" y="215" class="f-d" text-anchor="end">Headset</text></g>
 <g><rect x="60" y="250" width="196" height="40" rx="20" fill="none" stroke="#AEC959" stroke-width="1.5"/><circle cx="82" cy="270" r="5" fill="#AEC959"/><text x="98" y="275" class="f-c">IMU</text><text x="242" y="275" class="f-d" text-anchor="end">Headset</text></g>
 <g><rect x="60" y="310" width="196" height="40" rx="20" fill="none" stroke="#00C2A8" stroke-width="1.5"/><circle cx="82" cy="330" r="5" fill="#00C2A8"/><text x="98" y="335" class="f-c">HR</text><text x="242" y="335" class="f-d" text-anchor="end">Back unit</text></g>
-<g><rect x="60" y="370" width="196" height="40" rx="20" fill="none" stroke="#F46C02" stroke-width="1.5"/><circle cx="82" cy="390" r="5" fill="#F46C02"/><text x="98" y="395" class="f-c">GPS</text><text x="242" y="395" class="f-d" text-anchor="end">Back unit</text></g>
+<g><rect x="60" y="370" width="196" height="40" rx="20" fill="none" stroke="#F46C02" stroke-width="1.5"/><circle cx="82" cy="390" r="5" fill="#F46C02"/><text x="98" y="395" class="f-c">Position</text><text x="242" y="395" class="f-d" text-anchor="end">Back unit</text></g>
 <path d="M256,150 C330,150 310,190 380,190" class="f-line" stroke="#9101B1"/>
 <path d="M256,210 C330,210 310,230 380,230" class="f-line" stroke="#0098F6"/>
 <path d="M256,270 C330,270 310,270 380,270" class="f-line" stroke="#AEC959"/>
@@ -744,7 +745,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <path d="M495.0,390 C495.0,417.0 610,417.0 690,417.0" class="f-line f-dash"/><path d="M860,417.0 C900,417.0 920,405.0 960,405.0" class="f-line f-dash"/>
 <rect x="690" y="380" width="170" height="74" rx="12" class="f-box"/><text x="708" y="412" class="f-c">Dock</text><text x="708" y="434" class="f-d">Full session syncs</text>
 <rect x="960" y="330" width="200" height="150" rx="12" class="f-box"/><text x="978" y="362" class="f-c">Analyst dashboard</text><text x="978" y="384" class="f-d">After the session</text>
-<text x="978" y="414" class="f-d" fill="#F46C02">+ Catapult GPS</text>
+<text x="978" y="414" class="f-d" fill="#F46C02">+ positional data</text>
 <text x="978" y="434" class="f-d" fill="#F46C02">+ STATSports</text>
 <text x="978" y="454" class="f-d" fill="#F4F2F8">+ Event data</text>
 <circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="0.00s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
@@ -800,23 +801,21 @@ footer .socials .ico svg{width:13px;height:13px}
     <ol class="cx-day">
       <li><i>Assess</i><b>Morning</b>Players put on the headset and vest. A short baseline sets today's starting point.</li>
       <li><i>Train</i><b>Session</b>Focus, load and fatigue stream to the coach's tablet, live, player by player.</li>
-      <li><i>Profile</i><b>Afternoon</b>The analyst joins the session with GPS and event data and updates each player's profile.</li>
+      <li><i>Profile</i><b>Afternoon</b>The analyst joins the session with positional and event data and updates each player's profile.</li>
       <li><i>Prepare</i><b>Matchday</b>Selection and warm-ups use what the week showed, with the coach making the call.</li>
     </ol>
   </div>
 
   <div class="cx-block cx-in" data-slide="cx-app" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
-    <h3 class="cx-h">Pitch-side app</h3>
-    <p class="cx-lead">Three numbers per player, live. The coach sees who is fading before it shows on the pitch.</p>
-    <div class="cx-grid2">
-      <figure class="cx-fig"><img src="img/cx3-app-squad.jpg" alt="Squad view on the tablet: sixteen player tiles with focus, load and fatigue bars, two players flagged in orange, and a list of flags on the right" width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 09</span>Squad view. CortX flags, the coach decides.</figcaption></figure>
-      <figure class="cx-fig"><img src="img/cx3-app-player.jpg" alt="Player view for number 8: a focus ring at 58 and live traces for EEG, fNIRS, heart rate, head motion and GPS" width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 10</span>Player view. Every sensor in its own colour.</figcaption></figure>
+    <h3 class="cx-h">Pitch-side app and dashboard</h3>
+    <p class="cx-lead">One app. The coach sees one word per player, live. The analyst sees the season. Try it: tap a player.</p>
+    <div class="cxa-device"><div class="cxa" id="cxApp" aria-label="Interactive CortX app">
+      <noscript><img src="img/cx3-app-squad.jpg" alt="Squad view on the tablet" width="1600" height="1000" style="width:100%;display:block"></noscript>
+    </div></div>
+    <div class="cxa-under">
+      <p>Each diamond is one player's mind: focus, composure, freshness and reaction, against this morning's check (dashed). CortX fuses EEG, fNIRS, head motion and heart rate into it, so the coach never reads a brainwave. GPS only ever shows as position on the pitch.</p>
+      <p class="caption">Illustrative data, not recorded.</p>
     </div>
-  </div>
-
-  <div class="cx-block cx-in" data-slide="cx-dashboard" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
-    <h3 class="cx-h">Analyst dashboard</h3>
-    <figure class="cx-fig"><img src="img/cx3-dashboard.jpg" alt="Analyst dashboard for the season: four headline numbers, a chart of mental load against high-speed running by week, a watch list and a heat map of focus by player and week" width="1920" height="1080" loading="lazy"><figcaption><span>Fig. 11</span>Season view, joined with Catapult, STATSports and event data</figcaption></figure>
   </div>
 
   <div class="cx-block cx-in" data-slide="cx-progress" data-tiers="overview full" data-base="2" data-skills="interaction,research">
@@ -836,7 +835,7 @@ footer .socials .ico svg{width:13px;height:13px}
       <div><img src="img/cx-logo-void.png" alt="CortX logo on the dark Void background" width="351" height="107" loading="lazy"></div>
     </div>
     <div class="cx-sensors-key">
-      <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">GPS</span>
+      <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">Position</span>
     </div>
     <p>Dark first, on Void. K2D for words, JetBrains Mono for numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
   </div>
@@ -1050,7 +1049,7 @@ const S={
   fnirs:{c:'#0098F6',where:'Headset',name:'fNIRS',text:'Functional near-infrared spectroscopy. Measures blood oxygen in the cerebral cortex.',f:t=>Math.sin(t*.12)*.7+Math.sin(t*.9)*.08},
   imu:{c:'#AEC959',where:'Headset',name:'IMU',text:'Inertial measurement unit. Tracks the rotation and acceleration of the head.',f:t=>Math.sign(Math.sin(t*.25))*.5*Math.exp(-((t*.25)%Math.PI))+Math.sin(t*2.2)*.1},
   hr:{c:'#00C2A8',where:'Back unit',name:'Heart rate',text:'Tracks heart rate through the vest, so mental load can be read against physical load.',f:t=>{const p=(t*.18)%1;return p<.08?Math.sin(p/.08*Math.PI)*.9:(p<.16?-Math.sin((p-.08)/.08*Math.PI)*.25:Math.sin(t*.3)*.05)}},
-  gps:{c:'#F46C02',where:'Back unit',name:'GPS',text:'Tracks the player’s position on the pitch, so brain data can be tied to what was happening in play.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
+  gps:{c:'#F46C02',where:'Back unit',name:'Position',text:'GPS places the player on the pitch, so every reading is tied to where they were and what was happening in play. In the app it shows as heatmaps on a pitch.',f:t=>Math.sin(t*.08)*.6+Math.cos(t*.05)*.3}
 };
 let sk='eeg';const tr=document.getElementById('trace'),tc=tr.getContext('2d');let tt=0;
 function setSensor(k){sk=k;const s=S[k];document.getElementById('sWhere').textContent=s.where;document.getElementById('sName').textContent=s.name;document.getElementById('sText').textContent=s.text;document.getElementById('cortx').style.setProperty('--sc',s.c);document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));}
@@ -1110,5 +1109,6 @@ const ogIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting)return;o
   catch(e){console.warn('overgrwth viewer unavailable',e);}},{rootMargin:'600px'});
 ogIO.observe(ogEl);
 </script>
+<script src="js/cx-coach.js" defer></script>
 </body>
 </html>
