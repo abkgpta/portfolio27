@@ -317,5 +317,14 @@
       43,
       44
     ]
+  },
+  {
+    "v": 37,
+    "commit": "a9f09d94b7380480f293fb17f75cb05011a207d5",
+    "date": "2026-11-15",
+    "title": "Add resume section above influences with downloadable PDF",
+    "pr": [
+      42
+    ]
   }
 ]
