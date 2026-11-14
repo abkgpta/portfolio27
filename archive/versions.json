@@ -280,5 +280,14 @@
     "pr": [
       38
     ]
+  },
+  {
+    "v": 33,
+    "commit": "32ae3cb1c602aec7ff3c92b7622c7f96c1cc6f3a",
+    "date": "2026-11-15",
+    "title": "CortX coach app: squad row shows 6 readable players, swipe for the rest",
+    "pr": [
+      39
+    ]
   }
 ]
