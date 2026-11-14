@@ -493,6 +493,7 @@ footer .socials .ico svg{width:13px;height:13px}
 </style>
 </head>
 <body id="top">
+<script src="/abk/loader.js"></script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-in" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></symbol>
 <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 2.2c-2.7 0-3 0-4 .1C3.6 2.5 2.5 4.6 2.3 8c-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.4 1.3 5.5 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.4-.2 5.5-1.3 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.4-1.3-5.5-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.4.1 3.6 1.2 3.7 3.7.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.4-1.2 3.6-3.7 3.7-1 .1-1.4.1-4 .1s-2.9 0-4-.1c-2.5-.1-3.6-1.3-3.7-3.7-.1-1-.1-1.4-.1-4s0-2.9.1-4C4.4 5.3 5.5 4.2 8 4.1c1-.1 1.4-.1 4-.1z"/></symbol>
@@ -1411,6 +1412,10 @@ if(cbEl){const cbIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting
     fill('eeg');
   }catch(e){console.warn('CortX brain visualiser unavailable',e);cb.classList.add('cb-nogl');cbEl.querySelector('.cb-panel').hidden=true;}
 },{rootMargin:'600px'});cbIO.observe(cbEl);}
+</script>
+<script>
+/* ---------- ABK loader on every image that loads after the page (abkgpta.github.io/abk/loader.js) ---------- */
+if(window.ABKLoader)ABKLoader.whenLoaded(()=>ABKLoader.watchImages(document.body,'img[loading=lazy]'));
 </script>
 <script src="js/site-updated.js"></script>
 </body>

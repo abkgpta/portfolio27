@@ -207,13 +207,15 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
   const bloom=new UnrealBloomPass(new THREE.Vector2(256,256),.7,.45,1.0); composer.addPass(bloom); composer.addPass(new OutputPass());
 
   // load
-  const setPct=p=>{p=Math.max(0,Math.min(100,Math.round(p)));load.querySelector('b').textContent=p+'%';load.querySelector('i span').style.width=p+'%';load.setAttribute('aria-valuenow',p);};
+  // ABK loader (abkgpta.github.io/abk/loader.js) replaces the percent readout when it is on the page
+  const abk=window.ABKLoader?window.ABKLoader.attach(stage):null; if(abk)load.style.visibility='hidden';
+  const setPct=p=>{if(abk)abk.progress(p/100);p=Math.max(0,Math.min(100,Math.round(p)));load.querySelector('b').textContent=p+'%';load.querySelector('i span').style.width=p+'%';load.setAttribute('aria-valuenow',p);};
   let gltf;
   try{
     const [d,g]=await Promise.all([fetch(BASE+'og-data.json').then(r=>r.json()),
       new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(BASE+'og-parts.glb',e=>setPct(100*e.loaded/(e.total||GLB_BYTES)))]);
-    DATA=d; gltf=g; setPct(100);
-  }catch(e){console.warn('overgrwth viewer unavailable',e);root.classList.add('failed');return;}
+    DATA=d; gltf=g; setPct(100); if(abk)abk.done();
+  }catch(e){console.warn('overgrwth viewer unavailable',e);root.classList.add('failed');if(abk)abk.done();return;}
   sync();
 
   /* ---------- materials ---------- */
