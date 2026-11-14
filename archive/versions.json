@@ -307,5 +307,15 @@
     "pr": [
       41
     ]
+  },
+  {
+    "v": 36,
+    "commit": "7385fda03a7d72ff495665aac402fc28b4454c6a",
+    "date": "2026-11-15",
+    "title": "Show influences beside the About text; Fix the desktop intro: text column gets the larger share inside the margins and the headline scales to fit; Studying reads B.Des (Hons.) Product Design, 2023 to 2027",
+    "pr": [
+      43,
+      44
+    ]
   }
 ]
