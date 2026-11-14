@@ -181,5 +181,14 @@
     "pr": [
       27
     ]
+  },
+  {
+    "v": 22,
+    "commit": "2093c042ffdb532dcb2c64304042564a9441d76f",
+    "date": "2026-11-14",
+    "title": "CortX scroll: no ghosted frames while loading",
+    "pr": [
+      28
+    ]
   }
 ]
