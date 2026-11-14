@@ -344,5 +344,14 @@
     "pr": [
       46
     ]
+  },
+  {
+    "v": 40,
+    "commit": "f632bb8a21a47f2f3d26a0fcaac8a17ef2b6a87d",
+    "date": "2026-11-15",
+    "title": "Keep overgrwth before CortX on the open site",
+    "pr": [
+      47
+    ]
   }
 ]
