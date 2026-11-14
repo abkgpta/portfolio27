@@ -33,6 +33,9 @@
     let a = below(Math.floor(p)), b = above(Math.ceil(p));
     if (!a && !b) return;
     if (!a) a = b; if (!b) b = a;
+    // blend only between close neighbours; while frames are still loading the two nearest can be
+    // far apart, and blending those shows a ghosted double image, so snap to the nearer one instead
+    if (b - a > Math.max(2, SUB)) { if (p - a <= b - p) b = a; else a = b; }
     const t = b > a ? Math.min(1, Math.max(0, (p - a) / (b - a))) : 0;
     const key = a * 1e4 + b + Math.round(t * 32) / 64;
     if (key === shown && !force) return; shown = key;
