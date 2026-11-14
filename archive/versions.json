@@ -371,5 +371,14 @@
     "pr": [
       49
     ]
+  },
+  {
+    "v": 43,
+    "commit": "d660018191b04e07c6473651622bda2e8851063f",
+    "date": "2026-11-15",
+    "title": "CortX: headset internals, vest, iPad and pitch renders; wireless copy",
+    "pr": [
+      50
+    ]
   }
 ]
