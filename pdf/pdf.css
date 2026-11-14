@@ -142,6 +142,7 @@ p + p, p + h3, dl + p { margin-top: 3mm; }
 .ph { flex-direction: column; gap: 1.5mm; text-align: center; }
 .ph b { font-family: var(--mono); font-weight: 400; text-transform: uppercase; letter-spacing: .12em; font-size: 8pt; }
 .ph small { font-size: 6.5pt; opacity: .7; }
+.ph small:empty { display: none; }
 /* single-image strips and render scene grid */
 .strip.one { grid-template-columns: 1fr; height: 60mm; }
 .strip.one.tall { height: 34mm; }

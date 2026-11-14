@@ -95,6 +95,7 @@ def add(commit, title, pr=None):
         pr = prs or None
     v = max((e["v"] for e in versions), default=0) + 1
     date = git("log", "-1", "--format=%cd", "--date=short", sha)
+    stamp = git("log", "-1", "--format=%cI", sha)
     entry = {"v": v, "commit": sha, "date": date, "title": title, "pr": pr}
     dest = ARCHIVE / f"v{v}"
     dest.mkdir(parents=True)
@@ -113,7 +114,7 @@ def add(commit, title, pr=None):
                 text = text.replace(f'"{d}', f'"../../{d}')
             if FORBIDDEN.search(text):
                 sys.exit(f"{m.name} at {sha[:7]} still names a removed institution; extend REDACT")
-            text = text.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
+            text = text.replace("<head>", '<head>\n<meta name="robots" content="noindex">\n<meta name="site-updated" content="' + stamp + '">', 1)
             if m.name == "index.html":
                 text = re.sub(r"(<body[^>]*>)", lambda b: b.group(1) + "\n" + banner(v, entry, v), text, count=1)
             data = text.encode()
