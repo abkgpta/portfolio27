@@ -271,5 +271,14 @@
     "pr": [
       37
     ]
+  },
+  {
+    "v": 32,
+    "commit": "5ce6bea5c124486c288cdeed9d798e3e39180e4d",
+    "date": "2026-11-15",
+    "title": "Add YouTube @abk23 to the bottom nav, next to nnode",
+    "pr": [
+      38
+    ]
   }
 ]
