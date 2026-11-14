@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head>
+<meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>overgrwth build viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#FFFAFA}.og{--ogb:#4569BE;--ogy:#FBCB44;--ogr:#D95942;--ogg:#2F7A4B;--ogp:#FFFAFA;--ogi:#1F2F5C;--gutter:0px}
+.og-out{font:700 64px/1 'Instrument Sans',system-ui,sans-serif;color:transparent;-webkit-text-stroke:1.5px currentColor}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head><body><div class="og"><div id="v"></div></div>
+<script type="module">import {mountOgViewer} from './og-viewer.js';const v=document.getElementById('v');v.style.margin='0';mountOgViewer(v,{fallback:'../img/og3-growth.jpg'});</script>
+</body></html>

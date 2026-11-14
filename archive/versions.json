@@ -145,5 +145,131 @@
     "pr": [
       14
     ]
+  },
+  {
+    "v": 18,
+    "commit": "8b99aedb2153b6365045aee34e5323cce1307449",
+    "date": "2026-11-13",
+    "title": "Figma sync: target the website page in the main portfolio.27 file",
+    "pr": [
+      24
+    ]
+  },
+  {
+    "v": 19,
+    "commit": "1d350ad4dd958b92661877e1f552cd58a0a1d04a",
+    "date": "2026-11-13",
+    "title": "CortX coach app v5: one screen, expanding panels, Reports tab, halftone background",
+    "pr": [
+      25
+    ]
+  },
+  {
+    "v": 20,
+    "commit": "614295c7103142ee51edbe7809b3fbee5ed43619",
+    "date": "2026-11-13",
+    "title": "CortX type: Manrope replaces IBM Plex Mono for body and data",
+    "pr": [
+      26
+    ]
+  },
+  {
+    "v": 21,
+    "commit": "59e2249d1c54fc869827055fefd8f2f8c218ffeb",
+    "date": "2026-11-14",
+    "title": "CortX scroll at 4x frame rate",
+    "pr": [
+      27
+    ]
+  },
+  {
+    "v": 22,
+    "commit": "2093c042ffdb532dcb2c64304042564a9441d76f",
+    "date": "2026-11-14",
+    "title": "CortX scroll: no ghosted frames while loading",
+    "pr": [
+      28
+    ]
+  },
+  {
+    "v": 23,
+    "commit": "7e2e4d343ef0dc6c1e989fb7124b812ff0a0fd55",
+    "date": "2026-11-14",
+    "title": "Add Peter Thiel to influences",
+    "pr": [
+      29
+    ]
+  },
+  {
+    "v": 24,
+    "commit": "9c6e921f586623f8473d5e4782fb40eee08a6176",
+    "date": "2026-11-14",
+    "title": "Keep the under-construction banner pinned and show last-updated time (IST)",
+    "pr": [
+      30
+    ]
+  },
+  {
+    "v": 25,
+    "commit": "62ce3d5483c626b28040e9e1cb358cb0399adc43",
+    "date": "2026-11-14",
+    "title": "Replace BMW with SpaceX in influences",
+    "pr": [
+      31
+    ]
+  },
+  {
+    "v": 26,
+    "commit": "e023bb1d5d91a5fb58f7c71a35339e1a6c5516e5",
+    "date": "2026-11-14",
+    "title": "Sort influences into People, Places, Brands; move About after the gallery",
+    "pr": [
+      32
+    ]
+  },
+  {
+    "v": 27,
+    "commit": "20dff8d7e3bc4fb37af39de818eb069e76c96db0",
+    "date": "2026-11-15",
+    "title": "Use the shared ABK loader for the page, cortX scroll frames, overgrwth viewer and images",
+    "pr": [
+      34
+    ]
+  },
+  {
+    "v": 28,
+    "commit": "1bc107f858ca02167ea89820e18e5b647ae01610",
+    "date": "2026-11-15",
+    "title": "Wide-margin column and a bottom navigation bar",
+    "pr": [
+      35
+    ]
+  },
+  {
+    "v": 29,
+    "commit": "dc01a8ddbd55e31fe74b1791e1367e8570c2f92a",
+    "date": "2026-11-15",
+    "title": "Influences: images, short descriptions, Music and Books groups, Man vs Machine",
+    "pr": [
+      33
+    ]
+  },
+  {
+    "v": 30,
+    "commit": "7846b78a952652fb175cbebc9be6b9384890e9de",
+    "date": "2026-11-15",
+    "title": "Hero: positioning line as headline, end-to-end sentence as subtext",
+    "pr": [
+      36
+    ]
+  },
+  {
+    "v": 31,
+    "commit": "d389fbbb45b2fbecf79cb977474c64bb125306b9",
+    "date": "2026-11-15",
+    "title": "Add Dyson photo to influences",
+    "pr": [
+      37
+    ]
   }
 ]

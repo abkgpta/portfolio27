@@ -1,0 +1,488 @@
+{
+"parts": {
+"frame": {
+"id": "OG-FRM-001",
+"name": "H-frame",
+"slot": "frame",
+"desc": "The one structural unit: a 24 in post and a 12 in post joined by a crossbar. Flip it and it stacks on itself."
+},
+"connector": {
+"id": "OG-CON-001",
+"name": "Frame connector",
+"slot": "pom_frame_connector",
+"desc": "Plus-shaped plug hidden inside two stacked posts. Five pogo pins carry power up the stack."
+},
+"endcap": {
+"id": "OG-CON-002",
+"name": "End cap",
+"slot": "pom_end_cap",
+"desc": "Closes any post top that has no attachment."
+},
+"foot": {
+"id": "OG-CON-003",
+"name": "Floor foot",
+"slot": "alu_floor_foot",
+"desc": "Cross foot that plugs into the bottom of a post."
+},
+"powerfoot": {
+"id": "OG-CON-004",
+"name": "Power-in foot",
+"slot": "alu_power_in_foot",
+"desc": "Floor foot with a barrel jack. Power enters the system here and climbs the posts."
+},
+"clamp": {
+"id": "OG-CON-005",
+"name": "Universal clamp",
+"slot": "pom_universal_clamp",
+"desc": "One clamp for every module. Collars a post at any height and carries shelves, trays and panels."
+},
+"shelf": {
+"id": "OG-MOD-001",
+"name": "Shelf",
+"slot": "oak",
+"desc": "Square shelf on four clamps. Grows with the 21 in grid."
+},
+"whiteboard": {
+"id": "OG-MOD-002",
+"name": "Whiteboard panel",
+"slot": "whiteboard",
+"desc": "Panel you write on. Hangs between two posts on clamps."
+},
+"pegboard": {
+"id": "OG-MOD-002",
+"name": "Pegboard panel",
+"slot": "pegboard",
+"desc": "Panel you hang tools on."
+},
+"softboard": {
+"id": "OG-MOD-002",
+"name": "Softboard panel",
+"slot": "softboard",
+"desc": "Felt panel you pin to."
+},
+"planter": {
+"id": "OG-MOD-003",
+"name": "Planter tray",
+"slot": "pp",
+"desc": "Tray with a false floor and drain spout. Holds soil and water."
+},
+"grow": {
+"id": "OG-ATT-001",
+"name": "Grow light",
+"slot": "att_grow_light",
+"desc": "300 mm ring light on a post top. Lights the plants below it."
+},
+"spot": {
+"id": "OG-ATT-002",
+"name": "Spotlight",
+"slot": "att_spotlight",
+"desc": "Task light on a ball joint."
+},
+"hub": {
+"id": "OG-ATT-003",
+"name": "Power hub",
+"slot": "att_power_hub",
+"desc": "Turns a post top into three USB-C outlets and a Qi pad."
+},
+"pen": {
+"id": "OG-ATT-004",
+"name": "Pen stand",
+"slot": "att_pen_stand",
+"desc": "Cup for pens. Unpowered."
+},
+"clock": {
+"id": "OG-ATT-005",
+"name": "Clock puck",
+"slot": "att_clock_puck",
+"desc": "Clock disc on a tilting hinge."
+},
+"speaker": {
+"id": "OG-ATT-006",
+"name": "Speaker puck",
+"slot": "att_speaker_puck",
+"desc": "Bluetooth speaker, 2 in driver facing up."
+},
+"clip": {
+"id": "OG-ATT-007",
+"name": "Vine clip",
+"slot": "clip",
+"desc": "Ring that trains vines up a post."
+}
+},
+"slots": {
+"frame": {
+"name": "H-frame tube",
+"material": "aluminium tube",
+"finish": "satin metal",
+"hex": "#FFFAFA",
+"roughness": 0.4,
+"metallic": 0.85,
+"spec": "Al 6063-T5 tube dia 76.2 x 3.2",
+"finish_spec": "polyester powder coat, satin, fine texture",
+"texture": "smooth satin, faint orange peel"
+},
+"alu": {
+"name": "Floor feet, power-in foot",
+"material": "cast aluminium",
+"finish": "satin bead-blasted",
+"hex": "#A9ACAE",
+"roughness": 0.45,
+"metallic": 0.85,
+"spec": "Al A356 sand/gravity cast",
+"finish_spec": "bead blast B60, clear lacquer",
+"texture": "fine matte grain"
+},
+"pom": {
+"name": "Frame connectors",
+"material": "white POM",
+"finish": "satin",
+"hex": "#A9ACAE",
+"roughness": 0.35,
+"metallic": 0,
+"spec": "POM-H white",
+"finish_spec": "mould texture SPI B-1, satin",
+"texture": "smooth satin"
+},
+"clip": {
+"name": "Vine clips",
+"material": "grey POM / TPU",
+"finish": "matte",
+"hex": "#FBCB44",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "POM-H black / TPU 85A black",
+"finish_spec": "SPI C-1 matte",
+"texture": "soft matte"
+},
+"oak": {
+"name": "Shelf",
+"material": "oak, green lacquer",
+"finish": "satin lacquer",
+"hex": "#FBCB44",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "European oak, solid 19 mm",
+"finish_spec": "2K PU lacquer, green, 30 gloss",
+"texture": "open grain shows through"
+},
+"pp": {
+"name": "Planter tray",
+"material": "recycled PP, vacuum formed",
+"finish": "matte",
+"hex": "#FBCB44",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "recycled PP sheet 2.5 mm, vacuum formed",
+"finish_spec": "matte, speckled recycled fleck",
+"texture": "dark flecks in red"
+},
+"att": {
+"name": "Attachment housings (legacy, unused)",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#FFFAFA",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"plant": {
+"name": "Vines and leaves (prop)",
+"material": "plant",
+"finish": "natural",
+"hex": "#4F8A3C",
+"roughness": 0.7,
+"metallic": 0,
+"spec": "prop",
+"finish_spec": "",
+"texture": ""
+},
+"hi": {
+"name": "Powered parts highlight (diagram only)",
+"material": "diagram colour",
+"finish": "flat",
+"hex": "#4569BE",
+"roughness": 0.45,
+"metallic": 0,
+"spec": null,
+"finish_spec": null,
+"texture": null
+},
+"power": {
+"name": "Power path line (diagram only)",
+"material": "diagram glow",
+"finish": "emissive",
+"hex": "#FBCB44",
+"roughness": 0.4,
+"metallic": 0,
+"spec": null,
+"finish_spec": null,
+"texture": null
+},
+"bg": {
+"name": "Backdrop",
+"material": "studio sweep",
+"finish": "matte",
+"hex": "#FFFAFA",
+"roughness": 0.9,
+"metallic": 0,
+"spec": null,
+"finish_spec": null,
+"texture": null
+},
+"whiteboard": {
+"name": "Whiteboard panel",
+"material": "aluminium tray, white coat",
+"finish": "gloss white",
+"hex": "#FFFFFF",
+"roughness": 0.15,
+"metallic": 0,
+"spec": "Al 1.5 mm tray",
+"finish_spec": "gloss white polyester coil coat",
+"texture": "mirror-smooth gloss"
+},
+"pegboard": {
+"name": "Pegboard panel",
+"material": "aluminium tray, powder coat",
+"finish": "matte powder coat",
+"hex": "#4569BE",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "Al 1.5 mm tray, dia 6.4 holes @ 25.4",
+"finish_spec": "polyester powder coat, fine texture",
+"texture": "slight orange peel"
+},
+"softboard": {
+"name": "Softboard panel",
+"material": "aluminium tray, felt pad",
+"finish": "wool felt",
+"hex": "#4569BE",
+"roughness": 0.95,
+"metallic": 0,
+"spec": "Al 1.5 mm tray + 5 mm wool felt",
+"finish_spec": "needle felt, pinnable",
+"texture": "fuzzy fibre"
+},
+"muted": {
+"name": "Muted module (diagram only)",
+"material": "diagram grey",
+"finish": "flat",
+"hex": "#D9D6D2",
+"roughness": 0.6,
+"metallic": 0,
+"spec": null,
+"finish_spec": null,
+"texture": null
+},
+"clamp": {
+"name": "Universal clamps",
+"material": "grey POM",
+"finish": "satin",
+"hex": "#A9ACAE",
+"roughness": 0.4,
+"metallic": 0,
+"spec": "POM-H, pigmented to match feet",
+"finish_spec": "SPI B-1 satin",
+"texture": "smooth satin"
+},
+"cap": {
+"name": "End caps",
+"material": "POM",
+"finish": "fine matte texture",
+"hex": "#D95942",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "POM-H, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_grow": {
+"name": "Grow light",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#FBCB44",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_spot": {
+"name": "Spotlight",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#4569BE",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_hub": {
+"name": "Power hub",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#C9A27A",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_pen": {
+"name": "Pen stand",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#4569BE",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_clock": {
+"name": "Clock puck",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#FBCB44",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_speaker": {
+"name": "Speaker puck",
+"material": "moulded PC/ABS",
+"finish": "fine matte texture",
+"hex": "#2F7A4B",
+"roughness": 0.45,
+"metallic": 0,
+"spec": "PC/ABS moulded, through-colour",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"pom_frame_connector": {
+"name": "Frame connector",
+"material": "white POM",
+"finish": "satin metal",
+"hex": "#FFFAFA",
+"roughness": 0.4,
+"metallic": 0.85,
+"spec": "POM-H white",
+"finish_spec": "mould texture SPI B-1, satin",
+"texture": "smooth satin"
+},
+"pom_end_cap": {
+"name": "End cap",
+"material": "white POM",
+"finish": "satin metal",
+"hex": "#FFFAFA",
+"roughness": 0.4,
+"metallic": 0.85,
+"spec": "POM-H white",
+"finish_spec": "mould texture SPI B-1, satin",
+"texture": "smooth satin"
+},
+"pom_universal_clamp": {
+"name": "Universal clamp",
+"material": "white POM",
+"finish": "matte",
+"hex": "#2F7A4B",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "POM-H white",
+"finish_spec": "mould texture SPI B-1, satin",
+"texture": "smooth satin"
+},
+"alu_floor_foot": {
+"name": "Floor foot",
+"material": "cast aluminium",
+"finish": "satin bead-blasted",
+"hex": "#FFFAFA",
+"roughness": 0.4,
+"metallic": 0.85,
+"spec": "Al A356 sand/gravity cast",
+"finish_spec": "bead blast B60, clear lacquer",
+"texture": "fine matte grain"
+},
+"alu_power_in_foot": {
+"name": "Power-in foot",
+"material": "cast aluminium",
+"finish": "satin bead-blasted",
+"hex": "#D95942",
+"roughness": 0.4,
+"metallic": 0.85,
+"spec": "Al A356 sand/gravity cast",
+"finish_spec": "bead blast B60, clear lacquer",
+"texture": "fine matte grain"
+},
+"att_grow_light": {
+"name": "Grow light",
+"material": "moulded PC/ABS",
+"finish": "matte",
+"hex": "#D95942",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_spotlight": {
+"name": "Spotlight",
+"material": "moulded PC/ABS",
+"finish": "matte",
+"hex": "#D95942",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_power_hub": {
+"name": "Power hub",
+"material": "moulded PC/ABS",
+"finish": "matte",
+"hex": "#D95942",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_pen_stand": {
+"name": "Pen stand",
+"material": "moulded PC/ABS",
+"finish": "matte",
+"hex": "#FBCB44",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_clock_puck": {
+"name": "Clock puck",
+"material": "moulded PC/ABS",
+"finish": "matte",
+"hex": "#D95942",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+},
+"att_speaker_puck": {
+"name": "Speaker puck",
+"material": "moulded PC/ABS",
+"finish": "matte",
+"hex": "#D95942",
+"roughness": 0.6,
+"metallic": 0,
+"spec": "PC/ABS moulded",
+"finish_spec": "MT-11010 fine texture",
+"texture": "fine leather-like stipple"
+}
+}
+}

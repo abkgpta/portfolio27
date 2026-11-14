@@ -3,7 +3,7 @@
    everything), translucent glass boxes, one box with imagery (the headset), a central figure
    in each view (live pitch, the mind diagram, the season heatmap) with boxes around it, and
    key numbers set far larger than their labels. CortX brand kept: Void ground, Michroma for
-   names and words, IBM Plex Mono for numbers and text, state colours only on data. */
+   names and words, Manrope for numbers and text, state colours only on data. */
 .cxa-device{border:1px solid var(--cxl);border-radius:20px;padding:8px;background:#07010F}
 .cxa{
   --g0:#0D031E;   /* ground (brand Void) */
@@ -14,7 +14,7 @@
   --cxa-ok:#F4F2F8; --cxa-watch:#FFB020; --cxa-act:#FF190F; --cxa-head:#AEC959;
   --gap:16px; --pad:20px; --r:10px; --r-in:6px;
   border-radius:14px;overflow:hidden;background:var(--g0);color:var(--ink);
-  font:400 14px/1.45 'IBM Plex Mono',monospace;display:flex;flex-direction:column;height:min(860px,calc(100vh - 32px));min-height:640px;position:relative;isolation:isolate;
+  font:400 14px/1.45 'Manrope',sans-serif;display:flex;flex-direction:column;height:min(860px,calc(100vh - 32px));min-height:640px;position:relative;isolation:isolate;
   --glass:rgba(24,12,48,.52);--glass-hi:rgba(145,1,177,.26);--edge:rgba(244,242,248,.08);--r:16px}
 .cxa-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:.1;z-index:-1;pointer-events:none}
 .cxa .num{font-variant-numeric:tabular-nums}
@@ -42,7 +42,7 @@
 .cxa .cxa-text{font-size:13px;color:var(--mute);padding:8px 4px;min-height:36px}
 .cxa .cxa-text:hover{color:var(--ink)}
 
-.cxa h4,.cxa h5{font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--mute);margin:0}
+.cxa h4,.cxa h5{font:500 13px/1.4 'Manrope',sans-serif;color:var(--mute);margin:0}
 .cxa-note{font-size:12px;color:var(--meta);margin:0}
 .cxa-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--meta);margin-right:8px;flex:none;vertical-align:1px}
 .cxa-dot.s-ok{background:rgba(244,242,248,.35)}
@@ -61,9 +61,9 @@
 .cxa-glyph.big .g-now{stroke-width:2.5}
 .cxa-glyph .g-dot{fill:var(--g0);stroke:var(--sc);stroke-width:1.4}
 .cxa-glyph .g-dot.hit{fill:var(--sc)}
-.cxa-glyph .g-tiny{font:500 7px 'IBM Plex Mono',monospace;fill:var(--meta)}
-.cxa-glyph .g-lab{font:500 12px 'IBM Plex Mono',monospace;fill:var(--meta)}
-.cxa-glyph .g-val{font:500 30px 'IBM Plex Mono',monospace;fill:var(--ink);letter-spacing:-.04em}
+.cxa-glyph .g-tiny{font:500 7px 'Manrope',sans-serif;fill:var(--meta)}
+.cxa-glyph .g-lab{font:500 12px 'Manrope',sans-serif;fill:var(--meta)}
+.cxa-glyph .g-val{font:500 30px 'Manrope',sans-serif;fill:var(--ink);letter-spacing:-.04em}
 .cxa-glyph .g-val.hit{fill:var(--sc)}
 .cxa-glyph .g-d{font-size:13px;letter-spacing:0;fill:var(--meta)}
 .cxa-glyph .g-val.hit .g-d{fill:var(--sc)}
@@ -73,8 +73,8 @@
 .cxa-tile.grow{flex:1}
 .cxa-tile.cxa-hi{background:var(--glass-hi);border-color:rgba(176,76,255,.28)}
 .cxa-th{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:30px;flex-wrap:wrap}
-.cxa .cxa-th h5{font:500 12px/1.3 'IBM Plex Mono',monospace;color:var(--meta)}
-.cxa-big{display:block;font:500 56px/1 'IBM Plex Mono',monospace;letter-spacing:-.045em;margin:18px 0 0;font-variant-numeric:tabular-nums;color:var(--ink)}
+.cxa .cxa-th h5{font:500 12px/1.3 'Manrope',sans-serif;color:var(--meta)}
+.cxa-big{display:block;font:500 56px/1 'Manrope',sans-serif;letter-spacing:-.045em;margin:18px 0 0;font-variant-numeric:tabular-nums;color:var(--ink)}
 .cxa-big small{font-size:16px;letter-spacing:0;color:var(--meta);margin-left:6px;font-weight:400}
 .cxa-big.word{font:400 30px/1.1 'Michroma',sans-serif;letter-spacing:-.02em}
 .cxa-big.s-watch{color:var(--cxa-watch)}.cxa-big.s-act{color:var(--cxa-act)}
@@ -106,7 +106,7 @@
 .cxa-worst .cxa-big{margin:0;font-size:44px}
 .cxa-glyph.mid{width:112px;height:112px}
 .cxa-name{font:400 13px/1.3 'Michroma',sans-serif;margin:12px 0 14px}
-.cxa-name .num{font-family:'IBM Plex Mono',monospace;color:var(--meta);margin-right:4px}
+.cxa-name .num{font-family:'Manrope',sans-serif;color:var(--meta);margin-right:4px}
 .cxa-hi .cxa-btn{align-self:flex-start}
 .cxa-row-h{margin:28px 0 12px}
 .cxa-row2{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--gap);margin-top:var(--gap)}
@@ -119,7 +119,7 @@
 .cxa .cxa-card:hover{background:rgba(44,28,78,.6)}
 .cxa .cxa-card:active{transform:scale(.99)}
 .c-top{display:flex;align-items:baseline;gap:10px}
-.c-top b{font:500 15px/1 'IBM Plex Mono',monospace;color:var(--meta);min-width:20px}
+.c-top b{font:500 15px/1 'Manrope',sans-serif;color:var(--meta);min-width:20px}
 .c-top span{font:400 12px/1.2 'Michroma',sans-serif;letter-spacing:-.01em}
 .c-top em{margin-left:auto;font-size:12px;font-style:normal;color:var(--meta)}
 .c-body{display:grid;grid-template-columns:88px minmax(0,1fr);align-items:center;gap:12px}
@@ -148,21 +148,21 @@
 .cxa-pitch rect[fill]{transition:opacity .3s}
 .p-pl{cursor:pointer}
 .p-pl circle{fill:var(--g0);stroke:var(--cxa-ok);stroke-width:.7;transition:cx 2.8s linear,cy 2.8s linear}
-.p-pl text{font:600 3px 'IBM Plex Mono',monospace;fill:var(--ink);pointer-events:none;transition:x 2.8s linear,y 2.8s linear}
+.p-pl text{font:600 3px 'Manrope',sans-serif;fill:var(--ink);pointer-events:none;transition:x 2.8s linear,y 2.8s linear}
 .p-pl.s-watch circle{stroke:var(--cxa-watch);fill:color-mix(in srgb,var(--cxa-watch) 30%,#0D031E)}
 .p-pl.s-act circle{stroke:var(--cxa-act);fill:var(--cxa-act)}
 .p-pl:hover circle,.p-pl:focus circle{stroke-width:1.2}
 .p-pl:focus{outline:none}
 .p-knock circle{fill:var(--g0);stroke:var(--cxa-head);stroke-width:.6}
-.p-knock text{font:700 2.6px 'IBM Plex Mono',monospace;fill:var(--cxa-head)}
+.p-knock text{font:700 2.6px 'Manrope',sans-serif;fill:var(--cxa-head)}
 .cxa-leg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--meta)}
 .cxa-leg i{display:flex;gap:2px}.cxa-leg b{width:16px;height:8px;border-radius:2px}
 .cxa-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:12px}
-.kn{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--cxa-head);color:var(--cxa-head);font:700 9px 'IBM Plex Mono',monospace;margin-right:4px}
+.kn{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--cxa-head);color:var(--cxa-head);font:700 9px 'Manrope',sans-serif;margin-right:4px}
 
 /* player */
 .cxa-who{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
-.cxa-who > div:first-child .num{display:block;font:500 64px/1 'IBM Plex Mono',monospace;letter-spacing:-.05em;color:rgba(244,242,248,.35)}
+.cxa-who > div:first-child .num{display:block;font:500 64px/1 'Manrope',sans-serif;letter-spacing:-.05em;color:rgba(244,242,248,.35)}
 .cxa-who h3{font:400 24px/1.2 'Michroma',sans-serif;letter-spacing:-.01em;margin:8px 0 4px}
 .cxa-who p{margin:0;font-size:13px;color:var(--mute)}
 .cxa-stage-pl{justify-content:flex-start}
@@ -184,7 +184,7 @@
 .cxa .cxa-seg button[aria-pressed="true"]{background:rgba(244,242,248,.14);color:var(--ink)}
 .cxa-line{display:block;width:100%;height:auto}
 .cxa-line .l-grid{stroke:rgba(244,242,248,.08)}
-.cxa-line .l-ax{font:500 11px 'IBM Plex Mono',monospace;fill:var(--meta)}
+.cxa-line .l-ax{font:500 11px 'Manrope',sans-serif;fill:var(--meta)}
 .cxa-line .l-base{stroke:rgba(244,242,248,.55);stroke-dasharray:5 5}
 .cxa-line .l-path{fill:none;stroke:var(--sc);stroke-width:2.2;stroke-linejoin:round}
 .cxa-line .l-area{fill:color-mix(in srgb,var(--sc) 10%,transparent)}
@@ -283,7 +283,7 @@
 .cxa-chip .cxa-glyph{width:40px;height:40px;grid-row:1/3}
 .cxa-chip .cxa-glyph .g-tiny{display:none}
 .cxa-chip span{font:400 10px/1.2 'Michroma',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cxa-chip span b{font:500 11px 'IBM Plex Mono',monospace;color:var(--meta);margin-right:2px}
+.cxa-chip span b{font:500 11px 'Manrope',sans-serif;color:var(--meta);margin-right:2px}
 .cxa-chip i{font-style:normal;font-size:11px;color:var(--mute)}
 .cxa-chip.s-watch i{color:var(--cxa-watch)}.cxa-chip.s-act i{color:var(--cxa-act)}
 .cxa-who > div:first-child .num{font-size:48px}
@@ -309,11 +309,11 @@
 .cxa-se .cxa-hi .cxa-btn{margin-top:10px}
 .cxa-quad{display:block;overflow:visible}
 .cxa-quad .q-ax{stroke:rgba(244,242,248,.18);stroke-dasharray:4 4}
-.cxa-quad .q-lab{font:500 9px 'IBM Plex Mono',monospace;fill:var(--meta)}
+.cxa-quad .q-lab{font:500 9px 'Manrope',sans-serif;fill:var(--meta)}
 .cxa-quad .q-lab.hot{fill:var(--cxa-watch)}
-.cxa-quad .q-ax-l{font:500 8px 'IBM Plex Mono',monospace;fill:var(--meta)}
+.cxa-quad .q-ax-l{font:500 8px 'Manrope',sans-serif;fill:var(--meta)}
 .cxa-quad .p-pl circle{stroke-width:1.5}
-.cxa-quad .p-pl text{font:600 8px 'IBM Plex Mono',monospace}
+.cxa-quad .p-pl text{font:600 8px 'Manrope',sans-serif}
 .cxa-quad .p-pl:hover circle{stroke-width:2.5}
 .cxa-stage > .cxa-note{text-align:center}
 /* expanded panel */

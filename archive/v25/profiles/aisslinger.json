@@ -1,0 +1,30 @@
+{
+  "name": "Studio Aisslinger",
+  "gunj": "GUNJ-039",
+  "wave": 1,
+  "greeting": "Prepared for Studio Aisslinger",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "overgrwth",
+  "multipliers": {
+    "cmf": 1.4,
+    "rendering": 1.3,
+    "research": 1.2,
+    "systems": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.3,
+    "cortx": 1.0,
+    "dash": 1.0
+  },
+  "pitch": {
+    "title": "Why Studio Aisslinger",
+    "lines": [
+      "The Loftcube and your hotel interiors treat living space as a system.",
+      "overgrwth brings that to the workspace: frames, shelves, planters and a grow light that grow with a studio.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}

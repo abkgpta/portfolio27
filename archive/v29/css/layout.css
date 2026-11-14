@@ -1,0 +1,72 @@
+/* Wide-margin layout + bottom navigation (loaded last, overrides the inline styles).
+   Content sits in a centred column with generous side margins on desktop; full-bleed
+   backgrounds (project colour fields, the CortX scroll film) still run edge to edge.
+   --gap   = the old gutter, used for spacing inside a block.
+   --gutter = the outer side margin. Everything that pads a section uses it. */
+:root{--gap:clamp(16px,4vw,56px);--gutter:var(--gap);--col:1180px;--dock-h:52px}
+@media (min-width:1024px){:root{--gutter:max(14vw,calc((100vw - var(--col)) / 2))}}
+
+/* blocks that pad both of their columns with the gutter: outer edge keeps the margin, inner edge gets --gap */
+.about > div:first-child,.hero-text,.two > *:first-child,.sensors > div:first-child,.project-head > div:first-child{padding-right:var(--gap)}
+.about > div:last-child,.two > *:last-child,.sensors > div:last-child,.project-head > div:last-child{padding-left:var(--gap)}
+.hero{padding-right:var(--gutter)}
+.inf-grid .inf-col + .inf-col{padding-left:var(--gap)}
+@media (min-width:641px){.inf-grid .inf-col:not(:last-child){padding-right:var(--gap)}.inf-grid:has(> .inf-col:nth-child(4)) .inf-col:nth-child(odd){padding-left:0}.inf-grid:has(> .inf-col:nth-child(4)) .inf-col:nth-child(even){padding-right:0}}
+@media (max-width:900px){
+  .about > div,.two > *,.sensors > div,.project-head > div{padding-left:var(--gutter);padding-right:var(--gutter)}
+  .hero{padding-right:0}.hero-text{padding-right:var(--gutter)}
+}
+@media (max-width:640px){.inf-grid .inf-col + .inf-col{padding-left:0}}
+/* the scroll film's captions sit on the column edge */
+.cx-sc-cap{left:var(--gutter)}
+
+/* header: wordmark only, centred (navigation lives at the bottom now) */
+header .wrap{max-width:none;justify-content:center;height:56px}
+.wordmark{font-size:14px}
+
+/* metadata table: small uppercase labels on the left, values on the right */
+.og-facts,.cx-facts{border-left:0;padding-left:0;gap:0;align-self:start}
+.og-facts > div,.cx-facts > div{display:grid;grid-template-columns:minmax(72px,120px) minmax(0,1fr);gap:16px;padding:10px 0;border-top:1px solid var(--line)}
+.og-facts > div{border-top-color:rgba(31,47,92,.14)}
+.og-facts > div:last-child,.cx-facts > div:last-child{border-bottom:1px solid var(--line)}
+.og-facts > div:last-child{border-bottom-color:rgba(31,47,92,.14)}
+.og-facts dt,.cx-facts dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.9;font-weight:500}
+.og-facts dt{color:rgba(31,47,92,.6)}
+.cx-facts dd{margin:0}
+/* facts first, story second (as in a case-study sheet) */
+@media (min-width:821px){
+  .og-intro{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
+  .og-intro > .og-facts{order:-1}
+}
+@media (min-width:901px){
+  .cx-cols{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+  .cx-cols > .cx-facts{order:-1}
+}
+
+/* bottom navigation: one floating bar, ABK square corners, ink field, pink action */
+.dock{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;
+  display:flex;align-items:center;gap:4px;padding:6px;max-width:calc(100vw - 24px);
+  background:rgba(10,10,10,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--cream);
+  font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 28px rgba(10,10,10,.18)}
+.dock-links{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+.dock-links::-webkit-scrollbar{display:none}
+.dock a{display:inline-flex;align-items:center;min-height:40px;padding:0 12px;text-decoration:none;white-space:nowrap;color:inherit;opacity:.8;transition:opacity .2s,color .2s}
+.dock a:hover,.dock a[aria-current]{opacity:1;color:var(--pink)}
+.dock a[hidden]{display:none}
+.dock .dock-cta{flex:none;background:var(--pink);color:var(--ink);opacity:1;padding:0 16px;margin-left:4px}
+.dock .dock-cta:hover{background:var(--cream);color:var(--ink)}
+.dock a:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+html.in-cx .dock{background:rgba(69,39,161,.88)}
+html.in-cx .dock .dock-cta{background:var(--cream);color:#0D031E}
+html.in-og .dock{background:rgba(31,47,92,.9)}
+@media (max-width:640px){
+  .dock{left:12px;right:12px;transform:none;max-width:none;font-size:10.5px;letter-spacing:.06em}
+  .dock-links{flex:1;min-width:0}
+  .dock a{padding:0 9px}
+  .dock a.opt{display:none}
+  .dock .dock-cta{padding:0 12px}
+}
+/* keep the last lines of the page clear of the bar */
+footer{padding-bottom:calc(20px + var(--dock-h) + 32px)}
+@media print{.dock{display:none}footer{padding-bottom:20px}}
+@media (max-width:640px){.og-facts > div,.cx-facts > div{grid-template-columns:88px minmax(0,1fr)}}

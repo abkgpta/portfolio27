@@ -33,6 +33,9 @@
     let a = below(Math.floor(p)), b = above(Math.ceil(p));
     if (!a && !b) return;
     if (!a) a = b; if (!b) b = a;
+    // blend only between close neighbours; while frames are still loading the two nearest can be
+    // far apart, and blending those shows a ghosted double image, so snap to the nearer one instead
+    if (b - a > Math.max(2, SUB)) { if (p - a <= b - p) b = a; else a = b; }
     const t = b > a ? Math.min(1, Math.max(0, (p - a) / (b - a))) : 0;
     const key = a * 1e4 + b + Math.round(t * 32) / 64;
     if (key === shown && !force) return; shown = key;
@@ -68,12 +71,18 @@
   const order = [], seen = new Set();
   for (const s of [12 * SUB, 4 * SUB, SUB, 1].map(x => Math.max(x, STEP))) for (let i = 1; i <= N; i += s) if (!seen.has(i)) { seen.add(i); order.push(i); }
   let ix = 0;
+  // the ABK loader covers the sequence until the coarse pass (every 12th frame) is in
+  const coarse = order.filter(i => (i - 1) % Math.max(12 * SUB, STEP) === 0).length; let got = 0, abk = null;
   function next() {
     if (ix >= order.length) return; const i = order[ix++], im = new Image(); im.decoding = 'async';
-    im.onload = im.onerror = () => { if (i === 1) size(); draw(pos, true); next(); };
+    im.onload = im.onerror = () => {
+      if (i === 1) size(); draw(pos, true);
+      if (abk && ++got <= coarse) { abk.progress(got / coarse); if (got === coarse) { abk.done(); abk = null; } }
+      next();
+    };
     im.src = SRC(i); imgs[i] = im;
   }
-  function start() { if (started) return; started = true; for (let k = 0; k < 6; k++) next(); }
+  function start() { if (started) return; started = true; if (window.ABKLoader) abk = ABKLoader.attach(root.querySelector('.cx-sc-pin') || root); for (let k = 0; k < 6; k++) next(); }
   new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) start(); }, { rootMargin: '150% 0px' }).observe(root);
   addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', size);

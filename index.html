@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="css/cx-coach.css">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <style>
 :root{
   --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --white:#fff; --yellow:#DFBA15;
@@ -32,10 +32,10 @@ button{font:inherit;cursor:pointer}
 /* CortX: data flow + progress */
 .cx-flow-wrap{border:1px solid var(--cxl);border-radius:14px;padding:clamp(12px,2vw,28px);overflow:hidden}
 .cx-flow-svg{width:100%;height:auto;display:block}
-.cx-flow-svg text{font-family:'IBM Plex Mono',monospace;fill:var(--paper)}
-.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg text{font-family:'Manrope',sans-serif;fill:var(--paper)}
+.cx-flow-svg .f-n,.cx-flow-svg .f-d{font:500 13px 'Manrope',sans-serif;fill:var(--cxm)}
 .cx-flow-svg .f-h{font-size:24px;font-weight:700}
-.cx-flow-svg .f-s{font:500 13px 'IBM Plex Mono',monospace;fill:var(--cxm)}
+.cx-flow-svg .f-s{font:500 13px 'Manrope',sans-serif;fill:var(--cxm)}
 .cx-flow-svg .f-c{font-size:16px;font-weight:600}
 .cx-flow-svg .f-step{font-size:16px;fill:var(--cxm)}.cx-flow-svg .f-step.last{fill:var(--paper);font-weight:700}
 .cx-flow-svg .f-box{fill:#150A2B;stroke:var(--cxl)}
@@ -46,16 +46,20 @@ button{font:inherit;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.cx-flow-svg .f-dot{display:none}}
 .cx-progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-prog{margin:0;border:1px solid var(--cxl);border-radius:14px;padding:18px 18px 14px;display:grid;gap:10px}
-.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'IBM Plex Mono',monospace;color:var(--cxm)}
+.cx-prog figcaption b{display:block;font-size:17px}.cx-prog figcaption span{font:500 12px 'Manrope',sans-serif;color:var(--cxm)}
 .cx-prog-svg{width:100%;height:auto;display:block}
 .cx-prog-svg .p-grid{stroke:var(--cxl)}
-.cx-prog-svg .p-ax{font:500 12px 'IBM Plex Mono',monospace;fill:var(--cxm)}
-.cx-prog-svg .p-lab{font:600 13px 'IBM Plex Mono',monospace}
+.cx-prog-svg .p-ax{font:500 12px 'Manrope',sans-serif;fill:var(--cxm)}
+.cx-prog-svg .p-lab{font:600 13px 'Manrope',sans-serif}
 .cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
 @media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
 /* under construction strip */
-.wip{background:var(--ink);color:var(--cream);font-size:12px;padding:8px var(--gutter);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.wip{background:var(--ink);color:var(--cream);font-size:12px;line-height:1.4;padding:8px var(--gutter);display:flex;gap:6px 12px;align-items:center;flex-wrap:wrap}
 .wip b{font-weight:500;color:var(--pink)}
+.wip .upd{margin-left:auto;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.04em;color:rgba(247,242,239,.72);white-space:nowrap}
+.upd:empty{display:none}
+.og-uc .upd{font-family:var(--mono,monospace);font-size:11px;opacity:.7}
+@media (max-width:640px){.wip{flex-wrap:nowrap;font-size:10.5px;gap:8px}.wip .msg{display:none}.wip .upd{margin-left:auto;font-size:10px;letter-spacing:0}}
 
 /* header */
 header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -100,7 +104,7 @@ nav a:hover{opacity:1;color:var(--pink)}
 .stage .caption{color:rgba(247,242,239,.5)}
 
 /* sections */
-section{scroll-margin-top:64px}
+section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .project-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
 .project-head > div{padding:clamp(32px,5vw,64px) var(--gutter)}
 .project-head > div:first-child{border-right:1px solid var(--line)}
@@ -173,9 +177,23 @@ section{scroll-margin-top:64px}
 .inf-col + .inf-col{border-left:1px solid var(--line);padding-left:var(--gutter)}
 .inf-col h3{font-size:13px;color:var(--pink);margin-bottom:14px}
 .inf-col ol{list-style:none;counter-reset:inf}
-.inf-col li{counter-increment:inf;display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--display);font-size:clamp(18px,2.2vw,30px);line-height:1.2}
+.inf-col li{counter-increment:inf;display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.inf-img{flex:none;width:80px;height:80px;object-fit:cover;background:var(--line);filter:grayscale(1);transition:filter .3s}
+.inf-col li:hover .inf-img{filter:none}
+@media (min-width:641px){.inf-col:not(:last-child){padding-right:var(--gutter)}}
+@media (min-width:641px){.inf-col:nth-child(odd){border-left:0;padding-left:0}.inf-col:nth-child(even){padding-right:0}.inf-col:nth-child(n+3){border-top:1px solid var(--line);margin-top:8px}}
+.inf-ph{display:grid;place-items:center;font-family:var(--display);font-size:20px;color:var(--cream);background:var(--ink);filter:none}
+.inf-txt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.inf-name{font-family:var(--display);font-size:clamp(16px,1.5vw,21px);line-height:1.2}
+.inf-desc{font-size:13px;line-height:1.5;color:var(--muted)}
+.inf-col a.inf-name{text-decoration:none}
+.inf-col a.inf-name:hover{color:var(--pink)}
+.inf-credits{margin-top:32px;font-size:11px;color:var(--muted)}
+.inf-credits summary{cursor:pointer}
+.inf-credits ul{list-style:none;margin-top:10px;display:grid;gap:4px}
+.inf-credits a{color:inherit}
 .inf-col li:last-child{border-bottom:0}
-.inf-col li::before{content:counter(inf,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2ch}
+.inf-col li::before{content:counter(inf,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2ch;line-height:1.6}
 @media (max-width:640px){.inf-grid{grid-template-columns:1fr}.inf-col + .inf-col{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:24px}}
 footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
@@ -280,28 +298,28 @@ header{transition:background .5s,color .5s}
 .cb-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
 .cb-nogl .cb-fallback{display:block}.cb-nogl .cb-gl,.cb-nogl .cb-hint,.cb-nogl .cb-toggle{display:none}
 .cb-labels{position:absolute;inset:0;pointer-events:none}
-.cb-lab{position:absolute;left:0;top:0;font:500 11px/1.2 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);white-space:nowrap;opacity:0;transition:opacity .3s;padding:3px 7px;margin:-10px 0 0 10px;background:rgba(13,3,30,.66);border-left:2px solid var(--m)}
+.cb-lab{position:absolute;left:0;top:0;font:500 11px/1.2 'Manrope',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);white-space:nowrap;opacity:0;transition:opacity .3s;padding:3px 7px;margin:-10px 0 0 10px;background:rgba(13,3,30,.66);border-left:2px solid var(--m)}
 .cb-lab.lobe{border-left-color:rgba(244,242,248,.5)}
 .cb-lab.tip{text-transform:none;letter-spacing:0;font-size:12px;border-left-color:#9101B1;margin:-34px 0 0 12px}
 .cb-lab.tip b{font-weight:500;color:#D9A6FF;margin-right:6px}
-.cb-hud{position:absolute;left:14px;top:14px;font:500 12px/1.2 'IBM Plex Mono',monospace;color:var(--paper);letter-spacing:.04em}
+.cb-hud{position:absolute;left:14px;top:14px;font:500 12px/1.2 'Manrope',sans-serif;color:var(--paper);letter-spacing:.04em}
 .cb-hud:empty{display:none}
-.cb-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm);transition:opacity .5s;pointer-events:none}
+.cb-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:500 11px/1 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm);transition:opacity .5s;pointer-events:none}
 .cb-hint.gone{opacity:0}
-.cb-toggle{position:absolute;right:12px;top:12px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--cxl);background:rgba(13,3,30,.55);color:var(--paper);font:500 12px 'IBM Plex Mono',monospace;cursor:pointer;display:flex;align-items:center;gap:8px}
+.cb-toggle{position:absolute;right:12px;top:12px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--cxl);background:rgba(13,3,30,.55);color:var(--paper);font:500 12px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px}
 .cb-toggle::before{content:"";width:8px;height:8px;border-radius:50%;border:1px solid var(--paper)}
 .cb-toggle[aria-pressed=true]::before{background:var(--paper)}
 .cb-panel{border-left:1px solid var(--cxl);padding:clamp(16px,2vw,28px);display:flex;flex-direction:column;gap:16px;min-width:0}
 .cb-tabs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--cxl);border-radius:8px;overflow:hidden}
-.cb-tabs button{background:transparent;color:var(--paper);border:0;border-right:1px solid var(--cxl);min-height:44px;font:500 13px 'IBM Plex Mono',monospace;cursor:pointer;transition:background .2s,color .2s}
+.cb-tabs button{background:transparent;color:var(--paper);border:0;border-right:1px solid var(--cxl);min-height:44px;font:500 13px 'Manrope',sans-serif;cursor:pointer;transition:background .2s,color .2s}
 .cb-tabs button:last-child{border-right:0}
 .cb-tabs button[aria-pressed=true]{background:var(--m);color:var(--mi)}
-.cb-where{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--cxm)}
+.cb-where{font:500 12px/1.4 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--cxm)}
 .cb-where::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--m);margin-right:8px;vertical-align:1px}
 .cb-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .cb-steps button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:28px 1fr;column-gap:8px;width:100%;padding:10px 12px;border:1px solid var(--cxl);border-radius:8px;cursor:pointer;position:relative;overflow:hidden}
 .cb-steps button:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
-.cb-steps i{font:500 12px/1.6 'IBM Plex Mono',monospace;font-style:normal;color:var(--cxm)}
+.cb-steps i{font:500 12px/1.6 'Manrope',sans-serif;font-style:normal;color:var(--cxm)}
 .cb-steps b{font-size:16px;font-weight:600;color:var(--cxm)}
 .cb-steps span{grid-column:2;font-size:14px;line-height:1.45;color:var(--cxm);display:none;margin-top:4px}
 .cb-steps [aria-current=step]{border-color:var(--m);background:rgba(244,242,248,.04)}
@@ -312,13 +330,13 @@ header{transition:background .5s,color .5s}
 @keyframes cbStep{to{transform:scaleX(1)}}
 .cb-scope{border-top:1px solid var(--cxl);padding-top:12px}
 .cb-trace{width:100%;height:96px;display:block}
-.cb-scope-k{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font:500 11px/1.4 'IBM Plex Mono',monospace;color:var(--cxm)}
+.cb-scope-k{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font:500 11px/1.4 'Manrope',sans-serif;color:var(--cxm)}
 .cb-scope-k i{display:inline-block;width:10px;height:2px;margin-right:6px;vertical-align:3px}
 .cb-take{margin-top:auto;font-size:15px;font-weight:600;padding-left:14px;border-left:4px solid var(--m)}
 .cb-note{font-size:12px;color:var(--cxm)}
 @media (max-width:900px){.cb{grid-template-columns:minmax(0,1fr)}.cb-stage{aspect-ratio:1/1;min-height:0}.cb-panel{border-left:0;border-top:1px solid var(--cxl)}}
 @media print{.cb-gl,.cb-hint,.cb-toggle,.cb-labels{display:none}.cb-fallback{display:block}}
-/* ---------- CortX: identity v0.3 (Void, Michroma display, IBM Plex Mono body + data) ---------- */
+/* ---------- CortX: identity v0.4 (Void, Michroma display, Manrope body + data) ---------- */
 /* CortX scroll sequence (pre-rendered frames scrubbed by scroll) */
 .cx-sc{position:relative;height:820vh;margin-top:clamp(32px,5vw,72px)}
 .cx-sc-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
@@ -327,7 +345,7 @@ header{transition:background .5s,color .5s}
 .cx-sc-logo img{width:100%;height:auto;display:block}
 .cx-sc-cap{position:absolute;left:var(--gutter);bottom:clamp(28px,5vh,56px);max-width:min(420px,calc(100% - 2*var(--gutter)));opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
 .cx-sc.has-cap .cx-sc-cap{opacity:1;transform:none}
-.cx-sc-cap .n{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;color:var(--cxm)}
+.cx-sc-cap .n{font:500 12px/1.4 'Manrope',sans-serif;letter-spacing:.1em;color:var(--cxm)}
 .cx-sc-cap h3{font-size:clamp(17px,1.9vw,25px);line-height:1.2;margin:4px 0}
 .cx-sc-cap p{color:var(--cxm);font-size:15px;line-height:1.45}
 .cx-sc-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--cxl)}
@@ -335,21 +353,21 @@ header{transition:background .5s,color .5s}
 @media print{.cx-sc{display:none}}
 
 .cx{--void:#0D031E;--paper:#F4F2F8;--ind:#4527A1;--red:#FF190F;--cxl:rgba(244,242,248,.14);--cxm:rgba(244,242,248,.62);
-  background:var(--void);color:var(--paper);font-family:'IBM Plex Mono',ui-monospace,monospace;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
+  background:var(--void);color:var(--paper);font-family:'Manrope',system-ui,sans-serif;padding-bottom:clamp(48px,7vw,96px);--line:var(--cxl);--muted:var(--cxm)}
 .cx h2,.cx h3{font-family:'Michroma',system-ui,sans-serif;font-weight:400;letter-spacing:0}
 .cx-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:center;gap:clamp(16px,3vw,48px);padding:clamp(48px,7vw,104px) var(--gutter) 0}
-.cx-eyebrow{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-eyebrow{font:500 12px/1.4 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-logo{margin:18px 0 18px}
 .cx-logo img{width:min(100%,300px);height:auto}
 .cx-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:34ch}
 .cx-fig{margin:0}
 .cx-fig img{width:100%;display:block;background:#1a1230}
 .cx-fig figcaption{display:flex;gap:12px;font-size:13px;padding:10px 0 0;color:var(--cxm)}
-.cx-fig figcaption span{font-family:'IBM Plex Mono',monospace;color:var(--paper);white-space:nowrap}
+.cx-fig figcaption span{font-family:'Manrope',sans-serif;color:var(--paper);white-space:nowrap}
 .cx-block{padding:clamp(48px,7vw,96px) var(--gutter) 0;display:grid;gap:24px}
 .cx-h{font-size:clamp(24px,3.2vw,46px);line-height:1.12}
 .cx-stat{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:center;border-top:1px solid var(--cxl);border-bottom:1px solid var(--cxl);padding:clamp(20px,3vw,32px) 0}
-.cx-stat>b{font:700 clamp(56px,9vw,120px)/1 'JetBrains Mono',monospace;color:var(--paper);letter-spacing:-.04em}
+.cx-stat>b{font:700 clamp(56px,9vw,120px)/1 'Manrope',sans-serif;color:var(--paper);letter-spacing:-.04em}
 .cx-stat p{margin:0 0 10px;max-width:60ch;font-size:clamp(16px,1.4vw,19px)}
 @media (max-width:600px){.cx-stat{grid-template-columns:minmax(0,1fr)}}
 .cx-quote{font-family:'Michroma',system-ui,sans-serif;font-size:clamp(20px,2.6vw,36px);line-height:1.3;font-weight:400;max-width:26ch}
@@ -357,30 +375,30 @@ header{transition:background .5s,color .5s}
 .cx-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
 .cx-cols p+p{margin-top:12px}
 .cx-facts{display:grid;gap:14px;border-left:4px solid var(--ind);padding-left:20px}
-.cx-facts dt{font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
+.cx-facts dt{font:500 11px/1.4 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-facts dd{margin:2px 0 0}
 .cx .ico{color:var(--paper)}
 .cx-barriers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-barriers div{border-top:1px solid var(--cxl);padding-top:14px;font-size:15px;color:var(--cxm)}
-.cx-barriers b{display:block;font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
+.cx-barriers b{display:block;font:500 12px/1.4 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
 .cx-mix{margin-top:8px}
 .cx-concepts{display:grid;gap:10px;margin-top:20px}
 .cx-concepts div{padding:14px 16px;border:1px solid var(--cxl);font-size:14px;color:var(--cxm)}
 .cx-concepts .chosen{border-color:var(--ind);background:rgba(69,39,161,.22);color:var(--paper)}
-.cx-concepts span{display:block;font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.cx-concepts span{display:block;font:500 11px/1.4 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase}
 .cx-concepts b{display:block;font-size:17px;color:var(--paper);margin:4px 0}
 .cx-system{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--cxl);border:1px solid var(--cxl)}
 .cx-system li{background:var(--void);padding:20px;font-size:14px;color:var(--cxm)}
-.cx-system i,.cx-day i{display:block;font:500 12px/1 'IBM Plex Mono',monospace;font-style:normal;color:var(--cxm);margin-bottom:28px}
+.cx-system i,.cx-day i{display:block;font:500 12px/1 'Manrope',sans-serif;font-style:normal;color:var(--cxm);margin-bottom:28px}
 .cx-system b,.cx-day b{display:block;font-size:19px;color:var(--paper);margin-bottom:6px}
 .cx-rule{font-size:clamp(18px,1.6vw,22px);font-weight:600;padding-left:16px;border-left:4px solid var(--red)}
 .cx-sense{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);padding:clamp(48px,7vw,96px) var(--gutter) 0;align-items:center}
 .cx-sense > div > p{margin-top:14px;max-width:46ch}
 .cx .tabs{grid-template-columns:repeat(5,1fr);border-color:var(--cxl)}
-.cx .tabs button{font-family:'IBM Plex Mono',monospace;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
+.cx .tabs button{font-family:'Manrope',sans-serif;color:var(--paper);border-color:var(--cxl);min-height:44px;cursor:pointer}
 .cx .tabs button[aria-pressed=true]{background:var(--sc,#9101B1);color:#fff}
 .cx .readout{border-color:var(--cxl)}
-.cx .readout .where{font-family:'IBM Plex Mono',monospace;color:var(--sc,#9101B1)}
+.cx .readout .where{font-family:'Manrope',sans-serif;color:var(--sc,#9101B1)}
 .cx .caption{font-size:12px;color:var(--cxm);margin-top:8px}
 .cx-cite{font-size:13px;color:var(--cxm)}
 .cx-cite a{color:var(--paper)}
@@ -421,7 +439,7 @@ header{transition:background .5s,color .5s}
 .cx-body .b-me{stroke:#fff;stroke-width:2}
 .cx-body .b-sats path{fill:none;stroke:var(--sc);stroke-width:2;stroke-linecap:round}
 .cx-body .b-sats .b-ray{stroke-width:1;stroke-dasharray:3 5;opacity:.7}
-.cx-body text{font:500 13px 'IBM Plex Mono',monospace;fill:var(--paper)}
+.cx-body text{font:500 13px 'Manrope',sans-serif;fill:var(--paper)}
 .cx-body text.s{font-weight:400;fill:var(--cxm);font-size:12px}
 .cx-body text.r{text-anchor:end}.cx-body text.m{text-anchor:middle}
 @keyframes cxDash{to{stroke-dashoffset:-12}}
@@ -434,7 +452,7 @@ header{transition:background .5s,color .5s}
 .cx-cmf b{display:block;color:var(--paper)}
 .cx-uc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:16/9;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#150a2b 0 8px,#1b1035 8px 16px);border:1px dashed rgba(244,242,248,.25);color:var(--cxm);font-size:13px}
 .cx-block > .cx-uc{max-width:720px}
-.cx-uc b{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
+.cx-uc b{font:500 12px/1.4 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
 .cx-day{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:d}
 .cx-day li{border-top:2px solid var(--ind);padding-top:14px;font-size:14px;color:var(--cxm)}
 .cx-day i{color:var(--paper);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
@@ -443,7 +461,7 @@ header{transition:background .5s,color .5s}
 .cx-lockups .paper{background:var(--paper);border-color:var(--paper)}
 .cx-lockups img{width:min(60%,300px);height:auto}
 .cx-sensors-key{display:flex;flex-wrap:wrap;gap:8px}
-.cx-sensors-key span{font:500 12px/1 'IBM Plex Mono',monospace;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
+.cx-sensors-key span{font:500 12px/1 'Manrope',sans-serif;padding:8px 12px;border:1px solid var(--c);color:var(--c)}
 .cx-identity > p{max-width:56ch;color:var(--cxm)}
 .cx > .cx-closing{padding:clamp(48px,7vw,96px) var(--gutter) 0}
 .cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(17px,2vw,28px);line-height:1.35;font-family:'Michroma',system-ui,sans-serif;font-weight:400;border-right:16px solid var(--red)}
@@ -487,8 +505,10 @@ footer .socials .ico svg{width:13px;height:13px}
 .g-grid span{position:absolute;left:10px;bottom:8px;font-size:12px;color:var(--cream);background:rgba(10,10,10,.6);padding:3px 8px}
 @media (max-width:760px){.g-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g-grid a.wide{grid-row:span 1}}
 </style>
+<link rel="stylesheet" href="css/layout.css">
 </head>
 <body id="top">
+<script src="/abk/loader.js"></script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-in" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></symbol>
 <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 2.2c-2.7 0-3 0-4 .1C3.6 2.5 2.5 4.6 2.3 8c-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.4 1.3 5.5 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.4-.2 5.5-1.3 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.4-1.3-5.5-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.4.1 3.6 1.2 3.7 3.7.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.4-1.2 3.6-3.7 3.7-1 .1-1.4.1-4 .1s-2.9 0-4-.1c-2.5-.1-3.6-1.3-3.7-3.7-.1-1-.1-1.4-.1-4s0-2.9.1-4C4.4 5.3 5.5 4.2 8 4.1c1-.1 1.4-.1 4-.1z"/></symbol>
@@ -498,19 +518,10 @@ footer .socials .ico svg{width:13px;height:13px}
 </svg>
 
 
-<div class="wip" role="note"><b>Under construction</b><span>This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span></div>
-
 <header>
+  <div class="wip" role="note"><b>Under construction</b><span class="msg">This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span><span class="upd" data-updated></span></div>
   <div class="wrap">
     <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
-    <nav>
-      <a href="#overgrwth">overgrwth</a>
-      <a href="#cortx">CortX</a>
-      <a class="opt" href="#dash">DASH</a>
-      <a class="opt" href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
-    </nav>
   </div>
 </header>
 
@@ -518,8 +529,8 @@ footer .socials .ico svg{width:13px;height:13px}
 <!-- ============ GALLERY (hero) ============ -->
 <section id="gallery" class="gallery">
   <div class="g-line">
-    <h1>Abhik Gupta designs products end to end: form, CMF, systems and the electronics inside.</h1>
-    <div class="eyebrow">abhik gupta: <span class="pink">industrial &amp; experiential design</span></div>
+    <h1>abhik gupta: <span class="pink">industrial &amp; experiential design</span></h1>
+    <div class="eyebrow">Abhik Gupta designs products end to end: form, CMF, systems and the electronics inside.</div>
   </div>
   <div class="g-grid">
     <a href="#overgrwth" data-for="overgrwth" class="wide"><img src="img/og4-hero.jpg" alt="A large overgrwth lattice of white H-frames with shelves, planters, lights and attachments" loading="eager"><span>overgrwth</span></a>
@@ -534,6 +545,35 @@ footer .socials .ico svg{width:13px;height:13px}
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-attach.jpg" alt="overgrwth powered attachments: spotlight, clock and speaker" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og-sketches.jpg" alt="overgrwth ideation sketches" loading="lazy"><span>overgrwth</span></a>
     <a href="#overgrwth" data-for="overgrwth"><img src="img/og4-growth.jpg" alt="Three overgrwth setups growing from bare frames to full stacks" loading="lazy"><span>overgrwth</span></a>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div>
+    <img src="img/p-about.jpg" alt="Abhik standing on a path at dusk in a lavender hoodie" width="396" height="308" style="width:100%;max-width:420px">
+  </div>
+  <div>
+    <div class="eyebrow">About</div>
+    <div class="prose" style="margin-top:14px">
+      <p>Sketching sneakers was my escape in school. I didn't take notes, I carved lines into paper, and I watched more football boot reviews than I played football.</p>
+      <p>Design school is where I fell for all of it: how lines move, how surfaces converge, the stance of a silhouette, how materials and colours meet. It didn't take long to see that design goes much further than visuals. Electronics, systems and mechanisms got me just as hooked.</p>
+    </div>
+    <div class="cv">
+      <div>
+        <h3>Experience</h3>
+        <ul>
+          <li><b>Evoluir</b>, Ahmedabad<br>Freelance industrial designer, Aug 2024 to May 2025. Designed the pilot product, Evoluir Air (form, CMF, detailing), plus brand identity, packaging and pitch decks.</li>
+          <li><b>Oro Innovations</b>, Ahmedabad<br>Industrial design apprentice, May to Jun 2025. An assistive accessory for a medtech client, and the studio's visual identity.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Education</h3>
+        <ul><li><b>B.Des (Hons.) Product Design</b><br>2023 to 2027</li></ul>
+        <h3 style="margin-top:20px">Skills</h3>
+        <ul><li>Design research, product thinking, sketching, UX methods. Rhino, Plasticity, KeyShot, Figma, Adobe CC.</li></ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -635,7 +675,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
   <div class="og-block og-in" data-slide="og-concept" data-tiers="overview full" data-base="2" data-skills="sketching,systems">
     <h3 class="og-out">concept</h3>
-    <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span></div>
+    <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span><small class="upd" data-updated></small></div>
   </div>
 
   <div class="og-block og-in" data-slide="og-system" data-tiers="overview full" data-base="3" data-skills="systems,cad">
@@ -701,7 +741,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
   <div class="og-block og-in" data-slide="og-identity" data-tiers="overview full" data-base="2" data-skills="branding">
     <h3 class="og-out">identity</h3>
-    <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span></div><div class="og-uc"><b>Under construction</b><span>Part tags</span></div></div>
+    <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span><small class="upd" data-updated></small></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span><small class="upd" data-updated></small></div><div class="og-uc"><b>Under construction</b><span>Part tags</span><small class="upd" data-updated></small></div></div>
   </div>
 
   <figure class="og-fig og-in" data-slide="og-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/og4-closing.jpg" alt="The overgrwth lattice from a new angle" width="2000" height="1414" loading="lazy"></figure>
@@ -723,7 +763,7 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
 
 
-  <div class="cx-sc" data-frames="420" data-src="img/cx-scroll/{w}/f_{n}.webp" aria-label="The CortX headset taking itself apart and going back together as you scroll, then worn by a player who runs off">
+  <div class="cx-sc" data-frames="1677" data-sub="4" data-src="img/cx-scroll4/{w}/f_{n}.webp" aria-label="The CortX headset taking itself apart and going back together as you scroll, then worn by a player who runs off">
     <script type="application/json">[[1,36,"01","Side on","The headset as it sits on the pitch."],[37,90,"02","Every layer, apart","Shell, liner, sensors, pads, frame."],[91,118,"03.1","Top shell","The Mist shell you see from the stands."],[119,146,"03.2","Side shell and Boa dial","One turn of the dial sets the fit."],[147,174,"03.3","Hard liner","The indigo structure that carries every sensor."],[175,206,"03.4","EEG electrodes","Ag/AgCl contacts read brain activity during play."],[207,232,"03.5","Knit pads","Soft where it touches the head."],[233,260,"03.6","Webbing and frame","Holds everything at the right pressure."],[261,300,"04","Back together","Every part back in place."],[301,360,"05","Worn like part of the kit","Headset on, back unit high between the shoulder blades."],[361,420,"06","Now it's time to measure the mind.",""]]</script>
     <div class="cx-sc-pin">
       <div class="cx-sc-logo" aria-hidden="true"><img src="img/cx-logo-traced.svg" alt=""></div>
@@ -1094,7 +1134,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <div class="cx-sensors-key">
       <span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">Position</span>
     </div>
-    <p>Dark first, on Void. Michroma for headlines, IBM Plex Mono for words and numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
+    <p>Dark first, on Void. Michroma for headlines, Manrope for words and numbers. Sensor colours only ever appear in data, so the product itself stays neutral.</p>
   </div>
 
   <figure class="cx-fig cx-in cx-closing" data-slide="cx-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/cx2-back34.jpg" alt="The CortX headset from behind, the red dial catching the light" width="1920" height="1080" loading="lazy"></figure>
@@ -1108,7 +1148,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <section id="dash" class="dash" data-project="dash" data-type="concept">
   <div class="eyebrow" style="color:rgba(255,255,255,.6)"><span data-num>03</span> · Solo concept</div>
   <h2 style="margin:12px 0 16px">DASH</h2>
-  <p style="max-width:52ch;color:rgba(255,255,255,.8)" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>Under construction. The case study is coming soon.</p>
+  <p style="max-width:52ch;color:rgba(255,255,255,.8)" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>Under construction. The case study is coming soon. <span class="upd" data-updated></span></p>
   <div class="mix" data-playlist="dash" hidden><div class="mix-label">What I listened to while making DASH</div><div class="mix-frame"></div></div>
 </section>
 
@@ -1145,35 +1185,6 @@ footer .socials .ico svg{width:13px;height:13px}
   </div>
 </section>
 
-<!-- ============ ABOUT ============ -->
-<section id="about" class="about">
-  <div>
-    <img src="img/p-about.jpg" alt="Abhik standing on a path at dusk in a lavender hoodie" width="396" height="308" style="width:100%;max-width:420px">
-  </div>
-  <div>
-    <div class="eyebrow">About</div>
-    <div class="prose" style="margin-top:14px">
-      <p>Sketching sneakers was my escape in school. I didn't take notes, I carved lines into paper, and I watched more football boot reviews than I played football.</p>
-      <p>Design school is where I fell for all of it: how lines move, how surfaces converge, the stance of a silhouette, how materials and colours meet. It didn't take long to see that design goes much further than visuals. Electronics, systems and mechanisms got me just as hooked.</p>
-    </div>
-    <div class="cv">
-      <div>
-        <h3>Experience</h3>
-        <ul>
-          <li><b>Evoluir</b>, Ahmedabad<br>Freelance industrial designer, Aug 2024 to May 2025. Designed the pilot product, Evoluir Air (form, CMF, detailing), plus brand identity, packaging and pitch decks.</li>
-          <li><b>Oro Innovations</b>, Ahmedabad<br>Industrial design apprentice, May to Jun 2025. An assistive accessory for a medtech client, and the studio's visual identity.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Education</h3>
-        <ul><li><b>B.Des (Hons.) Product Design</b><br>2023 to 2027</li></ul>
-        <h3 style="margin-top:20px">Skills</h3>
-        <ul><li>Design research, product thinking, sketching, UX methods. Rhino, Plasticity, KeyShot, Figma, Adobe CC.</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="contact">
   <div class="eyebrow">Open to studio roles and internships</div>
@@ -1187,16 +1198,43 @@ footer .socials .ico svg{width:13px;height:13px}
   <div class="inf-grid">
     <div class="inf-col">
       <h3>People</h3>
-      <ol><li>Rick Rubin</li><li>Peter Yee</li><li>Naval Ravikant</li></ol>
+      <ol><li><img class="inf-img" src="img/inf/rick-rubin.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Rick Rubin</span><span class="inf-desc">Record producer who strips every song back to what matters. Taste and restraint over tools.</span></div></li><li><span class="inf-img inf-ph" aria-hidden="true">PY</span><div class="inf-txt"><span class="inf-name">Peter Yee</span><span class="inf-desc">Former VP of Design at Oakley, behind many of its most iconic frames. Performance gear with real sculptural form.</span></div></li><li><img class="inf-img" src="img/inf/naval-ravikant.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Naval Ravikant</span><span class="inf-desc">Co-founder of AngelList. Clear thinking on leverage, judgement and playing long-term games.</span></div></li><li><img class="inf-img" src="img/inf/peter-thiel.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Peter Thiel</span><span class="inf-desc">Co-founder of PayPal and Palantir. Zero to One: build the thing that does not exist yet.</span></div></li></ol>
+    </div>
+    <div class="inf-col">
+      <h3>Places</h3>
+      <ol><li><img class="inf-img" src="img/inf/ferrari-world.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Ferrari World Abu Dhabi</span><span class="inf-desc">A whole park under one red roof on Yas Island, home of Formula Rossa. A brand turned into a full-body experience.</span></div></li><li><img class="inf-img" src="img/inf/museum-future.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Museum of the Future Dubai</span><span class="inf-desc">A torus wrapped in Arabic calligraphy that doubles as its windows. Structure, story and facade as one object.</span></div></li><li><img class="inf-img" src="img/inf/akshardham.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Akshardham Gandhinagar</span><span class="inf-desc">Hand-carved pink sandstone at monumental scale. Craft and detailing that stop you in your tracks.</span></div></li></ol>
     </div>
     <div class="inf-col">
       <h3>Brands</h3>
-      <ol><li>BMW</li><li>KTM</li><li>Dyson</li></ol>
+      <ol><li><img class="inf-img" src="img/inf/spacex.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">SpaceX</span><span class="inf-desc">Rockets that land upright and fly again. Engineering-led design that rewrites what an industry thought was possible.</span></div></li><li><img class="inf-img" src="img/inf/ktm.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">KTM</span><span class="inf-desc">Ready to Race. Aggressive, honest motorcycles where every line serves performance.</span></div></li><li><img class="inf-img" src="img/inf/dyson.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Dyson</span><span class="inf-desc">Engineering made visible: cyclones, motors and clear bins designed to be seen, not hidden.</span></div></li><li><span class="inf-img inf-ph" aria-hidden="true">MM</span><div class="inf-txt"><span class="inf-name">Man vs Machine</span><span class="inf-desc">London design and motion studio behind work for Nike and Apple. Craft-heavy 3D that makes form feel alive.</span></div></li></ol>
+    </div>
+    <div class="inf-col">
+      <h3>Music</h3>
+      <ol><li><img class="inf-img" src="img/inf/kids-see-ghosts.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://open.spotify.com/album/6pwuKxMUkNg673KETsXPUV" target="_blank" rel="noopener">Kids See Ghosts ↗</a><span class="inf-desc">Kanye West and Kid Cudi, 2018. Seven tracks, no filler: raw, layered and short enough to feel complete.</span></div></li><li><img class="inf-img" src="img/inf/saw-85-92.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://open.spotify.com/album/7aNclGRxTysfh6z0d8671k" target="_blank" rel="noopener">Selected Ambient Works 85-92 ↗</a><span class="inf-desc">Aphex Twin, 1992. Bedroom-made machines that sound warm and human. Proof that limits shape a voice.</span></div></li><li><img class="inf-img" src="img/inf/powers-that-b.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://open.spotify.com/album/5Y04ylQjDWsawOUJXzY4YO" target="_blank" rel="noopener">The Powers That B ↗</a><span class="inf-desc">Death Grips, 2015. Abrasive, precise and unapologetic. Breaking the rules only works when you know them.</span></div></li></ol>
+    </div>
+    <div class="inf-col">
+      <h3>Books</h3>
+      <ol><li><img class="inf-img" src="img/inf/design-archive.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://www.niwwrd.com/designarchive" target="_blank" rel="noopener">Design Archive Vol. 1 ↗</a><span class="inf-desc">NIWWRD, the first annual print edition. Automotive, industrial and future design from studios, independents and OEMs worldwide.</span></div></li></ol>
     </div>
   </div>
+  <details class="inf-credits"><summary>Image credits</summary><ul><li>Rick Rubin: <a href="https://commons.wikimedia.org/wiki/File:RickRubinSept09.jpg" target="_blank" rel="noopener">photo</a> by jasontheexploder, <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a>, cropped</li><li>Naval Ravikant: <a href="https://commons.wikimedia.org/wiki/File:Naval_Ravikant_(cropped).jpg" target="_blank" rel="noopener">photo</a> by Elias Bizannes, <a href="https://creativecommons.org/licenses/by-sa/2.0" target="_blank" rel="noopener">CC BY-SA 2.0</a>, cropped</li><li>Peter Thiel: <a href="https://commons.wikimedia.org/wiki/File:Peter_Thiel_by_Gage_Skidmore.jpg" target="_blank" rel="noopener">photo</a> by Gage Skidmore, <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a>, cropped</li><li>Ferrari World Abu Dhabi: <a href="https://commons.wikimedia.org/wiki/File:Ferrariworld_by_Flo_Ness.jpg" target="_blank" rel="noopener">photo</a> by Floness, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped</li><li>Museum of the Future Dubai: <a href="https://commons.wikimedia.org/wiki/File:Museum_of_the_Future_inside-Dubai_UAE-Andres_Larin.jpg" target="_blank" rel="noopener">photo</a> by Saaremees, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped</li><li>Akshardham Gandhinagar: <a href="https://commons.wikimedia.org/wiki/File:Akshardham_Gandhinagar_Gujarat.jpg" target="_blank" rel="noopener">photo</a> by Harsh4101991, <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a>, cropped</li><li>SpaceX: <a href="https://commons.wikimedia.org/wiki/File:Falcon_9_first_stage_at_LZ-1(two).jpg" target="_blank" rel="noopener">photo</a> by SpaceX Photos, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, cropped</li><li>KTM: <a href="https://commons.wikimedia.org/wiki/File:KTM_890_Duke,_Interboot_2020,_Friedrichshafen_(IB200230).jpg" target="_blank" rel="noopener">photo</a> by Matti Blume, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped</li><li>Dyson: <a href="https://commons.wikimedia.org/wiki/File:Dyson_DC19_vacuum_cleaner.jpg" target="_blank" rel="noopener">photo</a> by Alexx.net, <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0</a>, cropped</li><li>Design Archive Vol. 1: image from NIWWRD, links to the book.</li><li>Album covers: via Spotify, © the artists and their labels. Shown for reference, each links to the album.</li></ul></details>
 </section>
 
 <footer><span>abhik gupta: industrial &amp; experiential design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
+
+<nav class="dock" aria-label="Site">
+  <div class="dock-links">
+    <a href="#overgrwth">overgrwth</a>
+    <a href="#cortx">CortX</a>
+    <a class="opt" href="#dash">DASH</a>
+    <a href="#about">About</a>
+    <a class="opt" href="#influences">Influences</a>
+    <a class="opt" href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
+    <a class="opt" href="https://www.youtube.com/@abk23" target="_blank" rel="noopener">YouTube ↗</a>
+  </div>
+  <a class="dock-cta" href="#contact">Get in touch</a>
+</nav>
+
 
 <script src="js/engine.js"></script>
 <script src="js/cx-scroll.js" defer></script>
@@ -1280,7 +1318,7 @@ document.getElementById('introBtn').onclick=()=>{
 };
 document.getElementById('talkBtn').onclick=()=>{
   if(AGENT_READY){document.getElementById('voice-agent-mount').scrollIntoView({block:'nearest'});return;}
-  document.getElementById('stageNote').textContent='The live voice agent is under construction. Try "Hear my intro" for now.';
+  document.getElementById('stageNote').textContent='The live voice agent is under construction'+(window.SITE_UPDATED?' ('+window.SITE_UPDATED.toLowerCase()+')':'')+'. Try "Hear my intro" for now.';
 };
 if(AGENT_READY)setSpeaking(false);
 
@@ -1405,5 +1443,10 @@ if(cbEl){const cbIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting
   }catch(e){console.warn('CortX brain visualiser unavailable',e);cb.classList.add('cb-nogl');cbEl.querySelector('.cb-panel').hidden=true;}
 },{rootMargin:'600px'});cbIO.observe(cbEl);}
 </script>
+<script>
+/* ---------- ABK loader on every image that loads after the page (abkgpta.github.io/abk/loader.js) ---------- */
+if(window.ABKLoader)ABKLoader.whenLoaded(()=>ABKLoader.watchImages(document.body,'img[loading=lazy]'));
+</script>
+<script src="js/site-updated.js"></script>
 </body>
 </html>

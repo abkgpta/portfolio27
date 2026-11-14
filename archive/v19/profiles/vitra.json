@@ -1,0 +1,29 @@
+{
+  "name": "Vitra",
+  "gunj": "GUNJ-061",
+  "wave": 1,
+  "greeting": "Prepared for Vitra",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "overgrwth",
+  "multipliers": {
+    "systems": 1.4,
+    "cmf": 1.3,
+    "cad": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.3,
+    "cortx": 1.0,
+    "dash": 1.0
+  },
+  "pitch": {
+    "title": "Why Vitra",
+    "lines": [
+      "Vitra has made furniture systems into design classics.",
+      "overgrwth is one frame, one connector and one clamp, with oak shelves and a colour-by-role CMF.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}
