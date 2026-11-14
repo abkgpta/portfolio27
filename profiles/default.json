@@ -5,6 +5,7 @@
   "voiceAgent": true,
   "version": "overview",
   "versions": {},
+  "order": ["overgrwth", "cortx", "dash"],
   "multipliers": {},
   "projects": {
     "overgrwth": 1.1,

@@ -16,7 +16,7 @@ One page, many versions. The content stays in `index.html`; `js/engine.js` decid
 - **Projects** are `<section data-project="id" data-type="concept|industry|misc">`. Add `data-draft` to keep a project in the bank but hidden until a profile asks for it (Evoluir, Goodknocks, nnode and Miscellaneous are drafts for now).
 - **Slides** inside a project carry `data-slide="id"`, `data-base` (base weight), `data-skills="cmf,rendering,…"` and optionally `data-required` (never cut).
 - **Profiles** live in `profiles/<id>.json`: `name`, `greeting`, `multipliers` (skill → number), `projects` (project → number, 0 hides it), `threshold` (slides scoring below it are cut) and `voiceAgent`. `profiles/default.json` is the open version; `profiles/_example-studio.json` shows every field.
-- **Scoring** is one function, `score()` in `js/engine.js`: base × project multiplier × mean of the slide's skill multipliers. Projects are ordered by their total score, and the nav and gallery follow.
+- **Scoring** is one function, `score()` in `js/engine.js`: base × project multiplier × mean of the slide's skill multipliers. Projects are ordered by their total score, and the nav and gallery follow. A profile can fix the order instead with `"order": [project ids]`; `profiles/default.json` (the open site) uses it to keep overgrwth, then CortX, then DASH.
 - **Open a version:** `/#<id>` or `/?profile=<id>`. An unknown `#name` falls back to the open version with "Prepared for Name".
 
 ### Preview, overview, full case study
