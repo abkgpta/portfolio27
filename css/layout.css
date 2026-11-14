@@ -76,3 +76,19 @@ html.in-og .dock{background:rgba(31,47,92,.9)}
 footer{padding-bottom:calc(20px + var(--dock-h) + 32px)}
 @media print{.dock{display:none}footer{padding-bottom:20px}}
 @media (max-width:640px){.og-facts > div,.cx-facts > div{grid-template-columns:88px minmax(0,1fr)}}
+
+/* Resume and Influences side by side (abhik 2026-11-15). Each half stacks its own grid in one column. */
+@media (min-width:1100px){
+  .rs-inf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--line);padding:0 var(--gutter)}
+  .rs-inf > section{border-top:0;padding-left:0;padding-right:0}
+  .rs-inf > .resume{padding-right:var(--gap);border-right:1px solid var(--line)}
+  .rs-inf > .influences{padding-left:var(--gap)}
+  .rs-inf .rs-head{flex-direction:column;align-items:flex-start;gap:20px}
+  .rs-inf .rs-head h2{font-size:clamp(22px,2.2vw,32px)}
+  .rs-inf .rs-grid{grid-template-columns:1fr}
+  .rs-inf .rs-grid > div:first-child{padding-right:0}
+  .rs-inf .rs-grid > div + div{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:24px}
+  .rs-inf .inf-grid .inf-col,.rs-inf .inf-grid .inf-col:nth-child(n){padding-left:0;padding-right:0;border-left:0}
+  .rs-inf .inf-grid{grid-template-columns:1fr}
+  .rs-inf .inf-grid .inf-col + .inf-col{border-top:1px solid var(--line);margin-top:24px}
+}
