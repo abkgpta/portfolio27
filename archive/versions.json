@@ -208,5 +208,14 @@
     "pr": [
       30
     ]
+  },
+  {
+    "v": 25,
+    "commit": "62ce3d5483c626b28040e9e1cb358cb0399adc43",
+    "date": "2026-11-14",
+    "title": "Replace BMW with SpaceX in influences",
+    "pr": [
+      31
+    ]
   }
 ]
