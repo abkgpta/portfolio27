@@ -16,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[2]
 ARCHIVE = ROOT / "archive"
 MANIFEST = ARCHIVE / "versions.json"
 SKIP = ("archive/", ".github/", "README.md", "CLAUDE.md", ".nojekyll", ".gitignore")
+# Big, never-edited frame sets: kept once at the site root and shared by every snapshot
+# (each new render set gets a new folder), so a snapshot doesn't copy ~85 MB of frames.
+SHARED = ("img/cx-scroll/", "img/cx-scroll4/")
 REPO_URL = "https://github.com/abkgpta/portfolio27"
 
 # Removed from the live site in PR #1; never republish it through old snapshots.
@@ -97,7 +100,7 @@ def add(commit, title, pr=None):
     dest.mkdir(parents=True)
     tar = tarfile.open(fileobj=io.BytesIO(git("archive", "--format=tar", sha, binary=True)))
     for m in tar.getmembers():
-        if not m.isfile() or m.name.startswith(SKIP) or ".." in Path(m.name).parts:
+        if not m.isfile() or m.name.startswith(SKIP + SHARED) or ".." in Path(m.name).parts:
             continue
         out = dest / m.name
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -106,6 +109,8 @@ def add(commit, title, pr=None):
             text = data.decode()
             for old, new in REDACT:
                 text = text.replace(old, new)
+            for d in SHARED:
+                text = text.replace(f'"{d}', f'"../../{d}')
             if FORBIDDEN.search(text):
                 sys.exit(f"{m.name} at {sha[:7]} still names a removed institution; extend REDACT")
             text = text.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
