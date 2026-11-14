@@ -253,5 +253,14 @@
     "pr": [
       33
     ]
+  },
+  {
+    "v": 30,
+    "commit": "7846b78a952652fb175cbebc9be6b9384890e9de",
+    "date": "2026-11-15",
+    "title": "Hero: positioning line as headline, end-to-end sentence as subtext",
+    "pr": [
+      36
+    ]
   }
 ]
