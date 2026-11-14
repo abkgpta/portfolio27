@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" data-root="../">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhik Gupta · portfolio.27 (A4)</title>
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/engine.css">
+<link rel="stylesheet" href="pdf.css">
+</head>
+<!--
+  The A4 landscape portfolio. A layout of its own: it shares cards, images, profiles and
+  js/engine.js with the website, but nothing here is adapted from the site's layout.
+  Each <article class="page"> is one A4 page. Pages carry the same attributes as site cards:
+  data-slide (the card id, or the page id when a page holds several cards, listed in
+  data-cards), data-tiers, data-card on the four preview pages, data-base, data-skills,
+  data-required. Grey boxes marked .ph are visuals still to be made.
+  Export: node tools/export-pdf.mjs <profile> [--version=preview]
+-->
+<body>
+
+<!-- ============ COVER ============ -->
+<article class="page cover" data-required>
+  <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>portfolio.27</span><span class="pn"></span></header>
+  <div class="cover-body">
+    <div class="cover-id">
+      <div class="wm big">ABHIK<span>GUPTA</span></div>
+      <p class="eyebrow">industrial &amp; experiential design · portfolio.27</p>
+      <p class="prepared" id="prepared"></p>
+    </div>
+    <div class="sheet" id="gallery">
+      <figure data-for="overgrwth"><img src="../img/og4-hero.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="cortx"><img src="../img/cx-hero.jpg" alt=""><figcaption>cortX</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-exploded.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-socket.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="cortx"><img src="../img/cx-render.jpg" alt=""><figcaption>cortX</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-attach.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="overgrwth"><img src="../img/og4-clamp.jpg" alt=""><figcaption>overgrwth</figcaption></figure>
+      <figure data-for="cortx"><img src="../img/cx-mockup.jpg" alt=""><figcaption>cortX</figcaption></figure>
+    </div>
+  </div>
+  <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+</article>
+
+<!-- ============ PITCH (filled from the profile's "pitch"; hidden when a profile has none) ============ -->
+<article class="page pitch" id="pitch">
+  <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>a note</span><span class="pn"></span></header>
+  <div class="pitch-body">
+    <h2 data-pitch-title></h2>
+    <ul data-pitch-lines></ul>
+    <p class="note">abhikthegupta@gmail.com · abkgpta.github.io/portfolio27</p>
+  </div>
+  <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+</article>
+
+<!-- ============ OVERGRWTH ============ -->
+<section data-project="overgrwth" data-type="concept" class="og">
+
+  <!-- preview: 4 pages, one per card -->
+  <article class="page og-page full-bleed" data-slide="og-hero" data-tiers="preview" data-card="hero" data-base="3" data-skills="rendering,cmf" data-required>
+    <img class="bleed" src="../img/og4-hero.jpg" alt="The overgrwth lattice with every attachment">
+    <div class="over"><img class="og-logo" src="../img/og-logo.svg" alt="overgrwth"><span class="eyebrow"><span data-num>01</span> · Modular Design · 2025</span></div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth</span><span class="pn"></span></header>
+  </article>
+  <article class="page og-page" data-slide="og-brief" data-tiers="preview" data-card="hook" data-base="2" data-skills="research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · the problem</span><span class="pn"></span></header>
+    <div class="hook">
+      <p class="quote">A creative's work is never over. There's always something to change, to add, or to remove.</p>
+      <div class="duo"><img src="../img/og4-exploded.jpg" alt="One H-frame, connector and clamp, exploded"><img src="../img/og4-combos.jpg" alt="Many arrangements of the same frame"></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page og-page" data-slide="og-concept" data-tiers="preview" data-card="sketch" data-base="2" data-skills="sketching">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · one rule</span><span class="pn"></span></header>
+    <div class="ph fill"><b>Under construction</b><small>Stylised concept sketch: one H-frame, flip and stack</small></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page og-page" data-slide="og-identity" data-tiers="preview" data-card="logo" data-base="2" data-skills="branding">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · identity</span><span class="pn"></span></header>
+    <div class="lockup"><img class="og-logo xl" src="../img/og-logo.svg" alt="overgrwth"><span class="eyebrow">A modular workspace system for creative spaces</span></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <!-- overview: the 7 pages from the agreed structure plan -->
+  <article class="page og-page full-bleed" data-slide="og-hero" data-tiers="overview full" data-base="3" data-skills="rendering,cmf" data-required>
+    <img class="bleed" src="../img/og4-hero.jpg" alt="The overgrwth lattice with every attachment">
+    <div class="over">
+      <img class="og-logo" src="../img/og-logo.svg" alt="overgrwth">
+      <span class="eyebrow"><span data-num>01</span> · Modular Design · 2025</span>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Research, concept, system architecture, CAD, CMF, visualisation</dd></div>
+        <div><dt>Team</dt><dd>Abhik Gupta, Abhishek Vishwakarma, Dhawal Musale</dd></div>
+      </dl>
+    </div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth</span><span class="pn"></span></header>
+  </article>
+
+  <article class="page og-page" data-slide="og-brief" data-tiers="overview full" data-base="2" data-skills="research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · brief</span><span class="pn"></span></header>
+    <div class="cols">
+      <div>
+        <p class="quote sm">A creative's work is never over.</p>
+        <p class="lead">Design a modular system for professional creative spaces that helps people manage their things and builds a connection with the workspace.</p>
+        <div class="tri">
+          <div class="c-blue"><b>Space</b>Studios change size, shape and use.</div>
+          <div class="c-yellow"><b>Physical + digital</b>Creatives move between physical, digital and paper work all day.</div>
+          <div class="c-red"><b>Organisation</b>Tools need a place close at hand, and that place keeps changing.</div>
+        </div>
+      </div>
+      <div class="stack"><div class="ph"><b>Under construction</b><small>Cluttered creative desk 1</small></div><div class="ph"><b>Under construction</b><small>Cluttered creative desk 2</small></div></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-ideation" data-tiers="overview full" data-base="2" data-skills="sketching,research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · ideation</span><span class="pn"></span></header>
+    <div class="cols wide-left">
+      <img class="cover-img" src="../img/og-sketches.jpg" alt="Ideation sketches">
+      <div><h3>ideation</h3><p>Rounds of sketching explored H-frames with rows of holes, slotting joints, pegboards, magnetic boards and toolboxes.</p><p class="note">To be redrawn as a stylised sheet: 3 to 5 directions, then the pick.</p></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p4" data-cards="og-concept og-build" data-tiers="overview full" data-base="3" data-skills="sketching,systems,cad">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · one rule</span><span class="pn"></span></header>
+    <div class="cols">
+      <div class="ph"><b>Under construction</b><small>Stylised concept sketch: one H-frame, flip and stack</small></div>
+      <div><h3>build your own</h3><p class="note">Online, this is a 3D viewer. On paper, three builds from one frame.</p>
+        <div class="strip one"><img src="../img/og4-build.jpg" alt="Three preset builds from one frame to a full setup"></div></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p5" data-cards="og-system og-motion og-detail" data-tiers="overview full" data-base="3" data-skills="systems,cad,electronics">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · system</span><span class="pn"></span></header>
+    <div class="cols">
+      <div>
+        <img class="cover-img" src="../img/og4-exploded.jpg" alt="The system exploded: frame, connector, foot, clamp and modules">
+        <div class="spec"><span><b>3 in</b>tube</span><span><b>24 x 24 in</b>unit</span><span><b>24 V</b>power</span></div>
+        <div class="strip one tall"><img src="../img/og4-growth.jpg" alt="One frame growing into a full lattice"></div>
+      </div>
+      <div class="grid2 g3">
+        <figure><img src="../img/og4-socket.jpg" alt=""><figcaption>Plus socket locks frames at 90°</figcaption></figure>
+        <figure><img src="../img/og4-clamp.jpg" alt=""><figcaption>One clamp carries every module</figcaption></figure>
+        <figure><img src="../img/og4-grow.jpg" alt=""><figcaption>Grow light over the planter</figcaption></figure>
+        <figure><img src="../img/og4-foot.jpg" alt=""><figcaption>24 V in through the foot</figcaption></figure>
+        <figure><img src="../img/og4-power.jpg" alt=""><figcaption>Power runs up through the posts</figcaption></figure>
+        <figure><img src="../img/og4-attach.jpg" alt=""><figcaption>Six powered post-top attachments</figcaption></figure>
+      </div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p6" data-cards="og-scene-studio og-scene-rest og-scene-workshop og-cmf" data-tiers="overview full" data-base="3" data-skills="rendering,cmf">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · in use</span><span class="pn"></span></header>
+    <div class="scenes">
+      <img class="big" src="../img/og4-studio.jpg" alt="overgrwth in a design studio">
+      <img src="../img/og4-plant.jpg" alt="Plant corner in a rest area">
+      <img src="../img/og4-workshop.jpg" alt="Utility wall in a design workshop">
+    </div>
+    <div class="cmf-row"><img class="cmf-macro" src="../img/og4-material.jpg" alt="Material and finish samples"><div class="swatches">
+      <span><i style="background:#FFFAFA"></i>Structure</span><span><i style="background:#2F7A4B"></i>Set down</span>
+      <span><i style="background:#D95942"></i>Water and soil</span><span><i style="background:#FBCB44"></i>Hang</span>
+      <span><i style="background:#4569BE"></i>Pin</span><span><i style="background:#fff"></i>Write</span>
+    </div></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page og-page" data-slide="og-p7" data-cards="og-identity og-outcome" data-tiers="overview full" data-base="2" data-skills="branding,systems">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>overgrwth · identity</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><div class="lockup sm"><img class="og-logo" src="../img/og-logo.svg" alt="overgrwth"></div><div class="strip three"><div class="ph"><b>Under construction</b><small>Packaging</small></div><div class="ph"><b>Under construction</b><small>Leaflet</small></div><div class="ph"><b>Under construction</b><small>Part tags</small></div></div></div>
+      <div><img class="cover-img" src="../img/og4-closing.jpg" alt="overgrwth lattice from a new angle"><p class="lead">There's no final form. Every arrangement is a different picture of the people using it.</p><p class="note">Next: CortX</p></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+</section>
+
+<!-- ============ CORTX (identity v0.4: Void, Michroma, Manrope) ============ -->
+<section data-project="cortx" data-type="concept" class="cx">
+  <!-- preview: 4 pages, one per card -->
+  <article class="page cx-page full-bleed" data-slide="cx-hero" data-tiers="preview" data-card="hero" data-base="3" data-skills="rendering,systems" data-required>
+    <img class="bleed" src="../img/cx3-hero.jpg" alt="The CortX headset beside its back unit">
+    <div class="over"><img class="cx-logo" src="../img/cx-logo-void.png" alt="CortX"><span class="eyebrow"><span data-num>02</span> · Neuro-performance system</span></div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX</span><span class="pn"></span></header>
+  </article>
+  <article class="page cx-page" data-slide="cx-brief" data-tiers="preview" data-card="hook" data-base="3" data-skills="research">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · the problem</span><span class="pn"></span></header>
+    <div class="hook">
+      <div class="cx-stat-a4 big"><b>&lt;10%</b><p>Neymar's motor brain activity, compared with an amateur's, when moving his foot. Naito and Hirose, 2014.</p></div>
+      <p class="quote">Until now, we've only measured the body. Now it's time to measure the mind.</p>
+      <div class="duo"><img src="../img/cx2-side.jpg" alt="The headset in profile"><img src="../img/cx2-inside.jpg" alt="The indigo liner with dry electrode pods"></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page cx-page" data-slide="cx-concept" data-tiers="preview" data-card="sketch" data-base="2" data-skills="sketching">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · concept</span><span class="pn"></span></header>
+    <img class="cover-img fill" src="../img/cx3-sketch.jpg" alt="Concept sketches: the system on the body, and the back unit from the front and side">
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+  <article class="page cx-page" data-slide="cx-identity" data-tiers="preview" data-card="logo" data-base="2" data-skills="branding">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · identity</span><span class="pn"></span></header>
+    <div class="lockup"><img class="cx-logo xl" src="../img/cx-logo-void.png" alt="CortX"><span class="eyebrow">Neuro-performance for elite football</span></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <!-- overview: 7 pages (brief doc plan); research page is full only -->
+  <article class="page cx-page full-bleed" data-slide="cx-hero" data-tiers="overview full" data-base="3" data-skills="rendering,systems" data-required>
+    <img class="bleed" src="../img/cx3-hero.jpg" alt="The CortX headset beside its back unit">
+    <div class="over">
+      <img class="cx-logo" src="../img/cx-logo-void.png" alt="CortX">
+      <span class="eyebrow"><span data-num>02</span> · Neuro-performance system</span>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Research, system design, CAD, CMF, identity, visualisation</dd></div>
+        <div><dt>Team</dt><dd>Abhik Gupta, Ansha Gawande</dd></div>
+      </dl>
+    </div>
+    <header class="ph-head on-img"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX</span><span class="pn"></span></header>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-brief" data-tiers="overview full" data-base="3" data-skills="research,systems">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · brief</span><span class="pn"></span></header>
+    <div class="cols">
+      <div>
+        <div class="cx-stat-a4"><b>&lt;10%</b><p>When Neymar rotated his foot in an MRI scanner, the motor areas of his brain were less than 10% as active as an amateur's. What makes a great player is partly in the brain, and clubs can't see it.</p></div>
+        <p class="note">Naito and Hirose, Frontiers in Human Neuroscience, 2014</p>
+        <p class="quote sm">Until now, we've only measured the body. Now it's time to measure the mind.</p>
+        <p class="lead">Clubs track almost everything about a player's body and nothing about their mind. Mental fatigue hurts decisions before it shows up physically, and the tools that could see it are wired lab caps nobody can sprint in.</p>
+        <div class="tri">
+          <div><b>01 Hardware</b>Brain-sensing kit is heavy, wired and slow to put on.</div>
+          <div><b>02 Trust</b>Coaches trust the eye test over a new kind of data.</div>
+          <div><b>03 Friction</b>It needs outside specialists, adding cost and delay.</div>
+        </div>
+        <dl class="facts"><div><dt>For</dt><dd>The lead data analyst and head coach at a top club</dd></div><div><dt>Reads</dt><dd>EEG, fNIRS, head motion, heart rate, GPS</dd></div></dl>
+      </div>
+      <img class="cover-img" src="../img/cx2-side.jpg" alt="The headset in profile">
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-research" data-tiers="full" data-base="1" data-skills="research,prototyping">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · research</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><h3>Research</h3><p>Research ran from liveable spaces, through neurodiversity and sensory-centred design, to Sensory Intelligence Optimisation. We studied the Red Bull Athlete Performance Centre and P3, then built a fit mock-up of the liner in plastic straps and foam.</p>
+        <div class="tri dark-cards"><div class="chosen"><b>Brain-imaging headset</b>Taken forward.</div><div><b>Blind-spot wristband</b>Haptic cue when someone enters a blind spot.</div><div><b>Game disruptor</b>A robot that breaks a player's rhythm.</div></div></div>
+      <img class="cover-img" src="../img/cx-mockup.jpg" alt="The fit mock-up of the headset liner">
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-p3" data-cards="cx-concept cx-system" data-tiers="overview full" data-base="3" data-skills="sketching,systems">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · the system</span><span class="pn"></span></header>
+    <div class="cols">
+      <img class="cover-img" style="object-fit:contain" src="../img/cx3-sketch.jpg" alt="Concept sketches: the system on the body, and the back unit from the front and side">
+      <div><h3>The system</h3>
+        <ol class="cx-list">
+          <li><b>Headset</b>Dry EEG and fNIRS in a light shell. One Boa dial fits many heads.</li>
+          <li><b>Back unit</b>Amplifier, battery, GPS, Bluetooth. An egg-shaped 52 × 92 × 24 mm unit in a vest plate, on a magnetic cable.</li>
+          <li><b>Charging dock</b>A bench station for a squad of 25.</li>
+          <li><b>Pitch-side app</b>Live focus, load and fatigue per player on a tablet.</li>
+          <li><b>Analyst dashboard</b>Sessions over time, with Catapult and STATSports data.</li>
+        </ol>
+        <p class="cx-rule">CortX assists the coach's judgement. It never overrides it.</p></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-p4" data-cards="cx-science cx-exploded cx-detail" data-tiers="overview full" data-base="3" data-skills="electronics,cad,cmf">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · inside</span><span class="pn"></span></header>
+    <div class="cols wide-left">
+      <div><img class="cover-img" src="../img/cx2-exploded.jpg" alt="The headset exploded part by part">
+        <div class="cx-keys"><span style="--c:#9101B1">EEG</span><span style="--c:#0098F6">fNIRS</span><span style="--c:#AEC959">IMU</span><span style="--c:#00C2A8">HR</span><span style="--c:#F46C02">GPS</span></div>
+        <p class="note">EEG neurofeedback training improved sport motor performance with a large effect (Hedges' g 0.78) across 21 randomised trials. Yu et al. 2025, Scand J Med Sci Sports.</p></div>
+      <div class="grid2">
+        <figure><img src="../img/cx2-dial.jpg" alt=""><figcaption>The only colour is the dial</figcaption></figure>
+        <figure><img src="../img/cx2-inside.jpg" alt=""><figcaption>Indigo liner, dry electrodes</figcaption></figure>
+        <figure><img src="../img/cx3-bu-front.jpg" alt=""><figcaption>Back unit: egg front, lens side</figcaption></figure>
+        <figure><img src="../img/cx3-bu-exploded.jpg" alt=""><figcaption>Snap fit with a silicone seal</figcaption></figure>
+      </div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-p5" data-cards="cx-family cx-day" data-tiers="overview full" data-base="2" data-skills="rendering,systems">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · a day at the club</span><span class="pn"></span></header>
+    <div class="cols">
+      <img class="cover-img" src="../img/cx3-family.jpg" alt="Headset, back unit in its vest plate on a cable, and the pitch-side tablet">
+      <div><h3>A day at the club</h3>
+        <ol class="cx-list">
+          <li><b>Assess · morning</b>Headset and vest on. A short baseline sets today's starting point.</li>
+          <li><b>Train · session</b>Focus, load and fatigue stream to the coach's tablet, live.</li>
+          <li><b>Profile · afternoon</b>The analyst joins it with GPS and event data.</li>
+          <li><b>Prepare · matchday</b>Selection uses what the week showed. The coach makes the call.</li>
+        </ol></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-p6" data-cards="cx-app cx-dashboard" data-tiers="overview full" data-base="2" data-skills="interaction,ui">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · app and dashboard</span><span class="pn"></span></header>
+    <div class="cols">
+      <div class="stack"><figure><img src="../img/cx3-app-squad.jpg" alt="Squad view"><figcaption>Squad view: CortX flags, the coach decides</figcaption></figure><figure><img src="../img/cx3-app-player.jpg" alt="Player view"><figcaption>Player view: every sensor in its own colour</figcaption></figure></div>
+      <figure class="dash-fig"><img src="../img/cx3-dashboard.jpg" alt="Analyst dashboard"><figcaption>Analyst dashboard: the season, joined with Catapult, STATSports and event data</figcaption></figure>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-p6b" data-cards="cx-flow cx-progress" data-tiers="overview full" data-base="3" data-skills="systems,interaction">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · data and progress</span><span class="pn"></span></header>
+    <div class="cx-a4-flow"><h3>How the data moves</h3><svg class="cx-flow-svg" viewBox="0 0 1200 520" role="img" aria-labelledby="cxFlowT cxFlowD">
+<title id="cxFlowT">How CortX data moves</title><desc id="cxFlowD">Five sensors in the headset and back unit feed the back unit, which cleans the signals and turns them into focus, load and fatigue. It streams those over Bluetooth to the pitch-side tablet during training, and after the session the dock syncs everything to the analyst dashboard, where it is joined with GPS and event data.</desc>
+<text x="60" y="40" class="f-n">01</text><text x="60" y="70" class="f-h">Collect</text><text x="60" y="94" class="f-s">5 sensors, 2 devices</text>
+<text x="380" y="40" class="f-n">02</text><text x="380" y="70" class="f-h">Process</text><text x="380" y="94" class="f-s">On the back unit</text>
+<text x="690" y="40" class="f-n">03</text><text x="690" y="70" class="f-h">Stream</text><text x="690" y="94" class="f-s">Bluetooth, under 1 s</text>
+<text x="960" y="40" class="f-n">04</text><text x="960" y="70" class="f-h">Visualise</text><text x="960" y="94" class="f-s">Tablet now, dashboard later</text>
+<g><rect x="60" y="130" width="196" height="40" rx="20" fill="none" stroke="#9101B1" stroke-width="1.5"/><circle cx="82" cy="150" r="5" fill="#9101B1"/><text x="98" y="155" class="f-c">EEG</text><text x="242" y="155" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="190" width="196" height="40" rx="20" fill="none" stroke="#0098F6" stroke-width="1.5"/><circle cx="82" cy="210" r="5" fill="#0098F6"/><text x="98" y="215" class="f-c">fNIRS</text><text x="242" y="215" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="250" width="196" height="40" rx="20" fill="none" stroke="#AEC959" stroke-width="1.5"/><circle cx="82" cy="270" r="5" fill="#AEC959"/><text x="98" y="275" class="f-c">IMU</text><text x="242" y="275" class="f-d" text-anchor="end">Headset</text></g>
+<g><rect x="60" y="310" width="196" height="40" rx="20" fill="none" stroke="#00C2A8" stroke-width="1.5"/><circle cx="82" cy="330" r="5" fill="#00C2A8"/><text x="98" y="335" class="f-c">HR</text><text x="242" y="335" class="f-d" text-anchor="end">Back unit</text></g>
+<g><rect x="60" y="370" width="196" height="40" rx="20" fill="none" stroke="#F46C02" stroke-width="1.5"/><circle cx="82" cy="390" r="5" fill="#F46C02"/><text x="98" y="395" class="f-c">GPS</text><text x="242" y="395" class="f-d" text-anchor="end">Back unit</text></g>
+<path d="M256,150 C330,150 310,190 380,190" class="f-line" stroke="#9101B1"/>
+<path d="M256,210 C330,210 310,230 380,230" class="f-line" stroke="#0098F6"/>
+<path d="M256,270 C330,270 310,270 380,270" class="f-line" stroke="#AEC959"/>
+<path d="M256,330 C330,330 310,310 380,310" class="f-line" stroke="#00C2A8"/>
+<path d="M256,390 C330,390 310,350 380,350" class="f-line" stroke="#F46C02"/>
+<rect x="380" y="150" width="230" height="240" rx="14" class="f-box"/>
+<text x="402" y="198" class="f-step">Filter noise</text>
+<line x1="402" x2="588" y1="220" y2="220" class="f-sep"/>
+<text x="402" y="250" class="f-step">Remove motion using IMU</text>
+<line x1="402" x2="588" y1="272" y2="272" class="f-sep"/>
+<text x="402" y="302" class="f-step">Check against baseline</text>
+<line x1="402" x2="588" y1="324" y2="324" class="f-sep"/>
+<text x="402" y="354" class="f-step last">Focus · Load · Fatigue</text>
+<path d="M610,270.0 C730,270.0 840,205.0 960,205.0" class="f-line f-main"/>
+<text x="785.0" y="314.0" class="f-d" text-anchor="middle">3 numbers per player,</text><text x="785.0" y="334.0" class="f-d" text-anchor="middle">every second</text>
+<rect x="960" y="140" width="200" height="130" rx="12" class="f-box"/>
+<text x="978" y="172" class="f-c">Pitch-side tablet</text><text x="978" y="194" class="f-d">Live, during training</text>
+<rect x="978" y="216" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="216" width="118.08" height="6" rx="3" fill="#9101B1" class="f-bar" style="--w:0.72"/>
+<rect x="978" y="232" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="232" width="98.39999999999999" height="6" rx="3" fill="#0098F6" class="f-bar" style="--w:0.6"/>
+<rect x="978" y="248" width="164" height="6" rx="3" fill="rgba(244,242,248,.16)"/><rect x="978" y="248" width="62.32" height="6" rx="3" fill="#F46C02" class="f-bar" style="--w:0.38"/>
+<path d="M495.0,390 C495.0,417.0 610,417.0 690,417.0" class="f-line f-dash"/><path d="M860,417.0 C900,417.0 920,405.0 960,405.0" class="f-line f-dash"/>
+<rect x="690" y="380" width="170" height="74" rx="12" class="f-box"/><text x="708" y="412" class="f-c">Dock</text><text x="708" y="434" class="f-d">Full session syncs</text>
+<rect x="960" y="330" width="200" height="150" rx="12" class="f-box"/><text x="978" y="362" class="f-c">Analyst dashboard</text><text x="978" y="384" class="f-d">After the session</text>
+<text x="978" y="414" class="f-d" fill="#F46C02">+ Catapult GPS</text>
+<text x="978" y="434" class="f-d" fill="#F46C02">+ STATSports</text>
+<text x="978" y="454" class="f-d" fill="#F4F2F8">+ Event data</text>
+<circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="0.00s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
+<circle r="4" fill="#9101B1" class="f-dot"><animateMotion dur="2.4s" begin="1.20s" repeatCount="indefinite" path="M256,150 C330,150 310,190 380,190"/></circle>
+<circle r="4" fill="#0098F6" class="f-dot"><animateMotion dur="2.4s" begin="0.37s" repeatCount="indefinite" path="M256,210 C330,210 310,230 380,230"/></circle>
+<circle r="4" fill="#0098F6" class="f-dot"><animateMotion dur="2.4s" begin="1.57s" repeatCount="indefinite" path="M256,210 C330,210 310,230 380,230"/></circle>
+<circle r="4" fill="#AEC959" class="f-dot"><animateMotion dur="2.4s" begin="0.74s" repeatCount="indefinite" path="M256,270 C330,270 310,270 380,270"/></circle>
+<circle r="4" fill="#AEC959" class="f-dot"><animateMotion dur="2.4s" begin="1.94s" repeatCount="indefinite" path="M256,270 C330,270 310,270 380,270"/></circle>
+<circle r="4" fill="#00C2A8" class="f-dot"><animateMotion dur="2.4s" begin="1.11s" repeatCount="indefinite" path="M256,330 C330,330 310,310 380,310"/></circle>
+<circle r="4" fill="#00C2A8" class="f-dot"><animateMotion dur="2.4s" begin="2.31s" repeatCount="indefinite" path="M256,330 C330,330 310,310 380,310"/></circle>
+<circle r="4" fill="#F46C02" class="f-dot"><animateMotion dur="2.4s" begin="1.48s" repeatCount="indefinite" path="M256,390 C330,390 310,350 380,350"/></circle>
+<circle r="4" fill="#F46C02" class="f-dot"><animateMotion dur="2.4s" begin="2.68s" repeatCount="indefinite" path="M256,390 C330,390 310,350 380,350"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="0.0s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="5" fill="#F4F2F8" class="f-dot"><animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M610,270.0 C730,270.0 840,205.0 960,205.0"/></circle>
+<circle r="4" fill="rgba(244,242,248,.6)" class="f-dot"><animateMotion dur="4s" begin="0s" repeatCount="indefinite" path="M495.0,390 C495.0,417.0 610,417.0 690,417.0"/></circle>
+<circle r="4" fill="rgba(244,242,248,.6)" class="f-dot"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M860,417.0 C900,417.0 920,405.0 960,405.0"/></circle>
+</svg></div>
+    <div class="cx-a4-prog"><h3>One player, one season</h3><div class="cx-progs">
+<figure class="cx-prog"><figcaption><b>Focus late in matches</b><span>Last 15 minutes, match days</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Focus late in matches. Up from 58 to 74 over 18 weeks"><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">50</text><line x1="44" x2="486" y1="184.0" y2="184.0" class="p-grid"/><text x="36" y="188.0" class="p-ax" text-anchor="end">60</text><line x1="44" x2="486" y1="102.0" y2="102.0" class="p-grid"/><text x="36" y="106.0" class="p-ax" text-anchor="end">70</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">80</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">W1</text><text x="174.0" y="290" class="p-ax" text-anchor="middle">W6</text><text x="330.0" y="290" class="p-ax" text-anchor="middle">W12</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">W18</text><polyline points="44.0,200.4 70.0,208.6 96.0,184.0 122.0,192.2 148.0,167.6 174.0,175.8 200.0,151.2 226.0,159.4 252.0,134.8 278.0,143.0 304.0,118.4 330.0,126.6 356.0,102.0 382.0,110.2 408.0,93.8 434.0,85.6 460.0,77.4 486.0,69.2" fill="none" stroke="#9101B1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="69.2" r="4" fill="#9101B1"/><text x="494.0" y="73.2" class="p-lab" fill="#9101B1">74</text></svg><p class="p-note">Up from 58 to 74 over 18 weeks</p></figure>
+<figure class="cx-prog"><figcaption><b>Decision time when tired</b><span>Small-sided games, after minute 60</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Decision time when tired. Down from 820 to 655 ms"><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">600</text><line x1="44" x2="486" y1="216.8" y2="216.8" class="p-grid"/><text x="36" y="220.8" class="p-ax" text-anchor="end">650</text><line x1="44" x2="486" y1="167.6" y2="167.6" class="p-grid"/><text x="36" y="171.6" class="p-ax" text-anchor="end">700</text><line x1="44" x2="486" y1="118.4" y2="118.4" class="p-grid"/><text x="36" y="122.4" class="p-ax" text-anchor="end">750</text><line x1="44" x2="486" y1="69.2" y2="69.2" class="p-grid"/><text x="36" y="73.2" class="p-ax" text-anchor="end">800</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">850</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">W1</text><text x="174.0" y="290" class="p-ax" text-anchor="middle">W6</text><text x="330.0" y="290" class="p-ax" text-anchor="middle">W12</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">W18</text><polyline points="44.0,49.5 70.0,57.4 96.0,71.2 122.0,64.3 148.0,88.9 174.0,98.7 200.0,96.8 226.0,118.4 252.0,127.3 278.0,133.2 304.0,147.9 330.0,151.9 356.0,165.6 382.0,169.6 408.0,177.4 434.0,191.2 460.0,199.1 486.0,211.9" fill="none" stroke="#0098F6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="211.9" r="4" fill="#0098F6"/><text x="494.0" y="215.9" class="p-lab" fill="#0098F6">655 ms</text></svg><p class="p-note">Down from 820 to 655 ms</p></figure>
+<figure class="cx-prog"><figcaption><b>Same session, two months apart</b><span>Focus across 90 minutes</span></figcaption><svg class="cx-prog-svg" viewBox="0 0 560 300" role="img" aria-label="Same session, two months apart. In July focus fell away after the hour. By November it holds."><line x1="44" x2="486" y1="266.0" y2="266.0" class="p-grid"/><text x="36" y="270.0" class="p-ax" text-anchor="end">40</text><line x1="44" x2="486" y1="184.0" y2="184.0" class="p-grid"/><text x="36" y="188.0" class="p-ax" text-anchor="end">55</text><line x1="44" x2="486" y1="102.0" y2="102.0" class="p-grid"/><text x="36" y="106.0" class="p-ax" text-anchor="end">70</text><line x1="44" x2="486" y1="20.0" y2="20.0" class="p-grid"/><text x="36" y="24.0" class="p-ax" text-anchor="end">85</text><text x="44.0" y="290" class="p-ax" text-anchor="middle">0′</text><text x="191.3" y="290" class="p-ax" text-anchor="middle">30′</text><text x="338.7" y="290" class="p-ax" text-anchor="middle">60′</text><text x="486.0" y="290" class="p-ax" text-anchor="middle">90′</text><polyline points="44.0,58.3 68.6,63.7 93.1,63.7 117.7,69.2 142.2,74.7 166.8,74.7 191.3,80.1 215.9,85.6 240.4,91.1 265.0,102.0 289.6,112.9 314.1,134.8 338.7,156.7 363.2,173.1 387.8,189.5 412.3,200.4 436.9,211.3 461.4,216.8 486.0,222.3" fill="none" stroke="rgba(244,242,248,.6)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 5" class="p-line"/><circle cx="486.0" cy="222.3" r="4" fill="rgba(244,242,248,.6)"/><text x="494.0" y="226.3" class="p-lab" fill="rgba(244,242,248,.6)">July</text><polyline points="44.0,47.3 68.6,47.3 93.1,52.8 117.7,52.8 142.2,52.8 166.8,58.3 191.3,58.3 215.9,58.3 240.4,63.7 265.0,63.7 289.6,69.2 314.1,69.2 338.7,74.7 363.2,74.7 387.8,80.1 412.3,80.1 436.9,85.6 461.4,85.6 486.0,91.1" fill="none" stroke="#9101B1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" class="p-line"/><circle cx="486.0" cy="91.1" r="4" fill="#9101B1"/><text x="494.0" y="95.1" class="p-lab" fill="#9101B1">Nov</text></svg><p class="p-note">In July focus fell away after the hour. By November it holds.</p></figure>
+</div><p class="note">Illustrative data for one player, not recorded.</p></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+
+  <article class="page cx-page" data-slide="cx-p7" data-cards="cx-identity cx-outcome" data-tiers="overview full" data-base="2" data-skills="branding,systems">
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>CortX · identity</span><span class="pn"></span></header>
+    <div class="cols">
+      <div><div class="lockup sm"><img class="cx-logo" src="../img/cx-logo-void.png" alt="CortX"></div>
+        <div class="swatches"><span><i style="background:#0D031E"></i>Void</span><span><i style="background:#F4F2F8"></i>Paper</span><span><i style="background:#4527A1"></i>Indigo</span><span><i style="background:#FF190F"></i>Red</span><span><i style="background:#D9D9D9"></i>Mist</span></div>
+        <p class="note">Michroma for headlines, Manrope for words and numbers. Sensor colours appear only in data.</p></div>
+      <div><img class="cover-img" src="../img/cx2-back34.jpg" alt="The headset from behind"><p class="lead">Clubs already know how far a player ran. CortX tells them how the player was thinking while they ran it.</p><p class="note">Next: DASH</p></div>
+    </div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+</section>
+
+<!-- ============ DASH ============ -->
+<section data-project="dash" data-type="concept">
+  <article class="page dark" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>
+    <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>DASH</span><span class="pn"></span></header>
+    <div class="lockup"><span class="eyebrow"><span data-num>03</span> · Solo concept</span><span class="cx-word">DASH</span><p>The case study is coming soon.</p></div>
+    <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+  </article>
+</section>
+
+<!-- ============ BANK (drafts, hidden until a profile asks) ============ -->
+<section data-project="evoluir" data-type="industry" data-draft><article class="page" data-slide="evoluir-cover" data-tiers="preview overview full" data-skills="branding,packaging" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>Evoluir</span><span class="pn"></span></header><div class="ph fill">Evoluir: branding, product and packaging, 2024 to 2025</div></article></section>
+<section data-project="goodknocks" data-type="industry" data-draft><article class="page" data-slide="goodknocks-cover" data-tiers="preview overview full" data-skills="branding" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>Goodknocks</span><span class="pn"></span></header><div class="ph fill">Goodknocks: product and brand, 2026</div></article></section>
+<section data-project="nnode" data-type="industry" data-draft><article class="page" data-slide="nnode-cover" data-tiers="preview overview full" data-skills="branding" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>nnode</span><span class="pn"></span></header><div class="ph fill">nnode: product and brand, 2026</div></article></section>
+<section data-project="misc" data-type="misc" data-draft><article class="page" data-slide="misc-cover" data-tiers="preview overview full" data-required><header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>Miscellaneous</span><span class="pn"></span></header><div class="ph fill">Miscellaneous</div></article></section>
+
+<!-- ============ ABOUT + CONTACT ============ -->
+<article class="page" id="about" data-required>
+  <header class="ph-head"><span class="wm">ABHIK<span>GUPTA</span></span><span>about</span><span class="pn"></span></header>
+  <div class="cols">
+    <img class="cover-img" src="../img/p-about.jpg" alt="Abhik at dusk">
+    <div>
+      <p>Sketching sneakers was my escape in school. Design school is where I fell for all of it: how lines move, how surfaces converge, how materials and colours meet. Electronics, systems and mechanisms got me just as hooked.</p>
+      <h3>Experience</h3>
+      <p><b>Evoluir</b>, Ahmedabad. Freelance industrial designer, Aug 2024 to May 2025.<br><b>Oro Innovations</b>, Ahmedabad. Industrial design apprentice, May to Jun 2025.</p>
+      <h3>Education</h3><p>B.Des (Hons.) Product Design, 2023 to 2027</p>
+      <h3>Contact</h3><p>abhikthegupta@gmail.com · linkedin.com/in/abhik-gupta-9a587026a · instagram.com/abkgpta</p>
+      <p class="note">Ask my portfolio anything: the live version at abkgpta.github.io/portfolio27 has a voice agent that knows every project.</p>
+    </div>
+  </div>
+  <footer class="ph-foot"><span>abkgpta.github.io/portfolio27</span><span>abhikthegupta@gmail.com</span></footer>
+</article>
+
+<script src="../js/engine.js"></script>
+</body>
+</html>

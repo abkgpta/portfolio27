@@ -172,5 +172,14 @@
     "pr": [
       26
     ]
+  },
+  {
+    "v": 21,
+    "commit": "59e2249d1c54fc869827055fefd8f2f8c218ffeb",
+    "date": "2026-11-14",
+    "title": "CortX scroll at 4x frame rate",
+    "pr": [
+      27
+    ]
   }
 ]
