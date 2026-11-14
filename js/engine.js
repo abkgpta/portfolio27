@@ -87,7 +87,10 @@
       sec.classList.toggle('is-cut', off);
       totals[sec.dataset.project] = off ? -1 : total;
     });
-    const order = projects.slice().sort((a, b) => totals[b.dataset.project] - totals[a.dataset.project]);
+    // profile.order = fixed project order (the open site keeps abhik's order); otherwise highest score first
+    const fixed = Array.isArray(profile.order) ? profile.order : null;
+    const rank = id => { const i = fixed ? fixed.indexOf(id) : -1; return i < 0 ? Infinity : i; };
+    const order = projects.slice().sort((a, b) => (rank(a.dataset.project) - rank(b.dataset.project)) || (totals[b.dataset.project] - totals[a.dataset.project]));
     const anchor = document.getElementById('contact') || document.getElementById('about');
     if (anchor) order.forEach(sec => anchor.parentNode.insertBefore(sec, anchor));
     order.forEach((sec, i) => { const n = sec.querySelector('[data-num]'); if (n) n.textContent = String(i + 1).padStart(2, '0'); });
