@@ -271,5 +271,32 @@
     "pr": [
       37
     ]
+  },
+  {
+    "v": 32,
+    "commit": "5ce6bea5c124486c288cdeed9d798e3e39180e4d",
+    "date": "2026-11-15",
+    "title": "Add YouTube @abk23 to the bottom nav, next to nnode",
+    "pr": [
+      38
+    ]
+  },
+  {
+    "v": 33,
+    "commit": "32ae3cb1c602aec7ff3c92b7622c7f96c1cc6f3a",
+    "date": "2026-11-15",
+    "title": "CortX coach app: squad row shows 6 readable players, swipe for the rest",
+    "pr": [
+      39
+    ]
+  },
+  {
+    "v": 34,
+    "commit": "03e45a9ee23c6e62009bbdb50e7ef6d80a32a58f",
+    "date": "2026-11-15",
+    "title": "Add Takashi Murakami to influences (People)",
+    "pr": [
+      40
+    ]
   }
 ]
