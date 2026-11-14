@@ -217,5 +217,14 @@
     "pr": [
       31
     ]
+  },
+  {
+    "v": 26,
+    "commit": "e023bb1d5d91a5fb58f7c71a35339e1a6c5516e5",
+    "date": "2026-11-14",
+    "title": "Sort influences into People, Places, Brands; move About after the gallery",
+    "pr": [
+      32
+    ]
   }
 ]
