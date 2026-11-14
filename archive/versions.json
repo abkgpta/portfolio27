@@ -298,5 +298,14 @@
     "pr": [
       40
     ]
+  },
+  {
+    "v": 35,
+    "commit": "5afda8e46d7f484ebe97487877c862536e37318d",
+    "date": "2026-11-15",
+    "title": "CortX squad row: minimum card width so names never overlap",
+    "pr": [
+      41
+    ]
   }
 ]
