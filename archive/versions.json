@@ -190,5 +190,14 @@
     "pr": [
       28
     ]
+  },
+  {
+    "v": 23,
+    "commit": "7e2e4d343ef0dc6c1e989fb7124b812ff0a0fd55",
+    "date": "2026-11-14",
+    "title": "Add Peter Thiel to influences",
+    "pr": [
+      29
+    ]
   }
 ]
