@@ -262,5 +262,14 @@
     "pr": [
       36
     ]
+  },
+  {
+    "v": 31,
+    "commit": "d389fbbb45b2fbecf79cb977474c64bb125306b9",
+    "date": "2026-11-15",
+    "title": "Add Dyson photo to influences",
+    "pr": [
+      37
+    ]
   }
 ]
