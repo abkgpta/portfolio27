@@ -54,8 +54,12 @@ button{font:inherit;cursor:pointer}
 .cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
 @media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
 /* under construction strip */
-.wip{background:var(--ink);color:var(--cream);font-size:12px;padding:8px var(--gutter);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.wip{background:var(--ink);color:var(--cream);font-size:12px;line-height:1.4;padding:8px var(--gutter);display:flex;gap:6px 12px;align-items:center;flex-wrap:wrap}
 .wip b{font-weight:500;color:var(--pink)}
+.wip .upd{margin-left:auto;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.04em;color:rgba(247,242,239,.72);white-space:nowrap}
+.upd:empty{display:none}
+.og-uc .upd{font-family:var(--mono,monospace);font-size:11px;opacity:.7}
+@media (max-width:640px){.wip{flex-wrap:nowrap;font-size:10.5px;gap:8px}.wip .msg{display:none}.wip .upd{margin-left:auto;font-size:10px;letter-spacing:0}}
 
 /* header */
 header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -100,7 +104,7 @@ nav a:hover{opacity:1;color:var(--pink)}
 .stage .caption{color:rgba(247,242,239,.5)}
 
 /* sections */
-section{scroll-margin-top:64px}
+section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .project-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
 .project-head > div{padding:clamp(32px,5vw,64px) var(--gutter)}
 .project-head > div:first-child{border-right:1px solid var(--line)}
@@ -498,9 +502,8 @@ footer .socials .ico svg{width:13px;height:13px}
 </svg>
 
 
-<div class="wip" role="note"><b>Under construction</b><span>This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span></div>
-
 <header>
+  <div class="wip" role="note"><b>Under construction</b><span class="msg">This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span><span class="upd" data-updated></span></div>
   <div class="wrap">
     <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
     <nav>
@@ -635,7 +638,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
   <div class="og-block og-in" data-slide="og-concept" data-tiers="overview full" data-base="2" data-skills="sketching,systems">
     <h3 class="og-out">concept</h3>
-    <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span></div>
+    <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span><small class="upd" data-updated></small></div>
   </div>
 
   <div class="og-block og-in" data-slide="og-system" data-tiers="overview full" data-base="3" data-skills="systems,cad">
@@ -701,7 +704,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
   <div class="og-block og-in" data-slide="og-identity" data-tiers="overview full" data-base="2" data-skills="branding">
     <h3 class="og-out">identity</h3>
-    <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span></div><div class="og-uc"><b>Under construction</b><span>Part tags</span></div></div>
+    <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span><small class="upd" data-updated></small></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span><small class="upd" data-updated></small></div><div class="og-uc"><b>Under construction</b><span>Part tags</span><small class="upd" data-updated></small></div></div>
   </div>
 
   <figure class="og-fig og-in" data-slide="og-closing" data-tiers="overview full" data-base="1" data-skills="rendering"><img src="img/og4-closing.jpg" alt="The overgrwth lattice from a new angle" width="2000" height="1414" loading="lazy"></figure>
@@ -1108,7 +1111,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <section id="dash" class="dash" data-project="dash" data-type="concept">
   <div class="eyebrow" style="color:rgba(255,255,255,.6)"><span data-num>03</span> · Solo concept</div>
   <h2 style="margin:12px 0 16px">DASH</h2>
-  <p style="max-width:52ch;color:rgba(255,255,255,.8)" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>Under construction. The case study is coming soon.</p>
+  <p style="max-width:52ch;color:rgba(255,255,255,.8)" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>Under construction. The case study is coming soon. <span class="upd" data-updated></span></p>
   <div class="mix" data-playlist="dash" hidden><div class="mix-label">What I listened to while making DASH</div><div class="mix-frame"></div></div>
 </section>
 
@@ -1280,7 +1283,7 @@ document.getElementById('introBtn').onclick=()=>{
 };
 document.getElementById('talkBtn').onclick=()=>{
   if(AGENT_READY){document.getElementById('voice-agent-mount').scrollIntoView({block:'nearest'});return;}
-  document.getElementById('stageNote').textContent='The live voice agent is under construction. Try "Hear my intro" for now.';
+  document.getElementById('stageNote').textContent='The live voice agent is under construction'+(window.SITE_UPDATED?' ('+window.SITE_UPDATED.toLowerCase()+')':'')+'. Try "Hear my intro" for now.';
 };
 if(AGENT_READY)setSpeaking(false);
 
@@ -1405,5 +1408,6 @@ if(cbEl){const cbIO=new IntersectionObserver(async es=>{if(!es[0].isIntersecting
   }catch(e){console.warn('CortX brain visualiser unavailable',e);cb.classList.add('cb-nogl');cbEl.querySelector('.cb-panel').hidden=true;}
 },{rootMargin:'600px'});cbIO.observe(cbEl);}
 </script>
+<script src="js/site-updated.js"></script>
 </body>
 </html>
