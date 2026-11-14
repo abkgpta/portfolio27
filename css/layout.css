@@ -17,6 +17,12 @@
   .hero{padding-right:0}.hero-text{padding-right:var(--gutter)}
 }
 @media (max-width:640px){.inf-grid .inf-col + .inf-col{padding-left:0}}
+/* hero: inside the wide margins the text column needs the larger share, and the
+   headline scales with its own column so the longest word never clips */
+@media (min-width:901px){.hero{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);padding-left:var(--gutter)}.hero .hero-text{padding-left:0}}
+@media (min-width:901px) and (max-width:1279px){.hero{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
+.hero-text{container-type:inline-size}
+.hero .hero-h{font-size:clamp(26px,min(4.4vw,8.4cqi),62px)}
 /* the scroll film's captions sit on the column edge */
 .cx-sc-cap{left:var(--gutter)}
 
