@@ -326,5 +326,14 @@
     "pr": [
       42
     ]
+  },
+  {
+    "v": 38,
+    "commit": "4868849a774e8202043bab3eb7f5d7ff421cb35c",
+    "date": "2026-11-15",
+    "title": "Add images for Peter Yee and Man vs Machine in influences",
+    "pr": [
+      45
+    ]
   }
 ]
