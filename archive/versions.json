@@ -235,5 +235,14 @@
     "pr": [
       34
     ]
+  },
+  {
+    "v": 28,
+    "commit": "1bc107f858ca02167ea89820e18e5b647ae01610",
+    "date": "2026-11-15",
+    "title": "Wide-margin column and a bottom navigation bar",
+    "pr": [
+      35
+    ]
   }
 ]
