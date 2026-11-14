@@ -277,7 +277,7 @@
 .cxa-frow b{font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cxa-frow em{font-style:normal;color:var(--mute);white-space:nowrap}
 .cxa-exp > .cxa-note{margin-top:auto}
-.cxa-chips{--per:6;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - (var(--per) - 1) * 8px) / var(--per));gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;flex:none}
+.cxa-chips{--per:6;display:grid;grid-auto-flow:column;grid-auto-columns:max(100px,calc((100% - (var(--per) - 1) * 8px) / var(--per)));gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;flex:none}
 .cxa-chips::-webkit-scrollbar{display:none}
 .cxa .cxa-chip{scroll-snap-align:start;display:grid;grid-template-columns:36px minmax(0,1fr);grid-template-areas:"g n" "s s" "w w";column-gap:8px;row-gap:2px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--glass);border:1px solid var(--edge);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:background .15s;min-width:0}
 .cxa .cxa-chip:hover{background:rgba(44,28,78,.62)}
