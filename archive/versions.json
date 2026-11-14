@@ -362,5 +362,14 @@
     "pr": [
       48
     ]
+  },
+  {
+    "v": 42,
+    "commit": "d0ac578776d200006f11fa2b72cd87aeb1f12c3f",
+    "date": "2026-11-15",
+    "title": "Put Resume and Influences side by side on wide screens",
+    "pr": [
+      49
+    ]
   }
 ]
