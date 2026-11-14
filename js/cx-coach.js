@@ -202,7 +202,7 @@
     }).join('');
     const fl = flaggedList(), w = worstP(), wr = read(w), hs = heads(), ht = hs.reduce((s, p) => s + p.knocks.length, 0);
     const sq = Math.round(SQUAD.reduce((s, p) => s + avg(p.now), 0) / SQUAD.length), sqB = Math.round(SQUAD.reduce((s, p) => s + avg(p.base), 0) / SQUAD.length);
-    const chips = [...SQUAD].sort((a, b) => read(b).drop - read(a).drop).map(p => `<button class="cxa-chip s-${read(p).state}" data-open="${p.n}" aria-label="Open ${p.name}, ${word(p)}">${glyph(p)}<span><b class="num">${p.n}</b> ${p.name}</span><i>${word(p)}</i></button>`).join('');
+    const chips = [...SQUAD].sort((a, b) => read(b).drop - read(a).drop).map(p => `<button class="cxa-chip s-${read(p).state}" data-open="${p.n}" aria-label="Open ${p.name}, ${word(p)}">${glyph(p)}<b class="num">${p.n}</b><span>${p.name}</span><i>${word(p)}</i></button>`).join('');
     return `<div class="cxa-view cxa-sq">
       <div class="cxa-col">
         ${tile('Need a look', `${big(fl.length, '/' + SQUAD.length, fl.length ? 's-watch' : '')}<span class="cxa-sub">below this morning’s check</span>`)}
@@ -213,8 +213,8 @@
         <div class="cxa-th"><h5>On the pitch now</h5><span class="cxa-keys"><span>${dot('ok')}Sharp</span><span>${dot('watch')}Watch</span><span>${dot('act')}Act</span></span></div>
         <div class="cxa-fit"><svg class="cxa-pitch live" viewBox="0 0 105 68" role="group" aria-label="Live positions, coloured by state">${PITCH}${live}</svg></div>
         ${drills()}
-        <div class="cxa-th"><h5>Squad · worst first</h5><button class="cxa-text" data-expand="cards">All player cards ↗</button></div>
-        <div class="cxa-chips">${chips}</div>
+        <div class="cxa-th"><h5>Squad · worst first <span class="cxa-note cxa-swipe">swipe for more</span></h5><span class="cxa-chip-nav"><button data-chips="-1" aria-label="Previous players">←</button><button data-chips="1" aria-label="Next players">→</button><button class="cxa-text" data-expand="cards">All cards ↗</button></span></div>
+        <div class="cxa-chips" role="list" aria-label="Squad, worst first. Scroll sideways for more players">${chips}</div>
       </div>
       <div class="cxa-col">
         ${tile('Biggest drop', `<div class="cxa-worst">${glyph(w, false, true)}<div>${big('−' + Math.round(wr.drop * 100) + '%', '', 's-' + wr.state)}<span class="cxa-sub">${axName(wr.worst)}</span></div></div><p class="cxa-name"><span class="num">${w.n}</span> ${w.name} · ${word(w)}</p><button class="cxa-btn" data-open="${w.n}">Open ${w.name}</button>`, 'cxa-hi')}
@@ -364,7 +364,7 @@
     else if (k === 'med') { const med = medical(p); h = `${p.name} · Medical log`; body = `${med.length ? `<dl class="cxa-dl cxa-dl-big cxa-med">${med.map(([a, b, c]) => `<div><dt>${a}</dt><dd>${b}<span>${c}</span></dd></div>`).join('')}</dl>` : '<p class="cxa-note">Nothing logged this session.</p>'}<p class="cxa-note">Shared with the medical team. Players see their own data after the session, never live.</p>`; }
     else if (k === 'watch') { h = 'Watch list · focus, last 3 weeks'; body = watchTable(watchList()); }
     else if (k === 'weeks') { h = 'Focus by player and week · Jul 7 to Nov 9'; body = weekGrid(); }
-    else if (k.startsWith('ins-')) { const n = INSIGHTS.find(x => x.k === k.slice(4)); h = 'Insight'; body = `<div class="cxa-pop-hero">${big(n.v, n.of)}<h4 class="cxa-pop-h">${n.h}</h4><p>${n.b}</p></div>${n.who.length ? `<div class="cxa-chips cxa-chips-pop">${n.who.map(q => byN[q]).map(q => `<button class="cxa-chip s-${read(q).state}" data-open="${q.n}">${glyph(q)}<span><b class="num">${q.n}</b> ${q.name}</span><i>${word(q)}</i></button>`).join('')}</div>` : ''}`; }
+    else if (k.startsWith('ins-')) { const n = INSIGHTS.find(x => x.k === k.slice(4)); h = 'Insight'; body = `<div class="cxa-pop-hero">${big(n.v, n.of)}<h4 class="cxa-pop-h">${n.h}</h4><p>${n.b}</p></div>${n.who.length ? `<div class="cxa-chips cxa-chips-pop">${n.who.map(q => byN[q]).map(q => `<button class="cxa-chip s-${read(q).state}" data-open="${q.n}">${glyph(q)}<b class="num">${q.n}</b><span>${q.name}</span><i>${word(q)}</i></button>`).join('')}</div>` : ''}`; }
     else if (k.startsWith('rep-')) {
       const r = REPORTS.find(x => x.k === k.slice(4)), fl = flaggedList(); h = r.t;
       const kp = r.k === 'med' ? [['Headers', 4, ''], ['Over 60 g', 0, ''], ['Players', 3, '']] : r.k === 'week' ? [['Squad focus', 76, '/100'], ['Flags a session', '1.8', ''], ['Wear', 94, '%']] : [['Readiness', Math.round(SQUAD.reduce((s, q) => s + avg(q.now), 0) / 12), '/100'], ['Need a look', fl.length, '/12'], ['Headers', heads().reduce((s, q) => s + q.knocks.length, 0), '']];
@@ -389,7 +389,7 @@
   const VIEWS = { squad: squadView, player: playerView, season: seasonView, reports: reportsView };
 
   function render(keepScroll) {
-    const y = body.scrollTop, popY = root.querySelector('.cxa-pop-b')?.scrollTop || 0;
+    const y = body.scrollTop, popY = root.querySelector('.cxa-pop-b')?.scrollTop || 0, chipX = root.querySelector('.cxa-chips')?.scrollLeft || 0;
     const alert = ui.alert && !ui.expand && (ui.view === 'squad' || ui.view === 'player') ? `<div class="cxa-alert" role="alert">${dot('head')}<b>Head impact · Rooney, header at ${fmtClock(ui.alertAt)}</b><span>Logged by the headset. Check at the next stop.</span><button class="cxa-text" data-close="1">Dismiss</button><button data-open="10" class="cxa-btn">Open Rooney</button></div>` : '';
     body.innerHTML = VIEWS[ui.view]() + pop() + alert;
     root.dataset.view = ui.view;
@@ -400,12 +400,14 @@
     clockEl.textContent = past ? '' : fmtClock(ui.clock);
     body.scrollTop = keepScroll ? y : 0;
     const pb = root.querySelector('.cxa-pop-b'); if (pb && keepScroll) pb.scrollTop = popY;
+    const ch = root.querySelector('.cxa-chips'); if (ch) ch.scrollLeft = chipX;
   }
 
   root.addEventListener('click', e => {
     const t = e.target.closest('button,[data-open],[data-close-pop]');
     if (!t || !root.contains(t)) return;
     const d = t.dataset;
+    if (d.chips) { const ch = root.querySelector('.cxa-chips'); ch?.scrollBy({ left: +d.chips * ch.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); return; }
     if (d.view) { ui.view = d.view; ui.expand = ''; }
     else if (d.open) { ui.player = +d.open; ui.view = 'player'; ui.expand = ''; if (+d.open === 10) ui.alert = false; }
     else if (d.expand) ui.expand = d.expand;
