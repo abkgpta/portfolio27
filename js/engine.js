@@ -92,7 +92,7 @@
     if (anchor) order.forEach(sec => anchor.parentNode.insertBefore(sec, anchor));
     order.forEach((sec, i) => { const n = sec.querySelector('[data-num]'); if (n) n.textContent = String(i + 1).padStart(2, '0'); });
 
-    const nav = document.querySelector('header nav');
+    const nav = document.querySelector('.dock .dock-links') || document.querySelector('header nav');
     if (nav) order.slice().reverse().forEach(sec => {
       const a = nav.querySelector('a[href="#' + sec.dataset.project + '"]');
       if (a) { a.hidden = sec.classList.contains('is-cut'); nav.insertBefore(a, nav.firstChild); }
