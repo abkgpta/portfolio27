@@ -18,7 +18,7 @@ MANIFEST = ARCHIVE / "versions.json"
 SKIP = ("archive/", ".github/", "README.md", "CLAUDE.md", ".nojekyll", ".gitignore")
 # Big, never-edited frame sets: kept once at the site root and shared by every snapshot
 # (each new render set gets a new folder), so a snapshot doesn't copy ~85 MB of frames.
-SHARED = ("img/cx-scroll/", "img/cx-scroll4/")
+SHARED = ("img/cx-scroll/", "img/cx-scroll4/", "img/cx-scroll-ath/")
 REPO_URL = "https://github.com/abkgpta/portfolio27"
 
 # Removed from the live site in PR #1; never republish it through old snapshots.
