@@ -172,14 +172,28 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .contact a.mail:hover{color:var(--pink)}
 /* influences */
 .influences{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,80px)}
-.inf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--line)}
+.inf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--line)}
 .inf-col{padding:24px 0 0}
 .inf-col + .inf-col{border-left:1px solid var(--line);padding-left:var(--gutter)}
 .inf-col h3{font-size:13px;color:var(--pink);margin-bottom:14px}
 .inf-col ol{list-style:none;counter-reset:inf}
-.inf-col li{counter-increment:inf;display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--display);font-size:clamp(18px,2.2vw,30px);line-height:1.2}
+.inf-col li{counter-increment:inf;display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.inf-img{flex:none;width:80px;height:80px;object-fit:cover;background:var(--line);filter:grayscale(1);transition:filter .3s}
+.inf-col li:hover .inf-img{filter:none}
+@media (min-width:641px){.inf-col:not(:last-child){padding-right:var(--gutter)}}
+@media (min-width:641px){.inf-col:nth-child(odd){border-left:0;padding-left:0}.inf-col:nth-child(even){padding-right:0}.inf-col:nth-child(n+3){border-top:1px solid var(--line);margin-top:8px}}
+.inf-ph{display:grid;place-items:center;font-family:var(--display);font-size:20px;color:var(--cream);background:var(--ink);filter:none}
+.inf-txt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.inf-name{font-family:var(--display);font-size:clamp(16px,1.5vw,21px);line-height:1.2}
+.inf-desc{font-size:13px;line-height:1.5;color:var(--muted)}
+.inf-col a.inf-name{text-decoration:none}
+.inf-col a.inf-name:hover{color:var(--pink)}
+.inf-credits{margin-top:32px;font-size:11px;color:var(--muted)}
+.inf-credits summary{cursor:pointer}
+.inf-credits ul{list-style:none;margin-top:10px;display:grid;gap:4px}
+.inf-credits a{color:inherit}
 .inf-col li:last-child{border-bottom:0}
-.inf-col li::before{content:counter(inf,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2ch}
+.inf-col li::before{content:counter(inf,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--muted);min-width:2ch;line-height:1.6}
 @media (max-width:640px){.inf-grid{grid-template-columns:1fr}.inf-col + .inf-col{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:24px}}
 footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
@@ -1190,17 +1204,22 @@ footer .socials .ico svg{width:13px;height:13px}
   <div class="inf-grid">
     <div class="inf-col">
       <h3>People</h3>
-      <ol><li>Rick Rubin</li><li>Peter Yee</li><li>Naval Ravikant</li><li>Peter Thiel</li></ol>
+      <ol><li><img class="inf-img" src="img/inf/rick-rubin.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Rick Rubin</span><span class="inf-desc">Record producer who strips every song back to what matters. Taste and restraint over tools.</span></div></li><li><span class="inf-img inf-ph" aria-hidden="true">PY</span><div class="inf-txt"><span class="inf-name">Peter Yee</span><span class="inf-desc">Former VP of Design at Oakley, behind many of its most iconic frames. Performance gear with real sculptural form.</span></div></li><li><img class="inf-img" src="img/inf/naval-ravikant.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Naval Ravikant</span><span class="inf-desc">Co-founder of AngelList. Clear thinking on leverage, judgement and playing long-term games.</span></div></li><li><img class="inf-img" src="img/inf/peter-thiel.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Peter Thiel</span><span class="inf-desc">Co-founder of PayPal and Palantir. Zero to One: build the thing that does not exist yet.</span></div></li></ol>
     </div>
     <div class="inf-col">
       <h3>Places</h3>
-      <ol><li>Ferrari World Abu Dhabi</li><li>Museum of the Future Dubai</li><li>Akshardham Gandhinagar</li></ol>
+      <ol><li><img class="inf-img" src="img/inf/ferrari-world.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Ferrari World Abu Dhabi</span><span class="inf-desc">A whole park under one red roof on Yas Island, home of Formula Rossa. A brand turned into a full-body experience.</span></div></li><li><img class="inf-img" src="img/inf/museum-future.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Museum of the Future Dubai</span><span class="inf-desc">A torus wrapped in Arabic calligraphy that doubles as its windows. Structure, story and facade as one object.</span></div></li><li><img class="inf-img" src="img/inf/akshardham.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">Akshardham Gandhinagar</span><span class="inf-desc">Hand-carved pink sandstone at monumental scale. Craft and detailing that stop you in your tracks.</span></div></li></ol>
     </div>
     <div class="inf-col">
       <h3>Brands</h3>
-      <ol><li>SpaceX</li><li>KTM</li><li>Dyson</li></ol>
+      <ol><li><img class="inf-img" src="img/inf/spacex.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">SpaceX</span><span class="inf-desc">Rockets that land upright and fly again. Engineering-led design that rewrites what an industry thought was possible.</span></div></li><li><img class="inf-img" src="img/inf/ktm.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><span class="inf-name">KTM</span><span class="inf-desc">Ready to Race. Aggressive, honest motorcycles where every line serves performance.</span></div></li><li><span class="inf-img inf-ph" aria-hidden="true">D</span><div class="inf-txt"><span class="inf-name">Dyson</span><span class="inf-desc">Engineering made visible: cyclones, motors and clear bins designed to be seen, not hidden.</span></div></li><li><span class="inf-img inf-ph" aria-hidden="true">MM</span><div class="inf-txt"><span class="inf-name">Man vs Machine</span><span class="inf-desc">London design and motion studio behind work for Nike and Apple. Craft-heavy 3D that makes form feel alive.</span></div></li></ol>
+    </div>
+    <div class="inf-col">
+      <h3>Music</h3>
+      <ol><li><img class="inf-img" src="img/inf/kids-see-ghosts.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://open.spotify.com/album/6pwuKxMUkNg673KETsXPUV" target="_blank" rel="noopener">Kids See Ghosts ↗</a><span class="inf-desc">Kanye West and Kid Cudi, 2018. Seven tracks, no filler: raw, layered and short enough to feel complete.</span></div></li><li><img class="inf-img" src="img/inf/saw-85-92.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://open.spotify.com/album/7aNclGRxTysfh6z0d8671k" target="_blank" rel="noopener">Selected Ambient Works 85-92 ↗</a><span class="inf-desc">Aphex Twin, 1992. Bedroom-made machines that sound warm and human. Proof that limits shape a voice.</span></div></li><li><img class="inf-img" src="img/inf/powers-that-b.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="inf-txt"><a class="inf-name" href="https://open.spotify.com/album/5Y04ylQjDWsawOUJXzY4YO" target="_blank" rel="noopener">The Powers That B ↗</a><span class="inf-desc">Death Grips, 2015. Abrasive, precise and unapologetic. Breaking the rules only works when you know them.</span></div></li></ol>
     </div>
   </div>
+  <details class="inf-credits"><summary>Image credits</summary><ul><li>Rick Rubin: <a href="https://commons.wikimedia.org/wiki/File:RickRubinSept09.jpg" target="_blank" rel="noopener">photo</a> by jasontheexploder, <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a>, cropped</li><li>Naval Ravikant: <a href="https://commons.wikimedia.org/wiki/File:Naval_Ravikant_(cropped).jpg" target="_blank" rel="noopener">photo</a> by Elias Bizannes, <a href="https://creativecommons.org/licenses/by-sa/2.0" target="_blank" rel="noopener">CC BY-SA 2.0</a>, cropped</li><li>Peter Thiel: <a href="https://commons.wikimedia.org/wiki/File:Peter_Thiel_by_Gage_Skidmore.jpg" target="_blank" rel="noopener">photo</a> by Gage Skidmore, <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a>, cropped</li><li>Ferrari World Abu Dhabi: <a href="https://commons.wikimedia.org/wiki/File:Ferrariworld_by_Flo_Ness.jpg" target="_blank" rel="noopener">photo</a> by Floness, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped</li><li>Museum of the Future Dubai: <a href="https://commons.wikimedia.org/wiki/File:Museum_of_the_Future_inside-Dubai_UAE-Andres_Larin.jpg" target="_blank" rel="noopener">photo</a> by Saaremees, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped</li><li>Akshardham Gandhinagar: <a href="https://commons.wikimedia.org/wiki/File:Akshardham_Gandhinagar_Gujarat.jpg" target="_blank" rel="noopener">photo</a> by Harsh4101991, <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a>, cropped</li><li>SpaceX: <a href="https://commons.wikimedia.org/wiki/File:Falcon_9_first_stage_at_LZ-1(two).jpg" target="_blank" rel="noopener">photo</a> by SpaceX Photos, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, cropped</li><li>KTM: <a href="https://commons.wikimedia.org/wiki/File:KTM_890_Duke,_Interboot_2020,_Friedrichshafen_(IB200230).jpg" target="_blank" rel="noopener">photo</a> by Matti Blume, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped</li><li>Album covers: via Spotify, © the artists and their labels. Shown for reference, each links to the album.</li></ul></details>
 </section>
 
 <footer><span>abhik gupta: industrial &amp; experiential design · 2026</span><div class="socials foot"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div><span>portfolio.27</span></footer>
