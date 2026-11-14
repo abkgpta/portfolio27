@@ -183,6 +183,24 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .contact a.mail{font-family:var(--display);font-size:clamp(20px,4vw,52px);text-decoration:none;word-break:break-all}
 .contact a.mail:hover{color:var(--pink)}
 /* influences */
+.resume{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,80px)}
+.rs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.rs-head h2{font-family:var(--display);font-weight:400;font-size:clamp(22px,3vw,40px);margin-top:12px}
+.rs-lede{max-width:62ch;margin-top:14px;font-size:14px}
+.rs-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);margin-top:28px;border-top:1px solid var(--line)}
+.rs-grid > div{padding-top:24px}
+.rs-grid > div + div{border-left:1px solid var(--line);padding-left:var(--gap,32px)}
+.rs-grid > div:first-child{padding-right:var(--gap,32px)}
+.rs-grid h3{font-size:13px;color:var(--pink);margin:0 0 14px}
+.rs-grid h3:not(:first-child){margin-top:28px}
+.rs-item{padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}
+.rs-item b{font-weight:600;display:block}
+.rs-meta{font-size:12px;color:var(--muted);margin:2px 0 8px}
+.rs-item ul{padding-left:18px}
+.rs-item li{margin-bottom:6px}
+.rs-list{list-style:none;font-size:13px}
+.rs-list li{padding:8px 0;border-bottom:1px solid var(--line)}
+@media (max-width:760px){.rs-grid{grid-template-columns:1fr}.rs-grid > div + div{border-left:0;padding-left:0}.rs-grid > div:first-child{padding-right:0}}
 .influences{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) var(--gutter) clamp(40px,6vw,80px)}
 .inf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--line)}
 .inf-col{padding:24px 0 0}
@@ -1209,6 +1227,42 @@ footer .socials .ico svg{width:13px;height:13px}
 <div class="socials"><a href="mailto:abhikthegupta@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email</a><a href="https://www.linkedin.com/in/abhik-gupta-9a587026a/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn</a><a href="https://www.instagram.com/abkgpta/" target="_blank" rel="noopener"><span class="ico"><svg><use href="#i-ig"/></svg></span>Instagram</a></div>
 </section>
 
+<!-- ============ RESUME ============ -->
+<section id="resume" class="resume" aria-labelledby="rs-h">
+  <div class="rs-head">
+    <div>
+      <div class="eyebrow" id="rs-h">Resume</div>
+      <h2>Abhik Gupta</h2>
+    </div>
+    <a class="cta" href="resume/abhik-gupta-resume.pdf" download>Download resume (PDF)</a>
+  </div>
+  <p class="rs-lede">A product design student who designs products end to end: form, CMF, systems and the electronics inside. Strongest in form and detailing, quick to pick up new tools, and comfortable settling into new teams. Open to internships from January 2027.</p>
+  <div class="rs-grid">
+    <div>
+      <h3>Experience</h3>
+      <div class="rs-item"><b>Oro Innovations, Ahmedabad</b><div class="rs-meta">Industrial design apprentice · May 2025 to Jun 2025</div>
+        <ul><li>Designed an assistive accessory for a client in the medtech industry.</li><li>Built the studio's visual identity and a plan for its social media marketing.</li></ul></div>
+      <div class="rs-item"><b>Evoluir, Ahmedabad</b><div class="rs-meta">Freelance industrial designer · Aug 2024 to May 2025</div>
+        <ul><li>Designed the form, CMF and detailing of Evoluir Air, the company's pilot product, balancing ergonomics, manufacturability and product architecture.</li><li>Designed the consumer and media packaging for Evoluir Air.</li><li>Built the brand identity from scratch: logo, colour, vision and mission, usage guidelines.</li><li>Made pitch decks and marketing graphics for investors and launch.</li></ul></div>
+      <h3>Projects</h3>
+      <div class="rs-item"><b>CortX</b><div class="rs-meta">Neuro-performance system · 2025 to 2026 · with Ansha Gawande</div>A headset and back unit that read brain and body signals during real football training, plus a pitch-side coach app and analyst dashboard. Hardware, CAD, data flow, app UI and brand.</div>
+      <div class="rs-item"><b>overgrwth</b><div class="rs-meta">Modular workspace system · 2025 · with Abhishek Vishwakarma and Dhawal Musale</div>A modular system of H-frames and clip-on modules for creative studios that grows with the space. Full CAD, CMF, Blender renders and brand identity.</div>
+      <div class="rs-item"><b>Goodknocks</b><div class="rs-meta">Product and brand · 2026</div></div>
+      <div class="rs-item"><b>nnode</b><div class="rs-meta">Product and brand · 2026</div></div>
+    </div>
+    <div>
+      <h3>Education</h3>
+      <div class="rs-item"><b>B.Des (Hons.) Product Design</b><div class="rs-meta">2023 to 2027</div>A four-year degree covering the full scope of industrial design.</div>
+      <h3>Skills</h3>
+      <ul class="rs-list"><li>Design research</li><li>Product thinking</li><li>Sketching and visualisation</li><li>UX methods</li><li>CMF</li><li>Brand identity</li><li>Packaging</li><li>Leadership</li></ul>
+      <h3>Tools</h3>
+      <ul class="rs-list"><li>Rhino</li><li>Plasticity</li><li>KeyShot</li><li>Blender (learning)</li><li>Figma</li><li>Photoshop, Illustrator, InDesign</li></ul>
+      <h3>Languages</h3>
+      <ul class="rs-list"><li>English, full professional</li><li>Hindi, native</li></ul>
+    </div>
+  </div>
+</section>
+
 <!-- ============ INFLUENCES ============ -->
 <section id="influences" class="influences" aria-labelledby="inf-h">
   <div class="eyebrow" id="inf-h">Influences</div>
@@ -1245,6 +1299,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <a href="#cortx">CortX</a>
     <a class="opt" href="#dash">DASH</a>
     <a href="#about">About</a>
+    <a class="opt" href="#resume">Resume</a>
     <a class="opt" href="#influences">Influences</a>
     <a class="opt" href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
     <a class="opt" href="https://www.youtube.com/@abk23" target="_blank" rel="noopener">YouTube ↗</a>
