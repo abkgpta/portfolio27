@@ -199,5 +199,14 @@
     "pr": [
       29
     ]
+  },
+  {
+    "v": 24,
+    "commit": "9c6e921f586623f8473d5e4782fb40eee08a6176",
+    "date": "2026-11-14",
+    "title": "Keep the under-construction banner pinned and show last-updated time (IST)",
+    "pr": [
+      30
+    ]
   }
 ]
