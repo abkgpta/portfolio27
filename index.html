@@ -161,6 +161,18 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
 .about > div{padding:clamp(32px,5vw,64px) var(--gutter)}
 .about > div:first-child{border-right:1px solid var(--line)}
+.about-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:start}
+.about-inf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;border-left:1px solid var(--line);padding-left:clamp(20px,2.5vw,36px)}
+.about-inf>.eyebrow{grid-column:1/-1}
+.about-inf .ai-g{display:grid;gap:6px;align-content:start}
+.about-inf h3{font-size:12px;color:var(--pink);margin:0}
+.about-inf ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.about-inf a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none;font-size:11.5px;line-height:1.25}
+.about-inf img,.about-inf .ai-ph{flex:none;width:26px;height:26px;object-fit:cover;filter:grayscale(1);transition:filter .3s}
+.about-inf a:hover img,.about-inf a:focus-visible img{filter:none}
+.about-inf a:hover span{color:var(--pink)}
+.about-inf .ai-ph{display:grid;place-items:center;background:var(--ink);color:var(--cream);font-family:var(--display);font-size:9px;filter:none}
+@media (max-width:900px){.about-top{grid-template-columns:1fr}.about-inf{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:20px}}
 .cv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:36px;font-size:13px}
 .cv h3{font-size:13px;margin-bottom:10px;color:var(--pink)}
 .cv li{list-style:none;margin-bottom:10px}
@@ -554,10 +566,15 @@ footer .socials .ico svg{width:13px;height:13px}
     <img src="img/p-about.jpg" alt="Abhik standing on a path at dusk in a lavender hoodie" width="396" height="308" style="width:100%;max-width:420px">
   </div>
   <div>
+    <div class="about-top">
+    <div class="about-main">
     <div class="eyebrow">About</div>
     <div class="prose" style="margin-top:14px">
       <p>Sketching sneakers was my escape in school. I didn't take notes, I carved lines into paper, and I watched more football boot reviews than I played football.</p>
       <p>Design school is where I fell for all of it: how lines move, how surfaces converge, the stance of a silhouette, how materials and colours meet. It didn't take long to see that design goes much further than visuals. Electronics, systems and mechanisms got me just as hooked.</p>
+    </div>
+    </div>
+    <aside class="about-inf" aria-labelledby="about-inf-h"><div class="eyebrow" id="about-inf-h">Influences</div><div class="ai-g"><h3>People</h3><ul><li><a href="#influences"><img src="img/inf/rick-rubin.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Rick Rubin</span></a></li><li><a href="#influences"><span class="ai-ph" aria-hidden="true">PY</span><span>Peter Yee</span></a></li><li><a href="#influences"><img src="img/inf/naval-ravikant.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Naval Ravikant</span></a></li><li><a href="#influences"><img src="img/inf/peter-thiel.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Peter Thiel</span></a></li><li><a href="#influences"><img src="img/inf/takashi-murakami.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Takashi Murakami</span></a></li></ul></div><div class="ai-g"><h3>Places</h3><ul><li><a href="#influences"><img src="img/inf/ferrari-world.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Ferrari World Abu Dhabi</span></a></li><li><a href="#influences"><img src="img/inf/museum-future.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Museum of the Future Dubai</span></a></li><li><a href="#influences"><img src="img/inf/akshardham.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Akshardham Gandhinagar</span></a></li></ul></div><div class="ai-g"><h3>Brands</h3><ul><li><a href="#influences"><img src="img/inf/spacex.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>SpaceX</span></a></li><li><a href="#influences"><img src="img/inf/ktm.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>KTM</span></a></li><li><a href="#influences"><img src="img/inf/dyson.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Dyson</span></a></li><li><a href="#influences"><span class="ai-ph" aria-hidden="true">MM</span><span>Man vs Machine</span></a></li></ul></div><div class="ai-g"><h3>Music</h3><ul><li><a href="#influences"><img src="img/inf/kids-see-ghosts.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Kids See Ghosts</span></a></li><li><a href="#influences"><img src="img/inf/saw-85-92.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Selected Ambient Works 85-92</span></a></li><li><a href="#influences"><img src="img/inf/powers-that-b.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>The Powers That B</span></a></li></ul></div><div class="ai-g"><h3>Books</h3><ul><li><a href="#influences"><img src="img/inf/design-archive.jpg" alt="" width="26" height="26" loading="lazy" decoding="async"><span>Design Archive Vol. 1</span></a></li></ul></div></aside>
     </div>
     <div class="cv">
       <div>
