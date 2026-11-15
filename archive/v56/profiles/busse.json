@@ -1,0 +1,51 @@
+{
+  "name": "Busse Design + Engineering",
+  "gunj": "GUNJ-127",
+  "wave": 1,
+  "greeting": "Prepared for Busse Design + Engineering",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "cortx",
+  "multipliers": {
+    "sketching": 0.9,
+    "cad": 1.6,
+    "rendering": 0.7,
+    "cmf": 0.5,
+    "prototyping": 1.15,
+    "electronics": 1.4,
+    "interaction": 2.0,
+    "ui": 1.9,
+    "research": 1.05,
+    "systems": 0.5,
+    "branding": 0.85,
+    "packaging": 0.8
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.25,
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  },
+  "pitch": {
+    "title": "Why Busse Design + Engineering",
+    "lines": [
+      "You pair designers with engineers and UI specialists under one roof.",
+      "overgrwth's parts are built in CAD down to the power path, and cortX splits its electronics between a headset and a vest.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
+  }
+}

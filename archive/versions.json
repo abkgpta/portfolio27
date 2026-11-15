@@ -488,5 +488,14 @@
     "pr": [
       65
     ]
+  },
+  {
+    "v": 56,
+    "commit": "00a33d4b2dbcbd020a5a639c362d70007ce10c91",
+    "date": "2026-11-15",
+    "title": "Bring back the under-construction strip",
+    "pr": [
+      64
+    ]
   }
 ]

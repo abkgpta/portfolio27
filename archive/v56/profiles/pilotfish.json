@@ -1,0 +1,51 @@
+{
+  "name": "Pilotfish",
+  "gunj": "GUNJ-034",
+  "wave": 1,
+  "greeting": "Prepared for Pilotfish",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "cortx",
+  "multipliers": {
+    "sketching": 2.0,
+    "cad": 2.0,
+    "rendering": 0.6,
+    "cmf": 0.9,
+    "prototyping": 0.5,
+    "electronics": 1.9,
+    "interaction": 1.45,
+    "ui": 1.25,
+    "research": 1.5,
+    "systems": 0.5,
+    "branding": 0.7,
+    "packaging": 0.65
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.25,
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  },
+  "pitch": {
+    "title": "Why Pilotfish",
+    "lines": [
+      "You take wearables and MedTech from sketch to production.",
+      "cortX is a wearable sensor headset; overgrwth is built in CAD down to the clamp and the power foot.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
+  }
+}
