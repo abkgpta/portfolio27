@@ -434,5 +434,32 @@
     "pr": [
       56
     ]
+  },
+  {
+    "v": 50,
+    "commit": "1c16adc18f8bf8bb6d58b56cb35c345b6de63cdd",
+    "date": "2026-11-15",
+    "title": "CortX: final renders in the new CMF, with back unit, dock, holder and vest sections",
+    "pr": [
+      60
+    ]
+  },
+  {
+    "v": 51,
+    "commit": "1dddafd79c2e6c3227f44002e2329e3a94b30885",
+    "date": "2026-11-15",
+    "title": "CortX: liner close-up re-rendered with the deeper orange",
+    "pr": [
+      61
+    ]
+  },
+  {
+    "v": 52,
+    "commit": "5fdc2baaa91baea950ef561dadf1fd663888953e",
+    "date": "2026-11-15",
+    "title": "Swap resume photo to abhik's pick (ISH03700)",
+    "pr": [
+      63
+    ]
   }
 ]

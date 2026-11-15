@@ -1,0 +1,29 @@
+{
+  "name": "Braun Design",
+  "gunj": "GUNJ-042",
+  "wave": 1,
+  "greeting": "Prepared for Braun Design",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "dash",
+  "multipliers": {
+    "cmf": 1.3,
+    "electronics": 1.3,
+    "interaction": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.0,
+    "dash": 1.3
+  },
+  "pitch": {
+    "title": "Why Braun Design",
+    "lines": [
+      "Braun's functional tradition is a lesson in restraint.",
+      "DASH, my music player for runners, keeps to one face button and a small dot-matrix screen.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}
