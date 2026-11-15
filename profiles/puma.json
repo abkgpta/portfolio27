@@ -7,7 +7,7 @@
   "voiceAgent": true,
   "version": "overview",
   "versions": {},
-  "lead": "overgrwth",
+  "lead": "cortx",
   "multipliers": {
     "sketching": 0.95,
     "cad": 1.75,
@@ -23,8 +23,8 @@
     "packaging": 0.85
   },
   "projects": {
-    "overgrwth": 1.25,
-    "cortx": 1.0,
+    "overgrwth": 1.0,
+    "cortx": 1.25,
     "dash": 1.0,
     "evoluir": 0,
     "goodknocks": 0,
