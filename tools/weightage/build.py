@@ -145,7 +145,8 @@ def build(overrides):
         stype = (t.get('Type') or '').strip()
         lead_research = (t.get('Lead project') or '').strip().lower() or None
         lead = lead_research if lead_research in READY else max(READY, key=lambda p: affinity(p, mult, man['site']))
-        projects = {p: 1.0 for p in CONCEPT}
+        # unfinished concept projects (DASH today) stay hidden, as on the open site
+        projects = {p: (1.0 if p in READY else 0) for p in CONCEPT}
         projects[lead] = LEAD_BOOST
         boost = INDUSTRY_BOOST if stype.lower() in CONSULTANCY_TYPES else 1.0
         for p in INDUSTRY:

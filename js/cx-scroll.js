@@ -34,7 +34,7 @@
   function above(i) { for (let j = i; j <= N; j++) if (ok(j)) return j; return 0; }
   function place(im, a, opaque) {
     const Wc = cv.width, Hc = cv.height;
-    const s = Wc < Hc ? Wc / im.naturalWidth * 1.7 : Math.max(Wc / im.naturalWidth, Hc / im.naturalHeight);
+    const s = Wc < Hc ? Wc / im.naturalWidth * 1.3 : Math.max(Wc / im.naturalWidth, Hc / im.naturalHeight);
     const w = im.naturalWidth * s, h = im.naturalHeight * s, y = (Hc - h) / 2;
     cx.globalAlpha = a; cx.drawImage(im, (Wc - w) / 2, y, w, h);
     if (opaque && h < Hc - 1) {      // letterboxed pitch frame: soften its top and bottom edges into the section

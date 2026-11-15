@@ -4,7 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>abhik gupta: industrial &amp; experiential design</title>
-<meta name="description" content="abhik gupta: industrial &amp; experiential design. portfolio.27: overgrwth, cortX, DASH.">
+<meta name="description" content="abhik gupta: industrial &amp; experiential design. portfolio.27: overgrwth and cortX, designed end to end: form, CMF, systems and the electronics inside.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="abhik gupta: industrial &amp; experiential design">
+<meta property="og:description" content="portfolio.27: overgrwth and cortX, designed end to end: form, CMF, systems and the electronics inside.">
+<meta property="og:url" content="https://abkgpta.github.io/portfolio27/">
+<meta property="og:image" content="https://abkgpta.github.io/portfolio27/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="overgrwth lattice and the cortX headset, with the line abhik gupta: industrial and experiential design">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +36,7 @@ h1,h2,h3,.display{font-family:var(--display);font-weight:400;letter-spacing:.01e
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--gutter)}
 .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .pink{color:var(--pink)}
+:root{--pink-text:#D1005A} /* brand pink darkened for small text: 4.9:1 on cream (AA) */
 .rule{border-top:1px solid var(--line)}
 button{font:inherit;cursor:pointer}
 
@@ -54,6 +64,7 @@ button{font:inherit;cursor:pointer}
 .cx-prog-svg .p-lab{font:600 13px 'Manrope',sans-serif}
 .cx-prog .p-note{font-size:14px;color:var(--paper);margin:0}
 @media (max-width:900px){.cx-progs{grid-template-columns:minmax(0,1fr)}}
+[hidden]{display:none!important}
 /* under construction strip */
 .wip{background:var(--ink);color:var(--cream);font-size:12px;line-height:1.4;padding:8px var(--gutter);display:flex;gap:6px 12px;align-items:center;flex-wrap:wrap}
 .wip b{font-weight:500;color:var(--pink)}
@@ -77,7 +88,7 @@ nav a:hover{opacity:1;color:var(--pink)}
 .hero-text{padding:clamp(40px,7vw,96px) var(--gutter) clamp(40px,6vw,72px);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:28px;justify-content:center}
 .hero h1,.hero .hero-h{font-size:clamp(30px,4.4vw,62px)}
 .hero p.lede{max-width:46ch;color:#2b2826}
-.prepared{display:none;font-size:13px;border:1px solid var(--pink);color:var(--pink);padding:6px 12px;align-self:flex-start}
+.prepared{display:none;font-size:13px;border:1px solid var(--pink);color:var(--pink-text);padding:6px 12px;align-self:flex-start}
 .prepared.on{display:inline-block}
 .hero-meta{display:flex;gap:28px;flex-wrap:wrap;font-size:13px}
 .hero-meta b{display:block;font-weight:500}
@@ -105,7 +116,7 @@ nav a:hover{opacity:1;color:var(--pink)}
 .stage .caption{color:rgba(247,242,239,.5)}
 
 /* sections */
-section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
+section{scroll-margin-top:calc(64px + var(--wip-h,0px))}
 .project-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
 .project-head > div{padding:clamp(32px,5vw,64px) var(--gutter)}
 .project-head > div:first-child{border-right:1px solid var(--line)}
@@ -166,7 +177,7 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .about-inf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;border-left:1px solid var(--line);padding-left:clamp(20px,2.5vw,36px)}
 .about-inf>.eyebrow{grid-column:1/-1}
 .about-inf .ai-g{display:grid;gap:6px;align-content:start}
-.about-inf h3{font-size:12px;color:var(--pink);margin:0}
+.about-inf h3{font-size:12px;color:var(--pink-text);margin:0}
 .about-inf ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
 .about-inf a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none;font-size:11.5px;line-height:1.25}
 .about-inf img,.about-inf .ai-ph{flex:none;width:26px;height:26px;object-fit:cover;filter:grayscale(1);transition:filter .3s}
@@ -175,7 +186,7 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .about-inf .ai-ph{display:grid;place-items:center;background:var(--ink);color:var(--cream);font-family:var(--display);font-size:9px;filter:none}
 @media (max-width:900px){.about-top{grid-template-columns:1fr}.about-inf{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:20px}}
 .cv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:36px;font-size:13px}
-.cv h3{font-size:13px;margin-bottom:10px;color:var(--pink)}
+.cv h3{font-size:13px;margin-bottom:10px;color:var(--pink-text)}
 .cv li{list-style:none;margin-bottom:10px}
 .cv li b{font-weight:500}
 
@@ -194,7 +205,7 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .rs-grid > div{padding-top:24px}
 .rs-grid > div + div{border-left:1px solid var(--line);padding-left:var(--gap,32px)}
 .rs-grid > div:first-child{padding-right:var(--gap,32px)}
-.rs-grid h3{font-size:13px;color:var(--pink);margin:0 0 14px}
+.rs-grid h3{font-size:13px;color:var(--pink-text);margin:0 0 14px}
 .rs-grid h3:not(:first-child){margin-top:28px}
 .rs-item{padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}
 .rs-item b{font-weight:600;display:block}
@@ -209,7 +220,7 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 .inf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--line)}
 .inf-col{padding:24px 0 0}
 .inf-col + .inf-col{border-left:1px solid var(--line);padding-left:var(--gutter)}
-.inf-col h3{font-size:13px;color:var(--pink);margin-bottom:14px}
+.inf-col h3{font-size:13px;color:var(--pink-text);margin-bottom:14px}
 .inf-col ol{list-style:none;counter-reset:inf}
 .inf-col li{counter-increment:inf;display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
 .inf-img{flex:none;width:80px;height:80px;object-fit:cover;background:var(--line);filter:grayscale(1);transition:filter .3s}
@@ -317,7 +328,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 .og-swatches i{display:block;aspect-ratio:1;box-shadow:inset 0 0 0 1px rgba(31,47,92,.18);margin-bottom:8px}
 .og-swatches b{display:block;color:var(--ogb)}
 .og-close{margin:clamp(40px,6vw,88px) var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ogb);color:var(--ogp);font-size:clamp(22px,2.8vw,40px);line-height:1.25;font-weight:600;border-right:24px solid var(--ogr)}
-.og-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.og-in{opacity:.35;transform:translateY(20px);transition:opacity .5s ease,transform .7s ease}
 .og-in.seen{opacity:1;transform:none}
 html.in-og header{background:#FFFAFA;color:#4569BE;transition:background .5s,color .5s}
 header{transition:background .5s,color .5s}
@@ -415,7 +426,7 @@ header{transition:background .5s,color .5s}
 .cx-facts{display:grid;gap:14px;border-left:4px solid var(--ind);padding-left:20px}
 .cx-facts dt{font:500 11px/1.4 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--cxm)}
 .cx-facts dd{margin:2px 0 0}
-.cx .ico{color:var(--paper)}
+.cx .ico{color:var(--paper);--ico-fg:#0D031E}
 .cx-barriers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cx-barriers div{border-top:1px solid var(--cxl);padding-top:14px;font-size:15px;color:var(--cxm)}
 .cx-barriers b{display:block;font:500 12px/1.4 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:6px}
@@ -503,7 +514,7 @@ header{transition:background .5s,color .5s}
 .cx-identity > p{max-width:56ch;color:var(--cxm)}
 .cx > .cx-closing{padding:clamp(48px,7vw,96px) var(--gutter) 0}
 .cx-close{margin:24px var(--gutter) 0;padding:clamp(28px,4vw,56px);background:var(--ind);font-size:clamp(17px,2vw,28px);line-height:1.35;font-family:'Michroma',system-ui,sans-serif;font-weight:400;border-right:16px solid var(--red)}
-.cx-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.cx-in{opacity:.35;transform:translateY(20px);transition:opacity .5s ease,transform .7s ease}
 .cx-in.seen{opacity:1;transform:none}
 html.in-cx header{background:#0D031E;color:#F4F2F8}
 @media (max-width:900px){
@@ -561,7 +572,6 @@ footer .socials .ico svg{width:13px;height:13px}
 
 
 <header>
-  <div class="wip" role="note"><b>Under construction</b><span class="msg">This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span><span class="upd" data-updated></span></div>
   <div class="wrap">
     <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
   </div>
@@ -571,6 +581,7 @@ footer .socials .ico svg{width:13px;height:13px}
 <!-- ============ GALLERY (hero) ============ -->
 <section id="gallery" class="gallery">
   <div class="g-line">
+    <span class="prepared" id="prepared"></span>
     <h1>abhik gupta: <span class="pink">industrial &amp; experiential design</span></h1>
     <div class="eyebrow">Abhik Gupta designs products end to end: form, CMF, systems and the electronics inside.</div>
   </div>
@@ -626,9 +637,9 @@ footer .socials .ico svg{width:13px;height:13px}
 </section>
 
 <!-- ============ HERO ============ -->
-<div class="hero">
+<!-- Hidden until the head scan and live voice agent are ready (audit 2026-11-15): the gallery + About carry the intro. Remove `hidden` to bring it back. -->
+<div class="hero" hidden>
   <div class="hero-text">
-    <span class="prepared" id="prepared"></span>
     <div class="eyebrow">portfolio.27 · <span class="pink">industrial &amp; experiential design</span></div>
     <h2 class="hero-h">Understanding the rules to break them better.</h2>
     <p class="lede">I'm Abhik, an industrial and experiential designer. I care about form and detailing, but also the electronics, systems and mechanisms underneath. Ask my avatar anything about the work, or scroll.</p>
@@ -721,7 +732,7 @@ footer .socials .ico svg{width:13px;height:13px}
     </div>
   </div>
 
-  <div class="og-block og-in" data-slide="og-concept" data-tiers="overview full" data-base="2" data-skills="sketching,systems">
+  <div hidden class="og-block og-in" data-slide="og-concept" data-tiers="overview full" data-base="2" data-skills="sketching,systems">
     <h3 class="og-out">concept</h3>
     <div class="og-uc"><b>Under construction</b><span>Stylised concept sketch: one H-frame, flip and stack</span><small class="upd" data-updated></small></div>
   </div>
@@ -787,7 +798,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <div class="og-grid2"><figure class="og-fig"><img src="img/og4-plant.jpg" alt="A tall overgrwth stack with plants and books beside a lounge chair" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 12</span>A plant corner in a rest area</figcaption></figure><figure class="og-fig"><img src="img/og4-workshop.jpg" alt="overgrwth frames with pegboards along a workbench in a design workshop" width="2000" height="1414" loading="lazy"><figcaption><span>Fig. 13</span>A utility wall in a workshop</figcaption></figure></div>
   </div>
 
-  <div class="og-block og-in" data-slide="og-identity" data-tiers="overview full" data-base="2" data-skills="branding">
+  <div hidden class="og-block og-in" data-slide="og-identity" data-tiers="overview full" data-base="2" data-skills="branding">
     <h3 class="og-out">identity</h3>
     <div class="og-grid3"><div class="og-uc"><b>Under construction</b><span>Packaging</span><small class="upd" data-updated></small></div><div class="og-uc"><b>Under construction</b><span>Instruction leaflet</span><small class="upd" data-updated></small></div><div class="og-uc"><b>Under construction</b><span>Part tags</span><small class="upd" data-updated></small></div></div>
   </div>
@@ -1416,7 +1427,7 @@ footer .socials .ico svg{width:13px;height:13px}
     <a href="#cortx">CortX</a>
     <a class="opt" href="#dash">DASH</a>
     <a href="#about">About</a>
-    <a class="opt" href="#resume">Resume</a>
+    <a href="#resume">Resume</a>
     <a class="opt" href="#influences">Influences</a>
     <a class="opt" href="https://nnode.cc" target="_blank" rel="noopener">nnode.cc ↗</a>
     <a class="opt" href="https://www.youtube.com/@abk23" target="_blank" rel="noopener">YouTube ↗</a>
@@ -1433,6 +1444,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
 /* ---------- point-cloud head ---------- */
 const cv=document.getElementById('head'),ctx=cv.getContext('2d');
+if(cv.closest('.hero')?.hidden)cv.hidden=true; // avatar parked: don't animate it
 let speaking=false,mouth=0,t=0;
 const pts=[];
 (function build(){
@@ -1566,6 +1578,7 @@ drawTrace();
 <script type="module">
 /* 3D head: loads over the point-cloud stand-in; if anything fails the point cloud stays */
 try{
+  if(document.querySelector('.hero')?.hidden)throw new Error('avatar parked');
   await import('./avatar/head-avatar.js');
   const c=document.getElementById('head3d');
   c.hidden=false;
@@ -1583,7 +1596,7 @@ try{
 /* ---------- overgrwth: scroll-in transition ---------- */
 (()=>{
   const og=document.getElementById('overgrwth');if(!og)return;
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px 15% 0px'});
   og.querySelectorAll('.og-in').forEach(el=>io.observe(el));
   const tick=()=>{
     const r=og.getBoundingClientRect(),vh=innerHeight;
@@ -1597,7 +1610,7 @@ try{
 <script>
 /* ---------- CortX: scroll-in ---------- */
 (()=>{const cx=document.getElementById('cortx');if(!cx)return;
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px -10% 0px'});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}}),{rootMargin:'0px 0px 15% 0px'});
   cx.querySelectorAll('.cx-in').forEach(el=>io.observe(el));
   const tick=()=>{const r=cx.getBoundingClientRect();document.documentElement.classList.toggle('in-cx',r.top<80&&r.bottom>80);};
   addEventListener('scroll',tick,{passive:true});tick();})();
