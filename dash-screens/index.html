@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DASH Screens v7</title>
+<meta name="description" content="DASH display and interaction spec: 64 x 16 dot matrix, four status LEDs, one face button.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Michroma&display=swap" rel="stylesheet">
+<style>
+/*
+  Decisions, one line each:
+  - Dark page: the product is a black dead-front with light coming through it, so the dots read as they will on the wrist.
+  - One accent: the LED colour under study. It follows the toggle and marks focus, the hold path in the map, and active controls.
+  - Michroma only for the wordmark and section titles: wide, technical, close to an engraved product mark. IBM Plex Mono for everything else: tabular, spec-sheet voice.
+  - No cards or shadows on the page: hairlines divide it like a printed spec board. The only drop shadow is under the pod, to lift it off the strap.
+  - The face gradient is form shading for the curve along the 42 mm length, not decoration.
+*/
+:root{
+  --bg:#0b0c0c; --ink:#e9e7e2; --mute:#a7a59e; --dim:#7b7973; --line:#232423; --line2:#353634;
+  --led:#ffb000; --face:#17181a; --panel:#050506;
+  --disp:"Michroma",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 14px/1.55 var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding:40px 16px 72px}
+@media(min-width:720px){.wrap{padding:56px 32px 96px}}
+h1,h2,h3,p{margin:0}
+h1{font:400 clamp(44px,9vw,104px)/1 var(--disp);letter-spacing:.04em}
+h2{font:400 clamp(17px,2.2vw,22px)/1.3 var(--disp);letter-spacing:.02em}
+h3{font:500 14px/1.4 var(--mono)}
+a{color:var(--ink)}
+.muted{color:var(--mute)}
+small,.small{font-size:12px}
+
+/* header */
+.head{display:grid;gap:28px}
+.head-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px}
+.meta{font-size:12px;color:var(--mute);display:grid;gap:2px;text-align:right}
+@media(max-width:600px){.meta{text-align:left}}
+.lead{max-width:64ch;font-size:15px}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0;border-top:1px solid var(--line)}
+.specs div{padding:12px 16px 12px 0;border-bottom:1px solid var(--line)}
+.specs dt{font-size:12px;color:var(--mute)}
+.specs dd{margin:2px 0 0}
+
+/* sections */
+section{padding-top:56px;display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+.sh{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sh canvas{align-self:center}
+.sh p{flex:0 0 100%;padding-right:max(0px,calc(100% - 70ch));color:var(--mute)}
+
+/* device */
+.device{position:relative;--mm:12px;padding:calc(7*var(--mm)) 0 calc(5*var(--mm));overflow:hidden}
+.strap{position:absolute;left:0;right:0;top:50%;height:calc(17*var(--mm));transform:translateY(-50%);background:#141516;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.strap::before,.strap::after{content:"";position:absolute;left:0;right:0;height:1px;background:#222325}
+.strap::before{top:0}.strap::after{bottom:0}
+.pod{position:relative;margin:0 auto;width:calc(42*var(--mm));height:calc(20*var(--mm));border-radius:calc(6.5*var(--mm));
+  background:linear-gradient(90deg,#0d0e0f 0%,#18191b 16%,#202224 44%,#222426 52%,#1c1d1f 78%,#0d0e0f 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.6),inset 0 calc(-1.2*var(--mm)) calc(1.6*var(--mm)) rgba(0,0,0,.35),0 calc(1*var(--mm)) calc(2.4*var(--mm)) rgba(0,0,0,.55);
+  cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;transition:transform .07s,box-shadow .07s}
+.pod.down{transform:translateY(calc(.25*var(--mm))) scale(.997);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -1px 0 rgba(0,0,0,.6),inset 0 calc(-1*var(--mm)) calc(1.4*var(--mm)) rgba(0,0,0,.45),0 calc(.5*var(--mm)) calc(1.2*var(--mm)) rgba(0,0,0,.6)}
+.pod:focus-visible{outline:2px solid var(--led);outline-offset:6px}
+.pod.buzz{animation:buzz .16s linear}
+@keyframes buzz{0%,100%{translate:0}20%{translate:-1px 0}40%{translate:1px 0}60%{translate:-1px 0}80%{translate:1px 0}}
+@media(prefers-reduced-motion:reduce){.pod.buzz{animation:none}}
+/* panel window: barely there under smoked silicone, plain black on the bare panel */
+.win{position:absolute;left:calc(4.5*var(--mm));top:calc(3.0*var(--mm));width:calc(33*var(--mm));height:calc(11*var(--mm));border-radius:calc(1*var(--mm));background:rgba(0,0,0,.09);transition:background .2s}
+.bare .win{background:var(--panel);box-shadow:0 0 0 1px #2b2c2e,inset 0 0 0 1px #000}
+.pod canvas{position:absolute;display:block;pointer-events:none;transition:opacity .18s}
+.dims{position:absolute;inset:0;pointer-events:none;color:var(--dim);font-size:11px}
+.dim-w{position:absolute;left:50%;top:calc(2.2*var(--mm));width:calc(42*var(--mm));transform:translateX(-50%);height:9px;border:1px solid var(--line2);border-bottom:0}
+.dim-w span{position:absolute;left:50%;top:-18px;transform:translateX(-50%);background:var(--bg);padding:0 6px;color:var(--mute)}
+.devcap{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;font-size:12px;color:var(--mute);text-align:center;padding-top:14px}
+
+/* live panel */
+.live{display:grid;gap:0;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line2)}
+@media(min-width:900px){.live{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr)}}
+.col{padding:20px 0;display:grid;gap:18px;align-content:start;border-bottom:1px solid var(--line)}
+@media(min-width:900px){.col{padding:20px 24px;border-bottom:0;border-left:1px solid var(--line)}.col:first-child{padding-left:0;border-left:0}}
+.readout{display:grid;gap:10px}
+.readout .now{font:400 18px/1.3 var(--disp)}
+.readout .id{font-size:12px;color:var(--mute)}
+.kv{display:grid;grid-template-columns:72px minmax(0,1fr);gap:6px 12px;margin:0}
+.kv dt{color:var(--mute);font-size:12px;padding-top:1px}
+.kv dd{margin:0}
+.log{list-style:none;margin:0;padding:0;font-size:12px;display:grid;gap:3px;min-height:7.5em}
+.log li{display:flex;gap:10px;color:var(--mute)}
+.log li:first-child{color:var(--ink)}
+.log time{color:var(--dim);flex:none}
+.grp{display:grid;gap:8px}
+.grp>.lbl{font-size:12px;color:var(--mute)}
+.grp>.seg{justify-self:start}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:500 13px/1 var(--mono);min-height:40px;padding:0 14px;border:1px solid var(--line2);border-radius:4px;background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:10px}
+.btn:hover{background:#161717}
+.btn:focus-visible,.seg button:focus-visible,.sw:focus-visible{outline:2px solid var(--led);outline-offset:2px}
+.btn kbd{font:400 11px var(--mono);color:var(--mute);border:1px solid var(--line2);border-radius:3px;padding:2px 5px}
+.btn.big{min-height:52px;flex:1 1 calc(50% - 8px);justify-content:space-between}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.act{border-color:var(--led)}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:4px;overflow:hidden;max-width:100%}
+.seg button{font:500 13px/1 var(--mono);min-height:40px;padding:0 12px;border:0;border-left:1px solid var(--line2);background:transparent;color:var(--ink);cursor:pointer}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button[disabled]{opacity:.4;cursor:not-allowed}
+.sw{width:40px;height:40px;border-radius:4px;border:1px solid var(--line2);background:transparent;cursor:pointer;display:grid;place-items:center;padding:0}
+.sw i{width:14px;height:14px;border-radius:50%;display:block}
+.sw[aria-pressed="true"]{border-color:var(--ink)}
+.hint{font-size:12px;color:var(--mute);max-width:52ch}
+@media(max-width:600px){.btn,.seg button,.sw{min-height:44px}.sw{width:44px;height:44px}}
+
+/* map */
+.mapwrap{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:1000px){.mapwrap{grid-template-columns:minmax(0,540px) minmax(0,1fr);align-items:start}}
+.map svg{width:100%;height:auto;display:block;max-width:560px}
+.map .bx{fill:var(--bg);stroke:var(--line2)}
+.map .bx.main{stroke:var(--ink)}
+.map .bx.ev{stroke-dasharray:3 3}
+.map text{font-family:var(--mono);fill:var(--ink);font-size:11.5px}
+.map text.s{fill:var(--mute);font-size:10px}
+.map text.e{fill:var(--mute);font-size:10px}
+.map text.eh{fill:var(--led);font-size:10px}
+.map .ln{fill:none;stroke:var(--mute);stroke-width:1.2}
+.map .ln.h{stroke:var(--led)}
+.map .ln.dd{stroke-dasharray:4 3}
+.map .ah{fill:var(--mute)}
+.map .ah.h{fill:var(--led)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;vertical-align:top;padding:9px 14px 9px 0;border-bottom:1px solid var(--line)}
+th{font-weight:400;color:var(--mute);font-size:12px}
+td:first-child{white-space:nowrap}
+.tw{min-width:0}
+@media(min-width:640px){.mtable{min-width:560px}}
+
+/* inventory */
+.inv{display:grid;gap:36px}
+.ig{display:grid;gap:14px}
+.ig>h3{display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--line2);padding-bottom:8px}
+.ig>h3 span{color:var(--mute);font-weight:400;font-size:12px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px 22px}
+@media(max-width:600px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.tile{margin:0;display:grid;gap:10px;align-content:start;min-width:0}
+.tile .scr{background:var(--face);border-radius:3px;display:grid;place-items:center;padding:6px 0;min-width:0}
+.bare .tile .scr{background:#101112}
+.tile canvas{display:block;max-width:100%}
+.tile figcaption{display:grid;gap:4px;font-size:12px}
+.tile figcaption b{font-weight:500;font-size:13px}
+.tile .fid{color:var(--dim);font-size:11px}
+.tile dl{display:grid;grid-template-columns:48px minmax(0,1fr);gap:2px 8px;margin:0}
+.tile dt{color:var(--dim)}
+.tile dd{margin:0;color:var(--mute)}
+
+/* type */
+.type{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
+.type canvas{max-width:100%}
+.trow{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.trow .scr{background:var(--face);border-radius:3px;padding:10px;display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end}
+.bare .trow .scr{background:#101112}
+.icon{display:grid;gap:6px;justify-items:center;font-size:11px;color:var(--mute)}
+.ledlang{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border-top:1px solid var(--line)}
+.ledlang div{padding:12px 16px 12px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.ledlang b{font-weight:500}
+.ledlang span{color:var(--mute);font-size:13px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line2);font-size:12px;color:var(--mute);display:grid;gap:6px}
+.foot p{max-width:80ch}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="head">
+  <div class="head-top">
+    <h1>DASH</h1>
+    <div class="meta"><span>Display and interaction spec</span><span>Screens v7, 15 Nov 2026</span><span>Concept, not a validated design</span></div>
+  </div>
+  <p class="lead">A one-button wrist music player for runners who leave the phone at home. This sheet fixes what the 64 × 16 dot screen and the four LEDs under it show, and how the face button moves between screens.</p>
+  <dl class="specs">
+    <div><dt>Panel</dt><dd>64 × 16 dots, mono OLED</dd></div>
+    <div><dt>Dot</dt><dd>2 × 2 px, 0.46 mm pitch</dd></div>
+    <div><dt>Active area</dt><dd>29.4 × 7.4 mm</dd></div>
+    <div><dt>Status LEDs</dt><dd>4, 5 mm pitch</dd></div>
+    <div><dt>Input</dt><dd>1 button, the whole face</dd></div>
+    <div><dt>Type</dt><dd>5 × 7, 2× for numbers, 3 × 5</dd></div>
+  </dl>
+</header>
+
+<section id="live" aria-labelledby="h-live">
+  <div class="sh"><canvas data-num="01" aria-hidden="true"></canvas><h2 id="h-live">Live device</h2>
+    <p>Tap the face to press, tap twice quickly for double press, press and hold to choose. Keep holding for 8 s to pair headphones. Track, playlist and headphone names on this page are examples.</p></div>
+
+  <div class="device" id="device">
+    <div class="strap" aria-hidden="true"></div>
+    <div class="dims" aria-hidden="true"><div class="dim-w"><span>42 mm</span></div></div>
+    <div class="pod" id="pod" tabindex="0" role="button" aria-describedby="podhelp" aria-label="DASH face button">
+      <div class="win"></div>
+      <canvas id="screen" role="img" aria-label="DASH screen"></canvas>
+    </div>
+    <p class="sr" id="podhelp">Space acts as the face button: tap, tap twice, or hold. Shortcuts anywhere: P press, D double press, H hold, 8 hold 8 seconds, W wrist up or down.</p>
+  </div>
+  <div class="devcap"><span>Pod 42 × 20 × 10 mm, drawn to scale</span><span>Screen 29.4 × 7.4 mm</span><span>LEDs at 5 mm pitch</span></div>
+
+  <div class="live">
+    <div class="col">
+      <div class="readout" aria-live="polite">
+        <div class="id" id="r-id">idle</div>
+        <div class="now" id="r-name">Idle</div>
+        <dl class="kv"><dt>LEDs</dt><dd id="r-led"></dd><dt>Input</dt><dd id="r-in"></dd><dt>Clock</dt><dd id="r-clock"></dd></dl>
+      </div>
+      <div class="grp"><span class="lbl">Events</span><ul class="log" id="log"></ul></div>
+    </div>
+
+    <div class="col">
+      <div class="grp"><span class="lbl">Face button</span>
+        <div class="row">
+          <button class="btn big" type="button" id="b-press">Press <kbd>P</kbd></button>
+          <button class="btn big" type="button" id="b-double">Double <kbd>D</kbd></button>
+          <button class="btn big" type="button" id="b-hold">Hold 0.7 s <kbd>H</kbd></button>
+          <button class="btn big" type="button" id="b-hold8">Hold 8 s <kbd>8</kbd></button>
+        </div>
+        <p class="hint">Space on the focused pod is the real button, with real timing. Double press waits 300 ms for a second tap.</p>
+      </div>
+      <div class="grp"><span class="lbl">Pod</span>
+        <div class="row">
+          <button class="btn" type="button" id="b-wrist" aria-pressed="false">Wrist down <kbd>W</kbd></button>
+          <button class="btn" type="button" id="b-dock" aria-pressed="false">Put on dock</button>
+          <button class="btn" type="button" id="b-boot">Restart</button>
+        </div>
+      </div>
+      <div class="grp"><span class="lbl">Headphones (their own buttons)</span>
+        <div class="row">
+          <button class="btn" type="button" id="b-play">Pause</button>
+          <button class="btn" type="button" id="b-next">Next track</button>
+          <button class="btn" type="button" id="b-hp">Disconnect</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="grp"><span class="lbl">Run start, set in the app</span>
+        <div class="seg" role="group" aria-label="Run start"><button type="button" data-k="auto" data-v="1" aria-pressed="true">Auto</button><button type="button" data-k="auto" data-v="0" aria-pressed="false">Manual</button></div></div>
+      <div class="grp"><span class="lbl">Runner</span>
+        <div class="row">
+          <div class="seg" role="group" aria-label="Runner"><button type="button" data-k="moving" data-v="1" aria-pressed="true">Moving</button><button type="button" data-k="moving" data-v="0" aria-pressed="false">Stopped</button></div>
+          <div class="seg" role="group" aria-label="GPS"><button type="button" data-k="indoor" data-v="0" aria-pressed="true">Outdoor</button><button type="button" data-k="indoor" data-v="1" aria-pressed="false">Indoor</button></div>
+        </div></div>
+      <div class="grp"><span class="lbl">Heart rate strap, LED guide</span>
+        <div class="row">
+          <div class="seg" role="group" aria-label="Heart rate strap"><button type="button" data-k="hr" data-v="0" aria-pressed="true">No strap</button><button type="button" data-k="hr" data-v="1" aria-pressed="false">Strap</button></div>
+          <div class="seg" role="group" aria-label="LED guide"><button type="button" data-k="guide" data-v="pace" aria-pressed="true">Pace</button><button type="button" data-k="guide" data-v="hr" aria-pressed="false" disabled>HR zone</button></div>
+        </div></div>
+      <div class="grp"><span class="lbl">Battery, storage</span>
+        <div class="row">
+          <div class="seg" role="group" aria-label="Battery"><button type="button" data-k="low" data-v="0" aria-pressed="true">68%</button><button type="button" data-k="low" data-v="1" aria-pressed="false">10%</button></div>
+          <div class="seg" role="group" aria-label="Storage"><button type="button" data-k="full" data-v="0" aria-pressed="true">Space</button><button type="button" data-k="full" data-v="1" aria-pressed="false">Full</button></div>
+        </div></div>
+      <div class="grp"><span class="lbl">LED colour, under study</span>
+        <div class="row" id="swatches" role="group" aria-label="LED colour"></div></div>
+      <div class="grp"><span class="lbl">Overlay, time</span>
+        <div class="row">
+          <div class="seg" role="group" aria-label="Overlay"><button type="button" data-k="smoked" data-v="1" aria-pressed="true">Smoked silicone</button><button type="button" data-k="smoked" data-v="0" aria-pressed="false">Bare panel</button></div>
+          <div class="seg" role="group" aria-label="Simulation speed"><button type="button" data-k="speed" data-v="1" aria-pressed="true">1×</button><button type="button" data-k="speed" data-v="10" aria-pressed="false">10×</button></div>
+        </div>
+        <p class="hint">Speed moves the clock, the run and the music. Button timing stays real. Charging on the dock is shown fast.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="map" aria-labelledby="h-map">
+  <div class="sh"><canvas data-num="02" aria-hidden="true"></canvas><h2 id="h-map">Interaction map</h2>
+    <p>Double press walks the three main screens. Press acts on the screen you are on. Hold chooses or confirms; its path is drawn in the LED colour because the LEDs fill while you hold.</p></div>
+  <div class="mapwrap">
+    <div class="map" id="mapsvg"></div>
+    <div class="tw"><table class="mtable">
+      <thead><tr><th>Screen</th><th>Press</th><th>Double</th><th>Hold 0.7 s</th></tr></thead>
+      <tbody>
+        <tr><td>Idle</td><td>Battery and time left</td><td>Music</td><td>Nothing</td></tr>
+        <tr><td>Music</td><td>Playlist, shuffle, loop</td><td>Run</td><td>Open playlist list</td></tr>
+        <tr><td>Playlist list</td><td>Next item</td><td>Run, list closes</td><td>Pick, or change SHUFFLE / LOOP</td></tr>
+        <tr><td>Run, before start</td><td>Start (Manual)</td><td>Idle</td><td>Nothing</td></tr>
+        <tr><td>Run, running</td><td>Pause (Manual), next number (Auto)</td><td>Idle, run keeps going</td><td>End and save</td></tr>
+        <tr><td>Run, paused</td><td>Resume</td><td>Idle</td><td>End and save</td></tr>
+        <tr><td>Saved summary</td><td>Done, to Idle</td><td>Idle</td><td>Nothing</td></tr>
+        <tr><td>Pairing</td><td>Cancel</td><td>Nothing</td><td>Nothing</td></tr>
+        <tr><td>On dock</td><td>Nothing</td><td>Nothing</td><td>Nothing</td></tr>
+        <tr><td>Any screen</td><td colspan="3">Hold 8 s: pairing. Wrist raise: wake. Headphones: play, pause, skip, volume.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="inventory" aria-labelledby="h-inv">
+  <div class="sh"><canvas data-num="03" aria-hidden="true"></canvas><h2 id="h-inv">Screen inventory</h2>
+    <p>Every state the screen can be in, drawn by the same renderer as the live pod. The small id under each tile is its PNG file name.</p></div>
+  <div class="inv" id="inv"></div>
+</section>
+
+<section id="type" aria-labelledby="h-type">
+  <div class="sh"><canvas data-num="04" aria-hidden="true"></canvas><h2 id="h-type">Type, icons, LED language</h2>
+    <p>One 5 × 7 face, hand set dot by dot. Digits are all 5 dots wide so numbers do not jump while they change. Big numbers are the same face at 2× with 1 dot tracking, 14 of the 16 rows. A 3 × 5 face carries labels and secondary lines.</p></div>
+  <div class="type" id="typesheet"></div>
+  <div class="ledlang">
+    <div><b>Count</b><span>A level. Battery, track progress, pace guide, list position.</span></div>
+    <div><b>Moving light</b><span>Working. GPS search, pairing search.</span></div>
+    <div><b>Blink</b><span>Paused, or the sync stage now running.</span></div>
+    <div><b>Flash</b><span>An event. Each km, headphones found, headphones lost.</span></div>
+    <div><b>Filling</b><span>You are holding. Full means it is done.</span></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>Track, playlist and headphone names, the firmware number and the run figures are examples. The run is simulated: pace drifts around a 5:10 /km target.</p>
+  <p>Screen PNGs for the portfolio are in png/ (amber) and png-white/, one per inventory id, 8 px per dot, transparent, smoked overlay on. Each file is 544 × 224 px: a 16 px margin, the screen at 16, 16 (512 × 128), the LEDs centred 44 px below the screen.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ============================================================
+   1. Fonts. Rows top to bottom, # = lit. Hand set.
+   ============================================================ */
+const F5G={
+A:".###. #...# #...# ##### #...# #...# #...#",B:"####. #...# #...# ####. #...# #...# ####.",
+C:".###. #...# #.... #.... #.... #...# .###.",D:"####. #...# #...# #...# #...# #...# ####.",
+E:"##### #.... #.... ####. #.... #.... #####",F:"##### #.... #.... ####. #.... #.... #....",
+G:".###. #...# #.... #.### #...# #...# .####",H:"#...# #...# #...# ##### #...# #...# #...#",
+I:"### .#. .#. .#. .#. .#. ###",J:"....# ....# ....# ....# ....# #...# .###.",
+K:"#...# #..#. #.#.. ##... #.#.. #..#. #...#",L:"#.... #.... #.... #.... #.... #.... #####",
+M:"#...# ##.## #.#.# #.#.# #...# #...# #...#",N:"#...# #...# ##..# #.#.# #..## #...# #...#",
+O:".###. #...# #...# #...# #...# #...# .###.",P:"####. #...# #...# ####. #.... #.... #....",
+Q:".###. #...# #...# #...# #.#.# #..#. .##.#",R:"####. #...# #...# ####. #.#.. #..#. #...#",
+S:".#### #.... #.... .###. ....# ....# ####.",T:"##### ..#.. ..#.. ..#.. ..#.. ..#.. ..#..",
+U:"#...# #...# #...# #...# #...# #...# .###.",V:"#...# #...# #...# #...# #...# .#.#. ..#..",
+W:"#...# #...# #...# #.#.# #.#.# #.#.# .#.#.",X:"#...# #...# .#.#. ..#.. .#.#. #...# #...#",
+Y:"#...# #...# .#.#. ..#.. ..#.. ..#.. ..#..",Z:"##### ....# ...#. ..#.. .#... #.... #####",
+"0":".###. #...# #...# #...# #...# #...# .###.","1":"..#.. .##.. ..#.. ..#.. ..#.. ..#.. .###.",
+"2":".###. #...# ....# ...#. ..#.. .#... #####","3":".###. #...# ....# ..##. ....# #...# .###.",
+"4":"...#. ..##. .#.#. #..#. ##### ...#. ...#.","5":"##### #.... ####. ....# ....# #...# .###.",
+"6":"..##. .#... #.... ####. #...# #...# .###.","7":"##### ....# ...#. ..#.. .#... .#... .#...",
+"8":".###. #...# #...# .###. #...# #...# .###.","9":".###. #...# #...# .#### ....# ...#. .##..",
+":":". . # . # . .",".":". . . . . . #","-":"... ... ... ### ... ... ...",
+"/":"....# ....# ...#. ..#.. .#... #.... #....","%":"##..# ##..# ...#. ..#.. .#... #..## #..##",
+",":".. .. .. .. .. .# #.","'":"# # . . . . .","!":"# # # # # . #",
+"?":".###. #...# ....# ...#. ..#.. ..... ..#..","+":"..... ..#.. ..#.. ##### ..#.. ..#.. .....",
+"(":"..# .#. #.. #.. #.. .#. ..#",")":"#.. .#. ..# ..# ..# .#. #..",
+" ":"... ... ... ... ... ... ..."
+};
+const F5I={
+play:"#... ##.. ###. #### ###. ##.. #...",
+pause:"##.## ##.## ##.## ##.## ##.## ##.## ##.##",
+note:".#### .#..# .#..# .#..# .#..# ##.## ##.##",
+sat:"##..... ##.#... ..#.#.. .#.#.#. ..#.#.. ...#.## .....##",
+hp:"..###.. .#...#. #.....# #.....# ##...## ##...## ##...##",
+heart:"....... .##.##. ####### ####### .#####. ..###.. ...#...",
+bt:"..#.. ..##. #.#.# .###. #.#.# ..##. ..#..",
+check:"....... .....## ....##. ##.##.. .###... ..#.... .......",
+cross:"..... #...# .#.#. ..#.. .#.#. #...# .....",
+arrow:"..... ..#.. ...#. ##### ...#. ..#.. .....",
+up:"..#.. .###. #.#.# ..#.. ..#.. #...# #####",
+down:"..#.. ..#.. #.#.# .###. ..#.. #...# #####",
+sync:"..###.# .#...## #...### #.....# ###...# ##...#. #.###..",
+shuffle:"....#.. ##.#### ..#.#.. ...#... ..#.#.. ##.#### ....#..",
+loop:"....#.. .#####. #...#.# #.....# #.#...# .#####. ..#....",
+bolt:"...## ..##. .##.. ##### ..##. .##.. ##..."
+};
+for(let q=0;q<=4;q++){ // battery, 11 wide, fill in quarters of 8 columns
+  const r=[];r.push("...........");r.push("##########.");
+  for(let k=0;k<3;k++){let s="#";for(let c=0;c<8;c++)s+=(c<q*2?"#":".");s+="##";r.push(s)}
+  r.push("##########.");r.push("...........");F5I["bat"+q]=r.join(" ");
+}
+const F3G={
+A:".#. #.# ### #.# #.#",B:"##. #.# ##. #.# ##.",C:".## #.. #.. #.. .##",D:"##. #.# #.# #.# ##.",
+E:"### #.. ##. #.. ###",F:"### #.. ##. #.. #..",G:".## #.. #.# #.# .##",H:"#.# #.# ### #.# #.#",
+I:"### .#. .#. .#. ###",J:"..# ..# ..# #.# .#.",K:"#.# #.# ##. #.# #.#",L:"#.. #.. #.. #.. ###",
+M:"#...# ##.## #.#.# #...# #...#",N:"#..# ##.# #.## #..# #..#",O:".#. #.# #.# #.# .#.",P:"##. #.# ##. #.. #..",
+Q:".#. #.# #.# .#. ..#",R:"##. #.# ##. #.# #.#",S:".## #.. .#. ..# ##.",T:"### .#. .#. .#. .#.",
+U:"#.# #.# #.# #.# ###",V:"#.# #.# #.# #.# .#.",W:"#...# #...# #.#.# #.#.# .#.#.",X:"#.# #.# .#. #.# #.#",
+Y:"#.# #.# .#. .#. .#.",Z:"### ..# .#. #.. ###",
+"0":"### #.# #.# #.# ###","1":".#. ##. .#. .#. ###","2":"##. ..# .#. #.. ###","3":"##. ..# .#. ..# ##.",
+"4":"#.# #.# ### ..# ..#","5":"### #.. ##. ..# ##.","6":".## #.. ### #.# ###","7":"### ..# .#. .#. .#.",
+"8":"### #.# ### #.# ###","9":"### #.# ### ..# ##.",
+":":". # . # .",".":". . . . #","-":"... ... ### ... ...","/":"..# ..# .#. #.. #..",
+"%":"#.# ..# .#. #.. #.#",",":".. .. .. .# #.","'":"# # . . .","!":"# # # . #",
+"?":"##. ..# .#. ... .#.","+":"... .#. ### .#. ...","(":".# #. #. #. .#",")":"#. .# .# .# #.",
+" ":".. .. .. .. .."
+};
+const F3I={heart:".#.#. ##### ##### .###. ..#..",clock:".###. #.#.# #.### #...# .###."};
+function mk(src){const o={};for(const k in src){const rows=src[k].split(" ");o[k]={w:rows[0].length,rows}}return o}
+const F5={g:mk(F5G),i:mk(F5I),h:7}, F3={g:mk(F3G),i:mk(F3I),h:5};
+
+/* ============================================================
+   2. Dot buffer and text
+   ============================================================ */
+const W=64,H=16;
+let OVER=0; // count of dots drawn outside the panel (layout check)
+function Buf(w=W,h=H){return{w,h,a:new Uint8Array(w*h)}}
+function px(b,x,y,clip){if(clip&&(x<clip[0]||x>clip[1]))return;if(x<0||y<0||x>=b.w||y>=b.h){OVER++;return}b.a[y*b.w+x]=1}
+function rect(b,x,y,w,h){for(let j=0;j<h;j++)for(let i=0;i<w;i++)px(b,x+i,y+j)}
+function glyphs(s,f){const out=[];for(let i=0;i<s.length;i++){const c=s[i];
+  if(c==="{"){const j=s.indexOf("}",i);out.push(f.i[s.slice(i+1,j)]);i=j;continue}
+  out.push(f.g[c]||f.g["?"])}return out}
+function measure(s,o={}){const f=o.font||F5,sc=o.sc||1,tr=o.tr==null?1:o.tr;let w=0;glyphs(s,f).forEach((g,i)=>{w+=g.w*sc+(i?tr:0)});return w}
+function text(b,s,x,y,o={}){const f=o.font||F5,sc=o.sc||1,tr=o.tr==null?1:o.tr;let cx=x;
+  glyphs(s,f).forEach((g,i)=>{if(i)cx+=tr;for(let r=0;r<g.rows.length;r++){const row=g.rows[r];for(let c=0;c<row.length;c++)if(row[c]==="#")
+    for(let a=0;a<sc;a++)for(let d=0;d<sc;d++)px(b,cx+c*sc+d,y+r*sc+a,o.clip)}cx+=g.w*sc});return cx}
+function right(b,s,xr,y,o={}){return text(b,s,xr-measure(s,o)+1,y,o)}
+function center(b,s,y,o={}){return text(b,s,Math.floor((b.w-measure(s,o))/2),y,o)}
+const S3={font:F3}, BIG={sc:2};
+/* layouts */
+function twoLine(b,top,bot){text(b,top,0,1);if(bot)text(b,bot,0,10,S3)}
+function smallBig(b,top,topR,bot){text(b,top,0,1,S3);if(topR)right(b,topR,63,1,S3);text(b,bot,0,8)}
+function bigLab(b,val,lt,lb,lbFont){text(b,val,0,1,BIG);if(lt)right(b,lt,63,1,S3);if(lb)right(b,lb,63,10,lbFont||S3)}
+function marquee(b,s,y,ph){const w=measure(s);if(w<=W){text(b,s,0,y);return}
+  const travel=w-W,sp=18,h1=1.6,h2=1.2,per=h1+travel/sp+h2,p=((ph%per)+per)%per;
+  const off=p<h1?0:p<h1+travel/sp?Math.round((p-h1)*sp):travel;text(b,s,-off,y,{clip:[0,W-1]})}
+
+/* ============================================================
+   3. Formatting and LED helpers
+   ============================================================ */
+const pad2=n=>String(n).padStart(2,"0");
+const mmss=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+":"+pad2(s%60)};
+const hm=s=>{const h=Math.floor(s/3600)%24,m=Math.floor(s/60)%60;return pad2(h)+":"+pad2(m)};
+const leftStr=f=>{const m=Math.round(f*5*60);return Math.floor(m/60)+"H "+pad2(m%60)+"M"};
+const on=n=>[0,1,2,3].map(i=>i<n?1:0);
+const blinkV=(t,hz=1)=>((t*hz)%1)<.5?1:0;
+const all=v=>[v,v,v,v];
+const chase=t=>{const i=Math.floor(t*6)%6,k=i<4?i:6-i;return[0,1,2,3].map(j=>j===k?1:0)};
+const breathe=t=>.2+.8*(.5-.5*Math.cos(t*Math.PI));
+const fill=f=>on(Math.min(4,Math.ceil(Math.max(0,f)*4)));
+const quarters=f=>Math.max(1,Math.min(4,Math.ceil(f*4-1e-6)));
+function paceN(d){const x=d.pace-d.target;return x>8?1:x>=-8?2:x>=-18?3:4}
+function zoneN(d){return d.hr<130?1:d.hr<145?2:d.hr<160?3:4}
+function guideLeds(d){return on(d.guide==="hr"&&d.hrOn?zoneN(d):paceN(d))}
+
+/* ============================================================
+   4. Example content
+   ============================================================ */
+const PL=[{n:"TEMPO",c:32},{n:"LONG RUN",c:48},{n:"EASY 5K",c:18},{n:"HILLS",c:24},{n:"RACE DAY",c:40},{n:"RECOVERY",c:12}];
+const TRACKS=[{t:"SECOND WIND",a:"HARBOUR LIGHTS",len:214},{t:"MILE MARKER",a:"THE LONG FLATS",len:243},
+  {t:"RED LIGHT RUNNER",a:"NOVA PARADE",len:201},{t:"NORTHBOUND",a:"KITE DISTRICT",len:226},{t:"GOLDEN HOUR",a:"LOW TIDE CLUB",len:238}];
+const LOOPS=["OFF","ONE","ALL"];
+const MENU_N=PL.length+2;
+const HP_NAME="RUNBUDS 2", FW="1.4.2";
+const BASE={clock:7*3600+14*60,day:"SUN",date:"15",batt:.68,
+  title:TRACKS[0].t,artist:TRACKS[0].a,pos:62,len:TRACKS[0].len,trackNo:3,trackCount:32,playing:true,pl:0,shuffle:true,loop:2,
+  menuIdx:0,
+  pace:309,target:310,dist:4.27,runSec:1471,hr:152,hrOn:false,guide:"pace",est:false,manual:false,km:4,split:308,avg:345,runActive:true,
+  holdF:.5,count:5,runs:2,songs:38,songsTotal:120,skipped:12,charge:64};
+
+/* ============================================================
+   5. States. Each one: name, LED behaviour, input, a sample, draw and leds.
+      The live pod, the inventory and the PNG exports all use these.
+   ============================================================ */
+const ST=[];
+function S(id,group,name,led,input,sample,draw,leds){ST.push({id,group,name,led,input,sample:sample||{},draw,leds:leds||(()=>all(0))})}
+const G={sys:"System",idle:"Idle",music:"Music",run:"Run",pair:"Headphones",dock:"Dock"};
+const metricLed="Pace guide: 2 on target, 1 too slow, 3 or 4 too fast. HR zone instead if chosen.";
+
+S("boot",G.sys,"Wake from off","Sweep left to right, then all on","None. Idle after 2.4 s",{ph:1.4},
+ (b,d,{ph})=>{const x0=9,w=46;
+  if(ph<.35){const half=Math.round(ph/.35*w/2);rect(b,32-half,7,half*2,2);return}
+  const tmp=Buf();text(tmp,"DASH",x0,1,{sc:2,tr:2});
+  if(ph<.9){const k=Math.ceil((ph-.35)/.55*7);for(let y=0;y<H;y++)if(y>=7-k&&y<=8+k)for(let x=0;x<W;x++)if(tmp.a[y*W+x])b.a[y*W+x]=1;rect(b,x0,7,w,2);return}
+  const drop=ph<2?0:(ph-2)/.4;for(let i=0;i<W*H;i++)if(tmp.a[i]&&(((i*2654435761)>>>0)%1000)/1000>=drop)b.a[i]=1},
+ (d,{ph})=>ph<.9?all(0):ph<2?on(Math.min(4,Math.ceil((ph-.9)/.5*4))):ph<2.2?all(1):all(0));
+S("off",G.sys,"Asleep","Off","Wrist raise or press wakes. The press is not passed on",{},()=>{},()=>all(0));
+S("low-battery",G.sys,"Low battery","1 flashing","Shown once at 10%, 3 s",{batt:.1},
+ (b,d)=>{twoLine(b,"{bat1} LOW "+Math.round(d.batt*100)+"%",Math.round(d.batt*300)+" MIN LEFT")},(d,{t})=>[blinkV(t,3),0,0,0]);
+S("hold-pair",G.sys,"Hold for pairing","Second fill, 3 s to 8 s","Release cancels. 8 s opens Pairing",{count:4,holdF2:.5},
+ (b,d)=>{twoLine(b,"{bt} PAIR IN "+d.count,"RELEASE TO STOP")},(d)=>fill(d.holdF2));
+
+S("idle",G.idle,"Idle","Battery in quarters","Double: Music. Press: battery",{},
+ (b,d,{t})=>{const s=hm(d.clock),colon=Math.floor(t)%2===0;let x=text(b,s.slice(0,2),0,1,BIG);x+=1;if(colon)text(b,":",x,1,BIG);text(b,s.slice(3),x+3,1,BIG);
+  right(b,d.day,63,1,S3);right(b,d.date,63,10,S3)},
+ (d,{t})=>d.batt<=.15?[blinkV(t,1),0,0,0]:on(quarters(d.batt)));
+S("idle-battery",G.idle,"Battery","Battery in quarters","Press on Idle, 2 s, then back",{},
+ (b,d)=>{bigLab(b,Math.round(d.batt*100)+"%","BATTERY",leftStr(d.batt))},(d)=>on(quarters(d.batt)));
+S("idle-low",G.idle,"Idle, battery low","1 blinking","Same as Idle",{batt:.1},null,null);
+
+S("music",G.music,"Music","Track progress in quarters","Hold: playlists. Press: info. Double: Run",{},
+ (b,d,{ph})=>{marquee(b,d.title+" - "+d.artist,0,ph);text(b,d.playing?"{play}":"{pause}",0,9);text(b,mmss(d.pos),7,9);right(b,d.trackNo+"/"+d.trackCount,63,11,S3)},
+ (d,{t})=>{const n=Math.max(1,Math.ceil(d.pos/d.len*4));return d.playing?on(n):on(n).map(v=>v*blinkV(t,1))});
+S("music-paused",G.music,"Music, paused","Progress, blinking","Play from the headphones",{playing:false,pos:131},null,null);
+S("music-info",G.music,"Playlist info","Track progress","Press on Music, 2.5 s, then back",{},
+ (b,d)=>{text(b,PL[d.pl].n,0,0);text(b,"{shuffle} "+(d.shuffle?"ON ":"OFF")+" {loop} "+LOOPS[d.loop],0,9)},
+ (d)=>on(Math.max(1,Math.ceil(d.pos/d.len*4))));
+S("music-no-hp",G.music,"No headphones","Off","Hold 8 s: Pairing",{},
+ (b)=>{twoLine(b,"NO AUDIO","HOLD 8S TO PAIR")},()=>all(0));
+S("menu-playlist",G.music,"Playlist list","Position in list, in quarters","Press: next. Hold: pick",{menuIdx:0},
+ (b,d,{t})=>{smallBig(b,Math.floor(t/2.5)%2?"HOLD TO PICK":"PLAYLIST",(d.menuIdx+1)+"/"+MENU_N,"{arrow} "+PL[d.menuIdx].n);if(d.menuIdx===d.pl)right(b,"{check}",63,8)},
+ (d)=>on(Math.ceil((d.menuIdx+1)/MENU_N*4)));
+S("menu-shuffle",G.music,"List, shuffle","Position in list","Hold: shuffle on or off",{menuIdx:6},
+ (b,d)=>{smallBig(b,"PLAY ORDER",(d.menuIdx+1)+"/"+MENU_N,"{arrow} SHUFFLE");right(b,d.shuffle?"ON":"OFF",63,10,S3)},(d)=>on(Math.ceil((d.menuIdx+1)/MENU_N*4)));
+S("menu-loop",G.music,"List, loop","Position in list","Hold: off, one, all",{menuIdx:7},
+ (b,d)=>{smallBig(b,"PLAY ORDER",(d.menuIdx+1)+"/"+MENU_N,"{arrow} LOOP");right(b,LOOPS[d.loop],63,10,S3)},(d)=>on(4));
+S("menu-picked",G.music,"Playlist picked","All flash once","Music after 1.6 s",{pl:0},
+ (b,d)=>{twoLine(b,"{check} "+PL[d.pl].n,PL[d.pl].c+" SONGS")},(d,{ph})=>ph<.5?all(blinkV(ph,4)):all(1));
+
+S("gps-search",G.run,"GPS search","Chasing light","Double: Idle. Locks in a few seconds",{},
+ (b,d)=>{twoLine(b,"{sat} SEARCHING",d.manual?"MANUAL START":"AUTO START")},(d,{t})=>chase(t));
+S("gps-locked",G.run,"GPS locked","All on","Manual: press starts. Auto: starts when you move",{manual:true},
+ (b,d)=>{twoLine(b,"{sat} LOCKED",d.manual?"PRESS TO START":"MOVE TO START")},()=>all(1));
+S("gps-none",G.run,"No GPS fix","Flash twice, then off","Shown 3 s, then indoor run",{},
+ (b)=>{twoLine(b,"{sat} NO GPS","USING MOTION")},(d,{ph})=>ph<1?all(blinkV(ph,2)):all(0));
+S("run-ready-est",G.run,"Indoor, ready","Off","Same as GPS locked",{manual:true,est:true},
+ (b,d)=>{twoLine(b,"INDOOR",d.manual?"PRESS TO START":"MOVE TO START")},()=>all(0));
+S("run-pace",G.run,"Run, pace","Pace guide",metricLed,{},
+ (b,d)=>{bigLab(b,mmss(d.pace),d.est?"EST":"PACE","/KM")},(d)=>guideLeds(d));
+S("run-pace-est",G.run,"Run, pace, indoor","Pace guide","Motion sensor estimate, labelled EST",{est:true,pace:316},null,null);
+S("run-distance",G.run,"Run, distance","Pace guide","Numbers change every 4 s",{},
+ (b,d)=>{bigLab(b,d.dist.toFixed(2),d.est?"EST":"DIST","KM")},(d)=>guideLeds(d));
+S("run-time",G.run,"Run, time","Pace guide","Manual: press pauses. Auto: press shows the next number",{},
+ (b,d)=>{const s=Math.floor(d.runSec);if(s<3600){bigLab(b,mmss(s),"{clock}","")}else{bigLab(b,Math.floor(s/3600)+":"+pad2(Math.floor(s/60)%60),"{clock}",":"+pad2(s%60))}},(d)=>guideLeds(d));
+S("run-hr",G.run,"Run, heart rate","HR zone 2 to 5, or pace","Only with a strap connected",{hrOn:true,guide:"hr"},
+ (b,d)=>{bigLab(b,String(Math.round(d.hr)),"{heart}","BPM")},(d)=>guideLeds(d));
+S("km-split",G.run,"Km split","All flash, motor buzzes","Shown 4 s at each km",{},
+ (b,d)=>{bigLab(b,mmss(d.split),"KM "+d.km,"SPLIT")},(d,{t})=>all(blinkV(t,4)));
+S("run-paused",G.run,"Run, paused","All blinking","Press: resume. Hold: end and save",{},
+ (b,d)=>{twoLine(b,"{pause} PAUSED",mmss(d.runSec)+"  "+d.dist.toFixed(2)+" KM")},(d,{t})=>all(blinkV(t,1)));
+S("run-autopaused",G.run,"Run, auto paused","All blinking","Resumes when you move. Hold: end and save",{},
+ (b)=>{twoLine(b,"{pause} PAUSED","MOVE TO RESUME")},(d,{t})=>all(blinkV(t,1)));
+S("hold-end",G.run,"Holding to end","Filling over 0.7 s","Release early: back to the run",{holdF:.5},
+ (b)=>{twoLine(b,"END RUN","KEEP HOLDING")},(d)=>fill(d.holdF));
+S("run-saved",G.run,"Run saved","All on","Press: Idle. Summary after 2.5 s",{},
+ (b,d)=>{twoLine(b,"{check} SAVED",d.dist.toFixed(2)+" KM  "+mmss(d.runSec))},()=>all(1));
+S("run-summary",G.run,"Summary","All on","Press: Idle. Idle after 5 s",{},
+ (b,d)=>{bigLab(b,mmss(d.avg),"AVG","/KM")},()=>all(1));
+
+S("hp-lost",G.pair,"Headphones lost","All flash 3 times","Shown 3 s. Music pauses",{},
+ (b,d)=>{twoLine(b,"{hp} LOST",d.runActive?"RUN KEEPS GOING":"MUSIC PAUSED")},(d,{ph})=>ph<1.5?all(blinkV(ph,2)):all(0));
+S("hp-back",G.pair,"Headphones back","All on","Shown 2 s. Music resumes",{},
+ (b)=>{twoLine(b,"{hp} BACK",HP_NAME)},()=>all(1));
+S("pair-search",G.pair,"Pairing, searching","Chasing light","Press: cancel",{},
+ (b,d,{t})=>{twoLine(b,"{bt} PAIRING",Math.floor(t/2)%2?"PRESS TO CANCEL":"SEARCHING")},(d,{t})=>chase(t));
+S("pair-found",G.pair,"Pairing, found","All flash","Press: cancel",{},
+ (b)=>{smallBig(b,"FOUND","",HP_NAME)},(d,{t})=>all(blinkV(t,4)));
+S("pair-connected",G.pair,"Connected","All on","Back to the last screen. Remembers 4 pairs",{},
+ (b)=>{smallBig(b,"CONNECTED","","{hp} "+HP_NAME)},()=>all(1));
+S("pair-cancelled",G.pair,"Pairing cancelled","Off","Back to the last screen",{},
+ (b)=>{center(b,"{cross} CANCELLED",4)},()=>all(0));
+
+S("dock-runs",G.dock,"Dock 1, runs out","Stage 1 blinking","No input on the dock",{runs:2},
+ (b,d)=>{text(b,"{up} RUNS",0,1);right(b,String(d.runs),63,1);text(b,d.runs?"TO STRAVA":"UP TO DATE",0,10,S3)},(d,{t})=>[blinkV(t,2),0,0,0]);
+S("dock-music",G.dock,"Dock 2, music in","Stage 2 blinking","Playlists picked in the app",{},
+ (b,d)=>{twoLine(b,"{down} MUSIC","SONG "+d.songs+" OF "+d.songsTotal)},(d,{t})=>[1,blinkV(t,2),0,0]);
+S("dock-storage-full",G.dock,"Dock, storage full","Stage 2 flashing fast","Shown 3 s, sync goes on",{},
+ (b,d)=>{twoLine(b,"{cross} STORAGE","FULL, "+d.skipped+" SKIPPED")},(d,{t})=>[1,blinkV(t,6),0,0]);
+S("dock-gps",G.dock,"Dock 3, GPS data","Stage 3 blinking","Satellite data for a fast fix",{},
+ (b)=>{twoLine(b,"{sat} GPS DATA","FASTER FIRST FIX")},(d,{t})=>[1,1,blinkV(t,2),0]);
+S("dock-firmware",G.dock,"Dock 4, firmware","Stage 4 blinking","Installs, then charging",{},
+ (b)=>{twoLine(b,"{sync} UPDATE","FIRMWARE "+FW)},(d,{t})=>[1,1,1,blinkV(t,2)]);
+S("dock-charging",G.dock,"Charging","Charge in quarters, next one breathing","Lift off: Idle",{},
+ (b,d)=>{text(b,d.charge+"%",0,1,BIG);right(b,"{bolt}",63,1);right(b,"SYNCED",63,10,S3)},
+ (d,{t})=>{const n=Math.min(4,Math.floor(d.charge/25)+1);return[0,1,2,3].map(i=>i<n-1?1:i===n-1?breathe(t):0)});
+S("dock-full",G.dock,"Charged","All on","Lift off: Idle",{charge:100},
+ (b)=>{bigLab(b,"100%","FULL","")},()=>all(1));
+
+const BYID={};ST.forEach(s=>BYID[s.id]=s);
+// states that reuse another state's drawing with different data
+[["idle-low","idle"],["music-paused","music"],["run-pace-est","run-pace"]].forEach(([a,src])=>{BYID[a].draw=BYID[src].draw;BYID[a].leds=BYID[src].leds});
+
+function frameOf(id,d,tm){const st=BYID[id],b=Buf();st.draw(b,d,tm);return{b,leds:st.leds(d,tm)}}
+function sampleOf(id){return Object.assign({},BASE,BYID[id].sample)}
+
+/* ============================================================
+   6. Renderer. One path for live, tiles and exports.
+      Geometry in dots: screen 64 x 16 at (0,0); LEDs 2 dots wide,
+      centres at x = 15.5, 26.5, 37.5, 48.5 (11 dots, about 5 mm), y = 21.5.
+   ============================================================ */
+const LED_X=[15.5,26.5,37.5,48.5],LED_Y=21.5,LED_R=1,ROWS_TOTAL=24;
+const COLORS={amber:"#ffb000",white:"#eef0f2",red:"#ff3b2e",blue:"#3d9bff"};
+const VIEW={color:"amber",smoked:true};
+function rgba(hex,a){const n=parseInt(hex.slice(1),16);return"rgba("+(n>>16&255)+","+(n>>8&255)+","+(n&255)+","+a+")"}
+function rr(c,x,y,w,h,r){c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+const layer=document.createElement("canvas");
+function render(cv,buf,leds,o){
+  const P=o.P,pad=o.pad||0,smoked=o.smoked,col=COLORS[o.color]||o.color;
+  const rows=leds?ROWS_TOTAL:buf.h,Wp=(buf.w+pad*2)*P,Hp=(rows+pad*2)*P;
+  if(cv.width!==Wp||cv.height!==Hp){cv.width=Wp;cv.height=Hp}
+  const c=cv.getContext("2d");c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,Wp,Hp);
+  if(o.bg){c.fillStyle=o.bg;c.fillRect(0,0,Wp,Hp)}
+  const g=Math.max(1,Math.round(P*.13)),s=P-2*g,r=Math.max(.5,P*.17),ox=pad*P,oy=pad*P;
+  if(!smoked){ // bare panel: unlit dots and empty light pipes stay faintly visible
+    c.fillStyle="rgba(255,255,255,.06)";c.beginPath();
+    for(let y=0;y<buf.h;y++)for(let x=0;x<buf.w;x++)if(!buf.a[y*buf.w+x])rr(c,ox+x*P+g,oy+y*P+g,s,s,r);c.fill();
+    if(leds){c.strokeStyle="rgba(255,255,255,.16)";c.lineWidth=Math.max(1,P*.12);c.fillStyle="rgba(255,255,255,.035)";
+      LED_X.forEach(lx=>{c.beginPath();c.arc(ox+lx*P,oy+LED_Y*P,LED_R*P*1.15,0,7);c.fill();c.stroke()})}
+  }
+  if(layer.width!==Wp||layer.height!==Hp){layer.width=Wp;layer.height=Hp}
+  const L=layer.getContext("2d");L.setTransform(1,0,0,1,0,0);L.clearRect(0,0,Wp,Hp);L.fillStyle=col;L.beginPath();
+  let lit=0;for(let y=0;y<buf.h;y++)for(let x=0;x<buf.w;x++)if(buf.a[y*buf.w+x]){rr(L,ox+x*P+g,oy+y*P+g,s,s,r);lit++}
+  L.fill();
+  if(!smoked&&P>=14){ // the 2 x 2 pixel structure, visible only up close on the bare panel
+    L.globalCompositeOperation="destination-out";L.fillStyle="rgba(0,0,0,.55)";const lw=Math.max(1,Math.round(P*.05));
+    for(let y=0;y<buf.h;y++)for(let x=0;x<buf.w;x++)if(buf.a[y*buf.w+x]){const cx=ox+x*P+Math.round(P/2),cy=oy+y*P+Math.round(P/2);
+      L.fillRect(cx-lw/2,oy+y*P+g,lw,s);L.fillRect(ox+x*P+g,cy-lw/2,s,lw)}
+    L.globalCompositeOperation="source-over"}
+  let anyLed=false;
+  if(leds){leds.forEach((v,i)=>{if(v>0){anyLed=true;L.globalAlpha=Math.min(1,v);L.fillStyle=col;L.beginPath();L.arc(ox+LED_X[i]*P,oy+LED_Y*P,LED_R*P,0,7);L.fill()}});L.globalAlpha=1}
+  if(!lit&&!anyLed)return;
+  if(smoked){ // bloom through the silicone: two soft passes from the lit layer, then the dots, slightly softened
+    const far=Wp+Hp+200;
+    c.save();c.shadowOffsetX=far;c.shadowOffsetY=0;
+    c.shadowColor=rgba(col,.85);c.shadowBlur=P*1.2;c.globalAlpha=.85;c.drawImage(layer,-far,0);
+    c.shadowColor=rgba(col,.55);c.shadowBlur=P*4;c.globalAlpha=.6;c.drawImage(layer,-far,0);
+    c.restore();
+    c.save();c.globalAlpha=.9;c.shadowColor=rgba(col,.6);c.shadowBlur=P*.3;c.drawImage(layer,0,0);c.restore();
+  }else{c.drawImage(layer,0,0)}
+}
+
+/* ============================================================
+   7. Live model and state machine
+   ============================================================ */
+const now=()=>performance.now()/1000;
+const M={screen:"boot",bootT0:now(),awake:true,ov:null,clock:BASE.clock,speed:1,
+  batt:.68,storageFull:false,docked:false,auto:true,moving:true,indoor:false,hrOn:false,guide:"pace",
+  hp:{on:true},music:{pl:0,track:0,no:3,pos:62,playing:true,shuffle:true,loop:2,t0:now()},
+  menu:{open:false,idx:0,at:0},
+  run:null,savedRuns:2,pair:null,dock:null,
+  hold:{down:false,t0:0,fired:false,pairFired:false},lastId:"",since:now()};
+function newRun(){return{phase:"search",t0:now(),sec:0,dist:0,pace:310,hr:120,nextKm:1,lastKmSec:0,split:0,est:M.indoor,metric:0,metricAt:now(),readyAt:0,savedAt:0}}
+function ovr(id,dur,extra){M.ov=Object.assign({id,t0:now(),dur},extra||{})}
+const logEl=document.getElementById("log");
+function log(msg){const li=document.createElement("li");const tm=document.createElement("time");const s=Math.floor(M.clock);
+  tm.textContent=hm(s)+":"+pad2(s%60);li.append(tm,document.createTextNode(msg));logEl.prepend(li);while(logEl.children.length>7)logEl.lastChild.remove()}
+const pod=document.getElementById("pod");
+function buzz(why){pod.classList.remove("buzz");void pod.offsetWidth;pod.classList.add("buzz");if(why)log(why+", buzz")}
+const runActive=()=>M.run&&["running","paused","autopaused"].includes(M.run.phase);
+function go(screen){M.screen=screen;if(screen!=="music")M.menu.open=false;
+  if(screen==="run"&&!M.run){M.run=newRun();log("GPS search")}}
+
+/* inputs */
+function doPress(){if(wakeIfAsleep())return;const r=M.run;
+  if(M.ov&&M.ov.id==="music-info"){M.ov=null;return}
+  switch(M.screen){
+  case"boot":return;
+  case"idle":ovr("idle-battery",2);return;
+  case"music":
+    if(M.menu.open){M.menu.idx=(M.menu.idx+1)%MENU_N;M.menu.at=now();return}
+    if(M.hp.on)ovr("music-info",2.5);return;
+  case"run":
+    if(!r)return;
+    if(r.phase==="ready"&&!M.auto){startRun("press");return}
+    if(r.phase==="running"){if(!M.auto){r.phase="paused";buzz("Paused");}else{r.metric++;r.metricAt=now()}return}
+    if(r.phase==="paused"){r.phase="running";buzz("Resumed");return}
+    if(r.phase==="saved"||r.phase==="summary"){M.run=null;go("idle");return}
+    return;
+  case"pair":{const ph=pairPhase();if(ph!=="connected"){ovr("pair-cancelled",1.4);log("Pairing cancelled")}endPair(false);return}
+  }}
+function doDouble(){if(wakeIfAsleep())return;
+  if(["boot","pair","dock"].includes(M.screen))return;
+  M.ov=null;M.menu.open=false;
+  const order=["idle","music","run"];const i=order.indexOf(M.screen);
+  if(M.screen==="run"&&M.run&&(M.run.phase==="saved"||M.run.phase==="summary"))M.run=null;
+  go(order[(i+1)%3])}
+function doHold(){const r=M.run;
+  if(M.screen==="music"&&!M.ov){
+    if(!M.menu.open){M.menu.open=true;M.menu.idx=M.music.pl;M.menu.at=now();buzz();return}
+    M.menu.at=now();const i=M.menu.idx;
+    if(i<PL.length){M.music.pl=i;M.menu.open=false;M.music.track=(M.music.track+1)%TRACKS.length;M.music.no=1;M.music.pos=0;M.music.t0=now();if(M.hp.on)M.music.playing=true;ovr("menu-picked",1.6);buzz("Playlist "+PL[i].n.toLowerCase());syncPlay()}
+    else if(i===PL.length){M.music.shuffle=!M.music.shuffle;buzz("Shuffle "+(M.music.shuffle?"on":"off"))}
+    else{M.music.loop=(M.music.loop+1)%3;buzz("Loop "+LOOPS[M.music.loop].toLowerCase())}
+    return}
+  if(M.screen==="run"&&runActive()){saveRun();return}}
+function startRun(how){const r=M.run;r.phase="running";r.metric=0;r.metricAt=now();buzz("Run started"+(how==="auto"?", auto":""))}
+function saveRun(){const r=M.run;r.phase="saved";r.savedAt=now();M.savedRuns++;buzz("Run saved, "+(r.dist/1000).toFixed(2)+" km")}
+function wakeIfAsleep(){if(!M.awake){setWrist(true);return true}return false}
+function pairPhase(){const t=now()-M.pair.t0;return t<4?"search":t<5.6?"found":t<8.4?"connected":"done"}
+function startPair(){if(M.screen==="pair"||M.screen==="boot")return;M.pair={t0:now(),ret:M.screen==="dock"?"dock":M.screen,saidFound:false,saidConn:false};M.ov=null;M.menu.open=false;M.screen="pair";buzz("Pairing mode")}
+function endPair(ok){if(!M.pair)return;const ret=M.pair.ret;M.pair=null;if(ok){if(!M.hp.on){M.hp.on=true;M.music.playing=true;syncPlay()}}M.screen=ret}
+
+/* physical button timing */
+const HOLD=0.7,PAIR_HOLD=8,DBL=300;let single=0,simTimer=0,swallow=false;
+function btnDown(){if(M.hold.down)return;if(!M.awake){setWrist(true);swallow=true;return}swallow=false;
+  M.hold={down:true,t0:now(),fired:false,pairFired:false};pod.classList.add("down")}
+function btnUp(){pod.classList.remove("down");if(swallow){swallow=false;return}if(!M.hold.down)return;M.hold.down=false;
+  if(M.hold.fired||M.hold.pairFired)return;
+  if(single){clearTimeout(single);single=0;doDouble()}else single=setTimeout(()=>{single=0;doPress()},DBL)}
+function btnCancel(){pod.classList.remove("down");M.hold.down=false}
+function simHold(sec){clearTimeout(simTimer);if(M.hold.down)btnUp();btnDown();simTimer=setTimeout(btnUp,sec*1000)}
+pod.addEventListener("pointerdown",e=>{if(e.button>0)return;e.preventDefault();clearTimeout(simTimer);try{pod.setPointerCapture(e.pointerId)}catch(_){}pod.focus({preventScroll:true});btnDown()});
+pod.addEventListener("pointerup",btnUp);pod.addEventListener("pointercancel",btnCancel);
+pod.addEventListener("contextmenu",e=>e.preventDefault());
+pod.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();e.stopPropagation();if(!e.repeat){if(e.key==="Enter"){btnDown();btnUp()}else btnDown()}}});
+pod.addEventListener("keyup",e=>{if(e.key===" "){e.preventDefault();btnUp()}});
+document.addEventListener("keydown",e=>{if(e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;const k=e.key.toLowerCase();
+  if(k==="p"){doPress()}else if(k==="d"){doDouble()}else if(k==="h"){simHold(.78)}else if(k==="8"){simHold(8.1)}else if(k==="w"){setWrist(!M.awake)}});
+const $=id=>document.getElementById(id);
+$("b-press").onclick=doPress;$("b-double").onclick=doDouble;$("b-hold").onclick=()=>simHold(.78);$("b-hold8").onclick=()=>simHold(8.1);
+
+/* scenario controls */
+function setWrist(up){if(up===M.awake)return;M.awake=up;$("b-wrist").textContent=up?"Wrist down":"Wrist up";$("b-wrist").setAttribute("aria-pressed",String(!up));
+  const kb=document.createElement("kbd");kb.textContent="W";$("b-wrist").append(" ",kb);
+  log(up?"Wrist raised, screen on":"Wrist down, screen off");if(up&&M.batt<=.15&&!M.docked)ovr("low-battery",3)}
+$("b-wrist").onclick=()=>setWrist(!M.awake);
+$("b-boot").onclick=()=>{M.screen="boot";M.bootT0=now();M.ov=null;M.awake=true;M.pair=null;log("Restart")};
+$("b-dock").onclick=()=>{if(!M.docked){if(runActive())saveRun();M.run=null;M.docked=true;M.awake=true;M.ov=null;M.pair=null;M.dock={stage:0,t0:now(),songs:0};M.screen="dock";buzz("On dock")}
+  else{M.docked=false;M.dock=null;M.screen="idle";M.ov=null;log("Lifted off the dock")}
+  $("b-dock").textContent=M.docked?"Lift off dock":"Put on dock";$("b-dock").setAttribute("aria-pressed",String(M.docked))};
+function syncPlay(){$("b-play").textContent=M.music.playing?"Pause":"Play";$("b-play").disabled=!M.hp.on;$("b-next").disabled=!M.hp.on;$("b-hp").textContent=M.hp.on?"Disconnect":"Reconnect"}
+$("b-play").onclick=()=>{if(!M.hp.on)return;M.music.playing=!M.music.playing;syncPlay();log(M.music.playing?"Headphones: play":"Headphones: pause")};
+$("b-next").onclick=()=>{if(!M.hp.on)return;nextTrack();log("Headphones: next track")};
+$("b-hp").onclick=()=>{if(M.hp.on){M.hp.on=false;M.music.playing=false;ovr("hp-lost",3);buzz("Headphones lost")}else{M.hp.on=true;M.music.playing=true;ovr("hp-back",2);buzz("Headphones back")}syncPlay()};
+function nextTrack(){M.music.track=(M.music.track+1)%TRACKS.length;M.music.no=M.music.no%PL[M.music.pl].c+1;M.music.pos=0;M.music.t0=now()}
+document.querySelectorAll(".seg button").forEach(btn=>btn.addEventListener("click",()=>{const k=btn.dataset.k,v=btn.dataset.v;
+  btn.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===btn)));
+  if(k==="auto"){M.auto=v==="1";if(M.run&&M.run.phase==="ready")M.run.readyAt=now();log(M.auto?"App: auto start":"App: manual start")}
+  if(k==="moving"){M.moving=v==="1";log(M.moving?"Runner moving":"Runner stopped")}
+  if(k==="indoor"){M.indoor=v==="1";if(M.run&&M.run.phase!=="search")M.run.est=M.indoor;log(M.indoor?"Indoors, no GPS":"Outdoors")}
+  if(k==="hr"){M.hrOn=v==="1";const gb=document.querySelector('[data-k="guide"][data-v="hr"]');gb.disabled=!M.hrOn;if(!M.hrOn&&M.guide==="hr")document.querySelector('[data-k="guide"][data-v="pace"]').click();log(M.hrOn?"Heart rate strap connected":"Heart rate strap off")}
+  if(k==="guide"){M.guide=v}
+  if(k==="low"){M.batt=v==="1"?.10:.68;if(v==="1"&&!M.docked){ovr("low-battery",3);buzz("Battery 10%")}}
+  if(k==="full"){M.storageFull=v==="1"}
+  if(k==="smoked"){VIEW.smoked=v==="1";document.body.classList.toggle("bare",!VIEW.smoked);redrawStatic()}
+  if(k==="speed"){M.speed=+v}
+}));
+const sw=$("swatches");
+Object.keys(COLORS).forEach((n,i)=>{const b=document.createElement("button");b.type="button";b.className="sw";b.setAttribute("aria-pressed",String(i===0));
+  b.setAttribute("aria-label",n[0].toUpperCase()+n.slice(1));b.title=b.getAttribute("aria-label");const dot=document.createElement("i");dot.style.background=COLORS[n];b.append(dot);
+  b.onclick=()=>{VIEW.color=n;document.documentElement.style.setProperty("--led",COLORS[n]);sw.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));redrawStatic()};sw.append(b)});
+
+/* simulation step, then pick the state to show */
+function step(dt){const sd=dt*M.speed,t=now();M.clock+=sd;
+  const mu=M.music;if(mu.playing&&M.hp.on){mu.pos+=sd;const len=TRACKS[mu.track].len;if(mu.pos>=len){if(mu.loop===1){mu.pos=0;mu.t0=t}else nextTrack()}}
+  if(M.menu.open&&t-M.menu.at>8)M.menu.open=false;
+  const r=M.run;
+  if(r){
+    if(r.phase==="search"){const need=M.indoor?6:3.5;if(t-r.t0>need){r.phase="ready";r.readyAt=t;r.est=M.indoor;if(M.indoor){if(M.screen==="run")ovr("gps-none",3);log("No GPS fix, motion estimate")}else{buzz("GPS locked")}}}
+    else if(r.phase==="ready"){if(M.auto&&M.moving&&t-r.readyAt>2.5&&!(M.ov&&M.ov.id==="gps-none"))startRun("auto")}
+    else if(r.phase==="running"){
+      if(M.auto&&!M.moving){r.phase="autopaused";buzz("Auto paused");}
+      else{r.sec+=sd;const s=r.sec;r.pace=310+11*Math.sin(s/53)+7*Math.sin(s/17+1)+(r.est?4*Math.sin(s/7):0);r.dist+=sd*1000/r.pace;r.hr=147+9*Math.sin(s/90)+5*Math.sin(s/13);
+        if(r.dist>=r.nextKm*1000){r.split=r.sec-r.lastKmSec;r.lastKmSec=r.sec;ovr("km-split",4,{km:r.nextKm,split:r.split});buzz("Km "+r.nextKm+", split "+mmss(r.split));r.nextKm++}}}
+    else if(r.phase==="autopaused"){if(M.moving){r.phase="running";buzz("Auto resumed")}}
+    else if(r.phase==="saved"){if(t-r.savedAt>2.5){r.phase="summary";r.sumAt=t}}
+    else if(r.phase==="summary"){if(t-r.sumAt>5){M.run=null;if(M.screen==="run")go("idle")}}
+    if(r.phase==="running"&&t-r.metricAt>4){r.metric++;r.metricAt=t}
+  }
+  if(M.pair){const ph=pairPhase();if(ph==="found"&&!M.pair.saidFound){M.pair.saidFound=true;buzz("Found "+HP_NAME.toLowerCase())}
+    if(ph==="connected"&&!M.pair.saidConn){M.pair.saidConn=true;buzz("Connected");if(!M.hp.on){M.hp.on=true;M.music.playing=true;syncPlay()}}
+    if(ph==="done")endPair(true)}
+  if(M.dock){const D=M.dock,el=t-D.t0;
+    const stages=[["dock-runs",3],["dock-music",4]].concat(M.storageFull?[["dock-storage-full",3]]:[]).concat([["dock-gps",2.5],["dock-firmware",3]]);
+    let acc=0,cur="dock-charging";for(const[s,dur]of stages){if(el<acc+dur){cur=s;D.f=(el-acc)/dur;break}acc+=dur}
+    if(cur!==D.cur){D.cur=cur;if(cur==="dock-runs")log("Sending "+M.savedRuns+" runs to Strava");if(cur==="dock-music")log("Loading playlists");if(cur==="dock-storage-full")log("Storage full, 12 songs skipped");
+      if(cur==="dock-gps")log("Loading GPS data");if(cur==="dock-firmware")log("Firmware "+FW);if(cur==="dock-charging"){log("Sync done, charging");D.sentRuns=M.savedRuns;M.savedRuns=0}}
+    if(cur==="dock-charging"&&M.batt<1){M.batt=Math.min(1,M.batt+dt*.01*Math.max(2,M.speed*2));if(M.batt>=1)log("Fully charged")}}
+  if(M.ov&&t-M.ov.t0>M.ov.dur)M.ov=null;
+  if(M.screen==="boot"&&t-M.bootT0>2.4)M.screen="idle";
+  const h=M.hold;if(h.down){const held=t-h.t0;
+    if(!h.fired&&held>=HOLD){h.fired=true;doHold()}
+    if(!h.pairFired&&held>=PAIR_HOLD){h.pairFired=true;startPair()}}
+}
+function liveState(){const t=now(),d=Object.assign({},BASE),r=M.run,mu=M.music,h=M.hold;
+  d.clock=M.clock;d.batt=M.batt;const tr=TRACKS[mu.track];d.title=tr.t;d.artist=tr.a;d.len=tr.len;d.pos=Math.min(mu.pos,tr.len);d.trackNo=mu.no;d.trackCount=PL[mu.pl].c;
+  d.playing=mu.playing&&M.hp.on;d.pl=mu.pl;d.shuffle=mu.shuffle;d.loop=mu.loop;d.menuIdx=M.menu.idx;d.hrOn=M.hrOn;d.guide=M.guide;d.manual=!M.auto;d.runActive=runActive();
+  if(r){d.pace=r.pace;d.dist=r.dist/1000;d.runSec=r.sec;d.hr=r.hr;d.est=r.est;d.avg=r.dist>10?r.sec/(r.dist/1000):0}
+  if(M.ov&&M.ov.km){d.km=M.ov.km;d.split=M.ov.split}
+  if(M.dock){d.runs=M.dock.cur==="dock-runs"?M.savedRuns:0;const total=BASE.songsTotal,target=M.storageFull?total-BASE.skipped:total;d.songs=M.dock.cur==="dock-music"?Math.round(target*Math.min(1,M.dock.f||0)):target;d.charge=Math.round(M.batt*100)}
+  const held=h.down?t-h.t0:0;
+  let id,ph0=null;
+  if(!M.awake)id="off";
+  else if(M.screen==="boot"){id="boot";ph0=M.bootT0}
+  else if(h.down&&held>3&&!h.pairFired&&M.screen!=="pair"){id="hold-pair";d.count=Math.max(1,Math.ceil(PAIR_HOLD-held));d.holdF2=(held-3)/(PAIR_HOLD-3)}
+  else if(h.down&&!h.fired&&held>.12&&M.screen==="run"&&runActive()){id="hold-end";d.holdF=(held-.1)/(HOLD-.1)}
+  else if(M.ov){id=M.ov.id;ph0=M.ov.t0}
+  else switch(M.screen){
+    case"idle":id=M.batt<=.15?"idle-low":"idle";break;
+    case"music":if(!M.hp.on)id="music-no-hp";else if(M.menu.open){id=M.menu.idx<PL.length?"menu-playlist":M.menu.idx===PL.length?"menu-shuffle":"menu-loop"}else{id=d.playing?"music":"music-paused";ph0=mu.t0}break;
+    case"run":{const p=r.phase;
+      if(p==="search")id="gps-search";else if(p==="ready")id=r.est?"run-ready-est":"gps-locked";
+      else if(p==="running"){const ms=["run-pace","run-distance","run-time"].concat(M.hrOn?["run-hr"]:[]);id=ms[r.metric%ms.length];if(id==="run-pace"&&r.est)id="run-pace-est"}
+      else if(p==="paused")id="run-paused";else if(p==="autopaused")id="run-autopaused";else if(p==="saved")id="run-saved";else id="run-summary";
+      if(p==="saved")ph0=r.savedAt;break}
+    case"pair":{const ph=pairPhase();id=ph==="search"?"pair-search":ph==="found"?"pair-found":"pair-connected";ph0=M.pair.t0;break}
+    case"dock":id=M.dock.cur||"dock-runs";if(id==="dock-charging"&&M.batt>=1)id="dock-full";break;
+  }
+  if(id!==M.lastId){M.lastId=id;M.since=t}
+  if(ph0==null)ph0=M.since;
+  const tm={t,ph:t-ph0};
+  const f=frameOf(id,d,tm);
+  if(h.down&&!h.fired&&held>.1&&!["off","boot","pair-search","pair-found","pair-connected"].includes(id))f.leds=fill((held-.1)/(HOLD-.1));
+  if(id==="off")f.leds=all(0);
+  return{id,f}}
+
+/* live canvas sizing, true to scale */
+const device=$("device"),screenCv=$("screen");const LPAD=4;let LP=8,dpr=1;
+function layout(){dpr=Math.min(3,window.devicePixelRatio||1);const avail=device.clientWidth;
+  const mmCss=Math.min(avail*.9/42,19);LP=Math.max(2,Math.floor(mmCss*.46*dpr));const pc=LP/dpr,mm=pc/.46;
+  device.style.setProperty("--mm",mm+"px");
+  screenCv.style.width=((W+LPAD*2)*pc)+"px";screenCv.style.height=((ROWS_TOTAL+LPAD*2)*pc)+"px";
+  screenCv.style.left=(6.3*mm-LPAD*pc)+"px";screenCv.style.top=(4.8*mm-LPAD*pc)+"px";lastKey=""}
+let lastKey="",prevT=now();
+function loop(){const t=now(),dt=Math.min(.25,t-prevT);prevT=t;step(dt);const{id,f}=liveState();
+  const key=id+VIEW.color+VIEW.smoked+f.leds.map(v=>v.toFixed(2)).join()+f.b.a.join("");
+  if(key!==lastKey){lastKey=key;render(screenCv,f.b,f.leds,{P:LP,pad:LPAD,smoked:VIEW.smoked,color:VIEW.color})}
+  readout(id);requestAnimationFrame(loop)}
+let lastRead="";
+function readout(id){const s=Math.floor(M.clock);$("r-clock").textContent=hm(s)+":"+pad2(s%60)+(M.speed>1?"  at "+M.speed+"×":"");
+  if(id===lastRead)return;lastRead=id;const st=BYID[id];$("r-id").textContent=id;$("r-name").textContent=st.name;$("r-led").textContent=st.led;$("r-in").textContent=st.input;
+  screenCv.setAttribute("aria-label","DASH screen: "+st.name)}
+
+/* ============================================================
+   8. Static sheets: section numbers, inventory, type sheet
+   ============================================================ */
+function smallCanvas(cv,s,P,font,sc){const o={font:font||F5,sc:sc||1};const w=measure(s,o),b=Buf(w,(font||F5).h*(sc||1));text(b,s,0,0,o);
+  render(cv,b,null,{P:Math.round(P*dpr),pad:1,smoked:VIEW.smoked,color:VIEW.color});cv.style.width=(cv.width/dpr)+"px";cv.style.height=(cv.height/dpr)+"px"}
+const invEl=$("inv"),tileCv=[];
+function buildInventory(){const groups=[...new Set(ST.map(s=>s.group))];
+  groups.forEach(gname=>{const sec=document.createElement("div");sec.className="ig";const h=document.createElement("h3");h.textContent=gname;
+    const n=document.createElement("span");const list=ST.filter(s=>s.group===gname);n.textContent=list.length+" states";h.append(n);
+    const grid=document.createElement("div");grid.className="tiles";
+    list.forEach(st=>{const fig=document.createElement("figure");fig.className="tile";
+      const scr=document.createElement("div");scr.className="scr";const cv=document.createElement("canvas");cv.setAttribute("role","img");cv.setAttribute("aria-label",st.name+" screen");scr.append(cv);
+      const cap=document.createElement("figcaption");const b=document.createElement("b");b.textContent=st.name;const fid=document.createElement("span");fid.className="fid";fid.textContent=st.id;
+      const dl=document.createElement("dl");[["LEDs",st.led],["Input",st.input]].forEach(([k,v])=>{const dt=document.createElement("dt");dt.textContent=k;const dd=document.createElement("dd");dd.textContent=v;dl.append(dt,dd)});
+      cap.append(b,dl,fid);fig.append(scr,cap);grid.append(fig);tileCv.push({cv,st,scr})});
+    sec.append(h,grid);invEl.append(sec)})}
+function drawTiles(){tileCv.forEach(({cv,st,scr})=>{const w=Math.max(200,scr.clientWidth-12);const P=Math.max(2,Math.floor(w*dpr/(W+4)));
+  const d=sampleOf(st.id),tm={t:0,ph:st.sample.ph||0};const f=frameOf(st.id,d,tm);
+  render(cv,f.b,f.leds,{P,pad:2,smoked:VIEW.smoked,color:VIEW.color});cv.style.width=(cv.width/dpr)+"px";cv.style.height=(cv.height/dpr)+"px"})}
+const typeEl=$("typesheet");let typeItems=[];
+function buildType(){
+  const rows=[["5 × 7, letters","ABCDEFGHIJKLM",F5,1],["","NOPQRSTUVWXYZ",F5,1],["5 × 7, digits and marks","0123456789 :.-/%,'!?+()",F5,1],
+    ["2× numbers, 1 dot tracking","0123456789",F5,2],["3 × 5, letters","ABCDEFGHIJKLMNOPQRSTUVWXYZ",F3,1],["3 × 5, digits and marks","0123456789 :.-/%,'!?+()",F3,1]];
+  rows.forEach(([lab,s,f,sc])=>{const r=document.createElement("div");r.className="trow";if(lab){const l=document.createElement("span");l.className="small muted";l.textContent=lab;r.append(l)}
+    const scr=document.createElement("div");scr.className="scr";const cv=document.createElement("canvas");cv.setAttribute("aria-label",(lab||"letters")+": "+s);cv.setAttribute("role","img");scr.append(cv);r.append(scr);typeEl.append(r);
+    typeItems.push({cv,s,f,sc,scr,wrap:true})});
+  const r=document.createElement("div");r.className="trow";const l=document.createElement("span");l.className="small muted";l.textContent="Icons, 7 rows, set on the same grid as the letters";r.append(l);
+  const scr=document.createElement("div");scr.className="scr";
+  const icons=[["play","play"],["pause","pause"],["note","music"],["sat","GPS"],["bat3","battery"],["hp","headphones"],["heart","heart"],["bt","bluetooth"],["check","done"],["cross","no"],["arrow","pointer"],["up","upload"],["down","download"],["sync","update"],["shuffle","shuffle"],["loop","loop"],["bolt","charging"]];
+  icons.forEach(([k,lab])=>{const it=document.createElement("div");it.className="icon";const cv=document.createElement("canvas");cv.setAttribute("role","img");cv.setAttribute("aria-label",lab+" icon");const sp=document.createElement("span");sp.textContent=lab;it.append(cv,sp);scr.append(it);typeItems.push({cv,s:"{"+k+"}",f:F5,sc:1})});
+  r.append(scr);typeEl.append(r)}
+function drawType(){typeItems.forEach(it=>{let P=it.sc===2?3:4;if(it.wrap){const avail=it.scr.clientWidth-20,w=measure(it.s,{font:it.f,sc:it.sc})+2;P=Math.max(1.5,Math.min(P*1.5,avail/w))}smallCanvas(it.cv,it.s,P,it.f,it.sc)})}
+function drawNums(){document.querySelectorAll("canvas[data-num]").forEach(cv=>smallCanvas(cv,cv.dataset.num,2.4,F5,1))}
+function redrawStatic(){drawTiles();drawType();drawNums();lastKey=""}
+
+/* ============================================================
+   9. Interaction map (inline SVG, hand placed)
+   ============================================================ */
+function buildMap(){const B=(x,y,w,h,t,s,cls)=>`<rect class="bx ${cls||""}" x="${x}" y="${y}" width="${w}" height="${h}" rx="3"/><text x="${x+8}" y="${y+(s?15:17)}">${t}</text>`+(s?`<text class="s" x="${x+8}" y="${y+28}">${s}</text>`:"");
+  const A=(d,h,dash)=>`<path class="ln ${h?"h":""} ${dash?"dd":""}" d="${d}" marker-end="url(#${h?"ahh":"ah"})"/>`;
+  const E=(x,y,t,h,anchor)=>`<text class="${h?"eh":"e"}" x="${x}" y="${y}"${anchor?` text-anchor="${anchor}"`:""}>${t}</text>`;
+  const svg=`<svg viewBox="0 0 400 590" role="img" aria-labelledby="map-t map-d"><title id="map-t">DASH interaction map</title>
+<desc id="map-d">Boot leads to Idle. Double press cycles Idle, Music and Run. On Music, hold opens the playlist list; press moves to the next item; hold picks. On Run, GPS search leads to ready, press or moving starts the run, press or stopping pauses it, hold ends and saves, and the summary returns to Idle. From any screen, holding 8 seconds opens pairing: searching, found, connected; press cancels. On the dock: four sync stages, then charging; lifting returns to Idle.</desc>
+<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L8 4 L0 8 z"/></marker>
+<marker id="ahh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah h" d="M0 0 L8 4 L0 8 z"/></marker></defs>
+${B(10,8,112,26,"Boot")}
+${A("M40 34 V68")}
+${E(46,55,"2.4 s")}
+${B(10,70,112,34,"Idle","press: battery","main")}
+${B(144,70,112,34,"Music","press: info","main")}
+${B(278,70,112,34,"Run","GPS search","main")}
+${A("M122 87 H142")}${E(127,82,"2×")}
+${A("M256 87 H276")}${E(261,82,"2×")}
+<path class="ln" d="M334 70 V50 H96 V68" marker-end="url(#ah)"/>${E(215,45,"2×","","middle")}
+${A("M200 104 V138",1)}${E(206,124,"hold",1)}
+${B(144,140,112,34,"Playlist list","press: next item")}
+${A("M200 174 V208",1)}${E(206,194,"hold",1)}
+${B(144,210,112,34,"Picked","back to Music")}
+${A("M334 104 V138")}${E(328,124,"fix, or no fix","","end")}
+${B(278,140,112,34,"Ready","locked or EST")}
+${A("M334 174 V208")}${E(328,194,"press or move","","end")}
+${B(278,210,112,34,"Running","km: split flash")}
+${A("M320 244 V278")}${E(314,264,"press","","end")}
+${A("M348 278 V246")}${E(354,264,"press")}
+${B(278,280,112,34,"Paused","manual or auto")}
+<path class="ln h" d="M278 227 H266 V355 H276" marker-end="url(#ahh)"/>${E(260,300,"hold","1","end")}
+${A("M334 314 V348",1)}${E(340,334,"hold",1)}
+${B(278,350,112,34,"Saved","then summary")}
+<path class="ln" d="M278 375 H66 V106" marker-end="url(#ah)"/>${E(72,370,"5 s or press")}
+<line x1="10" y1="404" x2="390" y2="404" stroke="var(--line2)"/>
+${E(10,424,"any screen",0)}${E(80,424,"hold 8 s",1)}
+${A("M66 430 V448",1)}
+${B(10,450,112,34,"Searching","press: cancel")}
+${B(144,450,112,34,"Found","name on screen")}
+${B(278,450,112,34,"Connected","back to last")}
+${A("M122 467 H142")}${A("M256 467 H276")}
+${E(10,514,"on dock",0)}
+${A("M66 520 V538")}
+${B(10,540,112,34,"Sync","4 stages")}
+${B(144,540,112,34,"Charging","% on screen")}
+${B(278,540,112,34,"Lift off","wakes to Idle")}
+${A("M122 557 H142")}${A("M256 557 H276")}
+</svg>`;$("mapsvg").innerHTML=svg}
+
+/* ============================================================
+   10. Export API (used by the PNG export script)
+   ============================================================ */
+window.DASH={
+  states:()=>ST.map(s=>({id:s.id,group:s.group,name:s.name,led:s.led,input:s.input})),
+  png(id,color,P=8,pad=2){const cv=document.createElement("canvas");const d=sampleOf(id),f=frameOf(id,d,{t:0,ph:BYID[id].sample.ph||0});
+    render(cv,f.b,f.leds,{P,pad,smoked:true,color});return cv.toDataURL("image/png")},
+  sheet(color,P=8,cols=5){const pad=2,cw=(W+pad*2)*P,ch=(ROWS_TOTAL+pad*2)*P,lab=40,gap=24,m=48;
+    const rows=Math.ceil(ST.length/cols),cv=document.createElement("canvas");cv.width=m*2+cols*cw+(cols-1)*gap;cv.height=m*2+rows*(ch+lab)+(rows-1)*gap;
+    const c=cv.getContext("2d");c.fillStyle="#000";c.fillRect(0,0,cv.width,cv.height);const tmp=document.createElement("canvas");
+    ST.forEach((s,i)=>{const x=m+(i%cols)*(cw+gap),y=m+Math.floor(i/cols)*(ch+lab+gap);const d=sampleOf(s.id),f=frameOf(s.id,d,{t:0,ph:s.sample.ph||0});
+      render(tmp,f.b,f.leds,{P,pad,smoked:true,color});c.drawImage(tmp,x,y);
+      c.fillStyle="#2a2b2c";c.fillRect(x,y+ch+6,cw,1);c.fillStyle="#d8d6d0";c.font="500 18px 'IBM Plex Mono', monospace";c.fillText(s.name,x,y+ch+30);
+      c.fillStyle="#8d8b85";c.font="400 15px 'IBM Plex Mono', monospace";const w=c.measureText(s.id).width;c.fillText(s.id,x+cw-w,y+ch+30)});
+    return cv.toDataURL("image/png")},
+  overflow(){const out=[];ST.forEach(s=>{const ph=s.sample.ph||0;[0,.7,1.3,2.6,5.1].forEach(t=>{OVER=0;frameOf(s.id,sampleOf(s.id),{t,ph});if(OVER)out.push(s.id+"@"+t+":"+OVER)})});
+    // stress the long values too
+    const extra=[["run-distance",{dist:12.4}],["run-time",{runSec:3871}],["run-pace",{pace:599}],["run-hr",{hr:188}],["idle",{clock:23*3600+59*60}],["menu-playlist",{menuIdx:5,pl:5}],["menu-playlist",{menuIdx:1,pl:1}],["music",{pos:3599,trackNo:48,trackCount:48}],["dock-music",{songs:120}],["run-paused",{runSec:3599,dist:12.34}],["run-saved",{runSec:3599,dist:12.34}],["music-info",{pl:1,shuffle:false,loop:0,trackNo:48,trackCount:48}],["menu-loop",{loop:0}],["menu-shuffle",{shuffle:false}],["menu-picked",{pl:5}],["dock-charging",{charge:99}]];
+    extra.forEach(([id,o])=>{OVER=0;frameOf(id,Object.assign(sampleOf(id),o),{t:0,ph:0});if(OVER)out.push(id+" "+JSON.stringify(o)+":"+OVER)});return out},
+  model:M
+};
+
+/* boot */
+buildMap();buildInventory();buildType();layout();
+function afterFonts(){redrawStatic()}
+redrawStatic();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(afterFonts);
+syncPlay();log("Power on");
+let rt=0;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();redrawStatic()},120)});
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
