@@ -416,5 +416,14 @@
     "pr": [
       54
     ]
+  },
+  {
+    "v": 48,
+    "commit": "6fcab1a789b1201c9258604b02cea716b08c291a",
+    "date": "2026-11-15",
+    "title": "Add Ideakicks to resume section and PDF",
+    "pr": [
+      55
+    ]
   }
 ]

@@ -1,0 +1,29 @@
+{
+  "name": "PUMA Design",
+  "gunj": "GUNJ-047",
+  "wave": 1,
+  "greeting": "Prepared for PUMA Design",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "dash",
+  "multipliers": {
+    "cmf": 1.3,
+    "rendering": 1.3,
+    "sketching": 1.2
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.0,
+    "dash": 1.3
+  },
+  "pitch": {
+    "title": "Why PUMA Design",
+    "lines": [
+      "PUMA blends performance with sport culture, and that is the space DASH lives in.",
+      "DASH is a music player for runners without a phone, with wearable mounts and Strava sync.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  }
+}
