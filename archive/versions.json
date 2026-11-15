@@ -398,5 +398,14 @@
     "pr": [
       52
     ]
+  },
+  {
+    "v": 46,
+    "commit": "8562967a8dfd8fe7b0c64e13b7c2e42be599b782",
+    "date": "2026-11-15",
+    "title": "overgrwth: grow the lattice with + / \u2212, solid filleted headers",
+    "pr": [
+      53
+    ]
   }
 ]
