@@ -157,6 +157,27 @@ section{scroll-margin-top:calc(64px + var(--wip-h,34px))}
 /* dash */
 .dash{background:linear-gradient(110deg,#05070d 0%,#0b1a3a 55%,#1b2f6b 100%);color:#fff;padding:clamp(56px,9vw,120px) var(--gutter);border-bottom:1px solid var(--line)}
 .dash h2{font-size:clamp(40px,7vw,96px);letter-spacing:.04em}
+.dash .dx-lead{max-width:60ch;color:rgba(255,255,255,.85);font-size:clamp(16px,1.6vw,19px)}
+.dash figure{margin:0}.dash img{display:block;width:100%;height:auto;border-radius:6px}
+.dash .dx-hero{margin:clamp(24px,4vw,48px) 0}
+.dash .dx-h{font-family:Michroma,sans-serif;font-size:clamp(16px,1.8vw,20px);letter-spacing:.06em;margin:clamp(40px,6vw,72px) 0 12px}
+.dash .dx-p{max-width:62ch;color:rgba(255,255,255,.78);margin:0 0 20px}
+.dash .dx-grid{display:grid;gap:clamp(12px,2vw,24px)}
+.dash .dx-2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.dash .dx-3{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.dash .dx-4{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));border-top:1px solid rgba(255,255,255,.18)}
+.dash .dx-4>div{padding:14px 0;display:grid;gap:4px;border-bottom:1px solid rgba(255,255,255,.12)}
+.dash .dx-4 span,.dash figcaption{color:rgba(255,255,255,.65);font-size:13px}
+.dash figcaption{margin-top:6px}
+.dash .dx-screens{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:12px;margin-bottom:16px}
+.dash .dx-screens figure{background:#050506;border-radius:6px;padding:10px}
+.dash .dx-screens img{image-rendering:pixelated}
+.dash .dx-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;background:#fff;color:#05070d;border-radius:4px;text-decoration:none;font-weight:600}
+.dash .dx-parts{margin:16px 0 0;padding-left:20px;color:rgba(255,255,255,.8);display:grid;gap:6px;font-size:14px}
+.dash .dx-spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));margin:clamp(40px,6vw,64px) 0 0;border-top:1px solid rgba(255,255,255,.18)}
+.dash .dx-spec div{padding:12px 16px 12px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.dash .dx-spec dt{font-size:12px;color:rgba(255,255,255,.55)}.dash .dx-spec dd{margin:2px 0 0}
+.dash .dx-note{font-size:12px;color:rgba(255,255,255,.5);margin-top:16px}
 
 /* about */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);border-bottom:1px solid var(--line)}
@@ -561,7 +582,7 @@ footer .socials .ico svg{width:13px;height:13px}
 
 
 <header>
-  <div class="wip" role="note"><b>Under construction</b><span class="msg">This portfolio is still being built. DASH, more projects and the live voice agent are on the way.</span><span class="upd" data-updated></span></div>
+  <div class="wip" role="note"><b>Under construction</b><span class="msg">This portfolio is still being built. More projects and the live voice agent are on the way.</span><span class="upd" data-updated></span></div>
   <div class="wrap">
     <a class="wordmark" href="#top">ABHIK<span>GUPTA</span></a>
   </div>
@@ -1291,9 +1312,71 @@ footer .socials .ico svg{width:13px;height:13px}
 
 <!-- ============ DASH ============ -->
 <section id="dash" class="dash" data-project="dash" data-type="concept">
-  <div class="eyebrow" style="color:rgba(255,255,255,.6)"><span data-num>03</span> · Solo concept</div>
+  <div class="eyebrow" style="color:rgba(255,255,255,.6)"><span data-num>03</span> · Solo concept · 2026</div>
   <h2 style="margin:12px 0 16px">DASH</h2>
-  <p style="max-width:52ch;color:rgba(255,255,255,.8)" data-slide="dash-wip" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>Under construction. The case study is coming soon. <span class="upd" data-updated></span></p>
+  <p class="dx-lead" data-slide="dash-cover" data-tiers="preview overview full" data-base="1" data-skills="electronics,interaction" data-required>A one-button music player for runners who leave the phone at home. Offline music to Bluetooth headphones, GPS for the run, a dot-matrix screen under smoked silicone, and a home dock that sends the run to Strava.</p>
+  <figure class="dx-hero" data-slide="dash-hero" data-tiers="preview overview full" data-base="1" data-skills="cad,rendering"><img src="img/dash/hero.jpg" alt="DASH on its silicone strap: a slim curved pod with a smoked window and a steel pin buckle" loading="lazy"></figure>
+
+  <div class="dx-grid dx-4" data-slide="dash-what" data-tiers="overview full" data-base="1" data-skills="product,interaction">
+    <div><b>Music</b><span>4 GB on board. Play, skip and volume stay on the headphones.</span></div>
+    <div><b>Run</b><span>GPS pace, distance and time. Four LEDs show if you are on pace.</span></div>
+    <div><b>One button</b><span>The whole face clicks. Press, double press, hold.</span></div>
+    <div><b>Dock</b><span>Charges, loads playlists and sends runs to Strava. No USB port on the pod.</span></div>
+  </div>
+
+  <h3 class="dx-h">Screen</h3>
+  <p class="dx-p">64 × 16 dots on a curved mono OLED, with four LEDs below it, under a 0.3 mm smoked silicone window. Off, it reads as plain black. Every screen is set by hand in a 5 × 7 dot font.</p>
+  <div class="dx-screens" data-slide="dash-screens" data-tiers="overview full" data-base="1" data-skills="interaction,ui">
+    <figure><img src="img/dash/screens/idle.png" alt="Idle screen: big clock, battery on the LEDs" loading="lazy"><figcaption>Idle</figcaption></figure>
+    <figure><img src="img/dash/screens/music.png" alt="Music screen: scrolling title, elapsed time" loading="lazy"><figcaption>Music</figcaption></figure>
+    <figure><img src="img/dash/screens/menu-playlist.png" alt="Playlist list" loading="lazy"><figcaption>Playlists</figcaption></figure>
+    <figure><img src="img/dash/screens/gps-search.png" alt="GPS search with a chasing light" loading="lazy"><figcaption>GPS search</figcaption></figure>
+    <figure><img src="img/dash/screens/run-pace.png" alt="Run pace in big numbers, LEDs as pace guide" loading="lazy"><figcaption>Pace</figcaption></figure>
+    <figure><img src="img/dash/screens/km-split.png" alt="Km split flash" loading="lazy"><figcaption>Km split</figcaption></figure>
+    <figure><img src="img/dash/screens/pair-connected.png" alt="Headphones connected" loading="lazy"><figcaption>Pairing</figcaption></figure>
+    <figure><img src="img/dash/screens/dock-charging.png" alt="Charging on the dock" loading="lazy"><figcaption>Dock</figcaption></figure>
+  </div>
+  <p class="dx-p"><a class="dx-btn" href="dash-screens/" target="_blank" rel="noopener">Try all 43 screens</a></p>
+
+  <h3 class="dx-h">Inside</h3>
+  <div class="dx-grid dx-2" data-slide="dash-inside" data-tiers="overview full" data-base="1" data-skills="cad,electronics">
+    <figure><img src="img/dash/exploded.jpg" alt="Exploded view of the DASH pod" loading="lazy"></figure>
+    <div>
+      <figure><img src="img/dash/inside.jpg" alt="Pod with the top cover removed, showing the three-island board" loading="lazy"></figure>
+      <ol class="dx-parts">
+        <li>Smoked lens and curved 64 × 16 OLED, bonded</li>
+        <li>Top cover, floats 0.3 mm on a metal dome: the whole face is the button</li>
+        <li>Rigid-flex board in three islands that follow the curve: Bluetooth audio, GNSS, 4 GB storage</li>
+        <li>Curved 30 × 17 × 4 mm battery, about 5 h with GPS and music</li>
+        <li>Coin vibration motor for presses and each km</li>
+        <li>Four gold pads and two magnets on the back, for the dock</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 class="dx-h">Home dock</h3>
+  <p class="dx-p">The band slides onto a pillow shaped like a wrist. Magnets pull the pod onto four spring pins. The dock does the Wi-Fi and the USB-C, so the pod does not have to.</p>
+  <div class="dx-grid dx-2" data-slide="dash-dock" data-tiers="overview full" data-base="1" data-skills="cad,product">
+    <figure><img src="img/dash/dock.jpg" alt="DASH band on its dock" loading="lazy"></figure>
+    <figure><img src="img/dash/dock-exploded.jpg" alt="Exploded dock: pogo pins, body, board, zinc weight, foot" loading="lazy"></figure>
+  </div>
+
+  <h3 class="dx-h">Colour</h3>
+  <div class="dx-grid dx-3" data-slide="dash-cmf" data-tiers="overview full" data-base="1" data-skills="cmf">
+    <figure><img src="img/dash/cmf-graphite.jpg" alt="Graphite colourway" loading="lazy"><figcaption>Graphite, amber dots</figcaption></figure>
+    <figure><img src="img/dash/cmf-chalk.jpg" alt="Chalk colourway" loading="lazy"><figcaption>Chalk, amber dots</figcaption></figure>
+    <figure><img src="img/dash/cmf-signal.jpg" alt="Signal colourway" loading="lazy"><figcaption>Signal, white dots</figcaption></figure>
+  </div>
+
+  <dl class="dx-spec">
+    <div><dt>Pod</dt><dd>42 × 20 × 10 mm, curved R 36 to the wrist</dd></div>
+    <div><dt>Screen</dt><dd>64 × 16 dots, 0.46 mm pitch, 4 LEDs</dd></div>
+    <div><dt>Input</dt><dd>1 button, the face</dd></div>
+    <div><dt>Battery</dt><dd>About 5 h, GPS and music</dd></div>
+    <div><dt>Strap</dt><dd>Two-shot silicone, 316L pin buckle</dd></div>
+    <div><dt>Parts</dt><dd>84 in CAD, no clashes</dd></div>
+  </dl>
+  <p class="dx-note">Concept. Renders are early previews; dimensions are estimates from typical parts.</p>
   <div class="mix" data-playlist="dash" hidden><div class="mix-label">What I listened to while making DASH</div><div class="mix-frame"></div></div>
 </section>
 
