@@ -9,13 +9,27 @@
   "versions": {},
   "lead": "overgrwth",
   "multipliers": {
-    "cmf": 1.5,
-    "rendering": 1.3
+    "sketching": 2.0,
+    "cad": 0.75,
+    "rendering": 1.6,
+    "cmf": 2.0,
+    "prototyping": 1.95,
+    "electronics": 0.5,
+    "interaction": 0.6,
+    "ui": 0.5,
+    "research": 1.1,
+    "systems": 0.75,
+    "branding": 0.9,
+    "packaging": 0.8
   },
   "projects": {
-    "overgrwth": 1.3,
+    "overgrwth": 1.25,
     "cortx": 1.0,
-    "dash": 0
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
   },
   "pitch": {
     "title": "Why Sebastian Herkner Studio",
@@ -24,5 +38,14 @@
       "overgrwth's CMF assigns colour by role: green to set down, red for water and soil, yellow to hang, blue to pin.",
       "Available from January 2027 for a compulsory internship of six months or more."
     ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
   }
 }

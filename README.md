@@ -16,7 +16,7 @@ One page, many versions. The content stays in `index.html`; `js/engine.js` decid
 - **Projects** are `<section data-project="id" data-type="concept|industry|misc">`. Add `data-draft` to keep a project in the bank but hidden until a profile asks for it (Evoluir, Goodknocks, nnode and Miscellaneous are drafts for now).
 - **Slides** inside a project carry `data-slide="id"`, `data-base` (base weight), `data-skills="cmf,rendering,…"` and optionally `data-required` (never cut).
 - **Profiles** live in `profiles/<id>.json`: `name`, `greeting`, `multipliers` (skill → number), `projects` (project → number, 0 hides it), `threshold` (slides scoring below it are cut) and `voiceAgent`. `profiles/default.json` is the open version; `profiles/_example-studio.json` shows every field.
-- **Scoring** is one function, `score()` in `js/engine.js`: base × project multiplier × mean of the slide's skill multipliers. Projects are ordered by their total score, and the nav and gallery follow. A profile can fix the order instead with `"order": [project ids]`; `profiles/default.json` (the open site) uses it to keep overgrwth, then CortX, then DASH.
+- **Scoring** is one function, `score()` in `js/engine.js`: base × project multiplier × mean of the slide's skill multipliers. A profile's `budget` then keeps only the best slides per project (see Weightage). Projects are ordered by their total score, and the nav and gallery follow. A profile can fix the order instead with `"order": [project ids]`; `profiles/default.json` (the open site) uses it to keep overgrwth, then CortX, then DASH.
 - **Open a version:** `/#<id>` or `/?profile=<id>`. An unknown `#name` falls back to the open version with "Prepared for Name".
 
 ### Preview, overview, full case study
@@ -29,6 +29,23 @@ Every project comes in three lengths. Full has every card, overview has the card
 - A profile picks the version with `version` (default for every project, `overview` if unset) and `versions` (per project, e.g. `{"cortx": "preview"}`). `?version=preview` forces one version for the whole page.
 - The version filters first, then the weights cut inside it. Preview cards are never cut by weight.
 - Only previews and overviews are built for now, so the open version shows overviews.
+
+### Weightage (per-studio weights)
+
+`tools/weightage/build.py` turns the GUNJ studio research into each studio's weights. Defaults and the reasoning are in the doc "Portfolio weightage: 7 questions"; abhik tunes them in the private tuner artifact.
+
+- **Skill multipliers** (0.5x to 2x) for the 12 slide tags in `tools/weightage/skills.py`, counted in each studio's research and compared with the average of all 200 studios.
+- **Lead project** gets 1.25x and is never cut. A lead without a case study yet (DASH today) passes to the finished project the studio's skills favour.
+- **Budget**: `"budget": {"site": 12, "pdf": 6}` keeps the best-scoring slides (or PDF pages) per non-lead project. `data-required` slides and the hero and hook cards always stay. No budget = nothing cut by count (the open site).
+- **Industry boost** 1.2x for consultancies, applied once Evoluir, goodknocks or nnode have slides (`INDUSTRY_READY` in the script).
+
+```
+python3 tools/weightage/build.py                     # all 200 -> /mnt/project-files/applications/weightage/ (private)
+python3 tools/weightage/build.py --publish wave1     # refresh the wave 1 profiles in profiles/
+python3 tools/weightage/build.py --overrides tuner.json --apply-base --publish braun
+```
+
+`--publish` keeps a profile's hand-written fields (name, greeting, pitch, voiceAgent) and replaces only `multipliers`, `projects`, `lead`, `budget` and `threshold`. Only publish studios you are applying to: everything in `profiles/` is public on GitHub Pages.
 
 ### Square cards
 
