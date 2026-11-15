@@ -147,7 +147,7 @@ const tex = (f) => { const t = texLoader.load(A + f, () => wake()); t.colorSpace
 const stations = {}; // id -> { group, focus: {target, pos}, tagAt: Vector3 }
 const pickables = [];
 function station(id, group) { group.userData.station = id; group.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; o.userData.station = id; pickables.push(o); } }); scene.add(group); stations[id] = { group }; return group; }
-const bbox = (o) => new THREE.Box3().setFromObject(o);
+const bbox = (o) => { o.updateMatrixWorld(true); return new THREE.Box3().setFromObject(o, true); };
 
 /* bench along the back wall: oak top, black steel frame */
 const bench = new THREE.Group();
@@ -415,7 +415,7 @@ function homeView() {
   for (const id of ids) { const b = bbox(stations[id].group); all.union(b); pts.push(...corners(b)); if (stations[id].tagAt) pts.push(stations[id].tagAt.clone().add(new THREE.Vector3(0, 0.12, 0))); }
   for (const o of (phone() ? [plinth] : [plinth, badge, ogPrint, cxPrint])) { const b = bbox(o); all.union(b); pts.push(...corners(b)); }
   const target = all.getCenter(new THREE.Vector3());
-  const dir = phone() ? new THREE.Vector3(0.62, 1.05, 1).normalize() : new THREE.Vector3(0.62, 0.3, 1).normalize();
+  const dir = phone() ? new THREE.Vector3(1, 0.62, 0.5).normalize() : new THREE.Vector3(0.62, 0.3, 1).normalize();
   Object.assign(HOME, fit(pts, target, dir, fovFor(), region('home')));
   return HOME;
 }
@@ -580,6 +580,12 @@ manager.onLoad = () => {
   layout();
   const id = location.hash.slice(1);
   if (PROJECTS[id]) setTimeout(() => openProject(id, false), 300);
+  else if (!reduce) {
+    // entrance: the camera settles into the room as the loader lifts
+    const d = new THREE.Vector3().subVectors(HOME.pos, HOME.target);
+    jump({ ...HOME, pos: HOME.target.clone().addScaledVector(d, 1.3).add(new THREE.Vector3(0, 0.6, 0)) });
+    fly(HOME, 2200);
+  }
 };
 manager.onError = () => { say('One model did not load. The rest of the room still works.'); };
 addEventListener('resize', () => {
