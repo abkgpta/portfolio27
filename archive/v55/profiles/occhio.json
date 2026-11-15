@@ -1,0 +1,51 @@
+{
+  "name": "Occhio",
+  "gunj": "GUNJ-148",
+  "wave": 1,
+  "greeting": "Prepared for Occhio",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "overgrwth",
+  "multipliers": {
+    "sketching": 0.95,
+    "cad": 0.75,
+    "rendering": 1.95,
+    "cmf": 1.2,
+    "prototyping": 1.25,
+    "electronics": 0.5,
+    "interaction": 0.6,
+    "ui": 0.9,
+    "research": 0.65,
+    "systems": 2.0,
+    "branding": 1.4,
+    "packaging": 0.85
+  },
+  "projects": {
+    "overgrwth": 1.25,
+    "cortx": 1.0,
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  },
+  "pitch": {
+    "title": "Why Occhio",
+    "lines": [
+      "Occhio thinks about light as a system, and so does overgrwth.",
+      "Its spotlight and grow light clip onto the same frame, powered through one power foot.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
+  }
+}

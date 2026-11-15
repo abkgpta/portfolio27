@@ -1,0 +1,51 @@
+{
+  "name": "tonies",
+  "gunj": "GUNJ-098",
+  "wave": 1,
+  "greeting": "Prepared for tonies",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "cortx",
+  "multipliers": {
+    "sketching": 2.0,
+    "cad": 0.75,
+    "rendering": 0.75,
+    "cmf": 0.5,
+    "prototyping": 0.95,
+    "electronics": 2.0,
+    "interaction": 1.65,
+    "ui": 2.0,
+    "research": 1.1,
+    "systems": 0.5,
+    "branding": 0.55,
+    "packaging": 0.85
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.25,
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  },
+  "pitch": {
+    "title": "Why tonies",
+    "lines": [
+      "The Toniebox proves an audio player can work without a screen to stare at.",
+      "DASH comes from the same idea for runners: music without the phone, one button, a tiny display.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
+  }
+}
