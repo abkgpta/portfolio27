@@ -351,6 +351,7 @@
 .cxa-pop .cxa-flags{display:grid}
 .cxa-pop .cxa-hgrid{margin-top:4px}
 .cxa-alert{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:7;margin:0;width:min(760px,calc(100% - 32px));background:rgba(30,40,14,.88)}
+.cxa-alert-act{background:rgba(48,14,14,.9);border-color:rgba(255,25,15,.4)}
 
 @media (max-width:1180px){
   .cxa-view{grid-template-columns:minmax(0,220px) minmax(0,1fr) minmax(0,230px)}

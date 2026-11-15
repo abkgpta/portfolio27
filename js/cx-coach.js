@@ -390,7 +390,11 @@
 
   function render(keepScroll) {
     const y = body.scrollTop, popY = root.querySelector('.cxa-pop-b')?.scrollTop || 0, chipX = root.querySelector('.cxa-chips')?.scrollLeft || 0;
-    const alert = ui.alert && !ui.expand && (ui.view === 'squad' || ui.view === 'player') ? `<div class="cxa-alert" role="alert">${dot('head')}<b>Head impact · Rooney, header at ${fmtClock(ui.alertAt)}</b><span>Logged by the headset. Check at the next stop.</span><button class="cxa-text" data-close="1">Dismiss</button><button data-open="10" class="cxa-btn">Open Rooney</button></div>` : '';
+    // only two things ever interrupt the coach live: a head impact, or a player going red (overload)
+    const al = ui.alert, ap = al && byN[al.n];
+    const alert = al && !ui.expand && (ui.view === 'squad' || ui.view === 'player') ? (al.k === 'head'
+      ? `<div class="cxa-alert" role="alert">${dot('head')}<b>Head impact · ${ap.name}, header at ${fmtClock(al.at)}</b><span>Logged by the headset. Check at the next stop.</span><button class="cxa-text" data-close="1">Dismiss</button><button data-open="${ap.n}" class="cxa-btn">Open ${ap.name}</button></div>`
+      : `<div class="cxa-alert cxa-alert-act" role="alert">${dot('act')}<b>Overload · ${ap.name}, ${axName(al.worst)} −${al.drop}% at ${fmtClock(al.at)}</b><span>${ADVICE[al.worst][1]} ${ADVICE[al.worst][2]}</span><button class="cxa-text" data-close="1">Dismiss</button><button data-open="${ap.n}" class="cxa-btn">Open ${ap.name}</button></div>`) : '';
     body.innerHTML = VIEWS[ui.view]() + pop() + alert;
     root.dataset.view = ui.view;
     root.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-selected', b.dataset.view === ui.view));
@@ -409,12 +413,12 @@
     const d = t.dataset;
     if (d.chips) { const ch = root.querySelector('.cxa-chips'); ch?.scrollBy({ left: +d.chips * ch.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); return; }
     if (d.view) { ui.view = d.view; ui.expand = ''; }
-    else if (d.open) { ui.player = +d.open; ui.view = 'player'; ui.expand = ''; if (+d.open === 10) ui.alert = false; }
+    else if (d.open) { ui.player = +d.open; ui.view = 'player'; ui.expand = ''; if (ui.alert && +d.open === ui.alert.n) ui.alert = null; }
     else if (d.expand) ui.expand = d.expand;
     else if (d.closePop) ui.expand = '';
     else if (d.mode) ui.mode = d.mode;
     else if (d.smode) ui.seasonMode = d.smode;
-    else if (d.close) ui.alert = false;
+    else if (d.close) ui.alert = null;
     else if (d.confirm) ui.confirmed.add(+d.confirm);
     else if (d.dismiss) ui.dismissed.add(+d.dismiss);
     else if (d.send) ui.sent.add(d.send);
@@ -452,12 +456,15 @@
     if (!on) return;
     if (ts - last > 1000) {
       last = ts; ui.clock++;
-      if (!ui.alertDone && ui.clock >= 38 * 60 + 30) { ui.alertDone = ui.alert = true; ui.alertAt = ui.clock; byN[10].knocks.push([95, 36]); render(true); }
+      if (!ui.alertDone && ui.clock >= 38 * 60 + 30) { ui.alertDone = true; ui.alert = { k: 'head', n: 10, at: ui.clock }; byN[10].knocks.push([95, 36]); render(true); }
+      if (ui.clock >= 39 * 60 + 30) byN[16].target.c = 61; // Carrick tips into the red in pressing
       if (ui.view === 'squad' || ui.view === 'player') clockEl.textContent = fmtClock(ui.clock);
       if (ui.clock % 3 === 0) {
         const r = Math.random;
         SQUAD.forEach(p => AX.forEach(a => { p.now[a.k] += (p.target[a.k] - p.now[a.k]) * .3 + (r() - .5) * 2.4; }));
         byN[18].target.f = Math.max(54, byN[18].target.f - .15);
+        SQUAD.forEach(p => { const st = read(p).state; if (st === 'act' && ui.wasAct && !ui.wasAct.has(p.n) && !ui.sent.has('over' + p.n) && !(ui.alert && ui.alert.k === 'head')) { const { worst, drop } = read(p); ui.sent.add('over' + p.n); ui.alert = { k: 'act', n: p.n, at: ui.clock, worst, drop: Math.round(drop * 100) }; } });
+        ui.wasAct = new Set(SQUAD.filter(p => read(p).state === 'act').map(p => p.n));
         if ((ui.view === 'squad' || ui.view === 'player') && !ui.expand) {
           const a = document.activeElement, keyAttr = a && root.contains(a) && ['open', 'mode', 'view', 'pick', 'smode', 'expand'].find(k => a.dataset[k] !== undefined);
           const sel = keyAttr && `[data-${keyAttr}="${a.dataset[keyAttr]}"]`;
