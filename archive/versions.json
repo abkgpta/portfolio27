@@ -443,5 +443,14 @@
     "pr": [
       60
     ]
+  },
+  {
+    "v": 51,
+    "commit": "1dddafd79c2e6c3227f44002e2329e3a94b30885",
+    "date": "2026-11-15",
+    "title": "CortX: liner close-up re-rendered with the deeper orange",
+    "pr": [
+      61
+    ]
   }
 ]
