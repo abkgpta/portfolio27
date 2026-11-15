@@ -461,5 +461,14 @@
     "pr": [
       63
     ]
+  },
+  {
+    "v": 53,
+    "commit": "c1c0ea2c1de5286696256ec6dfcec8bbf5f378b4",
+    "date": "2026-11-15",
+    "title": "Audit batch A: remove unfinished signs, link preview, current cortX in the PDF",
+    "pr": [
+      57
+    ]
   }
 ]
