@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ABK studio room</title>
+<meta name="description" content="abhik gupta: industrial &amp; experiential design. A studio room where each object opens a project.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+:root{
+  --pink:#FF006A; --cream:#F7F2EF; --cream2:#FCEDE6; --ink:#0A0A0A; --muted:#5b5652;
+  --display:'Michroma',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --gap:clamp(16px,3vw,40px); --panel:min(420px,34vw);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--cream);color:var(--ink);font:400 15px/1.6 var(--mono);-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+/* stage */
+#stage{position:fixed;inset:0;touch-action:none}
+#stage canvas{display:block;width:100%;height:100%}
+
+/* title block, top left */
+.intro{position:fixed;top:var(--gap);left:var(--gap);right:var(--gap);z-index:5;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.intro h1{font:400 clamp(20px,2.3vw,34px)/1.12 var(--display);letter-spacing:-.01em;max-width:17ch}
+.intro p{margin-top:16px;font-size:15px;max-width:34ch}
+.intro .wordmark{pointer-events:auto;font:400 13px/1 var(--display);letter-spacing:.04em;text-decoration:none;white-space:nowrap;padding:12px 0}
+body.focused .intro{opacity:0;transition:opacity .3s}
+.intro{transition:opacity .3s}
+
+/* floating object labels: also the keyboard route into each project */
+.tags{position:fixed;inset:0;z-index:6;pointer-events:none}
+.tag{position:absolute;left:0;top:0;pointer-events:auto;border:0;background:var(--ink);color:var(--cream);font:500 13px/1 var(--mono);padding:0 14px;min-height:44px;display:inline-flex;align-items:center;gap:10px;white-space:nowrap;transform:translate(-50%,-100%);transition:background .2s,color .2s,opacity .3s;will-change:transform}
+.tag::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:18px;background:var(--ink);transform:translateX(-50%);transition:background .2s}
+.tag small{font-size:11px;opacity:.75}
+.tag:hover,.tag.hot{background:var(--pink);color:var(--ink)}
+.tag:hover::after,.tag.hot::after{background:var(--pink)}
+.tag:active{transform:translate(-50%,-100%) scale(.97)}
+body.focused .tag{opacity:0;pointer-events:none}
+body:not(.ready) .tag{opacity:0}
+
+/* project panel */
+.panel{position:fixed;z-index:10;top:0;right:0;bottom:0;width:var(--panel);background:var(--cream);display:flex;flex-direction:column;padding:var(--gap);gap:20px;overflow-y:auto;transform:translateX(102%);transition:transform .55s cubic-bezier(.2,.7,.1,1);overscroll-behavior:contain}
+.panel.on{transform:none}
+.panel:focus{outline:none}
+.panel h2{font:400 clamp(30px,3vw,46px)/1 var(--display);letter-spacing:-.02em}
+.panel .lede{font-size:16px;max-width:34ch}
+.panel figure{margin:0}
+.panel figure img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;background:var(--cream2)}
+.panel figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.panel dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:13px}
+.panel dt{color:var(--muted)}
+.panel .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border:0;text-decoration:none;font:500 14px/1 var(--mono);background:var(--pink);color:var(--ink);transition:background .2s,transform .15s}
+.btn:hover{background:var(--ink);color:var(--cream)}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:var(--ink);color:var(--cream)}
+.btn.sec:hover{background:var(--pink);color:var(--ink)}
+.btn[aria-disabled=true]{background:var(--cream2);color:var(--muted);cursor:default}
+.panel .hint{font-size:12px;color:var(--muted)}
+
+/* bottom dock, same shape as the live site */
+.dock{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:8;display:flex;align-items:center;gap:2px;background:rgba(10,10,10,.92);color:var(--cream);padding:4px;font-size:12px;letter-spacing:.04em}
+.dock a,.dock button{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;text-decoration:none;border:0;background:none;white-space:nowrap;color:inherit;opacity:.85;transition:opacity .2s,color .2s}
+.dock a:hover,.dock button:hover,.dock [aria-current=true]{opacity:1;color:var(--pink)}
+.dock .cta{background:var(--pink);color:var(--ink);opacity:1;margin-left:4px;padding:0 16px}
+.dock .cta:hover{background:var(--cream);color:var(--ink)}
+body.focused .dock{opacity:0;pointer-events:none}
+
+/* states */
+.status{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:7;font-size:12px;background:var(--cream);padding:8px 12px;display:none}
+.status.on{display:block}
+.fallback{display:none;position:fixed;inset:0;overflow:auto;padding:140px var(--gap) 120px;background:var(--cream);z-index:4}
+.fallback ul{list-style:none;display:grid;gap:32px;max-width:1100px}
+.fallback li a{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;text-decoration:none;align-items:center}
+.fallback img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.fallback h2{font:400 28px/1.1 var(--display)}
+body.nogl .fallback{display:block}
+body.nogl #stage,body.nogl .tags{display:none}
+
+@media (max-width:760px){
+  :root{--panel:100vw}
+  .intro{flex-direction:column-reverse;gap:4px}
+  .intro h1{font-size:19px;max-width:20ch}
+  .intro p{font-size:13px;margin-top:10px;max-width:30ch}
+  .panel{top:auto;height:min(58vh,560px);width:100%;transform:translateY(102%);padding:20px 16px max(20px,env(safe-area-inset-bottom));gap:14px}
+  .panel figure{display:none}
+  .panel h2{font-size:28px}
+  .panel .lede{font-size:14px}
+  .dock{left:12px;right:12px;transform:none;justify-content:space-between;font-size:11px}
+  .dock a,.dock button{padding:0 10px}
+  .fallback li a{grid-template-columns:1fr}
+  .tag{font-size:12px;padding:0 12px}
+  .tag small{display:none}
+}
+@media (prefers-reduced-motion:reduce){.panel,.tag,.btn{transition:none}}
+</style>
+</head>
+<body>
+<script src="/abk/loader.js" data-ground="#f7f2ef"></script>
+
+<div id="stage" aria-hidden="true"></div>
+
+<div class="intro">
+  <div>
+    <h1>abhik gupta: industrial &amp; experiential design</h1>
+    <p>This is the studio. Every object in it is a project. Pick one up.</p>
+  </div>
+</div>
+
+<div class="tags" id="tags">
+  <button class="tag" data-id="overgrwth" type="button" aria-label="Look at overgrwth, the modular workspace system">overgrwth <small>workspace system</small></button>
+  <button class="tag" data-id="cortx" type="button" aria-label="Look at CortX, the neuro-performance headset">CortX <small>headset + dock</small></button>
+  <button class="tag" data-id="dash" type="button" aria-label="Look at DASH, the wrist music player">DASH <small>wrist player</small></button>
+</div>
+
+<aside class="panel" id="panel" aria-live="polite" aria-labelledby="p-title" tabindex="-1">
+  <h2 id="p-title"></h2>
+  <p class="lede" id="p-lede"></p>
+  <figure><img id="p-img" alt="" width="1280" height="800"><figcaption id="p-cap"></figcaption></figure>
+  <dl id="p-meta"></dl>
+  <p class="hint" id="p-hint">Drag to turn it. Pinch or scroll to get closer.</p>
+  <div class="acts">
+    <a class="btn" id="p-open" href="#">Open the project</a>
+    <button class="btn sec" id="p-back" type="button">Back to the room</button>
+  </div>
+</aside>
+
+<nav class="dock" aria-label="Projects">
+  <button type="button" data-go="overgrwth">overgrwth</button>
+  <button type="button" data-go="cortx">CortX</button>
+  <button type="button" data-go="dash">DASH</button>
+  <a class="cta" href="https://abkgpta.github.io/portfolio27/">Full portfolio</a>
+</nav>
+
+<p class="status" id="status" role="status"></p>
+
+<section class="fallback" aria-label="Projects">
+  <ul>
+    <li><a href="https://abkgpta.github.io/portfolio27/#overgrwth"><img src="assets/og4-hero.jpg" alt="overgrwth workspace system, full build"><div><h2>overgrwth</h2><p>A modular workspace system for creative spaces.</p></div></a></li>
+    <li><a href="https://abkgpta.github.io/portfolio27/#cortx"><img src="assets/cx5-pitch-hero.jpg" alt="CortX headset on the pitch at night"><div><h2>CortX</h2><p>A headset and back unit that read the brain and body in real training.</p></div></a></li>
+    <li><a href="https://abkgpta.github.io/portfolio27/#dash"><div><h2>DASH</h2><p>A one-button wrist music player for runners who leave their phone at home. Case study coming soon.</p></div></a></li>
+  </ul>
+</section>
+
+<script type="module" src="room.js"></script>
+</body>
+</html>
