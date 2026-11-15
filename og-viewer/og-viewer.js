@@ -13,34 +13,51 @@ import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
 const BASE=new URL('./',import.meta.url).href;
 const G=533.4, P=914.4, TALL=609.6, SHORT=304.8, R=38.1, CL=35, GLB_BYTES=1735036;
 
-/* ---------------- layouts ---------------- */
-// blocks: frame stacks. i = grid column of the tall post, rows {j: number of stacked frames}.
-// bays: module on 4 clamps between posts (i,j)(i+1,j)(i,j+1)(i+1,j+1). faces: panel between two posts.
-// tops: attachment per post top, every other free top gets an end cap. vines: post + height.
-const LAYOUTS={
-  compact:{label:'Compact',blocks:[{i:0,rows:{0:2,1:2}}],
-    bays:[{i:0,j:0,z:230,k:'planter'},{i:0,j:0,z:560,k:'shelf',props:['books','controller','cds']}],
-    faces:[{a:[0,0],b:[1,0],s:-1,z:360,k:'whiteboard'}],
-    tops:{'0,0':'spot','1,0':'clock','0,1':'grow','1,1':'hub'},
-    vines:[{p:[1,1],z0:260,z1:640}]},
-  moderate:{label:'Moderate',blocks:[{i:0,rows:{0:3,1:3,2:2}}],
-    bays:[{i:0,j:0,z:230,k:'shelf',props:['boombox']},{i:0,j:0,z:560,k:'shelf',props:['books','pot']},{i:0,j:1,z:230,k:'planter'},{i:0,j:1,z:830,k:'shelf',props:['controller','cds','mug']}],
-    faces:[{a:[0,0],b:[1,0],s:-1,z:360,k:'whiteboard'},{a:[0,0],b:[1,0],s:-1,z:870,k:'pegboard'},{a:[0,1],b:[0,2],s:-1,z:300,k:'softboard'}],
-    tops:{'0,0':'spot','1,0':'clock','0,1':'grow','1,1':'speaker','0,2':'hub','1,2':'pen'},
-    vines:[{p:[1,1],z0:260,z1:900},{p:[1,2],z0:260,z1:780}]},
-  expanded:{label:'Expanded',blocks:[{i:0,rows:{0:3,1:3,2:2,3:1}},{i:2,rows:{0:1,1:2,2:3,3:3}}],
-    bays:[{i:0,j:0,z:230,k:'shelf',props:['boombox']},{i:0,j:0,z:560,k:'shelf',props:['books','pot']},{i:0,j:1,z:230,k:'planter'},{i:0,j:1,z:830,k:'shelf',props:['cds','books']},
-      {i:1,j:0,z:420,k:'shelf',props:['controller','cds','mug']},{i:1,j:1,z:560,k:'planter'},{i:1,j:2,z:230,k:'planter'},
-      {i:2,j:1,z:230,k:'shelf',props:['books','controller']},{i:2,j:1,z:600,k:'planter'},{i:2,j:2,z:560,k:'shelf',props:['pot','cds']},{i:2,j:2,z:1150,k:'shelf'}],
-    faces:[{a:[0,0],b:[1,0],s:-1,z:360,k:'whiteboard'},{a:[0,0],b:[1,0],s:-1,z:870,k:'pegboard'},{a:[0,1],b:[0,2],s:-1,z:300,k:'softboard'},{a:[3,2],b:[3,3],s:1,z:300,k:'pegboard'},{a:[2,3],b:[3,3],s:1,z:700,k:'softboard'}],
-    tops:{'0,0':'spot','0,1':'grow','1,1':'clock','0,2':'hub','1,2':'pen','2,1':'speaker','2,2':'grow','2,3':'spot','3,2':'grow','3,3':'hub'},
-    vines:[{p:[1,1],z0:260,z1:1150},{p:[1,2],z0:260,z1:880},{p:[2,1],z0:630,z1:880},{p:[3,1],z0:630,z1:880},{p:[2,2],z0:260,z1:1450},{p:[1,3],z0:60,z1:280}]},
-};
-const KINDS=[ // toggle key, label, part key
-  ['shelf','Shelves'],['planter','Planters'],['whiteboard','Whiteboard'],['pegboard','Pegboard'],['softboard','Softboard'],
-  ['grow','Grow light'],['spot','Spotlight'],['clock','Clock'],['speaker','Speaker'],['hub','Power hub'],['pen','Pen stand'],['clips','Vines']];
-const PRESETS={bare:{label:'Bare',on:[]},home:{label:'Home desk',on:['shelf','whiteboard','clock','pen','hub','spot']},
-  studio:{label:'Studio',on:KINDS.map(k=>k[0])},plant:{label:'Plant corner',on:['shelf','planter','grow','clips','spot']}};
+/* ---------------- growth timeline ---------------- */
+// One owner's lattice over two years. Each step only ADDS to the last one, so + and - walk a single believable story.
+// frames: {'blockI,row': stacked frame count}. Blocks: tall post at grid column blockI (posts blockI and blockI+1).
+// bays: module on 4 clamps between posts (i,j)(i+1,j)(i,j+1)(i+1,j+1). faces: panel between two posts (s = side).
+// tops: attachment per post top (every other free top gets an end cap). vines: post, start z, height reached by step.
+const GROWTH=[
+  {t:'Day 1',d:'Two frames and an oak shelf',frames:{'0,0':1,'0,1':1},
+    bays:[{i:0,j:0,z:230,k:'shelf',props:['books','mug']}]},
+  {t:'Month 1',d:'Clock puck and pen stand on the short posts',tops:{'1,0':'clock','1,1':'pen'}},
+  {t:'Month 3',d:'A second frame stacked on each side, and a second shelf',frames:{'0,0':2,'0,1':2},
+    bays:[{i:0,j:0,z:560,k:'shelf',props:['pot','cds']}]},
+  {t:'Month 4',d:'Whiteboard on the side',faces:[{a:[0,0],b:[0,1],s:-1,z:300,k:'whiteboard'}]},
+  {t:'Month 6',d:'Grow light on top, first vine clips',tops:{'0,1':'grow'},vines:[{p:[1,1],z0:260,z1:{4:620,7:900,12:1150}}]},
+  {t:'Month 8',d:'A third row of frames with a self-watering planter and a speaker',frames:{'0,2':2},
+    bays:[{i:0,j:1,z:400,k:'planter'}],tops:{'1,2':'speaker'}},
+  {t:'Month 10',d:'Spotlight over the desk, power hub for the phone',tops:{'0,0':'spot','0,2':'hub'}},
+  {t:'Year 1',d:'Front frames go three high, pegboard for tools',frames:{'0,0':3,'0,1':3},
+    faces:[{a:[0,0],b:[1,0],s:-1,z:665,k:'pegboard'}],bays:[{i:0,j:0,z:1150,k:'shelf',props:['boombox']}]},
+  {t:'Month 14',d:'Softboard and a games shelf on the third row',frames:{'0,2':3},
+    faces:[{a:[0,1],b:[0,2],s:-1,z:665,k:'softboard'}],bays:[{i:0,j:1,z:830,k:'shelf',props:['controller','cds','mug']}],
+    vines:[{p:[1,2],z0:260,z1:{8:620,12:880}}]},
+  {t:'Month 16',d:'A second tower starts beside the first',frames:{'2,1':2,'2,2':2},
+    bays:[{i:1,j:1,z:605,k:'planter'},{i:2,j:1,z:230,k:'shelf',props:['books','controller']}],tops:{'2,2':'grow'}},
+  {t:'Month 19',d:'A bridging shelf and a pegboard on the new tower',frames:{'2,0':1},
+    bays:[{i:1,j:0,z:445,k:'shelf',props:['cds','mug']}],faces:[{a:[3,1],b:[3,2],s:1,z:300,k:'pegboard'}],tops:{'3,2':'clock'},
+    vines:[{p:[2,1],z0:630,z1:{10:880}}]},
+  {t:'Month 22',d:'Tower two goes three high, softboard and more planters',frames:{'2,2':3,'2,3':3,'0,3':2},
+    bays:[{i:2,j:2,z:560,k:'shelf',props:['pot','cds']},{i:1,j:2,z:300,k:'planter'}],faces:[{a:[2,3],b:[3,3],s:1,z:665,k:'softboard'}],
+    tops:{'2,3':'spot','3,3':'hub'},vines:[{p:[2,2],z0:260,z1:{11:900,12:1450}}]},
+  {t:'Year 2',d:'Two years in: a top shelf, another planter, vines everywhere',
+    bays:[{i:2,j:2,z:1150,k:'shelf'},{i:2,j:1,z:650,k:'planter'}],tops:{'2,1':'speaker'},
+    vines:[{p:[3,1],z0:630,z1:{12:880}},{p:[1,3],z0:60,z1:{12:280}}]},
+];
+function layoutAt(n){ // cumulative layout after step n
+  const rows={}, L={blocks:[],bays:[],faces:[],tops:{},vines:[]};
+  for(let s=0;s<=n;s++){const g=GROWTH[s];
+    for(const [k,c] of Object.entries(g.frames||{})){const [i,j]=k.split(',').map(Number);(rows[i]??={})[j]=c;}
+    L.bays.push(...(g.bays||[]).map(m=>({...m,step:s}))); L.faces.push(...(g.faces||[]).map(m=>({...m,step:s})));
+    Object.assign(L.tops,g.tops||{});
+    for(const v of g.vines||[])L.vines.push({p:v.p,z0:v.z0,zs:v.z1});
+  }
+  L.blocks=Object.entries(rows).map(([i,r])=>({i:+i,rows:r}));
+  L.vines=L.vines.map(v=>{let z1=null;for(const [s,z] of Object.entries(v.zs))if(+s<=n)z1=z;return {p:v.p,z0:v.z0,z1};}).filter(v=>v.z1);
+  return L;
+}
 const POWERED=new Set(['grow','spot','hub','clock','speaker']);
 
 /* ---------------- layout solver ---------------- */
@@ -88,7 +105,7 @@ const frameIndexAt=(p,z)=>{for(const [a,b,k] of p.frameAt)if(z>=a-1&&z<=b+1)retu
 /* ---------------- UI ---------------- */
 const CSS=`
 .ogv{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 320px;background:var(--ogb,#4569BE);color:var(--ogp,#FFFAFA);font-family:'Instrument Sans',system-ui,sans-serif;margin:clamp(40px,6vw,88px) var(--gutter,16px) 0}
-.ogv-stage{position:relative;min-height:520px;aspect-ratio:16/11;background:var(--ogp,#FFFAFA);overflow:hidden;transition:background .6s}
+.ogv-stage{position:relative;width:100%;min-width:0;min-height:520px;aspect-ratio:16/11;background:var(--ogp,#FFFAFA);overflow:hidden;transition:background .6s}
 .ogv-stage.night{background:#0E1530}
 .ogv-stage canvas.ogv-gl{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
 .ogv-stage canvas.ogv-gl:active{cursor:grabbing}
@@ -114,28 +131,30 @@ const CSS=`
 .ogv-dims{position:absolute;inset:0;pointer-events:none}
 .ogv-dims span{position:absolute;transform:translate(-50%,-50%);background:#1F2F5C;color:#FFFAFA;font:600 11px/1 'IBM Plex Mono',ui-monospace,monospace;padding:4px 6px;white-space:nowrap}
 .ogv-panel{padding:clamp(20px,2.4vw,32px);display:flex;flex-direction:column;gap:18px;overflow:auto;max-height:100%}
-.ogv-panel h3{margin:0;font-size:clamp(48px,5vw,72px);line-height:.9}.ogv .og-out{-webkit-text-stroke-color:var(--ogp,#FFFAFA)}
+.ogv-panel h3{margin:0;font-size:clamp(48px,5vw,72px);line-height:.9}.ogv .og-out{color:var(--ogp,#FFFAFA);-webkit-text-stroke:0}
 .ogv-sec{display:flex;flex-direction:column;gap:8px}
 .ogv-sec>span{font:600 11px/1 'IBM Plex Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;opacity:.75}
 .ogv-row{display:flex;flex-wrap:wrap;gap:6px}
 .ogv button.ogv-b{font:600 14px/1 'Instrument Sans',system-ui,sans-serif;padding:10px 14px;border:0;border-radius:999px;background:rgba(255,250,250,.16);color:var(--ogp,#FFFAFA);cursor:pointer;min-height:40px}
 .ogv button.ogv-b[aria-pressed=true]{background:var(--ogy,#FBCB44);color:#1F2F5C}
-.ogv-seg{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,250,250,.16);border-radius:999px;padding:3px}
-.ogv-seg button.ogv-b{background:none;min-height:36px;padding:8px 6px}
-.ogv-mods button.ogv-b{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;font-weight:500}
-.ogv-mods button.ogv-b i{width:12px;height:12px;border-radius:50%;background:var(--sw);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
-.ogv-mods button.ogv-b[aria-pressed=true]{background:var(--ogp,#FFFAFA);color:#1F2F5C}
-.ogv-mods button.ogv-b[aria-pressed=false] i{background:transparent;box-shadow:0 0 0 1px var(--ogp,#FFFAFA)}
+.ogv-grow{display:grid;grid-template-columns:52px minmax(0,1fr) 52px;align-items:center;gap:10px}
+.ogv button.ogv-b:disabled{opacity:.35;cursor:default}
+.ogv-grow button.ogv-b{width:52px;height:52px;padding:0;font-size:28px;font-weight:500;background:var(--ogp,#FFFAFA);color:#1F2F5C}
+.ogv-grow button.ogv-b:last-child{background:var(--ogy,#FBCB44)}
+.ogv-stagel{text-align:center;min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.ogv-stagel b{font-size:24px;line-height:1;font-weight:700;letter-spacing:-.01em}
+.ogv-stagel em{font-style:normal;font-size:13px;line-height:1.3;opacity:.85}
+.ogv-track{display:flex;gap:4px}.ogv-track i{flex:1;height:4px;border-radius:2px;background:rgba(255,250,250,.22);transition:background .3s}.ogv-track i.on{background:var(--ogy,#FBCB44)}
 .ogv-sheet-t{display:none}
 @media (max-width:900px){
   .ogv{grid-template-columns:minmax(0,1fr);overflow:hidden}
   .ogv-stage{aspect-ratio:auto;height:min(78vh,640px);min-height:440px}
-  .ogv-panel{position:absolute;left:0;right:0;bottom:0;max-height:calc(100% - 64px);background:var(--ogb,#4569BE);transform:translateY(calc(100% - 112px));transition:transform .35s cubic-bezier(.2,.8,.2,1);z-index:2;padding:0 16px 20px;gap:14px;overflow:hidden}
+  .ogv-panel{position:absolute;left:0;right:0;bottom:0;max-height:calc(100% - 64px);background:var(--ogb,#4569BE);transform:translateY(calc(100% - 156px));transition:transform .35s cubic-bezier(.2,.8,.2,1);z-index:2;padding:0 16px 20px;gap:14px;overflow:hidden}
   .ogv.open .ogv-panel{transform:none;overflow:auto}
   .ogv-sheet-t{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;border:0;background:none;color:inherit;font:600 13px/1 inherit;padding:10px 0 6px;cursor:pointer;width:100%}
   .ogv-sheet-t::before{content:'';width:40px;height:4px;border-radius:2px;background:rgba(255,250,250,.5)}
   .ogv-panel h3{display:none}
-  .ogv-card{bottom:124px}.ogv-hint{bottom:124px}
+  .ogv-card{bottom:168px}.ogv-hint{bottom:168px}
   .ogv-cube{width:84px;height:84px}.ogv-home{top:98px;right:32px}.ogv-eye{top:130px}
 }`;
 
@@ -152,7 +171,7 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
   const img=el('img',{class:'ogv-fallback',src:fallback,alt:fallbackAlt,loading:'lazy'});
   const load=el('div',{class:'ogv-load',role:'progressbar','aria-valuemin':'0','aria-valuemax':'100'},'<b>0%</b>Loading the 3D model<i><span></span></i>');
   const card=el('div',{class:'ogv-card','aria-live':'polite'});
-  const hint=el('div',{class:'ogv-hint'},'Drag to turn · tap a part');
+  const hint=el('div',{class:'ogv-hint'},'Drag to turn · tap a part · + to grow');
   const dims=el('div',{class:'ogv-dims'});
   stage.append(canvas,dims,cubeC,home,eye,img,load,card,hint);
 
@@ -161,20 +180,22 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
   sheetT.onclick=()=>{const o=root.classList.toggle('open');sheetT.setAttribute('aria-expanded',o);};
   panel.append(sheetT, el('h3',{class:'og-out'},'build'));
   const sec=(label,cls='ogv-row')=>{const s=el('div',{class:'ogv-sec'}),r=el('div',{class:cls,role:'group','aria-label':label});s.append(el('span',{},label),r);panel.append(s);return r;};
-  const state={size:'moderate',preset:'studio',on:new Set(PRESETS.studio.on),night:false,explode:false,power:false,dims:false};
-  const sizeR=sec('Size','ogv-seg'), presetR=sec('Setup'), modR=sec('Modules','ogv-row ogv-mods'), viewR=sec('View');
+  let DATA=null; const START=7, LAST=GROWTH.length-1;
+  const state={stage:START,night:false,explode:false,power:false,dims:false};
+  const growR=sec('Grow it','ogv-grow'), viewR=sec('View');
   const btn=(parent,label,fn,extra={})=>{const b=el('button',{class:'ogv-b',type:'button',...extra},label);b.onclick=fn;parent.append(b);return b;};
-  const sizeB=Object.entries(LAYOUTS).map(([k,v])=>btn(sizeR,v.label,()=>{state.size=k;rebuild();sync();},{'data-k':k}));
-  const presetB=Object.entries(PRESETS).map(([k,v])=>btn(presetR,v.label,()=>{state.preset=k;state.on=new Set(v.on);sync();},{'data-k':k}));
-  let DATA=null; const swatch=k=>{const pk={clips:'clip'}[k]||k;const s=DATA&&DATA.parts[pk]&&DATA.slots[DATA.parts[pk].slot];return s?s.hex:'#ccc';};
-  const modB=KINDS.map(([k,l])=>{const b=btn(modR,'<i></i>'+l,()=>{state.on.has(k)?state.on.delete(k):state.on.add(k);state.preset=null;sync();},{'data-k':k});return b;});
+  const minus=btn(growR,'−',()=>step(-1),{'aria-label':'Remove the last addition'});
+  const stageL=el('div',{class:'ogv-stagel','aria-live':'polite'},'<b></b><em></em>'); growR.append(stageL);
+  const plus=btn(growR,'+',()=>step(1),{'aria-label':'Grow it: add the next piece'});
+  const track=el('div',{class:'ogv-track','aria-hidden':'true'}); GROWTH.forEach(()=>track.append(el('i'))); growR.parentNode.append(track);
+  function step(d){const n=Math.max(0,Math.min(LAST,state.stage+d));if(n===state.stage)return;state.stage=n;rebuild();sync();}
   const viewB={night:btn(viewR,'Night',()=>{state.night=!state.night;sync();}),explode:btn(viewR,'Exploded',()=>{state.explode=!state.explode;sync();}),
     power:btn(viewR,'Power',()=>{state.power=!state.power;sync();}),dims:btn(viewR,'Dimensions',()=>{state.dims=!state.dims;sync();})};
   let apply=()=>{};
   function sync(){
-    sizeB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===state.size));
-    presetB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===state.preset));
-    modB.forEach(b=>{b.setAttribute('aria-pressed',state.on.has(b.dataset.k));b.style.setProperty('--sw',swatch(b.dataset.k));});
+    const g=GROWTH[state.stage]; stageL.querySelector('b').textContent=g.t; stageL.querySelector('em').textContent=g.d;
+    minus.disabled=state.stage===0; plus.disabled=state.stage===LAST;
+    [...track.children].forEach((d,i)=>d.classList.toggle('on',i<=state.stage));
     for(const [k,b] of Object.entries(viewB))b.setAttribute('aria-pressed',!!state[k]);
     stage.classList.toggle('night',state.night);
     apply();
@@ -372,10 +393,11 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
   let firstFit=true, items=[], sol=null, lights=[], powerLines=null;
   const center=new THREE.Vector3();
   function add(obj,info){obj.userData.info=info;world.add(obj);items.push({obj,...info,vis:0,want:1});return obj;}
+  const itemKey=it=>it.kind+'|'+(it.obj.userData.M?[...it.obj.userData.M.elements].map(v=>Math.round(v)).join(','):'')+'|'+(it.vk||'');
   rebuild=()=>{
-    for(const it of items)world.remove(it.obj); items=[]; lights.forEach(l=>{scene.remove(l);scene.remove(l.target);}); lights=[];
+    const old=new Map();for(const it of items)if(it.want>0&&!it.leaving)old.set(it.key,it);else world.remove(it.obj); items=[]; lights.forEach(l=>{scene.remove(l);scene.remove(l.target);}); lights=[];
     if(powerLines){world.remove(powerLines);powerLines=null;}
-    seed=7; sol=solve(LAYOUTS[state.size]); const {posts,frames,mods,tops,box,vines}=sol;
+    seed=7; sol=solve(layoutAt(state.stage)); const {posts,frames,mods,tops,box,vines}=sol;
     center.set((box.x0+box.x1)/2,(box.y0+box.y1)/2,0);
     const radial=(x,y)=>[(x-center.x)*.35,(y-center.y)*.35];
     const EX=230;
@@ -402,8 +424,9 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
         const g=new THREE.Group(); place(g,0,0,0);
         g.add(place(part(m.k==='planter'?'planter':'shelf'),m.cx,m.cy,m.z+30));
         if(m.k==='planter'){g.add(place(part('planterx','planter'),m.cx,m.cy,m.z+30)); g.add(plantBed(m.cx,m.cy,m.z));}
-        add(g,{kind:m.k,ex:[dx,dy,k*EX+140],props:m.props});
-        if(m.props)add(shelfProps(m.props,m.cx,m.cy,m.z),{kind:m.k,prop:true,ex:[dx,dy,k*EX+140]});
+        const bk=[m.i,m.j,m.z,m.k].join(',');
+        add(g,{kind:m.k,ex:[dx,dy,k*EX+140],props:m.props,vk:bk});
+        if(m.props)add(shelfProps(m.props,m.cx,m.cy,m.z),{kind:m.k,prop:true,ex:[dx,dy,k*EX+140],vk:bk+m.props.join('')});
         for(const p of m.ps){const [px,py]=radial(p.x,p.y);add(place(part('clamp'),p.x,p.y,m.z,m.cy>p.y?0:180),{kind:m.k,ex:[px,py-(m.cy>p.y?-1:1)*0,k*EX+40]});}
       }else{
         const [a,b]=m.ps, mx=(a.x+b.x)/2, my=(a.y+b.y)/2, s=m.s, rz=m.alongX?(s>0?0:180):(s>0?-90:90);
@@ -414,7 +437,7 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
     }
     for(const v of vines){
       const p=v.p,[dx,dy]=radial(p.x,p.y);
-      add(vine(p.x,p.y,v.z0,v.z1),{kind:'clips',vineOf:true,ex:[dx,dy,0]});
+      add(vine(p.x,p.y,v.z0,v.z1),{kind:'clips',vineOf:true,ex:[dx,dy,0],vk:[p.i,p.j,v.z0,v.z1].join(',')});
       for(let z=v.z0+90;z<v.z1-40;z+=190){const k=frameIndexAt(p,z);add(place(part('clip'),p.x,p.y,z,-90),{kind:'clips',ex:[dx,dy,k*EX]});}
     }
     // power path: through each powered stack (foot, both posts, every crossbar)
@@ -427,10 +450,17 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
       for(const t of s.A.tees)seg([[s.A.x,s.A.y,t],[s.B.x,s.B.y,t]]);
     }
     world.add(powerLines);
-    {const ps=[...new Set([...posts.values()].map(p=>p.stack))].filter(s=>s.powered).sort((a,b)=>a.A.x-b.A.x||a.A.y-b.A.y);if(ps.length){const c=cables(ps,box);place(c,0,0,0);add(c,{kind:'cable',cable:true});}}
+    {const ps=[...new Set([...posts.values()].map(p=>p.stack))].filter(s=>s.powered).sort((a,b)=>a.A.x-b.A.x||a.A.y-b.A.y);if(ps.length){const c=cables(ps,box);place(c,0,0,0);add(c,{kind:'cable',cable:true,vk:ps.map(s=>s.A.x+':'+s.A.y).join(',')+'|'+Math.round(box.x0)+','+Math.round(box.y1)});}}
     {const gx=Math.round(center.x/G)*G,gy=Math.round(center.y/G)*G;grid.position.x=gx;grid.position.y=gy;}
     lights.forEach(l=>{scene.add(l,l.target);});
-    fitView(firstFit); firstFit=false; dimsBuild(); apply(true);
+    // organic transition: parts that stay keep their state; new parts grow in from the floor up; removed parts shrink away
+    const fresh=!old.size, t=performance.now(), born=[];
+    const seenK=new Map();
+    for(const it of items){let kk=itemKey(it);const c=seenK.get(kk)||0;seenK.set(kk,c+1);if(c)kk+='#'+c;it.key=kk;const o=old.get(it.key);
+      if(o){world.remove(it.obj);for(const L of lights)if(L.userData.owner===it.obj)L.userData.owner=o.obj;it.obj=o.obj;it.vis=o.vis;old.delete(it.key);if(it.obj.userData.M)it.obj.userData.M=o.obj.userData.M;}else if(!fresh)born.push(it);}
+    born.sort((a,b)=>(a.obj.userData.M?a.obj.userData.M.elements[14]:0)-(b.obj.userData.M?b.obj.userData.M.elements[14]:0)).forEach((it,i)=>{it.at=t+120+i*Math.min(70,900/born.length);});
+    for(const it of old.values()){it.leaving=true;it.want=0;items.push(it);}
+    fitView(firstFit); firstFit=false; dimsBuild(); apply(fresh);
   };
 
   /* ---------- state -> scene ---------- */
@@ -439,8 +469,8 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
     if(!sol)return;
     for(const it of items){
       let v=1;
-      if(it.kind==='endcap')v=it.cap&&state.on.has(it.cap)?0:1;
-      else if(!['frame','foot','connector','cable'].includes(it.kind))v=state.on.has(it.kind)?1:0;
+      if(it.leaving)v=0;
+      else if(it.kind==='endcap')v=it.cap?0:1;
       if(it.onlyEx)v=state.explode?1:0;
       if((it.vineOf||it.prop)&&(state.explode||state.power))v=0;
       if(it.cable&&state.explode)v=0;
@@ -556,7 +586,7 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
   const tmpM=new THREE.Matrix4(), q=new THREE.Quaternion();
   renderer.setAnimationLoop(now=>{
     const dt=Math.min(.25,(now-last)/1000); last=now; if(!vis)return;
-    const busy=camAnim||state.power||Math.abs(exWant-exT)>.001||Math.abs((state.night?1:0)-nightT)>.001||items.some(i=>i.vis!==i.want);
+    const busy=camAnim||state.power||Math.abs(exWant-exT)>.001||Math.abs((state.night?1:0)-nightT)>.001||items.some(i=>i.vis!==i.want||i.at);
     if(!busy&&awake<=0){ctl.update();return;} awake--;
     if(camAnim){const t=Math.min(1,(now-camAnim.s)/camAnim.ms),e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
       cam.position.lerpVectors(camAnim.p0,camAnim.p1,e);ctl.target.lerpVectors(camAnim.t0,camAnim.t1,e);if(t>=1)camAnim=null;}
@@ -564,7 +594,9 @@ export async function mountOgViewer(root,{fallback='img/og3-growth.jpg',fallback
     const k=reduce?1:Math.min(1,dt*7);
     exT+=(exWant-exT)*k; nightT+=((state.night?1:0)-nightT)*Math.min(1,dt*3);
     if(Math.abs(exWant-exT)<.001)exT=exWant; if(Math.abs((state.night?1:0)-nightT)<.001)nightT=state.night?1:0;
+    if(items.some(i=>i.leaving&&i.vis===0)){items=items.filter(i=>{if(i.leaving&&i.vis===0){world.remove(i.obj);return false;}return true;});}
     for(const it of items){
+      if(it.at&&now<it.at){it.obj.visible=false;continue;} it.at=0;
       it.vis+=(it.want-it.vis)*k; if(Math.abs(it.want-it.vis)<.002)it.vis=it.want;
       const s=it.vis<.001?0:.0001+.9999*(1-Math.pow(1-it.vis,3));
       it.obj.visible=s>0;
