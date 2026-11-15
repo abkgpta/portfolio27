@@ -286,7 +286,7 @@ footer{border-top:1px solid var(--line);padding:20px var(--gutter);font-size:12p
 .og > .og-fig{padding:16px var(--gutter) 0}
 .og-block{padding:clamp(40px,6vw,88px) var(--gutter) 0;display:grid;gap:24px}
 /* solid headers with slight fillets: Instrument Sans has sharp corners, so #og-fillet blurs the glyphs a touch and re-thresholds them,
-   which rounds outside corners and fills inside corners with small radii (about 2 px at full size) */
+   which rounds outside corners and fills inside corners with small radii (under 1 px at full size, cut 60% on 2026-11-15) */
 .og-out{font-size:clamp(48px,8vw,112px);line-height:1;color:var(--ogb);text-transform:lowercase;filter:url(#og-fillet-s)}
 .og-word{filter:url(#og-fillet)}
 @media (min-width:900px){.og-out{filter:url(#og-fillet)}}
@@ -558,8 +558,8 @@ footer .socials .ico svg{width:13px;height:13px}
 </head>
 <body id="top">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-  <filter id="og-fillet" x="-5%" y="-20%" width="110%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="2.2"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11.5"/></filter>
-  <filter id="og-fillet-s" x="-5%" y="-20%" width="110%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="1.4"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11.5"/></filter>
+  <filter id="og-fillet" x="-5%" y="-20%" width="110%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="0.9"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 10 -4.5"/></filter>
+  <filter id="og-fillet-s" x="-5%" y="-20%" width="110%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="0.55"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 10 -4.5"/></filter>
 </defs></svg>
 <script src="/abk/loader.js"></script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
