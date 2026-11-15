@@ -470,5 +470,14 @@
     "pr": [
       57
     ]
+  },
+  {
+    "v": 54,
+    "commit": "0ebab1ceddf735ac6089dd6c96d36ba6b00d5db2",
+    "date": "2026-11-15",
+    "title": "Weightage system: per-studio skill weights and slide budget",
+    "pr": [
+      58
+    ]
   }
 ]

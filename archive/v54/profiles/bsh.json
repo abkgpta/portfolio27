@@ -1,0 +1,51 @@
+{
+  "name": "BSH Home Appliances Design",
+  "gunj": "GUNJ-043",
+  "wave": 1,
+  "greeting": "Prepared for BSH Home Appliances Design",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "cortx",
+  "multipliers": {
+    "sketching": 0.7,
+    "cad": 2.0,
+    "rendering": 1.65,
+    "cmf": 0.55,
+    "prototyping": 0.9,
+    "electronics": 1.2,
+    "interaction": 1.2,
+    "ui": 1.6,
+    "research": 0.5,
+    "systems": 1.4,
+    "branding": 0.85,
+    "packaging": 0.6
+  },
+  "projects": {
+    "overgrwth": 1.0,
+    "cortx": 1.25,
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  },
+  "pitch": {
+    "title": "Why BSH Home Appliances Design",
+    "lines": [
+      "Bosch and Siemens show how one company can hold two clear design identities.",
+      "I work across form, CMF and small-screen interaction, in Rhino, Plasticity and KeyShot.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
+  }
+}
