@@ -434,5 +434,14 @@
     "pr": [
       56
     ]
+  },
+  {
+    "v": 50,
+    "commit": "1c16adc18f8bf8bb6d58b56cb35c345b6de63cdd",
+    "date": "2026-11-15",
+    "title": "CortX: final renders in the new CMF, with back unit, dock, holder and vest sections",
+    "pr": [
+      60
+    ]
   }
 ]
