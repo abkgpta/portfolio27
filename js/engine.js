@@ -57,6 +57,21 @@
     return base * pm * mean;
   }
 
+  /* Always shown when the project is shown: data-required, and the hero and hook cards in
+     every version, so a cut-down project still opens with its picture and its point. */
+  function alwaysKept(slide) {
+    return slide.hasAttribute('data-required') || ['hero', 'hook'].includes(slide.dataset.card);
+  }
+  /* profile.budget: a number (slides per project) or {site, pdf}; the PDF counts pages.
+     profile.lead is never budgeted. Missing = no budget (the open site shows everything). */
+  function budgetFor(pid, profile) {
+    const b = profile.budget;
+    if (b == null || pid === profile.lead) return null;
+    const isPdf = (document.documentElement.dataset.root || '') !== '';
+    const n = typeof b === 'number' ? b : (isPdf ? b.pdf : b.site);
+    return typeof n === 'number' ? n : null;
+  }
+
   function apply(profile) {
     const threshold = profile.threshold != null ? profile.threshold : 0.5;
     const projects = [...document.querySelectorAll('section[data-project]')];
@@ -67,12 +82,23 @@
       let total = 0, shown = 0;
       const v = versionFor(sec.dataset.project, profile);
       sec.dataset.version = v; versions[sec.dataset.project] = v;
-      sec.querySelectorAll('[data-slide]').forEach(sl => {
+      const pid = sec.dataset.project;
+      const slides = [...sec.querySelectorAll('[data-slide]')];
+      const fitsOf = sl => inVersion(sl, v) && (!square || sl.hasAttribute('data-card'));
+      // slide budget (weightage): only the N best-scoring slides of a project stay, on top of
+      // the ones that always stay. The lead project is never budgeted.
+      const cap = budgetFor(pid, profile);
+      const ranked = slides.filter(sl => fitsOf(sl) && v !== 'preview' && !alwaysKept(sl))
+        .map(sl => ({ sl, s: score(sl, profile) })).filter(o => o.s >= threshold)
+        .sort((a, b) => b.s - a.s);
+      const fixedN = slides.filter(sl => fitsOf(sl) && alwaysKept(sl)).length;
+      const inBudget = new Set(ranked.slice(0, cap == null ? Infinity : Math.max(0, cap - fixedN)).map(o => o.sl));
+      slides.forEach(sl => {
         const s = score(sl, profile);
-        // the version is a hard filter; weights then cut inside it (required slides and
-        // the four preview cards always stay)
-        const fits = inVersion(sl, v) && (!square || sl.hasAttribute('data-card'));
-        const keep = fits && (v === 'preview' || sl.hasAttribute('data-required') || s >= threshold);
+        // the version is a hard filter; weights then cut inside it (required slides, the
+        // hero and hook, and the four preview cards always stay)
+        const fits = fitsOf(sl);
+        const keep = fits && (v === 'preview' || alwaysKept(sl) || inBudget.has(sl));
         sl.dataset.score = s.toFixed(2);
         // short/long versions inside a card: the preview gets the short one when it exists
         const hasShort = !!sl.querySelector('[data-len="short"]');
@@ -124,7 +150,7 @@
     if (prep && profile.greeting) { prep.textContent = profile.greeting; prep.classList.add('on'); }
     document.documentElement.dataset.profile = profile.id;
     if (square) document.documentElement.classList.add('fmt-square');
-    window.PORTFOLIO = { profile, totals, versions, score, CARDS };
+    window.PORTFOLIO = { profile, totals, versions, score, CARDS, budgetFor };
   }
 
   async function run() {

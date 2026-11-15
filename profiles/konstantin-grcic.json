@@ -9,14 +9,26 @@
   "versions": {},
   "lead": "overgrwth",
   "multipliers": {
-    "systems": 1.4,
-    "cad": 1.3,
-    "sketching": 1.2
+    "sketching": 1.2,
+    "rendering": 0.95,
+    "cmf": 1.3,
+    "prototyping": 2.0,
+    "electronics": 0.6,
+    "interaction": 0.8,
+    "ui": 0.7,
+    "research": 0.8,
+    "systems": 1.65,
+    "branding": 0.7,
+    "packaging": 1.1
   },
   "projects": {
-    "overgrwth": 1.3,
+    "overgrwth": 1.25,
     "cortx": 1.0,
-    "dash": 1.0
+    "dash": 1.0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
   },
   "pitch": {
     "title": "Why Konstantin Grcic Design",
@@ -25,5 +37,14 @@
       "overgrwth is one H-frame that flips and stacks into a whole workspace, with every joint designed for production.",
       "Available from January 2027 for a compulsory internship of six months or more."
     ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
   }
 }
