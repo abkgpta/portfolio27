@@ -452,5 +452,14 @@
     "pr": [
       61
     ]
+  },
+  {
+    "v": 52,
+    "commit": "5fdc2baaa91baea950ef561dadf1fd663888953e",
+    "date": "2026-11-15",
+    "title": "Swap resume photo to abhik's pick (ISH03700)",
+    "pr": [
+      63
+    ]
   }
 ]
