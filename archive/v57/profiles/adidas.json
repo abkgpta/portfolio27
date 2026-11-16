@@ -1,0 +1,48 @@
+{
+  "name": "adidas Design",
+  "gunj": "GUNJ-046",
+  "wave": 1,
+  "greeting": "Prepared for adidas Design",
+  "threshold": 0.5,
+  "voiceAgent": true,
+  "version": "overview",
+  "versions": {},
+  "lead": "overgrwth",
+  "multipliers": {
+    "sketching": 1.8,
+    "cad": 1.15,
+    "rendering": 0.65,
+    "cmf": 1.85,
+    "prototyping": 0.8,
+    "electronics": 1.15,
+    "interaction": 0.55,
+    "research": 1.65,
+    "systems": 0.65,
+    "packaging": 0.75
+  },
+  "projects": {
+    "overgrwth": 1.25,
+    "cortx": 1.0,
+    "dash": 0,
+    "evoluir": 0,
+    "goodknocks": 0,
+    "nnode": 0,
+    "misc": 0
+  },
+  "pitch": {
+    "title": "Why adidas Design",
+    "lines": [
+      "DASH is a music player for runners who leave their phone at home, with wearable mounts and Strava sync.",
+      "Available from January 2027 for a compulsory internship of six months or more."
+    ]
+  },
+  "budget": {
+    "site": 12,
+    "pdf": 6
+  },
+  "weights": {
+    "source": "tools/weightage/build.py",
+    "generated": "2026-11-15",
+    "overridden": []
+  }
+}

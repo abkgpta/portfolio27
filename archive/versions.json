@@ -497,5 +497,14 @@
     "pr": [
       64
     ]
+  },
+  {
+    "v": 57,
+    "commit": "377873dfff617a4e9177efed4e52884c2a9acdb3",
+    "date": "2026-11-16",
+    "title": "Restore abhik's original sneaker write-up; drop electronics-design claims",
+    "pr": [
+      67
+    ]
   }
 ]
